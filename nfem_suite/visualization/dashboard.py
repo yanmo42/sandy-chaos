@@ -58,6 +58,9 @@ class Dashboard:
         self.entropy_history = []
         self.energy_entropy_history = []
         self.struct_entropy_history = []
+        
+        # Colorbar reference
+        self.cbar_enthalpy = None
     
     def update(self, network, gradients, k_entropy, e_entropy, s_entropy, triangulation, time, control=None,
                enthalpy_field=None, duality_space=None, vortex_channel=None):
@@ -199,7 +202,13 @@ class Dashboard:
                           origin='lower',
                           extent=[0, GRID_WIDTH, 0, GRID_HEIGHT],
                           cmap='hot', alpha=0.7, aspect='auto')
-            plt.colorbar(im, ax=ax, label='Enthalpy', fraction=0.046)
+            
+            # Add colorbar only once
+            if self.cbar_enthalpy is None:
+                self.cbar_enthalpy = self.fig.colorbar(im, ax=ax, label='Enthalpy', fraction=0.046, pad=0.04)
+            else:
+                # Update the colorbar with the new image mappable
+                self.cbar_enthalpy.update_normal(im)
             
             # Draw gradient field as quiver
             skip = 3  # Subsample for clarity
