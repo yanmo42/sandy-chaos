@@ -201,6 +201,222 @@ Crucially, because the vortex creates gravitational time dilation (in the cosmol
 
 **Implementation**: `vortex_channel.py` manages bidirectional signal propagation with asymmetric delays, coupling factors, and channel capacity estimation.
 
+### 6. Observer-Conditioned Idea Dynamics (Math-First Extension)
+
+> **Scope note (important):** this section treats consciousness as an **information-dynamics model**. It does **not** claim the brain is literally a black hole. The "gravity" language below refers to attractor depth / informational curvature in state-space.
+
+To model idea formation and observer effects in a simulation-ready way, define an idea basis:
+
+```
+E = {e_1, e_2, ..., e_N}
+```
+
+For each agent i (e.g., A or B), let:
+
+```
+p_i(t) ∈ Δ^(N-1)
+```
+
+be a probability distribution over idea modes at external time t.
+
+#### 6.1 Universal Observer Effect as Interaction-Conditioned Selection
+
+In this framework, "observation" means state selection caused by interaction. For any interacting pair (x, y):
+
+```
+χ_xy(t) = g_xy · I_xy(t)
+```
+
+Where:
+- `g_xy` = coupling strength
+- `I_xy(t)` = interaction intensity / information exchange rate
+- `χ_xy(t)` = selection pressure (decoherence-compatible, not mind-exclusive)
+
+Brains are modeled as high-recursion systems that **amplify** these micro-selections into stable macroscopic trajectories (beliefs, intentions, memory pathways).
+
+#### 6.2 Idea Collapse Operator
+
+Define pre-collapse logits for agent i:
+
+```
+ℓ_i,k(t) = λ_A A_i,k(t) + λ_M Σ_j W_i,kj(t) p_i,j(t) + λ_C C_i,k(t) + λ_ξ ξ_i,k(t)
+```
+
+Where:
+- `A_i,k` = attention gain for mode k
+- `W_i` = memory transition matrix (path reinforcement)
+- `C_i,k` = channel-induced bias (messages from other agent)
+- `ξ_i,k` = novelty noise / creativity perturbation
+
+Convert to probabilities:
+
+```
+q_i,k(t) = softmax_k(ℓ_i,k(t))
+```
+
+Collapse event (realized thought token):
+
+```
+k* ~ Categorical(q_i(t)),   y_i(t) = e_k*
+```
+
+This captures your core intuition: many possible ideas are available, one is realized, and realization feeds future dynamics.
+
+#### 6.3 Memory / Attractor Update
+
+After collapse, reinforce selected pathways:
+
+```
+W_i(t+1) = (1-η_f)W_i(t) + η_r · U(y_i(t), p_i(t)) - η_d · R_i(t)
+```
+
+Where:
+- `η_f` = forgetting rate
+- `η_r` = reinforcement gain
+- `η_d` = regularization / anti-overfitting term
+- `U(·)` strengthens transitions toward realized idea regions
+
+#### 6.4 Order–Disorder Coupling from Idea Distribution
+
+For N idea modes, define normalized entropy:
+
+```
+H_i(t) = -Σ_k p_i,k(t) log p_i,k(t)
+Ω_i(t) = 1 - H_i(t)/log N
+Ω̄_i(t) = H_i(t)/log N
+```
+
+Then complex entropy state for the cognitive layer:
+
+```
+Z_i(t) = √(Ω_i(t)^2 + Ω̄_i(t)^2) · exp(i arctan(Ω̄_i/Ω_i))
+```
+
+This links cognitive idea dynamics directly to the existing NFEM duality-space machinery.
+
+### 7. Nested Time Functions for Cross-Frame Communication
+
+To formalize communication between temporal frames, use three clocks:
+
+1. **External time** `t` (simulation clock)
+2. **Agent-local emergent time** `τ_i` (subjective/process time)
+3. **Meta-time** `σ_i` (self-model update index; reflective layer)
+
+#### 7.1 Agent-Local Emergent Time
+
+For each agent i:
+
+```
+τ_i = ∫_(γ_i) Z_i(s) ds
+```
+
+with γ_i the trajectory through that agent's internal state-space.
+
+Temporal offset between agents:
+
+```
+Δτ_AB(t) = τ_B(t) - τ_A(t)
+```
+
+#### 7.2 Channel Equations (Asymmetric)
+
+Forward and backward transmissions through vortex mediator V:
+
+```
+m_B(t) = κ(A,B) · m_A(t-d_f) + ε_f(t)
+m_A(t) = α_back · κ(B,A) · m_B(t-d_b) + ε_b(t)
+```
+
+with:
+- `d_b > d_f` (backward path is slower)
+- `0 < α_back < 1` (backward path attenuated)
+- `ε_f, ε_b` = stochastic perturbations
+
+This extends current `VortexChannel` behavior into a clear temporal-frame formalism.
+
+#### 7.3 Temporal Packetization
+
+A protocol packet can be defined as:
+
+```
+P = {payload, τ_send, σ_send, confidence, checksum}
+```
+
+Receiver decodes payload and estimates frame alignment error:
+
+```
+E_align = |(τ_recv - τ_send) - τ_expected|
+```
+
+Minimizing `E_align` across loops A→B→A is the operational criterion for stable cross-frame communication.
+
+### 8. Two "Concentrations of Consciousness" as Simulation Parameters
+
+Represent each agent's concentration level with a parameter set:
+
+```
+C_i = {α_i, β_i, T_i, μ_i, ν_i}
+```
+
+Where:
+- `α_i`: collapse intensity (selection sharpness)
+- `β_i`: attractor depth / memory curvature ("informational gravity")
+- `T_i`: novelty temperature (higher = more exploration)
+- `μ_i`: channel write gain (expressive strength)
+- `ν_i`: channel read sensitivity (decoding sensitivity)
+
+A compact informational-curvature scalar can be:
+
+```
+G_i = β_i / max(T_i, ε)
+```
+
+Higher `G_i` implies stronger compression/stabilization of idea trajectories.
+
+### 9. Simulation-Ready Metrics (for falsifiable experiments)
+
+1. **Collapse entropy drop**: `ΔH_collapse = H(pre) - H(post)`
+2. **Novelty index**: distance of realized token from rolling memory centroid
+3. **Decode fidelity**: fraction of correctly reconstructed symbol classes
+4. **Mutual information**: `I(A;B)` through vortex channel
+5. **Temporal consistency**: loop error for A→B→A packets in τ-space
+
+These metrics turn the philosophical hypothesis into a testable computational program.
+
+---
+
+## 🧭 Math-First Build Plan (Consciousness Communication Extension)
+
+To systematically extend the codebase from these equations:
+
+### Phase M1 — Formal Doc Layer (this README)
+- Define state variables, collapse operators, and nested-time clocks
+- Clarify analogy boundaries (informational curvature vs literal gravity)
+- Specify measurable outputs before writing new modules
+
+### Phase M2 — Minimal Module Scaffolding
+- `nfem_suite/intelligence/idea_field.py`
+  - Idea basis, collapse sampling, novelty and entropy
+- `nfem_suite/simulation/observer_agent.py`
+  - Agent A/B with memory matrix and concentration parameters
+- `nfem_suite/simulation/nested_time.py`
+  - `(t, τ_i, σ_i)` mappings and frame-offset estimators
+- `nfem_suite/simulation/temporal_protocol.py`
+  - Packet encode/decode, alignment error, loop checks
+
+### Phase M3 — Integration with Existing System
+- Feed agent channel messages into `vortex_channel.py`
+- Feed idea entropy into `duality_space.py` as an alternate Ω/Ω̄ source
+- Add dashboard panels for fidelity, MI, and τ-alignment diagnostics
+
+### Phase M4 — Controlled Experiments
+- Baseline random signaling
+- Structured low-complexity signaling
+- Asymmetric delay stress tests
+- A→B→A self-consistency trials
+
+This sequencing keeps implementation disciplined: **formalize first, simulate second, interpret third**.
+
 ---
 
 ## 🔬 Connection to General Relativity
