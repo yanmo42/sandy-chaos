@@ -8,7 +8,7 @@
 
 ### The Inspiration
 
-At Niagara Falls Whirlpool Park, the Niagara River makes a sharp ~70° turn. The abrupt change in direction forces the massive downstream flow into a persistent, powerful vortex—a whirlpool that traps water molecules in rotating orbits, sometimes for extended periods, before they eventually escape downstream.
+At Niagara Falls Whirlpool Park, the Niagara River makes a sharp ~90° turn. The abrupt change in direction forces the massive downstream flow into a persistent, powerful vortex—a whirlpool that traps water molecules in rotating orbits, sometimes for extended periods, before they eventually escape downstream.
 
 This natural phenomenon provides a remarkably precise analogy for how light and information behave around black holes and other extreme gravitational structures.
 
@@ -297,6 +297,21 @@ pip install -r nfem_suite/requirements.txt
 export PYTHONPATH=$PYTHONPATH:.
 python -m nfem_suite.main
 ```
+
+### Cosmic Communication Prototype (Optional)
+
+The repository also includes an experimental Kerr geodesic tracer in `cosmic_comm/`.
+
+```bash
+# Install dependencies (same scientific stack)
+pip install -r nfem_suite/requirements.txt
+
+# Run the cosmic communication demo
+python -m cosmic_comm.main
+```
+
+This produces `cosmic_comm_demo.png` and prints baseline-vs-perturbed metrics
+including capture/escape fractions, deflection changes, and null-constraint drift.
 
 ### Configuration
 
