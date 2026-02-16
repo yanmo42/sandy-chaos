@@ -1,10 +1,9 @@
-# Niagara Falls Enthalpy Map (NFEM) Suite
-
+# Sandy Chaos
 **A computational exploration of time, light, gravity, and information flow through vortex structures—from river whirlpools to black holes**
 
 ---
 
-## 🌊 The Niagara Vortex Analogy
+## Communication via gravitational wells across temporally shifted frames
 
 ### The Inspiration
 
