@@ -17,14 +17,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from nfem_suite.core.network import Network
-from nfem_suite.simulation.collapse_sim import CollapseSimulator
-from nfem_suite.simulation.sunlight_sim import SunlightSimulator
-from nfem_suite.simulation.vortex_channel import VortexChannel
-from nfem_suite.simulation.tachyonic_loop import TachyonicLoop
-from nfem_suite.intelligence.vector_space import VectorSpace
-from nfem_suite.intelligence.entropy_engine import EntropyEngine
-from nfem_suite.intelligence.enthalpy_field import EnthalpyField
-from nfem_suite.intelligence.duality_space import DualitySpace
+from nfem_suite.simulation.flows import CollapseSimulator
+from nfem_suite.simulation.environment import SunlightSimulator
+from nfem_suite.simulation.communication import VortexChannel, TemporalProtocol
+from nfem_suite.simulation.temporal import TachyonicLoop, NestedTimeTracker
+from nfem_suite.simulation.agents import ObserverAgent, ConcentrationParameters
+from nfem_suite.intelligence.geometry import VectorSpace
+from nfem_suite.intelligence.entropy import EntropyEngine
+from nfem_suite.intelligence.thermo import EnthalpyField
+from nfem_suite.intelligence.duality import DualitySpace
 from nfem_suite.visualization.dashboard import Dashboard
 from nfem_suite.core.control import ControlSystem
 from nfem_suite.core.logger import DataLogger
@@ -60,6 +61,16 @@ def main():
     tachyonic_loop = TachyonicLoop(max_loops=100)
     vortex_center = np.array([GRID_WIDTH/2, GRID_HEIGHT/2])
     vortex_channel = VortexChannel(vortex_center, vortex_radius=20.0, coupling_strength=1.0)
+    temporal_protocol = TemporalProtocol()
+
+    # Observer Agents (Consciousness Extension)
+    idea_basis = ["flow", "vortex", "signal", "memory", "entropy", "escape"]
+    params_a = ConcentrationParameters(collapse_intensity=1.2, attractor_depth=1.1, novelty_temperature=0.9)
+    params_b = ConcentrationParameters(collapse_intensity=1.0, attractor_depth=1.0, novelty_temperature=1.1)
+    agent_a = ObserverAgent("Observer A", idea_basis, params=params_a, rng_seed=42)
+    agent_b = ObserverAgent("Observer B", idea_basis, params=params_b, rng_seed=99)
+    time_a = NestedTimeTracker(agent_a.name)
+    time_b = NestedTimeTracker(agent_b.name)
     
     # Logging & Visualization
     logger = DataLogger(filename="enthalpy_simulation_data.csv")
@@ -186,6 +197,28 @@ def main():
             
             vortex_channel.update(t)
             channel_stats = vortex_channel.get_statistics()
+
+            # 5. Consciousness Extension (idea collapse + entropy loss)
+            # Use enthalpy entropy production as a shared thermodynamic drain
+            entropy_loss = enthalpy_stats['entropy_production']
+            novelty_noise_a = np.random.normal(scale=0.1, size=len(idea_basis))
+            novelty_noise_b = np.random.normal(scale=0.1, size=len(idea_basis))
+            agent_a.update_logits(novelty_noise=novelty_noise_a)
+            agent_b.update_logits(novelty_noise=novelty_noise_b)
+
+            if iteration % 8 == 0:
+                collapse_a = agent_a.collapse()
+                collapse_b = agent_b.collapse()
+                time_a.update(t, duality_space.current_complex_state)
+                time_b.update(t, duality_space.current_complex_state)
+
+                packet = temporal_protocol.encode(
+                    payload={"entropy_loss": float(entropy_loss), "idea": collapse_a["idea"]},
+                    tau_send=time_a.state.emergent_time,
+                    sigma_send=time_a.state.meta_time,
+                    confidence=1.0,
+                )
+                temporal_protocol.decode(packet, time_b.state.emergent_time, time_a.frame_offset(time_b))
             
             # ================================================================
             # D. LOGGING & OUTPUT
@@ -198,13 +231,16 @@ def main():
             
             # Console output (every 50 iterations)
             if iteration % 50 == 0:
+                diagnostics_a = agent_a.diagnostics()
+                diagnostics_b = agent_b.diagnostics()
                 print(f"t={t:6.1f}s | Nodes={active_count:3d} | "
                       f"K-Ent={k_entropy:.3f} | H̄={enthalpy_stats['mean_enthalpy']:.1f} | "
                       f"Ω={duality_stats['mean_order']:.3f} | "
                       f"Ω̄={duality_stats['mean_disorder']:.3f} | "
                       f"τ={abs(duality_space.emergent_time):.2f} | "
                       f"Winding={duality_space.winding_number:.2f} | "
-                      f"Ch.Cap={channel_stats['channel_capacity']:.3f}")
+                      f"Ch.Cap={channel_stats['channel_capacity']:.3f} | "
+                      f"A Ω={diagnostics_a['order']:.2f} B Ω={diagnostics_b['order']:.2f}")
             
             # ================================================================
             # E. VISUALIZATION
