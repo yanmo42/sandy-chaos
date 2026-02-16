@@ -7,11 +7,23 @@ Models gravitational perturbations (e.g., small masses) that deflect photon path
 import numpy as np
 
 class MassPerturbation:
-    def __init__(self, r, theta, phi, mass=0.1):
+    def __init__(
+        self,
+        r,
+        theta,
+        phi,
+        mass=0.1,
+        force_scale: float = 100.0,
+        softening: float = 0.1,
+        eps: float = 1e-9
+    ):
         self.r = r
         self.theta = theta
         self.phi = phi
         self.mass = mass
+        self.force_scale = float(force_scale)
+        self.softening = float(max(softening, eps))
+        self.eps = float(eps)
         
         # Convert to Cartesian for distance calculations (approximation)
         self.pos = self._to_cartesian(r, theta, phi)
@@ -40,11 +52,12 @@ class MassPerturbation:
         diff = self.pos - pos_p
         dist = np.linalg.norm(diff)
         
-        if dist < 0.1: dist = 0.1 # Softening
+        if dist < self.softening:
+            dist = self.softening
         
         # Force magnitude ~ M/r^2
         # We need to scale this to be visible against the BH gravity
-        strength = 100.0 * self.mass / (dist**2)
+        strength = self.force_scale * self.mass / (dist**2)
         
         # Direction in Cartesian
         f_cart = strength * (diff / dist)
@@ -64,8 +77,11 @@ class MassPerturbation:
         e_phi = np.array([-sin_phi, cos_phi, 0.0])
         
         Fr = np.dot(f_cart, e_r)
-        Fth = np.dot(f_cart, e_th) / r_p  # Scale for angular momentum change
-        Fphi = np.dot(f_cart, e_phi) / (r_p * sin_th) # Scale for angular momentum
+        safe_r = max(abs(r_p), self.eps)
+        safe_sin = max(abs(sin_th), self.eps)
+
+        Fth = np.dot(f_cart, e_th) / safe_r  # Scale for angular momentum change
+        Fphi = np.dot(f_cart, e_phi) / (safe_r * safe_sin) # Scale for angular momentum
         
         # Return force on momenta [pt, pr, ptheta, pphi]
         # pt is energy, usually conserved unless time-dependent potential
