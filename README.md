@@ -275,7 +275,7 @@ Where:
 - `η_d` = regularization / anti-overfitting term
 - `U(·)` strengthens transitions toward realized idea regions
 
-#### 6.4 Order–Disorder Coupling from Idea Distribution
+### 6.4 Order–Disorder Coupling from Idea Distribution
 
 For N idea modes, define normalized entropy:
 
@@ -292,6 +292,24 @@ Z_i(t) = √(Ω_i(t)^2 + Ω̄_i(t)^2) · exp(i arctan(Ω̄_i/Ω_i))
 ```
 
 This links cognitive idea dynamics directly to the existing NFEM duality-space machinery.
+
+#### 6.5 Thermodynamic Exit Rule (Entropy Loss → Conscious Collapse)
+
+Water molecules in the whirlpool *must* eventually leave because dissipation drains usable energy. We mirror this as a **thermodynamic exit rule** for cognition: the agent’s idea collapse rate grows with **entropy production** in the enthalpy field. As entropy loss rises, the system is forced to “give up” energy, triggering a collapse to a concrete idea state.
+
+Define a shared thermodynamic drain:
+
+```
+Λ(t) = entropy_production(t)
+```
+
+Collapse hazard (per agent i):
+
+```
+h_i(t) = h0 + h1 · Λ(t)
+```
+
+This hazard gates the collapse operator in practice. In code, we implement a minimal version: use `entropy_production` as an injected payload in the temporal protocol while increasing collapse cadence when Λ(t) is high.
 
 ### 7. Nested Time Functions for Cross-Frame Communication
 
@@ -394,13 +412,13 @@ To systematically extend the codebase from these equations:
 - Specify measurable outputs before writing new modules
 
 ### Phase M2 — Minimal Module Scaffolding
-- `nfem_suite/intelligence/idea_field.py`
+- `nfem_suite/intelligence/cognition/idea_field.py`
   - Idea basis, collapse sampling, novelty and entropy
-- `nfem_suite/simulation/observer_agent.py`
+- `nfem_suite/simulation/agents/observer_agent.py`
   - Agent A/B with memory matrix and concentration parameters
-- `nfem_suite/simulation/nested_time.py`
+- `nfem_suite/simulation/temporal/nested_time.py`
   - `(t, τ_i, σ_i)` mappings and frame-offset estimators
-- `nfem_suite/simulation/temporal_protocol.py`
+- `nfem_suite/simulation/communication/temporal_protocol.py`
   - Packet encode/decode, alignment error, loop checks
 
 ### Phase M3 — Integration with Existing System
@@ -454,17 +472,31 @@ nfem_suite/
 │   └── complex_euler.py    # Z = |S|·e^(iφ) [Active]
 │
 ├── intelligence/           # Analysis layers
-│   ├── entropy_engine.py   # Traditional Shannon entropy
-│   ├── enthalpy_field.py   # H(x,t) potential field
-│   ├── duality_space.py    # Order-disorder bijection & emergent time
-│   └── vector_space.py     # Spatial mesh & gradients
+│   ├── cognition/
+│   │   └── idea_field.py    # Idea basis, collapse sampling, novelty + entropy
+│   ├── duality/
+│   │   └── space.py         # Order-disorder bijection & emergent time
+│   ├── entropy/
+│   │   └── shannon.py       # Traditional Shannon entropy
+│   ├── geometry/
+│   │   └── vector_space.py  # Spatial mesh & gradients
+│   └── thermo/
+│       └── enthalpy_field.py # H(x,t) potential field
 │
 ├── simulation/             # Physics & dynamics
-│   ├── whirlpool_sim.py    # Rankine vortex + chaotic folding
-│   ├── collapse_sim.py     # Gravitational singularity collapse
-│   ├── sunlight_sim.py     # Energy source simulation
-│   ├── vortex_channel.py   # A↔B bidirectional communication
-│   └── tachyonic_loop.py   # Closed-loop temporal displacement detection
+│   ├── agents/
+│   │   └── observer_agent.py # Agent A/B with memory matrix
+│   ├── communication/
+│   │   ├── vortex_channel.py  # A↔B bidirectional communication
+│   │   └── temporal_protocol.py # Packet encode/decode + alignment
+│   ├── environment/
+│   │   └── sunlight.py      # Energy source simulation
+│   ├── flows/
+│   │   ├── whirlpool.py     # Rankine vortex + chaotic folding
+│   │   └── collapse.py      # Gravitational singularity collapse
+│   └── temporal/
+│       ├── tachyonic_loop.py # Closed-loop temporal displacement detection
+│       └── nested_time.py    # (t, τ, σ) mappings
 │
 ├── visualization/          # Real-time dashboards
 │   ├── dashboard.py        # 6-panel master view
