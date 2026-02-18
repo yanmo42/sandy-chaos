@@ -726,14 +726,6 @@ MIT License — See [LICENSE](LICENSE)
 
 ---
 
-## 👤 Author
-
-**operator** (yanmo42)
-
-*"The river tells you where time flows. The vortex tells you where it lingers. The objects in the river tell you who is speaking."*
-
----
-
 ## 🐛 Bug Reports
 
 Found an issue? Please open a GitHub issue or contact the maintainer.
