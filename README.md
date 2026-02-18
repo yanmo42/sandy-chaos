@@ -726,6 +726,6 @@ MIT License — See [LICENSE](LICENSE)
 
 ---
 
-## 🐛 Bug Reports
+## Disclaimer
 
-Found an issue? Please open a GitHub issue or contact the maintainer.
+This repo is more of an intellectual exercise, to see if the math can be written to support the physical ideas
