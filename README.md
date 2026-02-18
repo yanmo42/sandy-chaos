@@ -440,9 +440,9 @@ This sequencing keeps implementation disciplined: **formalize first, simulate se
 
 Einstein's field equations relate spacetime curvature to energy density:
 
-```
+$$
 G_μν = (8πG/c⁴) T_μν
-```
+$$
 
 This framework draws a structural analogy:
 
