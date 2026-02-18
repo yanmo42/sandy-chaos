@@ -87,9 +87,9 @@ Traditional thermodynamics treats entropy as a state function that increases mon
 
 In classical thermodynamics, **enthalpy (H)** describes the potential to change state:
 
-```
+$$
 H = U + PV
-```
+$$
 
 Where U = internal energy, P = pressure, V = volume.
 
@@ -109,17 +109,17 @@ Each system configuration has:
 
 For every ordered state with ordinality α, there exists a disordered state with the same ordinality, creating a bijection:
 
-```
-f: Ω_α ↔ Ω̄_α
-```
+$$
+f: Ω_\alpha \leftrightarrow \bar{\Omega}_\alpha
+$$
 
 #### Complex Entropy States
 
 We construct the complex entropy state Z using Euler's formula:
 
-```
-Z = |S| · e^(iφ)
-```
+$$
+Z = |S| \cdot e^{i\phi}
+$$
 
 Where:
 - **|S| = √(Ω² + Ω̄²)** — Combined entropy magnitude
@@ -133,9 +133,9 @@ Where:
 
 Emergent time τ is intrinsic to the system, computed via path integral:
 
-```
-τ = ∫_γ Z(s) ds
-```
+$$
+\tau = \int_{\gamma} Z(s)\,ds
+$$
 
 Where γ is the path through physical space, Z(s) is the complex entropy at position s, and ds is a path element.
 
@@ -152,9 +152,9 @@ Where γ is the path through physical space, Z(s) is the complex entropy at posi
 
 When a trajectory forms a closed loop in phase space, we compute:
 
-```
-ΔT = ∮_γ Z(s) ds
-```
+$$
+\Delta T = \oint_{\gamma} Z(s)\,ds
+$$
 
 By Cauchy's Residue Theorem, this is non-zero if the loop encloses a singularity or if Z has non-trivial topology.
 
@@ -186,9 +186,9 @@ Observer B creates perturbations downstream. These generate pressure waves and b
 
 The vortex couples A and B with strength:
 
-```
-κ(A,B) = exp(-d_A/R) · exp(-d_B/R)
-```
+$$
+\kappa(A,B) = e^{-d_A/R} \cdot e^{-d_B/R}
+$$
 
 Where d_A, d_B are distances from A and B to the vortex center, and R is the vortex influence radius. Both observers must be close enough to the vortex to interact with it meaningfully.
 
@@ -206,15 +206,15 @@ Crucially, because the vortex creates gravitational time dilation (in the cosmol
 
 To model idea formation and observer effects in a simulation-ready way, define an idea basis:
 
-```
-E = {e_1, e_2, ..., e_N}
-```
+$$
+E = \{e_1, e_2, \ldots, e_N\}
+$$
 
 For each agent i (e.g., A or B), let:
 
-```
-p_i(t) ∈ Δ^(N-1)
-```
+$$
+p_i(t) \in \Delta^{N-1}
+$$
 
 be a probability distribution over idea modes at external time t.
 
@@ -222,9 +222,9 @@ be a probability distribution over idea modes at external time t.
 
 In this framework, "observation" means state selection caused by interaction. For any interacting pair (x, y):
 
-```
-χ_xy(t) = g_xy · I_xy(t)
-```
+$$
+\chi_{xy}(t) = g_{xy} \cdot I_{xy}(t)
+$$
 
 Where:
 - `g_xy` = coupling strength
@@ -237,9 +237,9 @@ Brains are modeled as high-recursion systems that **amplify** these micro-select
 
 Define pre-collapse logits for agent i:
 
-```
-ℓ_i,k(t) = λ_A A_i,k(t) + λ_M Σ_j W_i,kj(t) p_i,j(t) + λ_C C_i,k(t) + λ_ξ ξ_i,k(t)
-```
+$$
+\ell_{i,k}(t) = \lambda_A A_{i,k}(t) + \lambda_M \sum_j W_{i,kj}(t) p_{i,j}(t) + \lambda_C C_{i,k}(t) + \lambda_\xi \xi_{i,k}(t)
+$$
 
 Where:
 - `A_i,k` = attention gain for mode k
@@ -249,15 +249,15 @@ Where:
 
 Convert to probabilities:
 
-```
-q_i,k(t) = softmax_k(ℓ_i,k(t))
-```
+$$
+q_{i,k}(t) = \mathrm{softmax}_k\!\left(\ell_{i,k}(t)\right)
+$$
 
 Collapse event (realized thought token):
 
-```
-k* ~ Categorical(q_i(t)),   y_i(t) = e_k*
-```
+$$
+k^* \sim \mathrm{Categorical}(q_i(t)), \qquad y_i(t) = e_{k^*}
+$$
 
 This captures your core intuition: many possible ideas are available, one is realized, and realization feeds future dynamics.
 
@@ -265,9 +265,9 @@ This captures your core intuition: many possible ideas are available, one is rea
 
 After collapse, reinforce selected pathways:
 
-```
-W_i(t+1) = (1-η_f)W_i(t) + η_r · U(y_i(t), p_i(t)) - η_d · R_i(t)
-```
+$$
+W_i(t+1) = (1-\eta_f)W_i(t) + \eta_r \cdot U\!\left(y_i(t), p_i(t)\right) - \eta_d \cdot R_i(t)
+$$
 
 Where:
 - `η_f` = forgetting rate
@@ -279,17 +279,19 @@ Where:
 
 For N idea modes, define normalized entropy:
 
-```
-H_i(t) = -Σ_k p_i,k(t) log p_i,k(t)
-Ω_i(t) = 1 - H_i(t)/log N
-Ω̄_i(t) = H_i(t)/log N
-```
+$$
+\begin{aligned}
+H_i(t) &= -\sum_k p_{i,k}(t)\log p_{i,k}(t) \\
+\Omega_i(t) &= 1 - \frac{H_i(t)}{\log N} \\
+\bar{\Omega}_i(t) &= \frac{H_i(t)}{\log N}
+\end{aligned}
+$$
 
 Then complex entropy state for the cognitive layer:
 
-```
-Z_i(t) = √(Ω_i(t)^2 + Ω̄_i(t)^2) · exp(i arctan(Ω̄_i/Ω_i))
-```
+$$
+Z_i(t) = \sqrt{\Omega_i(t)^2 + \bar{\Omega}_i(t)^2} \cdot e^{i\arctan\!\left(\bar{\Omega}_i/\Omega_i\right)}
+$$
 
 This links cognitive idea dynamics directly to the existing NFEM duality-space machinery.
 
@@ -299,15 +301,15 @@ Water molecules in the whirlpool *must* eventually leave because dissipation dra
 
 Define a shared thermodynamic drain:
 
-```
-Λ(t) = entropy_production(t)
-```
+$$
+\Lambda(t) = \mathrm{entropy\_production}(t)
+$$
 
 Collapse hazard (per agent i):
 
-```
-h_i(t) = h0 + h1 · Λ(t)
-```
+$$
+h_i(t) = h_0 + h_1 \cdot \Lambda(t)
+$$
 
 This hazard gates the collapse operator in practice. In code, we implement a minimal version: use `entropy_production` as an injected payload in the temporal protocol while increasing collapse cadence when Λ(t) is high.
 
@@ -323,26 +325,28 @@ To formalize communication between temporal frames, use three clocks:
 
 For each agent i:
 
-```
-τ_i = ∫_(γ_i) Z_i(s) ds
-```
+$$
+\tau_i = \int_{\gamma_i} Z_i(s)\,ds
+$$
 
 with γ_i the trajectory through that agent's internal state-space.
 
 Temporal offset between agents:
 
-```
-Δτ_AB(t) = τ_B(t) - τ_A(t)
-```
+$$
+\Delta\tau_{AB}(t) = \tau_B(t) - \tau_A(t)
+$$
 
 #### 7.2 Channel Equations (Asymmetric)
 
 Forward and backward transmissions through vortex mediator V:
 
-```
-m_B(t) = κ(A,B) · m_A(t-d_f) + ε_f(t)
-m_A(t) = α_back · κ(B,A) · m_B(t-d_b) + ε_b(t)
-```
+$$
+\begin{aligned}
+m_B(t) &= \kappa(A,B) \cdot m_A(t-d_f) + \varepsilon_f(t) \\
+m_A(t) &= \alpha_{\text{back}} \cdot \kappa(B,A) \cdot m_B(t-d_b) + \varepsilon_b(t)
+\end{aligned}
+$$
 
 with:
 - `d_b > d_f` (backward path is slower)
@@ -355,15 +359,15 @@ This extends current `VortexChannel` behavior into a clear temporal-frame formal
 
 A protocol packet can be defined as:
 
-```
-P = {payload, τ_send, σ_send, confidence, checksum}
-```
+$$
+P = \{\text{payload}, \tau_{\text{send}}, \sigma_{\text{send}}, \text{confidence}, \text{checksum}\}
+$$
 
 Receiver decodes payload and estimates frame alignment error:
 
-```
-E_align = |(τ_recv - τ_send) - τ_expected|
-```
+$$
+E_{\text{align}} = \left|\left(\tau_{\text{recv}} - \tau_{\text{send}}\right) - \tau_{\text{expected}}\right|
+$$
 
 Minimizing `E_align` across loops A→B→A is the operational criterion for stable cross-frame communication.
 
@@ -371,9 +375,9 @@ Minimizing `E_align` across loops A→B→A is the operational criterion for sta
 
 Represent each agent's concentration level with a parameter set:
 
-```
-C_i = {α_i, β_i, T_i, μ_i, ν_i}
-```
+$$
+C_i = \{\alpha_i, \beta_i, T_i, \mu_i, \nu_i\}
+$$
 
 Where:
 - `α_i`: collapse intensity (selection sharpness)
@@ -384,9 +388,9 @@ Where:
 
 A compact informational-curvature scalar can be:
 
-```
-G_i = β_i / max(T_i, ε)
-```
+$$
+G_i = \frac{\beta_i}{\max(T_i, \varepsilon)}
+$$
 
 Higher `G_i` implies stronger compression/stabilization of idea trajectories.
 
