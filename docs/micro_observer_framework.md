@@ -23,22 +23,22 @@
 
  We represent an interaction as four coupled state families:
 
- 1. **Latent environment state** \(L_t\): unobserved or partially observed micro-structure.
- 2. **Observed state** \(O_t\): what is extracted by an observation process.
- 3. **Observer state** \(S_t\): memory, attention, priors, and self-model of an observing agent.
- 4. **Action/perturbation state** \(A_t\): interventions by humans or machines.
+ 1. **Latent environment state** $L_t$: unobserved or partially observed micro-structure.
+ 2. **Observed state** $O_t$: what is extracted by an observation process.
+ 3. **Observer state** $S_t$: memory, attention, priors, and self-model of an observing agent.
+ 4. **Action/perturbation state** $A_t$: interventions by humans or machines.
 
  Observation and intervention are both operators:
 
- \[
+ $$
  O_t = \mathcal{M}(L_t, S_t, \epsilon_t)
- \]
+ $$
 
- \[
+ $$
  L_{t+1} = \mathcal{T}(L_t, A_t, \eta_t)
- \]
+ $$
 
- where \(\mathcal{M}\) (measurement) and \(\mathcal{T}\) (transition) are coupled through observer and intervention context.
+ where $\mathcal{M}$ (measurement) and $\mathcal{T}$ (transition) are coupled through observer and intervention context.
 
  ---
 
@@ -51,9 +51,9 @@
 
  So the observer effect is:
 
- \[
+ $$
  \Delta L_t \propto \Phi(S_t, \text{measurement policy}, \text{feedback loop})
- \]
+ $$
 
  This keeps the model compatible with both physical measurement effects and cognitive/social feedback effects.
 
@@ -64,18 +64,18 @@
  We do **not** define consciousness as an ontological absolute here.
  Instead, we use operational proxies that can be parameterized:
 
- - **Attention bandwidth** \(B\): effective channel capacity for selecting signals.
- - **Temporal integration depth** \(D\): horizon over which experience is integrated.
- - **Self-coherence** \(C\): stability of identity/model across updates.
- - **Reflective recursion** \(R\): capacity to model one’s own model updates.
+ - **Attention bandwidth** $B$: effective channel capacity for selecting signals.
+ - **Temporal integration depth** $D$: horizon over which experience is integrated.
+ - **Self-coherence** $C$: stability of identity/model across updates.
+ - **Reflective recursion** $R$: capacity to model one’s own model updates.
 
  A compact "conscious participation index" can be used for experiments:
 
- \[
+ $$
  \chi = f(B, D, C, R)
- \]
+ $$
 
- In this framework, higher \(\chi\) does not imply superiority; it indicates different observation/update dynamics and error profiles.
+ In this framework, higher $\chi$ does not imply superiority; it indicates different observation/update dynamics and error profiles.
 
  ---
 
@@ -109,19 +109,19 @@
 
  Formally:
 
- \[
+ $$
  L' = \mathcal{T}(L, A_{machine})
- \]
+ $$
 
- \[
+ $$
  O_{human} = \mathcal{M}(L', S_{human})
- \]
+ $$
 
  If mutual information increases relative to baseline,
 
- \[
+ $$
  I(A_{machine}; O_{human}) > I_{baseline}
- \]
+ $$
 
  then the intervention functions as a communication bridge between unobserved dynamics and observed meaning.
 
