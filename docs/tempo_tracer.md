@@ -137,5 +137,7 @@ Next iterations should focus on stronger statistical testing and clearer claim-t
 For local/micro-scale framing of observer effect, agency, and consciousness-proxy dynamics, see:
 
 - **[Micro-Observer Framework](micro_observer_framework.md)**
+- **[Neuromorphic Cross-Tempo Architecture](neuromorphic_cross_tempo_architecture.md)**
+- **[Neuro-Implant Cross-Tempo Brainstorm](neuro_implant_cross_tempo_brainstorm.md)**
 
 This extension is intentionally conceptual and maintains the same claim-discipline used here (defensible vs speculative tiers).

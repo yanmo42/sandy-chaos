@@ -6,6 +6,8 @@ Focused sandbox for exploring **Tempo Tracer**: causality-preserving, relativist
 
 - **[Tempo Tracer framework](docs/tempo_tracer.md)** ← main conceptual/spec document
 - **[Micro-Observer Framework](docs/micro_observer_framework.md)** ← local-scale observer/consciousness/agency modeling layer
+- **[Neuromorphic Cross-Tempo Architecture](docs/neuromorphic_cross_tempo_architecture.md)** ← neuroscience-aligned timing/control formalization
+- **[Neuro-Implant Cross-Tempo Brainstorm](docs/neuro_implant_cross_tempo_brainstorm.md)** ← speculative-but-grounded implant extension
 
 ## Repository modules
 
