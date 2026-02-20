@@ -125,7 +125,7 @@ The second is more powerful and more dangerous. It operates *before* actions exi
 In Sandy Chaos terms, this is a temporal protocol inserted into the internal clocking structure:
 
 $$
-P = \{\text{forecast},\; \sigma_{send},\; \text{confidence},\; \text{validity\_window}\}
+P = \\{\\mathrm{forecast},\\; \\sigma_{\\mathrm{send}},\\; \\mathrm{confidence},\\; \\mathrm{validity\\_window}\\}
 $$
 
 The goal is not control. The goal is **augmenting deliberation without collapsing autonomy**.
