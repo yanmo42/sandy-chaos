@@ -1,12 +1,12 @@
-# Temporal Hacks
+# Tempo Tracer
 
 **A rigor-first framework for causality-preserving "future-like" information exchange**
 
 ---
 
-## 1) What "Temporal Hacks" means
+## 1) What "Tempo Tracer" means
 
-Temporal Hacks is the working name for a communication concept where two observers (A and B) use:
+Tempo Tracer is the working name for a communication concept where two observers (A and B) use:
 
 1. **Relativistic clock asymmetry** (different proper-time rates)
 2. **A shared gravitational/photon medium** (e.g., Kerr black-hole environment)
