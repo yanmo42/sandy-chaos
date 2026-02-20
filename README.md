@@ -38,4 +38,11 @@ See `docs/temporal_hacks.md` for assumptions, constraints, and falsification met
 
 ## License
 
+MIT License — See [LICENSE](LICENSE)
+
+---
+
+## Disclaimer
+
+This repo is more of an intellectual exercise, to see if the math can be written to support the physical ideas
 MIT — see [LICENSE](LICENSE).
