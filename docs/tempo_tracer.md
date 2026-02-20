@@ -129,3 +129,13 @@ Current code already includes:
 - Bidirectional vortex channel abstraction (`nfem_suite/simulation/communication/vortex_channel.py`)
 
 Next iterations should focus on stronger statistical testing and clearer claim-tiering.
+
+---
+
+## 10) Related conceptual extension
+
+For local/micro-scale framing of observer effect, agency, and consciousness-proxy dynamics, see:
+
+- **[Micro-Observer Framework](micro_observer_framework.md)**
+
+This extension is intentionally conceptual and maintains the same claim-discipline used here (defensible vs speculative tiers).

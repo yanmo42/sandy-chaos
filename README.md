@@ -5,6 +5,7 @@ Focused sandbox for exploring **Tempo Tracer**: causality-preserving, relativist
 ## Primary docs
 
 - **[Tempo Tracer framework](docs/tempo_tracer.md)** ← main conceptual/spec document
+- **[Micro-Observer Framework](docs/micro_observer_framework.md)** ← local-scale observer/consciousness/agency modeling layer
 
 ## Repository modules
 
