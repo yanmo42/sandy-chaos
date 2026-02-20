@@ -8,10 +8,10 @@ import numpy as np
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from nfem_suite.core.network import Network
-from nfem_suite.simulation.collapse_sim import CollapseSimulator
+from nfem_suite.simulation.flows import CollapseSimulator
 from nfem_suite.core.control import ControlSystem
-from nfem_suite.simulation.sunlight_sim import SunlightSimulator
-from nfem_suite.intelligence.vector_space import VectorSpace
+from nfem_suite.simulation.environment import SunlightSimulator
+from nfem_suite.intelligence.geometry import VectorSpace
 from nfem_suite.intelligence.entropy_engine import EntropyEngine
 from nfem_suite.config.settings import GRID_WIDTH, GRID_HEIGHT, TIME_STEP
 
