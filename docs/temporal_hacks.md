@@ -58,15 +58,15 @@ to exchange information that can feel like "from the future" to one side, while 
 - Null geodesic dynamics using Hamiltonian form
 - Constraint: 
 
-\[
+$$
 H = \frac{1}{2} g^{\mu\nu} p_\mu p_\nu \approx 0
-\]
+$$
 
 ### 5.2 Signaling channel
 
-\[
+$$
 Y = \mathcal{F}_{\text{Kerr}}(X, u, n)
-\]
+$$
 
 - \(X\): initial photon ensemble
 - \(u\): controlled perturbation schedule
@@ -79,9 +79,9 @@ Y = \mathcal{F}_{\text{Kerr}}(X, u, n)
 
 Packet form:
 
-\[
+$$
 P = \{payload, \tau_{send}, \sigma_{send}, confidence, checksum, validity\_window\}
-\]
+$$
 
 ---
 
@@ -92,9 +92,9 @@ P = \{payload, \tau_{send}, \sigma_{send}, confidence, checksum, validity\_windo
 - Mutual information lower bound \(I(U;Y)\)
 - Temporal alignment error:
 
-\[
+$$
 E_{align} = |(\tau_{recv} - \tau_{send}) - \tau_{expected}|
-\]
+$$
 
 - Forecast quality (watchdog mode): calibration, false alarm rate, Brier score
 
