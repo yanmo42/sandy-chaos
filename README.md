@@ -1,10 +1,10 @@
 # Sandy Chaos
 
-Focused sandbox for exploring **Temporal Hacks**: causality-preserving, relativistic communication ideas using curved-spacetime photon dynamics and nested-time protocol abstractions.
+Focused sandbox for exploring **Tempo Tracer**: causality-preserving, relativistic communication ideas using curved-spacetime photon dynamics and nested-time protocol abstractions.
 
 ## Primary docs
 
-- **[Temporal Hacks framework](docs/temporal_hacks.md)** ← main conceptual/spec document
+- **[Tempo Tracer framework](docs/tempo_tracer.md)** ← main conceptual/spec document
 
 ## Repository modules
 
@@ -34,7 +34,7 @@ This project intentionally distinguishes between:
 - **Defensible claims** (causality-preserving, testable signal structure)
 - **Speculative extensions** (future engineering scenarios)
 
-See `docs/temporal_hacks.md` for assumptions, constraints, and falsification metrics.
+See `docs/tempo_tracer.md` for assumptions, constraints, and falsification metrics.
 
 ## License
 
@@ -45,4 +45,3 @@ MIT License — See [LICENSE](LICENSE)
 ## Disclaimer
 
 This repo is more of an intellectual exercise, to see if the math can be written to support the physical ideas
-MIT — see [LICENSE](LICENSE).
