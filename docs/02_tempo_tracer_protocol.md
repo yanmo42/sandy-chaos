@@ -63,9 +63,8 @@ We separate three timing layers:
 Canonical packet schema:
 
 $$
-P = \{\text{payload},\; \tau_{\text{send}},\; \sigma_{\text{send}},\; \text{confidence},\; \text{checksum},\; \text{validity\_window}\}
+P = \{payload, \tau_{send}, \sigma_{send}, confidence, checksum, validity window\}
 $$
-
 
 Interpretation requires all three planes: data, timing, trust.
 
