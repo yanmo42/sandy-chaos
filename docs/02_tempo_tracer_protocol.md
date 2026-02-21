@@ -12,20 +12,20 @@ The objective is **forecasting advantage without retrocausality**.
 
 We model propagation through a curved-spacetime medium as:
 
-\[
+$$
 Y = \mathcal{F}_{\text{Kerr}}(X, u, n)
-\]
+$$
 
-- \(X\): initial photon/observable ensemble
-- \(u\): controlled modulation schedule
-- \(n\): background noise
-- \(Y\): received observables
+- $X$: initial photon/observable ensemble
+- $u$: controlled modulation schedule
+- $n$: background noise
+- $Y$: received observables
 
 Null-geodesic consistency condition:
 
-\[
+$$
 H = \tfrac{1}{2}g^{\mu\nu}p_\mu p_\nu \approx 0
-\]
+$$
 
 If this fails numerically, the run is invalid.
 
@@ -56,15 +56,15 @@ If this fails numerically, the run is invalid.
 
 We separate three timing layers:
 
-- External reference time: \(t\)
-- Observer-local clocks: \(\tau_A, \tau_B\)
-- Protocol/meta-time: \(\sigma\)
+- External reference time: $t$
+- Observer-local clocks: $\tau_A, \tau_B$
+- Protocol/meta-time: $\sigma$
 
 Canonical packet schema:
 
-\[
+$$
 P = \{payload, \tau_{send}, \sigma_{send}, confidence, checksum, validity\_window\}
-\]
+$$
 
 Interpretation requires all three planes: data, timing, trust.
 
@@ -94,12 +94,12 @@ Minimum validation stack:
 
 1. **Detection performance**: ROC/AUC for controlled modulation vs baseline
 2. **Distributional shift**: KL divergence between natural and modulated observables
-3. **Information transfer**: lower bound on \(I(U;Y)\)
+3. **Information transfer**: lower bound on $I(U;Y)$
 4. **Temporal consistency**:
 
-\[
+$$
 E_{align}=\left|(\tau_{recv}-\tau_{send})-\tau_{expected}\right|
-\]
+$$
 
 5. **Forecast reliability**: calibration curves, Brier score, false alarm rate
 
@@ -110,7 +110,7 @@ If reproducibility/significance thresholds fail, the claim fails.
 ## 7) Protocol workflow (practical)
 
 1. Define claim tier (defensible / plausible / speculative).
-2. Specify encoding schedule \(u\) and baseline conditions.
+2. Specify encoding schedule $u$ and baseline conditions.
 3. Run geodesic quality checks and reject invalid trajectories.
 4. Decode with uncertainty-aware inference.
 5. Audit timing alignment, trust metadata, and reproducibility.

@@ -68,14 +68,14 @@ $$
 Y = \mathcal{F}_{\text{Kerr}}(X, u, n)
 $$
 
-- \(X\): initial photon ensemble
-- \(u\): controlled perturbation schedule
-- \(n\): background astrophysical noise
+- $X$: initial photon ensemble
+- $u$: controlled perturbation schedule
+- $n$: background astrophysical noise
 
 ### 5.3 Relativistic timing layer
-- External simulation time: \(t\)
-- Local emergent/proper-like clocks: \(\tau_A, \tau_B\)
-- Meta/protocol layer: \(\sigma\)
+- External simulation time: $t$
+- Local emergent/proper-like clocks: $\tau_A, \tau_B$
+- Meta/protocol layer: $\sigma$
 
 Packet form:
 
@@ -89,7 +89,7 @@ $$
 
 - ROC / AUC for controlled-vs-natural modulation detection
 - KL divergence between baseline and modulated observables
-- Mutual information lower bound \(I(U;Y)\)
+- Mutual information lower bound $I(U;Y)$
 - Temporal alignment error:
 
 $$

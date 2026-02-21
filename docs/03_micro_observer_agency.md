@@ -12,18 +12,18 @@ If Tempo Tracer is the channel geometry, this document is the **observer geometr
 
 We model interaction with four state families:
 
-- \(L_t\): latent environment state
-- \(O_t\): observed state
-- \(S_t\): observer state (memory, priors, attention, self-model)
-- \(A_t\): intervention/action state
+- $L_t$: latent environment state
+- $O_t$: observed state
+- $S_t$: observer state (memory, priors, attention, self-model)
+- $A_t$: intervention/action state
 
 Minimal dynamics:
 
-\[
+$$
 O_t = \mathcal{M}(L_t, S_t, \epsilon_t),
 \qquad
 L_{t+1} = \mathcal{T}(L_t, A_t, \eta_t)
-\]
+$$
 
 Observation is not purely passive: measuring changes future measurability.
 
@@ -38,9 +38,9 @@ In this framework, observation is **read-write coupling**:
 
 Compactly:
 
-\[
+$$
 \Delta L_t \propto \Phi(S_t, \text{measurement policy}, \text{feedback loop})
-\]
+$$
 
 This unifies physical, cognitive, and socio-technical observer effects under one formal language.
 
@@ -73,11 +73,11 @@ That is **epistemic retro-influence**, not physical retrocausality.
 
 Policy view:
 
-\[
+$$
 a_t^* = \arg\max_a\;\mathbb{E}[U(a, \Psi_{future\_evaluation})\mid \mathcal{I}_t]
-\]
+$$
 
-The action depends on present information state \(\mathcal{I}_t\), not on a backward causal signal.
+The action depends on present information state $\mathcal{I}_t$, not on a backward causal signal.
 
 ---
 
@@ -85,18 +85,18 @@ The action depends on present information state \(\mathcal{I}_t\), not on a back
 
 We avoid metaphysical closure and use measurable proxy dimensions:
 
-- \(B\): attention bandwidth
-- \(D\): temporal integration depth
-- \(C\): self-coherence
-- \(R\): reflective recursion
+- $B$: attention bandwidth
+- $D$: temporal integration depth
+- $C$: self-coherence
+- $R$: reflective recursion
 
 Optional index:
 
-\[
+$$
 \chi = f(B,D,C,R)
-\]
+$$
 
-\(\chi\) is descriptive, not a value ranking.
+$\chi$ is descriptive, not a value ranking.
 
 ---
 

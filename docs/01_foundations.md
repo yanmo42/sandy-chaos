@@ -28,9 +28,9 @@ This separation is method, not branding.
 
 Forward state dynamics remain:
 
-\[
+$$
 x_{t+\Delta} = F_\Delta(x_t, a_t, \eta_t)
-\]
+$$
 
 ---
 
@@ -47,23 +47,23 @@ This creates a strong *appearance* of backward influence, but causality is still
 
 Retrodiction map:
 
-\[
+$$
 \hat{a}_t = R(x_{t+\Delta}), \qquad P(\hat{a}_t = a_t) \approx 1
-\]
+$$
 
 Anticipatory policy (present agent optimizing under expected future inference):
 
-\[
+$$
 a_t^* = \arg\max_a\;\mathbb{E}\big[U(a, \Psi(R(F_\Delta(x_t,a,\eta_t))))\mid \mathcal{I}_t\big]
-\]
+$$
 
-Where \(\mathcal{I}_t\) is present information about the future observers’ capabilities.
+Where $\mathcal{I}_t$ is present information about the future observers’ capabilities.
 
 ### Causal safety test
 
-\[
+$$
 P(a_t\mid do(x_{t+\Delta}=z),\mathcal{I}_t)=P(a_t\mid\mathcal{I}_t)
-\]
+$$
 
 If this holds, there is no ontic backward causal arrow.
 

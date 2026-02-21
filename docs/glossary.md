@@ -31,7 +31,7 @@ Structured signatures designed for delayed decoding from persistent outside-hori
 Payload transport layer.
 
 ### Timing plane
-Cross-frame temporal alignment layer (e.g., \(t\), \(\tau\), \(\sigma\)).
+Cross-frame temporal alignment layer (e.g., $t$, $\tau$, $\sigma$).
 
 ### Trust plane
 Integrity and uncertainty metadata (checksum, confidence, validity window).
@@ -43,10 +43,10 @@ Integrity and uncertainty metadata (checksum, confidence, validity window).
 ### Read-write observer effect
 Observation both extracts and perturbs structure through measurement policy and feedback.
 
-### Observer state \(S_t\)
+### Observer state $S_t$
 Priors, memory, attention, self-model, and current interpretive stance of the observer.
 
-### Latent state \(L_t\)
+### Latent state $L_t$
 Underlying state not directly observed (or only partially observed).
 
 ### Anticipatory policy coupling
