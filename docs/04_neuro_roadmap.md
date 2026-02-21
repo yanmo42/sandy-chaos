@@ -45,9 +45,9 @@ Practical pipeline:
 
 Minimal representation equation:
 
-\[
+$$
 \hat{z}_{idea}(t)=f_\theta\big(X_{neural}(t-\Delta:t), C_{task}, C_{history}\big)
-\]
+$$
 
 ---
 
