@@ -63,7 +63,7 @@ We separate three timing layers:
 Canonical packet schema:
 
 $$
-P = \{\text{payload},\; \tau_{\text{send}},\; \sigma_{\text{send}},\; \text{confidence},\; \text{checksum},\; \texttt{validity\_window}\}
+P = \{\text{payload},\; \tau_{\text{send}},\; \sigma_{\text{send}},\; \text{confidence},\; \text{checksum},\; \text{validity\_window}\}
 $$
 
 
