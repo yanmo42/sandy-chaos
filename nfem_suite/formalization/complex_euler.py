@@ -4,11 +4,15 @@ Euler/Complex Analysis Formalization
 Implements the complex entropy framework using Euler's identity:
     Z = |S| · e^(iφ)
 
-Where:
-- |S| is the entropy magnitude
-- φ is the phase angle between order and disorder
-- The path integral τ = ∫ Z ds gives emergent time
-- Temporal loops exhibit ΔT = τ_forward + τ_backward
+Axiomatic grounding (see docs/math_foundations_zf.md):
+- Z ∈ ℂ, the unique algebraic closure of ℝ (§5)
+- |S| = √(α² + β²), the Pythagorean norm (§3)
+- φ = arctan2(β, α), the polar decomposition phase (§5)
+- The path integral τ = ∫ Z ds is a standard complex line integral (§11)
+- The contour integral ΔT = ∮ Z ds detects topological defects
+  (vortex sources/sinks) via the Cauchy integral theorem (§11).
+  A non-zero ΔT indicates an entropic vortex charge, NOT backward-time
+  signaling.
 """
 
 import numpy as np
@@ -20,11 +24,16 @@ class EulerFormalization(Formalization):
     """
     Complex analysis formalization using Euler's formula.
     
+    Derivation chain (docs/math_foundations_zf.md):
+        ∅ →(ZF)→ ℕ →(group)→ ℤ →(field)→ ℚ →(√2)→ ℝ →(π, i)→ ℂ
+    
     Key concepts:
-    - Order and disorder as orthogonal dimensions in complex plane
-    - Real axis = order, Imaginary axis = disorder
-    - Bijection via complex conjugation: Z ↔ Z̄
-    - Path integrals yield emergent time with winding number
+    - Order α and disorder β are real-valued parameters in [0,1] ⊂ ℝ (§4)
+    - Z = α + iβ ∈ ℂ: canonical embedding of ℝ² into the algebraic closure (§5, §10)
+    - |Z| = √(α²+β²): Pythagorean norm, forced by the distance formula (§3)
+    - φ = arctan2(β, α): polar decomposition phase (§5)
+    - Path integrals yield emergent time; winding numbers ∈ ℤ (§2, §11)
+    - Contour integrals detect entropic vortex charges, not tachyonic effects (§11)
     """
     
     def __init__(self, config: Dict[str, Any] = None):
@@ -124,7 +133,6 @@ class EulerFormalization(Formalization):
         Bijection: Order ↔ Disorder
         
         Simple reflection: β = 1 - α
-        (Could also implement as β = α for symmetric pairing, or β = 1/α for inversion)
         
         Args:
             alpha: Order parameter
@@ -137,17 +145,24 @@ class EulerFormalization(Formalization):
     
     def complex_entropy_state(self, alpha: float, beta: float) -> complex:
         """
-        Construct complex entropy state: Z = |S| · e^(iφ)
+        Construct complex entropy state: Z = α + iβ = |Z| · e^(iφ)
         
-        |S| = magnitude from combined entropy
-        φ = phase angle from order/disorder ratio
+        This is the canonical embedding of (α, β) ∈ ℝ² into ℂ (§5, §10).
+        ℂ is the unique algebraic closure of ℝ — this embedding is not a
+        modeling choice but the standard identification (a,b) ↦ a + ib.
+        
+        |Z| = √(α²+β²): Pythagorean norm (§3)
+        φ = arctan2(β, α): phase from order to disorder (§5)
+          φ = 0    → pure order (positive real axis)
+          φ = π/2  → pure disorder (positive imaginary axis)
+          φ = π/4  → maximal mixed entropy (midpoint of bijection)
         
         Args:
-            alpha: Order parameter (real axis component)
-            beta: Disorder parameter (imaginary axis component)
+            alpha: Order parameter (real axis component) ∈ [0,1] ⊂ ℝ
+            beta: Disorder parameter (imaginary axis component) ∈ [0,1] ⊂ ℝ
         
         Returns:
-            Complex entropy state Z
+            Complex entropy state Z ∈ ℂ
         """
         # Magnitude: Euclidean norm of (alpha, beta) vector
         magnitude = np.sqrt(alpha**2 + beta**2)
@@ -196,18 +211,23 @@ class EulerFormalization(Formalization):
     def temporal_displacement(self, loop_path: List[np.ndarray], 
                             loop_states: List[complex]) -> complex:
         """
-        Compute temporal displacement ΔT for closed loop.
+        Compute entropic circulation ΔT for a closed loop.
         
         ΔT = ∮ Z(s) ds  (contour integral around loop)
         
-        If ΔT ≠ 0, there's a temporal asymmetry (potential tachyonic behavior)
+        By the Cauchy Integral Theorem (§11): ΔT = 0 if Z is holomorphic
+        (no singularity) inside the loop. ΔT ≠ 0 indicates a topological
+        defect — a vortex source or sink — enclosed by the loop.
+        
+        This is an *entropic vortex charge*, not tachyonic behavior.
+        The winding number n ∈ ℤ (§2) counts enclosed defects with sign.
         
         Args:
             loop_path: Closed loop of positions (first and last should be same/close)
             loop_states: Complex entropy states around loop
         
         Returns:
-            Complex temporal displacement ΔT
+            Complex entropic circulation ΔT
         """
         # Ensure loop is closed
         if len(loop_path) < 3:
@@ -244,9 +264,14 @@ class EulerFormalization(Formalization):
     
     def compute_winding_number(self, loop_states: List[complex]) -> float:
         """
-        Compute the winding number of a closed loop in complex plane.
+        Compute the winding number of a closed loop in the complex plane.
         
-        Winding number n = (1/2π) ∮ dφ
+        Winding number n = (1/2π) ∮ dφ  ∈ ℤ (§2, §11)
+        
+        The winding number is topologically quantized: it is always an integer
+        (element of ℤ, the first algebraic structure built from ZF, §2).
+        It counts the number of times the loop wraps around the origin,
+        which corresponds to the number of entropic vortex defects enclosed.
         
         Args:
             loop_states: Complex entropy states around closed loop

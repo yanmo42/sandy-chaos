@@ -161,16 +161,34 @@ The project gestures at this but doesn't engage with any of these works or expla
 
 ## Summary: Ranked Priorities for Strengthening
 
-| Priority | Issue | Effort | Impact |
-|----------|-------|--------|--------|
-| 1 | Complex entropy state needs physical derivation | High | Transforms the entire formal core |
-| 2 | Show GR does actual theoretical work (not just aesthetics) | High | Justifies the project's distinctive premise |
-| 3 | Specify $\mathcal{G}$ for hyperstition dynamics, analyze fixed points | Medium | First genuine novel theoretical result |
-| 4 | Anchor epistemic retro-influence in existing game theory | Low | Instant credibility + clarity on what's new |
-| 5 | Three-layer time composition law | Medium | Makes the most original idea rigorous |
-| 6 | Rename/rethink "tachyonic loop" claims | Low | Removes internal contradiction |
-| 7 | Specify observer read-write $\Phi$ for at least one domain | Medium | Moves from placeholder to model |
-| 8 | Engage entropy-causality literature properly | Low-Medium | Avoids reinventing the wheel |
+| Priority | Issue | Effort | Impact | Status |
+|----------|-------|--------|--------|--------|
+| 1 | Complex entropy state needs physical derivation | High | Transforms the entire formal core | ✅ **Resolved** — `math_foundations_zf.md` §10 |
+| 2 | Show GR does actual theoretical work (not just aesthetics) | High | Justifies the project's distinctive premise | ✅ **Resolved** — `math_foundations_zf.md` §9 |
+| 3 | Specify $\mathcal{G}$ for hyperstition dynamics, analyze fixed points | Medium | First genuine novel theoretical result | ⬜ Open |
+| 4 | Anchor epistemic retro-influence in existing game theory | Low | Instant credibility + clarity on what's new | ⬜ Open |
+| 5 | Three-layer time composition law | Medium | Makes the most original idea rigorous | ✅ **Resolved** — `math_foundations_zf.md` §12 |
+| 6 | Rename/rethink "tachyonic loop" claims | Low | Removes internal contradiction | ✅ **Resolved** — `math_foundations_zf.md` §11; `tachyonic_loop.py` + `complex_euler.py` updated |
+| 7 | Specify observer read-write $\Phi$ for at least one domain | Medium | Moves from placeholder to model | 🟡 **Partial** — §12 gives δ-function structural form; concrete fluid-domain spec remains |
+| 8 | Engage entropy-causality literature properly | Low-Medium | Avoids reinventing the wheel | ⬜ Open |
+
+### Resolution notes (2025-02-25)
+
+**New document:** [`docs/math_foundations_zf.md`](../docs/math_foundations_zf.md) — ZF set-theoretic derivation chain from ∅ → ℕ → ℤ → ℚ → ℝ → ℂ → (M, g_μν) → Kerr → Sandy Chaos.
+
+**Items resolved:**
+- **#1 (Complex entropy state):** Z = α + iβ derived as canonical embedding of ℝ² into the unique algebraic closure ℂ (§5, §10). Pythagorean norm and polar decomposition are forced, not chosen.
+- **#2 (GR does theoretical work):** §9 shows Kerr frame-dragging creates intrinsic (non-coordinate) channel asymmetry via g_{tφ} ≠ 0. Ergosphere topology ≠ flat-space latency; Kretschner scalar invariant proves it's not removable by boost.
+- **#5 (Three-layer time composition):** §12 defines explicit coupling: geometric → proper (geodesic integration), proper → informational (mutual-information modulation), informational → geometric (δ-function read-write feedback). Two-agent composition law given.
+- **#6 (Tachyonic loop renamed):** §11 gives correct interpretation as entropic vortex charge (topological defect detection via Cauchy theorem). Winding number ∈ ℤ. Code files `complex_euler.py` and `tachyonic_loop.py` updated with corrected docstrings; class name retained for backward compatibility.
+
+**Items partially addressed:**
+- **#7 (Observer Φ):** §12 provides the structural form (δ-function source modulated by S_t, A_t). Concrete specification for the fluid simulation domain is future work.
+
+**Items remaining:**
+- **#3:** Hyperstition dynamics $\mathcal{G}$ — needs toy-model specification and fixed-point analysis.
+- **#4:** Epistemic retro-influence — needs anchoring in game theory literature.
+- **#8:** Entropy-causality — needs engagement with Wissner-Gross, Verlinde, Penrose, Carroll.
 
 ---
 

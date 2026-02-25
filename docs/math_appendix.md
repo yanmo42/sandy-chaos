@@ -1,5 +1,11 @@
 # Math Appendix
 
+> **Axiomatic grounding.** All equations in this appendix derive from the
+> ZF set-theoretic foundations established in
+> [`math_foundations_zf.md`](math_foundations_zf.md). Section references
+> (§0–§14) point to specific derivation layers in that document.
+> The chain: $\varnothing \to \mathbb{N} \to \mathbb{Z} \to \mathbb{Q} \to \mathbb{R} \to \mathbb{C} \to (M, g_{\mu\nu}) \to \text{Kerr} \to \text{Sandy Chaos}$.
+
 This appendix collects compact formal elements used across the core docs.  
 Derivations are intentionally lightweight; this project prioritizes conceptual clarity plus falsifiable structure.
 

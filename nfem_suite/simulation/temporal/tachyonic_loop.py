@@ -1,12 +1,19 @@
 """
-Tachyonic Loop Module
-=====================
-Analyzes closed temporal loops for ΔT computation.
+Entropic Circulation Module (formerly "Tachyonic Loop")
+========================================================
+Analyzes closed loops in phase space for entropic vortex charges.
 
-When a system trajectory forms a closed loop in physical space, we can
-compute the temporal displacement ΔT around that loop. If ΔT ≠ 0, this
-indicates a temporal asymmetry - the loop has a "temporal charge" that
-could, in principle, enable information to arrive before it was sent.
+When a system trajectory forms a closed loop in physical space, we compute
+the entropic circulation ΔT = ∮ Z(s) ds around that loop. By the Cauchy
+Integral Theorem (see docs/math_foundations_zf.md §11):
+
+- ΔT = 0 if the entropy field Z is holomorphic (no singularity) inside
+- ΔT ≠ 0 indicates a topological defect — a vortex source or sink —
+  enclosed by the loop
+
+The winding number n ∈ ℤ (integers, §2) counts enclosed defects with sign.
+This is an entropic vortex charge: a quantized, measurable topological
+invariant. It does NOT imply backward-time signaling or tachyonic behavior.
 
 This module detects, tracks, and analyzes such loops.
 """
@@ -18,17 +25,22 @@ from collections import deque
 
 class TachyonicLoop:
     """
-    Tracks and analyzes closed loops in phase space for temporal anomalies.
+    Tracks and analyzes closed loops in phase space for entropic circulation.
     
-    A tachyonic loop is a closed path where:
-    ∮ Z(s) ds ≠ 0
+    An entropic vortex is detected when a closed path satisfies:
+    ΔT = ∮ Z(s) ds ≠ 0
     
-    This non-zero contour integral indicates temporal displacement.
+    This non-zero contour integral indicates a topological defect (vortex
+    source/sink) enclosed by the loop. The winding number n ∈ ℤ counts
+    the enclosed defects. See docs/math_foundations_zf.md §11.
+    
+    Note: Class name retained as TachyonicLoop for backward compatibility.
+    The concept is correctly understood as entropic circulation / vortex charge.
     """
     
     def __init__(self, max_loops: int = 100):
         """
-        Initialize the tachyonic loop tracker.
+        Initialize the entropic circulation tracker.
         
         Args:
             max_loops: Maximum number of loops to retain in history
@@ -73,7 +85,7 @@ class TachyonicLoop:
     
     def close_loop(self, end_time: float, formalization) -> Optional[Dict]:
         """
-        Close the current loop and compute its temporal properties.
+        Close the current loop and compute its entropic circulation properties.
         
         Args:
             end_time: Simulation time at loop closure
@@ -85,7 +97,7 @@ class TachyonicLoop:
         if not self.loop_in_progress or len(self.current_loop_path) < 3:
             return None
         
-        # Compute temporal displacement
+        # Compute entropic circulation (contour integral)
         delta_t = formalization.temporal_displacement(
             self.current_loop_path, 
             self.current_loop_states
@@ -236,13 +248,16 @@ class TachyonicLoop:
     
     def has_significant_temporal_anomaly(self, threshold: float = 0.1) -> bool:
         """
-        Check if any recent loops show significant temporal displacement.
+        Check if any recent loops show significant entropic circulation.
+        
+        A significant ΔT indicates enclosed vortex defects in the entropy
+        field — topological structure, not backward-time effects (§11).
         
         Args:
-            threshold: Threshold for significance
+            threshold: Threshold for significance of |ΔT|
         
         Returns:
-            True if anomaly detected
+            True if significant entropic vortex charge detected
         """
         if len(self.loop_history) == 0:
             return False
