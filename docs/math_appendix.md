@@ -5,7 +5,7 @@ Derivations are intentionally lightweight; this project prioritizes conceptual c
 
 ---
 
-## A) Forward dynamics and retrodiction
+## A) Forward dynamics, retrodiction, and boundary propagation
 
 Forward evolution:
 
@@ -25,16 +25,29 @@ $$
 P(\hat{a}_t = a_t) \approx 1
 $$
 
-Anticipatory policy under expected future evaluation:
+Boundary-propagation field (downstream-conditioned):
 
 $$
-a_t^* = \arg\max_a\;\mathbb{E}\big[U(a,\Psi(R(F_\Delta(x_t,a,\eta_t))))\mid \mathcal{I}_t\big]
+\partial_t q + u\,\partial_x q = D\,\partial_{xx} q + \eta,
+\qquad q(L,t)=B(t)
+$$
+
+Subcritical upstream-legibility condition:
+
+$$
+Fr=\frac{u}{\sqrt{gh}}<1
+$$
+
+Local structural update:
+
+$$
+s_{t+\Delta}=\Pi\big(s_t,\nabla q(x_s,t),\zeta_t\big)
 $$
 
 Causality safety criterion:
 
 $$
-P(a_t\mid do(x_{t+\Delta}=z),\mathcal{I}_t)=P(a_t\mid\mathcal{I}_t)
+P(s_t\mid do(B_{t+\Delta}=b),\mathcal{I}_t)=P(s_t\mid\mathcal{I}_t)
 $$
 
 ---

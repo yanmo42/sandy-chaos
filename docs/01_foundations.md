@@ -34,51 +34,65 @@ $$
 
 ---
 
-## 4) Retrodictive transparency vs retrocausality
+## 4) Structural back-propagation vs retrocausality
 
 ### Plain language
 
-Future observers may infer what happened in the past with very high precision.  
-That can change present behavior **because people know they will be inferable**.
+Future-like informational effects can arise from **boundary-condition propagation** in continuous media.  
+In a subcritical flow, mass/entropy move downstream, while pressure/standing-wave signatures from a downstream obstacle can propagate upstream.
 
-This creates a strong *appearance* of backward influence, but causality is still forward-only.
+An upstream micro-observer can read downstream structure from local gradients without any backward-time channel. The appearance of “retro” influence is therefore geometric/informational, not ontic retrocausation.
 
 ### Minimal formalization
 
-Retrodiction map:
+Let $q(x,t)$ be a structural-information field on a directed domain $x\in[0,L]$ with downstream boundary at $x=L$:
 
 $$
-\hat{a}_t = R(x_{t+\Delta}), \qquad P(\hat{a}_t = a_t) \approx 1
+\partial_t q + u\,\partial_x q = D\,\partial_{xx} q + \eta(x,t),
+\qquad q(L,t)=B(t)
 $$
 
-Anticipatory policy (present agent optimizing under expected future inference):
+Subcritical condition:
 
 $$
-a_t^* = \arg\max_a\;\mathbb{E}\big[U(a, \Psi(R(F_\Delta(x_t,a,\eta_t))))\mid \mathcal{I}_t\big]
+Fr=\frac{u}{\sqrt{gh}}<1 \quad\Rightarrow\quad c_{up}=\sqrt{gh}-u>0
 $$
 
-Where $\mathcal{I}_t$ is present information about the future observers’ capabilities.
+So downstream boundary structure $B(t)$ can influence upstream positions after finite forward delay:
+
+$$
+q(x_u,t)=\mathcal{K}\big(B(t-\tau_u),\eta_{[0,t]}\big),
+\qquad \tau_u=\frac{L-x_u}{c_{up}}>0
+$$
+
+Micro-observer/system update is local-gradient driven:
+
+$$
+s_{t+\Delta}=\Pi\big(s_t,\nabla q(x_s,t),\zeta_t\big)
+$$
+
+No update term requires injecting future-time values into present-time dynamics.
 
 ### Causal safety test
 
 $$
-P(a_t\mid do(x_{t+\Delta}=z),\mathcal{I}_t)=P(a_t\mid\mathcal{I}_t)
+P(s_t\mid do(B_{t+\Delta}=b),\mathcal{I}_t)=P(s_t\mid\mathcal{I}_t)
 $$
 
-If this holds, there is no ontic backward causal arrow.
+If this holds, there is no ontic backward causal arrow — only forward propagation of structural constraints.
 
 ---
 
 ## 5) Philosophical lens (without dropping rigor)
 
 The key shift is from **“Can the future act on the past?”** to  
-**“How does anticipated future legibility reshape present agency?”**
+**“How do downstream structures become legible upstream under forward dynamics?”**
 
-This is a framework of responsibility under inferability:
+This is a framework of local response under global constraint:
 
 - not determinism,
 - not mystical retro-action,
-- but strategic self-positioning inside a known inferential ecosystem.
+- but systems adapting to local gradients produced by boundary geometry.
 
 ---
 

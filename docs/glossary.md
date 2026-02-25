@@ -6,13 +6,13 @@
 Physical causal influence from a future event to a past event.
 
 ### Epistemic retro-influence (allowed)
-Present behavior changes because agents anticipate future inference or future evaluation, without any backward physical causal channel.
+Present system state changes because downstream/topological boundary conditions become legible upstream through lawful forward dynamics (e.g., standing waves/backpressure in subcritical flow), without any backward physical causal channel.
 
 ### Retrodictive transparency
 Condition where future observers can infer past states/actions with high fidelity from later observables.
 
 ### Causality-safe informational closure
-A temporally distributed strategic loop where all physical causation remains forward, but agents coordinate across expected inference capabilities.
+A temporally distributed constraint loop where all physical causation remains forward, but coupled systems coordinate through shared boundary-conditioned legibility.
 
 ---
 
@@ -49,8 +49,8 @@ Priors, memory, attention, self-model, and current interpretive stance of the ob
 ### Latent state $L_t$
 Underlying state not directly observed (or only partially observed).
 
-### Anticipatory policy coupling
-Policy updates driven by expected future inference/evaluation under present information.
+### Boundary-gradient coupling
+System updates driven by present local gradients that encode downstream structural constraints.
 
 ### Agency (operational)
 Capacity to choose policy, evaluate outcomes, and update policy under internal objectives.

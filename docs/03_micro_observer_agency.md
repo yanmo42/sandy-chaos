@@ -62,22 +62,22 @@ Communicators may be:
 
 ---
 
-## 5) Anticipatory coupling without retrocausality
+## 5) Structural coupling without retrocausality
 
-This is where your key distinction lives at micro scale:
+This is where the key distinction lives at micro scale:
 
-- Future observers may be highly retrodictive.
-- Present agents may alter policy because they expect that future legibility.
+- downstream/topological structure can become locally legible upstream,
+- present systems update from local gradients carrying that structural information.
 
 That is **epistemic retro-influence**, not physical retrocausality.
 
-Policy view:
+Gradient-coupled view:
 
 $$
-a_t^* = \arg\max_a\;\mathbb{E}[U(a, \Psi_{future\_evaluation})\mid \mathcal{I}_t]
+s_{t+\Delta}=\Pi\big(s_t,\nabla q(x_s,t),\zeta_t\big)
 $$
 
-The action depends on present information state $\mathcal{I}_t$, not on a backward causal signal.
+The update depends on present local state and local field geometry, not on a backward causal signal.
 
 ---
 
