@@ -55,6 +55,15 @@ System updates driven by present local gradients that encode downstream structur
 ### Agency (operational)
 Capacity to choose policy, evaluate outcomes, and update policy under internal objectives.
 
+### Axiomatic Injection
+The embedding of strict, non-negotiable human values and temporal coherence requirements directly into the lowest-level transition operators of a physical/computational substrate (like electromagnetic field execution).
+
+### Ouroboros Stabilization Effect
+A mutually constrained causal loop where human foresight (slow-clock) and machine prediction (fast-clock) continuously adapt to each other, stabilizing state-to-state transitions without instantaneous computation or retrocausality.
+
+### Predictive Projection
+The phenomenon where a machine mechanism anticipates and projects future states before the human explicitly provides input, acting as a local gradient that guides human action.
+
 ---
 
 ## Governance terms

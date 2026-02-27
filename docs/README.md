@@ -6,11 +6,14 @@ This documentation set is intentionally compressed into a small canonical path:
 2. **[02 Tempo Tracer Protocol](02_tempo_tracer_protocol.md)**
 3. **[03 Micro-Observer & Agency](03_micro_observer_agency.md)**
 4. **[04 Neuro Roadmap](04_neuro_roadmap.md)**
+5. **[05 Hyperstition Temporal Bridge Analysis](05_hyperstition_temporal_bridge_analysis.md)**
+6. **[06 The Observer Ouroboros](06_observer_ouroboros.md)**
 
 Supporting references:
 
 - **[Glossary](glossary.md)**
 - **[Math Appendix](math_appendix.md)**
+- **[Math Foundations ZF](math_foundations_zf.md)**
 
 Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
