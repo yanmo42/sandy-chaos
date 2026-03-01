@@ -56,13 +56,13 @@ System updates driven by present local gradients that encode downstream structur
 Capacity to choose policy, evaluate outcomes, and update policy under internal objectives.
 
 ### Axiomatic Injection
-The embedding of strict, non-negotiable human values and temporal coherence requirements directly into the lowest-level transition operators of a physical/computational substrate (like electromagnetic field execution).
+*(Speculative)* A proposed design constraint where strict human values and temporal coherence requirements are embedded into the lowest-level transition operators of a computational architecture, rather than acting as superficial software filters.
 
 ### Ouroboros Stabilization Effect
-A mutually constrained causal loop where human foresight (slow-clock) and machine prediction (fast-clock) continuously adapt to each other, stabilizing state-to-state transitions without instantaneous computation or retrocausality.
+An operational feedback loop where a human user and an anticipatory machine system continuously constrain each other. The continuous adaptation between human cognitive priors (slow-clock) and machine probabilistic prediction (fast-clock) narrows the shared optimization basin.
 
 ### Predictive Projection
-The phenomenon where a machine mechanism anticipates and projects future states before the human explicitly provides input, acting as a local gradient that guides human action.
+A measurable forecasting heuristic where a machine, using behavioral histories and semantic models, probabilistically anticipates and presents future state options to the user before explicit input is fully finalized.
 
 ---
 
