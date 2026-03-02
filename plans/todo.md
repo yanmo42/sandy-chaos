@@ -210,10 +210,10 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 ## Agency + Temporal Communication Buildout (New Direction)
 
 - [x] Define agency observables in-code (`intervention_gain`, `counterfactual_control_score`, `predictive_horizon`)
-- [ ] Add temporal frame communication metrics (`C_A->B(Δτ)`, `C_B->A(Δτ)`, asymmetry surface)
-- [ ] Add null-model vs coupled-model falsification tests for frame asymmetry
-- [ ] Add dashboard traces for observer-coupling drift and frame-channel asymmetry
-- [ ] Document claim tiers explicitly for this direction (defensible / speculative split)
+- [x] Add temporal frame communication metrics (`C_A->B(Δτ)`, `C_B->A(Δτ)`, asymmetry surface)
+- [x] Add null-model vs coupled-model falsification tests for frame asymmetry
+- [x] Add dashboard traces for observer-coupling drift and frame-channel asymmetry
+- [x] Document claim tiers explicitly for this direction (defensible / speculative split)
 
 ## Assistant Improvement TODOs (OpenClaw)
 
