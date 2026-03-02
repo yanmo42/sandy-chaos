@@ -2,7 +2,7 @@
 
 ## 1) Purpose
 
-Define a closed operational loop for Sandy Chaos where assistant work on the repo is automatically summarized and pushed to operator on Telegram.
+Define a closed operational loop for Sandy Chaos where assistant work on the repo is automatically summarized and pushed to the designated operator via Telegram.
 
 ## 2) Loop model (three-layer alignment)
 

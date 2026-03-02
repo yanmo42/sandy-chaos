@@ -5,10 +5,10 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=${REPO_ROOT}
+WorkingDirectory=%h/dev/sandy-chaos
 # Required: export OPENCLAW_TELEGRAM_BOT_TOKEN in EnvironmentFile below.
 EnvironmentFile=%h/.config/sandy-chaos/automation.env
-Environment=PATH=/home/ian/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=/usr/bin/python3 ${REPO_ROOT}/scripts/self_improve.py full-pass --scheduler host-cron --with-orchestration --with-dispatch --dispatch-limit 3 --send-telegram
+Environment=PATH=%h/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/usr/bin/python3 %h/dev/sandy-chaos/scripts/self_improve.py full-pass --scheduler host-cron --with-orchestration --with-dispatch --dispatch-limit 3 --send-telegram
 StandardOutput=append:%h/.local/state/sandy-chaos/automation.log
 StandardError=append:%h/.local/state/sandy-chaos/automation.log

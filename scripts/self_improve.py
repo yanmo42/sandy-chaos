@@ -96,7 +96,7 @@ def load_config() -> dict:
         return {
             "notifications": {
                 "channel": "telegram",
-                "target": "<REDACTED_CHAT_ID>",
+                "target": os.environ.get("OPENCLAW_TELEGRAM_TARGET", "<REDACTED_CHAT_ID>"),
                 "prefixes": {
                     "daily": "[SANDY-DAILY]",
                     "weekly": "[SANDY-WEEKLY]",

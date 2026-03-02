@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${REPO_ROOT}"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 UNIT_DIR="$HOME/.config/systemd/user"
 ENV_DIR="$HOME/.config/sandy-chaos"
 STATE_DIR="$HOME/.local/state/sandy-chaos"

@@ -6,7 +6,7 @@ Use this after meaningful responses/tasks.
 - [ ] Correct (factually/technically sound)
 - [ ] Clear (easy to read, no fluff)
 - [ ] Actionable (next steps or concrete output)
-- [ ] Aligned (matches operator's request and tone)
+- [ ] Aligned (matches the operator's request and tone)
 
 ## If any box is unchecked
 - Fix immediately in next response.

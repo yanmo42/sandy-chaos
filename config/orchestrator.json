@@ -1,5 +1,5 @@
 {
-  "repoRoot": "${REPO_ROOT}",
+  "repoRoot": ".",
   "todoPath": "plans/todo.md",
   "maxTasksPerCycle": 3,
   "taskSelection": {

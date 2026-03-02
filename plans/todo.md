@@ -240,10 +240,10 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
   - [x] Queue rich digest text entries
   - [x] Add explicit daily/weekly markdown templates
 - [x] Add Telegram delivery wiring for digests
-  - [x] Route default to existing operator-chat chat (`telegram:<REDACTED_CHAT_ID>`) via `config/automation.json`
+  - [x] Route default to configured Telegram chat (`telegram:<REDACTED_CHAT_ID>`) via `config/automation.json`
   - [x] Define anti-spam/quiet-hour guardrails in config
   - [x] Add direct sender in `scripts/self_improve.py` (env-token based)
-  - [ ] Enforce runtime rate-limit checks from config
+  - [x] Enforce runtime rate-limit checks from config
 - [x] Add docs for operation + failover
   - [x] Primary trigger: heartbeat
   - [x] Fallback trigger: cron/systemd timer
@@ -270,10 +270,10 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add orchestrator config (`config/orchestrator.json`) for selection/gates
 - [x] Add coordinator script to emit task contracts (`scripts/automation_orchestrator.py`)
 - [x] Document v1 orchestration flow in `docs/07_agentic_automation_loop.md`
-- [🟡] Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)
+- [x] Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)
 
 
-- [🟡] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)
+- [x] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)
   - [x] Resolve dynamic target session selection (service now resolves latest UUID sessionId)
 
 - [x] Add one-command wrapper for plan + spawn-request generation (`scripts/run_sandy_cycle.sh`)

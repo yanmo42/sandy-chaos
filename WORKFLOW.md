@@ -142,7 +142,7 @@ Current artifacts:
 - `config/automation.json` (notification target/prefix/guardrails)
 
 Telegram delivery:
-- Default routing target: operator-chat chat (`telegram:<REDACTED_CHAT_ID>`)
+- Default routing target: configured Telegram chat (`telegram:<REDACTED_CHAT_ID>`)
 - `scripts/self_improve.py full-pass --send-telegram` sends a rich narrative digest
 - Token source for unattended sends: `OPENCLAW_TELEGRAM_BOT_TOKEN` via `~/.config/sandy-chaos/automation.env`
 

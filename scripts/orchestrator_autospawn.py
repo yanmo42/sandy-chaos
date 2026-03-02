@@ -54,7 +54,7 @@ def to_spawn_request(task: dict, idx: int) -> dict:
         "Constraints:\n- " + "\n- ".join(constraints) + "\n\n"
         "Definition of done:\n- " + "\n- ".join(dod) + "\n\n"
         f"Validation command: {validation}\n"
-        "Work in ${REPO_ROOT}. Make scoped changes and commit when done."
+        f"Work in {ROOT}. Make scoped changes and commit when done."
     )
 
     return {
@@ -66,7 +66,7 @@ def to_spawn_request(task: dict, idx: int) -> dict:
             "mode": "run",
             "cleanup": "delete",
             "model": "openai-codex/gpt-5.3-codex",
-            "cwd": "${REPO_ROOT}",
+            "cwd": str(ROOT),
             "task": prompt,
         },
     }
