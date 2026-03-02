@@ -17,3 +17,10 @@ BATTERY_CAPACITY = 100.0 # Watt-hours
 # Sensor Network
 PING_COST = 0.5 # Energy cost to ping neighbors (Watts/ping)
 COMM_RANGE = 15.0 # meters
+
+# Observer read-write coupling
+OBSERVER_COUPLING_ENABLED = True
+OBSERVER_COUPLING_GAIN = 0.15
+OBSERVER_COUPLING_SIGMA = 8.0
+OBSERVER_COUPLING_DECAY = 0.9
+OBSERVER_COUPLING_MAX_PERTURBATION = 2.0

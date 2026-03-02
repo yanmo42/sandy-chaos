@@ -21,7 +21,12 @@ from nfem_suite.simulation.flows import CollapseSimulator
 from nfem_suite.simulation.environment import SunlightSimulator
 from nfem_suite.simulation.communication import VortexChannel, TemporalProtocol
 from nfem_suite.simulation.temporal import TachyonicLoop, NestedTimeTracker
-from nfem_suite.simulation.agents import ObserverAgent, ConcentrationParameters
+from nfem_suite.simulation.agents import (
+    ObserverAgent,
+    ConcentrationParameters,
+    ObserverCoupling,
+    ObserverCouplingConfig,
+)
 from nfem_suite.intelligence.geometry import VectorSpace
 from nfem_suite.intelligence.entropy import EntropyEngine
 from nfem_suite.intelligence.thermo import EnthalpyField
@@ -29,7 +34,16 @@ from nfem_suite.intelligence.duality import DualitySpace
 from nfem_suite.visualization.dashboard import Dashboard
 from nfem_suite.core.control import ControlSystem
 from nfem_suite.core.logger import DataLogger
-from nfem_suite.config.settings import GRID_WIDTH, GRID_HEIGHT, TIME_STEP
+from nfem_suite.config.settings import (
+    GRID_WIDTH,
+    GRID_HEIGHT,
+    TIME_STEP,
+    OBSERVER_COUPLING_ENABLED,
+    OBSERVER_COUPLING_GAIN,
+    OBSERVER_COUPLING_SIGMA,
+    OBSERVER_COUPLING_DECAY,
+    OBSERVER_COUPLING_MAX_PERTURBATION,
+)
 from nfem_suite.formalization import registry
 
 
@@ -71,6 +85,17 @@ def main():
     agent_b = ObserverAgent("Observer B", idea_basis, params=params_b, rng_seed=99)
     time_a = NestedTimeTracker(agent_a.name)
     time_b = NestedTimeTracker(agent_b.name)
+
+    # Read-write observer coupling Φ(S_t, M_t, feedback)
+    observer_coupling = ObserverCoupling(
+        ObserverCouplingConfig(
+            enabled=OBSERVER_COUPLING_ENABLED,
+            gain=OBSERVER_COUPLING_GAIN,
+            probe_sigma=OBSERVER_COUPLING_SIGMA,
+            decay=OBSERVER_COUPLING_DECAY,
+            max_perturbation=OBSERVER_COUPLING_MAX_PERTURBATION,
+        )
+    )
     
     # Logging & Visualization
     logger = DataLogger(filename="enthalpy_simulation_data.csv")
@@ -113,23 +138,56 @@ def main():
             # Update control system (moving target zone)
             control.update_target(t)
             
+            # Observer-state view used by read-write coupling
+            diagnostics_a = agent_a.diagnostics()
+            diagnostics_b = agent_b.diagnostics()
+            observer_states = {
+                agent_a.name: {
+                    "probe_position": np.array([GRID_WIDTH * 0.3, GRID_HEIGHT * 0.5]),
+                    "probe_axis": np.array([1.0, 0.0]),
+                    "read_gain": agent_a.params.read_gain,
+                    "write_gain": agent_a.params.write_gain,
+                    "feedback": diagnostics_a["order"] - diagnostics_a["disorder"],
+                },
+                agent_b.name: {
+                    "probe_position": np.array([GRID_WIDTH * 0.7, GRID_HEIGHT * 0.5]),
+                    "probe_axis": np.array([-1.0, 0.0]),
+                    "read_gain": agent_b.params.read_gain,
+                    "write_gain": agent_b.params.write_gain,
+                    "feedback": diagnostics_b["order"] - diagnostics_b["disorder"],
+                },
+            }
+
+            # Update read (measurement) term from current network state
+            observer_coupling.update_measurements(
+                observer_states,
+                network.get_positions(),
+                network.get_velocities(),
+            )
+
+            perturbation_magnitudes = []
+
             # Process each node
             for node in network.nodes:
                 if not node.is_active:
                     continue
-                
+
                 # 1. Natural physics (entropic collapse)
                 v_flow = collapse_sim.get_velocity_at(node.position[0], node.position[1], t)
-                
+
                 # 2. Control intervention
                 v_control = control.get_control_vector(node)
-                
-                # 3. Combine
-                v_total = v_flow + v_control
-                
-                # 4. Energy environment
+
+                # 3. Read-write observer coupling term Φ(S_t, M_t, feedback)
+                v_coupling = observer_coupling.perturbation_for_node(node.position, observer_states)
+                perturbation_magnitudes.append(float(np.linalg.norm(v_coupling)))
+
+                # 4. Combine
+                v_total = v_flow + v_control + v_coupling
+
+                # 5. Energy environment
                 irradiance = sunlight.get_irradiance_at(node.position[0], node.position[1], t)
-                
+
                 # Update node state
                 node.update_physics(v_total, TIME_STEP)
                 node.harvest_energy(irradiance, TIME_STEP)
@@ -231,8 +289,7 @@ def main():
             
             # Console output (every 50 iterations)
             if iteration % 50 == 0:
-                diagnostics_a = agent_a.diagnostics()
-                diagnostics_b = agent_b.diagnostics()
+                coupling_stats = observer_coupling.collect_step_stats(perturbation_magnitudes, len(observer_states))
                 print(f"t={t:6.1f}s | Nodes={active_count:3d} | "
                       f"K-Ent={k_entropy:.3f} | H̄={enthalpy_stats['mean_enthalpy']:.1f} | "
                       f"Ω={duality_stats['mean_order']:.3f} | "
@@ -240,6 +297,7 @@ def main():
                       f"τ={abs(duality_space.emergent_time):.2f} | "
                       f"Winding={duality_space.winding_number:.2f} | "
                       f"Ch.Cap={channel_stats['channel_capacity']:.3f} | "
+                      f"Φ̄={coupling_stats['mean_perturbation']:.3f} "
                       f"A Ω={diagnostics_a['order']:.2f} B Ω={diagnostics_b['order']:.2f}")
             
             # ================================================================
