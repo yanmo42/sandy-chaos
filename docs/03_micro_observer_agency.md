@@ -167,6 +167,15 @@ The simulation now exports three forward-causal agency observables from `Observe
 
 All three are computed from present-step measurements/state and characterize only future update influence (no retrocausal interpretation).
 
+Dashboard instrumentation now also tracks two causal traces for operator visibility:
+- **`observer_coupling_drift`**: stepwise change in realized coupling magnitude,
+  
+  \(|\mathbb{E}[\|\Phi\|]_t - \mathbb{E}[\|\Phi\|]_{t-1}|\).
+- **`frame_channel_asymmetry`**: integrated directional communication gap,
+  
+  \(\sum_{\Delta\tau}\,|\mathcal{A}(\Delta\tau)|\), where
+  \(\mathcal{A}(\Delta\tau)=C_{A\to B}(\Delta\tau)-C_{B\to A}(\Delta\tau)\).
+
 ### Claim-tier discipline
 
 - **Defensible now:** bounded read-write backreaction and measurable frame-conditioned prediction differences.

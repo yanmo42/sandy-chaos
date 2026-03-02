@@ -255,6 +255,8 @@ def main():
             
             vortex_channel.update(t)
             channel_stats = vortex_channel.get_statistics()
+            temporal_frame_metrics = vortex_channel.compute_temporal_frame_metrics()
+            coupling_stats = observer_coupling.collect_step_stats(perturbation_magnitudes, len(observer_states))
 
             # 5. Consciousness Extension (idea collapse + entropy loss)
             # Use enthalpy entropy production as a shared thermodynamic drain
@@ -289,7 +291,6 @@ def main():
             
             # Console output (every 50 iterations)
             if iteration % 50 == 0:
-                coupling_stats = observer_coupling.collect_step_stats(perturbation_magnitudes, len(observer_states))
                 print(f"t={t:6.1f}s | Nodes={active_count:3d} | "
                       f"K-Ent={k_entropy:.3f} | H̄={enthalpy_stats['mean_enthalpy']:.1f} | "
                       f"Ω={duality_stats['mean_order']:.3f} | "
@@ -316,7 +317,9 @@ def main():
                     control=control,
                     enthalpy_field=enthalpy_field if DASHBOARD_MODE == 'full' else None,
                     duality_space=duality_space if DASHBOARD_MODE == 'full' else None,
-                    vortex_channel=vortex_channel if DASHBOARD_MODE == 'full' else None
+                    vortex_channel=vortex_channel if DASHBOARD_MODE == 'full' else None,
+                    observer_coupling_stats=coupling_stats if DASHBOARD_MODE == 'full' else None,
+                    temporal_frame_metrics=temporal_frame_metrics if DASHBOARD_MODE == 'full' else None,
                 )
             
             # Advance time

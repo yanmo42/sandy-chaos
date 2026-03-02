@@ -58,12 +58,17 @@ class Dashboard:
         self.entropy_history = []
         self.energy_entropy_history = []
         self.struct_entropy_history = []
-        
+        self.trace_time_history = []
+        self.observer_coupling_drift_history = []
+        self.frame_channel_asymmetry_history = []
+        self._last_mean_perturbation = None
+
         # Colorbar reference
         self.cbar_enthalpy = None
     
     def update(self, network, gradients, k_entropy, e_entropy, s_entropy, triangulation, time, control=None,
-               enthalpy_field=None, duality_space=None, vortex_channel=None):
+               enthalpy_field=None, duality_space=None, vortex_channel=None,
+               observer_coupling_stats=None, temporal_frame_metrics=None):
         """
         Update all dashboard panels.
         
@@ -79,14 +84,17 @@ class Dashboard:
             enthalpy_field: EnthalpyField object (optional)
             duality_space: DualitySpace object (optional)
             vortex_channel: VortexChannel object (optional)
+            observer_coupling_stats: Observer coupling diagnostics (optional)
+            temporal_frame_metrics: Directional frame metrics (optional)
         """
         if self.mode == 'simple':
             self._update_simple(network, gradients, k_entropy, e_entropy, s_entropy, 
                               triangulation, time, control)
         else:
             self._update_full(network, gradients, k_entropy, e_entropy, s_entropy,
-                            triangulation, time, control, enthalpy_field, 
-                            duality_space, vortex_channel)
+                            triangulation, time, control, enthalpy_field,
+                            duality_space, vortex_channel,
+                            observer_coupling_stats, temporal_frame_metrics)
         
         plt.draw()
         plt.pause(0.001)
@@ -104,7 +112,8 @@ class Dashboard:
         self._draw_stats_panel(self.ax_stats, k_entropy, e_entropy, s_entropy)
     
     def _update_full(self, network, gradients, k_entropy, e_entropy, s_entropy,
-                    triangulation, time, control, enthalpy_field, duality_space, vortex_channel):
+                    triangulation, time, control, enthalpy_field, duality_space, vortex_channel,
+                    observer_coupling_stats, temporal_frame_metrics):
         """Update full 6-panel dashboard."""
         # Clear all axes
         for ax in [self.ax_map, self.ax_enthalpy, self.ax_stats, self.ax_duality]:
@@ -128,10 +137,17 @@ class Dashboard:
         # Panel 4: Traditional Entropy Stats
         self._draw_stats_panel(self.ax_stats, k_entropy, e_entropy, s_entropy)
         
+        self._record_dashboard_traces(time, observer_coupling_stats, temporal_frame_metrics)
+
         # Panel 5: Temporal Evolution (handled by visualizer)
         if duality_space and len(duality_space.time_history) > 0:
             history = duality_space.get_history_arrays()
-            self.temporal_viz.plot_emergent_time(history)
+            overlays = {
+                'time': np.array(self.trace_time_history, dtype=float),
+                'observer_coupling_drift': np.array(self.observer_coupling_drift_history, dtype=float),
+                'frame_channel_asymmetry': np.array(self.frame_channel_asymmetry_history, dtype=float),
+            }
+            self.temporal_viz.plot_emergent_time(history, overlay_traces=overlays)
         
         # Panel 6: Order-Disorder Balance
         if duality_space and len(duality_space.time_history) > 0:
@@ -299,7 +315,32 @@ class Dashboard:
         ax.legend(fontsize=8)
         ax.set_ylim(0, 1)
         ax.grid(True, alpha=0.3)
-    
+
+    def _record_dashboard_traces(self, time, observer_coupling_stats, temporal_frame_metrics):
+        """Track forward-causal traces for temporal dashboard overlays."""
+        mean_pert = float((observer_coupling_stats or {}).get('mean_perturbation', 0.0))
+        if self._last_mean_perturbation is None:
+            drift = 0.0
+        else:
+            drift = abs(mean_pert - self._last_mean_perturbation)
+        self._last_mean_perturbation = mean_pert
+
+        asym = 0.0
+        if temporal_frame_metrics is not None:
+            asymmetry = np.asarray(temporal_frame_metrics.get('asymmetry', np.array([])), dtype=float)
+            if asymmetry.size > 0:
+                asym = float(np.sum(np.abs(asymmetry)))
+
+        self.trace_time_history.append(float(time))
+        self.observer_coupling_drift_history.append(float(drift))
+        self.frame_channel_asymmetry_history.append(float(asym))
+
+        max_len = 300
+        if len(self.trace_time_history) > max_len:
+            self.trace_time_history = self.trace_time_history[-max_len:]
+            self.observer_coupling_drift_history = self.observer_coupling_drift_history[-max_len:]
+            self.frame_channel_asymmetry_history = self.frame_channel_asymmetry_history[-max_len:]
+
     def show(self):
         """Display the dashboard."""
         plt.show()

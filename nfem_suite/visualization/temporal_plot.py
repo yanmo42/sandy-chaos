@@ -33,12 +33,16 @@ class TemporalPlotVisualizer:
             self.ax = ax
             self.fig = None
     
-    def plot_emergent_time(self, history: Dict[str, np.ndarray]):
+    def plot_emergent_time(self, history: Dict[str, np.ndarray], overlay_traces: Optional[Dict[str, np.ndarray]] = None):
         """
         Plot emergent time evolution τ(t).
         
         Args:
             history: Dictionary with 'time', 'emergent_time_real', 'emergent_time_imag'
+            overlay_traces: Optional dashboard traces with keys:
+                - 'time': x-axis time array
+                - 'observer_coupling_drift': drift magnitude history
+                - 'frame_channel_asymmetry': asymmetry history
         """
         self.ax.clear()
         
@@ -73,6 +77,31 @@ class TemporalPlotVisualizer:
         self.ax.set_title("Emergent Time Evolution", fontsize=12)
         self.ax.legend(loc='best', fontsize=9)
         self.ax.grid(True, alpha=0.3)
+
+        if overlay_traces is not None:
+            trace_time = np.asarray(overlay_traces.get('time', np.array([])), dtype=float)
+            drift = np.asarray(overlay_traces.get('observer_coupling_drift', np.array([])), dtype=float)
+            asym = np.asarray(overlay_traces.get('frame_channel_asymmetry', np.array([])), dtype=float)
+
+            if len(trace_time) > 1:
+                ax2 = self.ax.twinx()
+                ax2.set_ylabel("Trace Metrics", fontsize=9, color='gray')
+
+                if len(drift) > 0:
+                    n = min(len(trace_time), len(drift))
+                    ax2.plot(trace_time[-n:], drift[-n:], color='orange', lw=1.5, alpha=0.8,
+                             linestyle='-.', label='Observer Coupling Drift')
+
+                if len(asym) > 0:
+                    n = min(len(trace_time), len(asym))
+                    ax2.plot(trace_time[-n:], asym[-n:], color='purple', lw=1.5, alpha=0.8,
+                             linestyle=':', label='Frame-Channel Asymmetry')
+
+                lines1, labels1 = self.ax.get_legend_handles_labels()
+                lines2, labels2 = ax2.get_legend_handles_labels()
+                if lines2:
+                    self.ax.legend(lines1 + lines2, labels1 + labels2, loc='best', fontsize=8)
+                ax2.grid(False)
     
     def plot_phase_evolution(self, history: Dict[str, np.ndarray]):
         """
