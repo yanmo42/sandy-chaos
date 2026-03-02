@@ -251,3 +251,14 @@ Use repo-local secrets for portable setups without committing PII:
 The systemd service loads:
 - `%h/dev/sandy-chaos/.secrets.local.env` (preferred)
 - `%h/.config/sandy-chaos/automation.env` (legacy fallback)
+
+
+## 15) Git push automation guardrails (planned)
+
+Git automation will follow `docs/08_git_automation_protocol.md`.
+
+Key constraints:
+- unattended jobs may run normal `git push`, but never force-push
+- push only to configured remote/branch
+- require validation gate before push
+- log failures with non-sensitive summaries

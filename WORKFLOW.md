@@ -173,3 +173,19 @@ systemctl --user status sandy-automation.timer --no-pager
 journalctl --user -u sandy-automation.service -n 50 --no-pager
 ```
 
+
+
+## 10) Git automation goals (planned)
+
+Reference: `docs/08_git_automation_protocol.md`
+
+Intent:
+- reproducible auto-push with guardrails
+- no secret leakage
+- no force-push from unattended runs
+
+Planned controls:
+- branch/remote allowlist (`main` + `origin` by default)
+- validation gate before push
+- structured logs + digest on failure
+- dry-run mode before enabling live push
