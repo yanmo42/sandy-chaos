@@ -361,7 +361,7 @@ This completes the derivation chain: ZF → ℝ → manifolds → Lorentzian met
 
 Every formal object in the Sandy Chaos framework is now traceable to a specific
 layer of the derivation chain. This section makes the connections explicit and
-resolves the critiques in `plans/fix-list.md`.
+resolves the critiques in `plans/todo.md`.
 
 ---
 

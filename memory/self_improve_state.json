@@ -1,0 +1,12 @@
+{
+  "last_run": {
+    "daily": "2026-03-01T20:20:10",
+    "weekly": "2026-03-01T20:20:10"
+  },
+  "missed_runs": {
+    "daily": 0,
+    "weekly": 0
+  },
+  "policy_tweak_counts": {},
+  "scheduler_source": "heartbeat"
+}
