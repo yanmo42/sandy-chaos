@@ -263,5 +263,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add orchestrator config (`config/orchestrator.json`) for selection/gates
 - [x] Add coordinator script to emit task contracts (`scripts/automation_orchestrator.py`)
 - [x] Document v1 orchestration flow in `docs/07_agentic_automation_loop.md`
-- [ ] Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)
+- [🟡] Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)
 
+
+- [ ] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)

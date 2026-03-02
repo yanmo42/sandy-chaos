@@ -86,3 +86,21 @@ Outputs:
 - Keeps the automation deterministic and inspectable.
 - Separates **planning**, **building**, **verification**, and **reporting** concerns.
 - Allows gradual expansion to fully automatic spawn execution later.
+
+
+## 9) Auto-spawn executor (v1.5 bridge)
+
+Added `scripts/orchestrator_autospawn.py` to consume `memory/orchestrator_task_plan.jsonl` and emit concrete spawn payloads:
+
+- Input: `memory/orchestrator_task_plan.jsonl`
+- Output: `memory/orchestrator_spawn_requests.json`
+- Log: `memory/orchestrator_dispatch_log.jsonl`
+
+Run:
+
+```bash
+python3 scripts/orchestrator_autospawn.py --limit 3
+```
+
+This is a bridge design: repo automation prepares deterministic `sessions_spawn` payloads, then the active OpenClaw coordinator executes them.
+
