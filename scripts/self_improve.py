@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import urllib.parse
@@ -549,8 +550,6 @@ def send_telegram_message(text: str, dry_run: bool) -> None:
     target = str(cfg.get("target", "")).strip()
     token_env = cfg.get("botTokenEnv", "OPENCLAW_TELEGRAM_BOT_TOKEN")
 
-    import os
-
     token = os.environ.get(token_env, "").strip()
     if not target:
         raise RuntimeError("Telegram target missing in config/automation.json")
@@ -740,9 +739,55 @@ def resolve_dispatch_session_id(agent_id: str = "sandy") -> str | None:
     return best[1] if best else None
 
 
+def resolve_openclaw_command() -> tuple[list[str], list[str]]:
+    """Resolve openclaw executable with explicit-path preference + PATH fallback."""
+    tried: list[str] = []
+
+    candidates: list[Path] = []
+    env_bin = os.environ.get("OPENCLAW_BIN", "").strip()
+    if env_bin:
+        candidates.append(Path(env_bin).expanduser())
+
+    # Preferred explicit locations for this host/user setup.
+    candidates.extend(
+        [
+            Path.home() / ".npm-global" / "bin" / "openclaw",
+            Path("/usr/local/bin/openclaw"),
+            Path("/usr/bin/openclaw"),
+        ]
+    )
+
+    seen: set[str] = set()
+    for c in candidates:
+        raw = str(c)
+        if raw in seen:
+            continue
+        seen.add(raw)
+        tried.append(raw)
+        try:
+            if c.is_file() and os.access(c, os.X_OK):
+                return [raw], tried
+        except Exception:
+            continue
+
+    found = shutil.which("openclaw")
+    if found:
+        tried.append(f"PATH:{found}")
+        return [found], tried
+
+    return [], tried
+
+
 def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
     """Dispatch spawn requests by asking the active OpenClaw session to run them."""
-    out = {"dispatched": 0, "errors": [], "attempted": 0, "session_id": None}
+    out = {
+        "dispatched": 0,
+        "errors": [],
+        "attempted": 0,
+        "session_id": None,
+        "openclaw_path": None,
+        "openclaw_lookup": [],
+    }
     if not ORCH_REQ_PATH.exists():
         return out
 
@@ -751,6 +796,16 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
         requests = req.get("requests", [])[: max_dispatch]
     except Exception as exc:
         out["errors"].append(f"load requests failed: {exc}")
+        return out
+
+    openclaw_cmd, lookup = resolve_openclaw_command()
+    out["openclaw_lookup"] = lookup
+    out["openclaw_path"] = openclaw_cmd[0] if openclaw_cmd else None
+    if not openclaw_cmd:
+        out["errors"].append(
+            "openclaw binary not found (checked explicit paths + PATH). "
+            f"Tried: {', '.join(lookup) if lookup else '(none)'}"
+        )
         return out
 
     session_id = resolve_dispatch_session_id(agent_id="sandy")
@@ -765,13 +820,21 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
         out["attempted"] += 1
 
         if dry_run:
-            print("DRY RUN dispatch via openclaw agent for", r.get("id", "(unknown)"), "session", session_id or "(auto)")
+            print(
+                "DRY RUN dispatch via openclaw agent for",
+                r.get("id", "(unknown)"),
+                "session",
+                session_id or "(auto)",
+                "binary",
+                out["openclaw_path"],
+            )
             out["dispatched"] += 1
             continue
 
-        cmd = ["openclaw", "agent", "--agent", "sandy", "--timeout", "90", "--message", msg]
+        cmd = openclaw_cmd + ["agent"]
         if session_id:
-            cmd[2:2] = ["--session-id", session_id]
+            cmd += ["--session-id", session_id]
+        cmd += ["--agent", "sandy", "--timeout", "90", "--message", msg]
 
         try:
             proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=110)
