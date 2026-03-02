@@ -165,7 +165,7 @@ This means each timer cycle executes:
 1. cadence checks,
 2. orchestrator task-plan generation,
 3. spawn-request generation,
-4. dispatch bridge via active OpenClaw session,
+4. coordinator-side `sessions_spawn` dispatch in the active OpenClaw runtime,
 5. lane-aware productivity digest generation (outbox-first, Telegram optional).
 
 ## 12) Auto-improvement definition (repo-native)
@@ -215,7 +215,7 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 1. `self_improve.py full-pass`
 2. `automation_orchestrator.py` builds task contracts from TODO priorities
 3. `orchestrator_autospawn.py` emits spawn-request payloads
-4. dispatch bridge attempts OpenClaw agent handoff using resolved live UUID session id (not hardcoded key)
+4. coordinator dispatch executes `sessions_spawn` directly from the active OpenClaw runtime (with session-id telemetry retained for debugging)
 5. digest and telemetry are written to memory artifacts
 
 ### Core artifacts

@@ -926,7 +926,7 @@ def resolve_openclaw_command() -> tuple[list[str], list[str]]:
 
 
 def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
-    """Dispatch spawn requests by asking the active OpenClaw session to run them."""
+    """Dispatch spawn requests directly through coordinator-side `sessions_spawn` calls."""
     out = {
         "dispatched": 0,
         "errors": [],
@@ -955,36 +955,31 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
         )
         return out
 
-    session_id = resolve_dispatch_session_id(agent_id="sandy")
-    out["session_id"] = session_id
+    # Kept for telemetry/debugging: most recent coordinator session observed locally.
+    out["session_id"] = resolve_dispatch_session_id(agent_id="sandy")
 
     for r in requests:
-        spawn = r.get("spawn", {})
-        msg = (
-            "Dispatch this spawn contract now using sessions_spawn with exact JSON params: "
-            + json.dumps(spawn, ensure_ascii=False)
-        )
         out["attempted"] += 1
+        spawn = r.get("spawn", {})
+
+        cmd = openclaw_cmd + [
+            "gateway",
+            "call",
+            "sessions_spawn",
+            "--json",
+            "--timeout",
+            "120000",
+            "--params",
+            json.dumps(spawn, ensure_ascii=False),
+        ]
 
         if dry_run:
-            print(
-                "DRY RUN dispatch via openclaw agent for",
-                r.get("id", "(unknown)"),
-                "session",
-                session_id or "(auto)",
-                "binary",
-                out["openclaw_path"],
-            )
+            print("DRY RUN dispatch via sessions_spawn for", r.get("id", "(unknown)"))
             out["dispatched"] += 1
             continue
 
-        cmd = openclaw_cmd + ["agent"]
-        if session_id:
-            cmd += ["--session-id", session_id]
-        cmd += ["--agent", "sandy", "--timeout", "90", "--message", msg]
-
         try:
-            proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=110)
+            proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=130)
             if proc.returncode == 0:
                 out["dispatched"] += 1
             else:

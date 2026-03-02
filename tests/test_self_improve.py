@@ -1,6 +1,8 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts import self_improve
 
@@ -100,6 +102,38 @@ class SelfImprovePromotionTests(unittest.TestCase):
                 self.assertGreaterEqual(text.count("---"), 2)
             finally:
                 self_improve.NOTIFY_OUTBOX = original
+
+
+class SelfImproveDispatchTests(unittest.TestCase):
+    def test_dispatch_uses_coordinator_sessions_spawn(self):
+        with tempfile.TemporaryDirectory() as td:
+            req_path = Path(td) / "orchestrator_spawn_requests.json"
+            req_path.write_text(
+                json.dumps({"requests": [{"id": "spawn-01", "spawn": {"runtime": "subagent", "task": "x"}}]}),
+                encoding="utf-8",
+            )
+
+            original_req_path = self_improve.ORCH_REQ_PATH
+            try:
+                self_improve.ORCH_REQ_PATH = req_path
+                with patch.object(self_improve, "resolve_openclaw_command", return_value=(["openclaw"], ["openclaw"])), \
+                     patch("scripts.self_improve.subprocess.run") as mock_run:
+                    mock_run.return_value.returncode = 0
+                    mock_run.return_value.stdout = '{"ok":true}'
+                    mock_run.return_value.stderr = ""
+
+                    out = self_improve.dispatch_spawn_requests(dry_run=False, max_dispatch=1)
+
+                self.assertEqual(out["attempted"], 1)
+                self.assertEqual(out["dispatched"], 1)
+                self.assertEqual(len(out["errors"]), 0)
+
+                called = mock_run.call_args[0][0]
+                self.assertIn("gateway", called)
+                self.assertIn("call", called)
+                self.assertIn("sessions_spawn", called)
+            finally:
+                self_improve.ORCH_REQ_PATH = original_req_path
 
 
 if __name__ == "__main__":
