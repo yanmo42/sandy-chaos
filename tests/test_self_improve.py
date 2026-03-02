@@ -82,6 +82,25 @@ class SelfImprovePromotionTests(unittest.TestCase):
                 self_improve.AGENTS_PATH = original["AGENTS_PATH"]
                 self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
 
+    def test_queue_notification_creates_structured_outbox_entry(self):
+        with tempfile.TemporaryDirectory() as td:
+            outbox = Path(td) / "memory" / "notification_outbox.md"
+            original = self_improve.NOTIFY_OUTBOX
+            try:
+                self_improve.NOTIFY_OUTBOX = outbox
+                self_improve.queue_notification("[SANDY-ALERT] hello", dry_run=False)
+                self_improve.queue_notification("[SANDY-ALERT] world", dry_run=False)
+
+                text = outbox.read_text(encoding="utf-8")
+                day_header = f"## {self_improve.today_str()}"
+                self.assertIn("# Notification Outbox", text)
+                self.assertEqual(text.count(day_header), 1)
+                self.assertIn("[SANDY-ALERT] hello", text)
+                self.assertIn("[SANDY-ALERT] world", text)
+                self.assertGreaterEqual(text.count("---"), 2)
+            finally:
+                self_improve.NOTIFY_OUTBOX = original
+
 
 if __name__ == "__main__":
     unittest.main()

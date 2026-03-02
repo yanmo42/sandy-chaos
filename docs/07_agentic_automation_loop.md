@@ -215,7 +215,7 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 - `memory/orchestrator_dispatch_log.jsonl`
 - `memory/orchestrator_cycle_summary.md`
 - `memory/self_improve_state.json`
-- `memory/notification_outbox.md`
+- `memory/notification_outbox.md` (append-only markdown outbox grouped by `## YYYY-MM-DD` with timestamped `### [YYYY-MM-DD HH:MM]` entries)
 
 ### Why this matters for temporal forecasting advantage
 
