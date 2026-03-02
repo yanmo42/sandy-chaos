@@ -1,12 +1,31 @@
 {
+  "last_productivity": {
+    "at": "2026-03-02T00:06:09",
+    "productive": true,
+    "reasons": [
+      "orchestrator pipeline healthy"
+    ]
+  },
   "last_run": {
-    "daily": "2026-03-01T20:20:10",
-    "weekly": "2026-03-01T20:20:10"
+    "daily": "2026-03-02T00:00:20",
+    "full_pass": "2026-03-02T00:06:09",
+    "weekly": "2026-03-02T00:00:20"
+  },
+  "last_todo_snapshot": {
+    "done": 42,
+    "open": 11,
+    "partial": 6,
+    "pct": 71.1864406779661,
+    "total": 59
   },
   "missed_runs": {
     "daily": 0,
     "weekly": 0
   },
   "policy_tweak_counts": {},
-  "scheduler_source": "heartbeat"
+  "scheduler_source": "host-cron",
+  "sent": {
+    "daily": null,
+    "weekly": null
+  }
 }

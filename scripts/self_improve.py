@@ -274,6 +274,50 @@ def git_status_short(limit: int = 12) -> list[str]:
     return lines[:limit]
 
 
+def lane_for_path(path: str) -> str:
+    p = path.strip()
+    if p.startswith("docs/"):
+        return "theory"
+    if p.startswith("nfem_suite/"):
+        return "simulation"
+    if p.startswith("tests/"):
+        return "validation"
+    if p.startswith("scripts/") or p.startswith("ops/") or p.startswith("config/") or p.startswith("plans/"):
+        return "ops"
+    return "other"
+
+
+def lanes_from_git_status(lines: list[str]) -> dict[str, int]:
+    out: dict[str, int] = {}
+    for ln in lines:
+        raw = ln.strip()
+        if not raw:
+            continue
+        path = raw[3:].strip() if len(raw) > 3 else raw
+        if " -> " in path:
+            path = path.split(" -> ")[-1].strip()
+        lane = lane_for_path(path)
+        out[lane] = int(out.get(lane, 0)) + 1
+    return out
+
+
+def productivity_gate(delta: dict, lane_hits: dict[str, int], orch: dict) -> tuple[bool, list[str]]:
+    reasons: list[str] = []
+    if delta.get("done", 0) > 0 or delta.get("open", 0) < 0:
+        reasons.append("TODO state advanced")
+    if lane_hits.get("validation", 0) > 0:
+        reasons.append("validation lane touched")
+    if lane_hits.get("theory", 0) > 0:
+        reasons.append("theory/docs lane touched")
+    pipeline = orch.get("pipeline", {})
+    dispatch = orch.get("dispatch", {})
+    if pipeline.get("orchestrator_ok") and pipeline.get("autospawn_ok"):
+        reasons.append("orchestrator pipeline healthy")
+    if dispatch.get("attempted", 0) > 0 and dispatch.get("errors") == []:
+        reasons.append("dispatch completed without errors")
+    return (len(reasons) > 0, reasons)
+
+
 def todo_add(text: str, section: str | None = None) -> bool:
     if not TODO_PATH.exists():
         return False
@@ -360,10 +404,19 @@ def load_orchestrator_snapshot() -> dict:
     req_count = 0
     dispatched = 0
     latest_runs: list[str] = []
+    capability_lanes: dict[str, int] = {}
 
     if ORCH_PLAN_PATH.exists():
         try:
-            plan_count = len([ln for ln in ORCH_PLAN_PATH.read_text(encoding="utf-8", errors="ignore").splitlines() if ln.strip()])
+            rows = [ln for ln in ORCH_PLAN_PATH.read_text(encoding="utf-8", errors="ignore").splitlines() if ln.strip()]
+            plan_count = len(rows)
+            for ln in rows:
+                try:
+                    row = json.loads(ln)
+                except Exception:
+                    continue
+                cap = str(row.get("capability_lane", "unspecified")).strip() or "unspecified"
+                capability_lanes[cap] = int(capability_lanes.get(cap, 0)) + 1
         except Exception:
             plan_count = 0
 
@@ -394,6 +447,7 @@ def load_orchestrator_snapshot() -> dict:
         "request_count": req_count,
         "dispatched_count": dispatched,
         "latest_run_ids": latest_runs,
+        "capability_lanes": capability_lanes,
     }
 
 
@@ -404,7 +458,17 @@ def todo_delta(current: dict, previous: dict) -> dict:
         "open": int(current.get("open", 0)) - int(previous.get("open", 0)),
     }
 
-def compose_fullpass_message(summary: dict, todo: dict, open_items: list[str], git_lines: list[str], orch: dict, delta: dict) -> str:
+def compose_fullpass_message(
+    summary: dict,
+    todo: dict,
+    open_items: list[str],
+    git_lines: list[str],
+    orch: dict,
+    delta: dict,
+    lane_hits: dict[str, int],
+    productive: bool,
+    productivity_reasons: list[str],
+) -> str:
     cfg = load_config().get("notifications", {})
     prefix = cfg.get("prefixes", {}).get("fullpass", "[SANDY-FULLPASS]")
 
@@ -414,16 +478,23 @@ def compose_fullpass_message(summary: dict, todo: dict, open_items: list[str], g
     git_text = "\n".join([f"- {g}" for g in git_lines]) if git_lines else "- (no unstaged changes)"
     open_text = "\n".join([f"- {it}" for it in open_items]) if open_items else "- (no open checkbox items found)"
     run_text = ", ".join(orch.get("latest_run_ids", [])) if orch.get("latest_run_ids") else "none"
+    plan_lanes = orch.get("capability_lanes", {}) or {}
+    plan_lane_text = ", ".join([f"{k}={v}" for k, v in sorted(plan_lanes.items())]) if plan_lanes else "none"
+    touch_lane_text = ", ".join([f"{k}={v}" for k, v in sorted(lane_hits.items())]) if lane_hits else "none"
+    verdict = "productive" if productive else "maintenance/no-op"
+    reason_text = "; ".join(productivity_reasons) if productivity_reasons else "no gate condition met"
 
     return (
         f"{prefix} automation cycle complete.\n\n"
         f"Execution workflow status:\n"
         f"- orchestrator tasks planned: {orch.get('plan_count', 0)}\n"
+        f"- capability lanes in plan: {plan_lane_text}\n"
         f"- spawn requests prepared: {orch.get('request_count', 0)}\n"
         f"- recent dispatch events logged: {orch.get('dispatched_count', 0)}\n"
         f"- recent run ids: {run_text}\n"
         f"- pipeline orchestrator/autospawn: {orch.get('pipeline',{}).get('orchestrator_ok', False)}/{orch.get('pipeline',{}).get('autospawn_ok', False)}\n"
-        f"- dispatch attempted/sent: {orch.get('dispatch',{}).get('attempted', 0)}/{orch.get('dispatch',{}).get('dispatched', 0)}\n\n"
+        f"- dispatch attempted/sent: {orch.get('dispatch',{}).get('attempted', 0)}/{orch.get('dispatch',{}).get('dispatched', 0)}\n"
+        f"- dispatch session id: {orch.get('dispatch',{}).get('session_id', 'none')}\n\n"
         f"Cadence artifacts prepared: {created_text}.\n"
         f"Missed intervals detected: daily={summary.get('daily_missed', 0)}, weekly={summary.get('weekly_missed', 0)}.\n\n"
         f"Project progress snapshot:\n"
@@ -431,10 +502,13 @@ def compose_fullpass_message(summary: dict, todo: dict, open_items: list[str], g
         f"- partial={todo['partial']} (Δ {delta['partial']:+d})\n"
         f"- open={todo['open']} (Δ {delta['open']:+d})\n"
         f"- total={todo['total']}\n"
-        f"- completion={todo['pct']:.1f}%\n\n"
+        f"- completion={todo['pct']:.1f}%\n"
+        f"- touched lanes (from git): {touch_lane_text}\n"
+        f"- cycle productivity verdict: {verdict}\n"
+        f"- productivity reasons: {reason_text}\n\n"
         f"Current repo changes:\n{git_text}\n\n"
         f"Top open/partial TODO items:\n{open_text}\n\n"
-        f"Narrative summary: Sandy ran planning + execution bookkeeping, refreshed queue visibility, and produced dispatch-aware telemetry for the next autonomous cycle."
+        f"Narrative summary: Sandy ran planning + execution bookkeeping, refreshed queue visibility, and emitted lane-aware productivity telemetry for the next autonomous cycle."
     )
 
 
@@ -467,13 +541,35 @@ def run_orchestrator_pipeline(limit: int, dry_run: bool) -> dict:
     return results
 
 
-def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
-    """Dispatch spawn requests by asking the active OpenClaw session to run them.
+def resolve_dispatch_session_id(agent_id: str = "sandy") -> str | None:
+    """Resolve latest UUID sessionId for an agent from OpenClaw session store."""
+    candidates = [
+        Path.home() / ".openclaw" / "agents" / agent_id / "sessions" / "sessions.json",
+        Path.home() / ".openclaw" / "agents" / "main" / "sessions" / "sessions.json",
+    ]
+    best: tuple[int, str] | None = None
+    for p in candidates:
+        if not p.exists():
+            continue
+        try:
+            data = json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if not isinstance(data, dict):
+            continue
+        for _, meta in data.items():
+            if not isinstance(meta, dict):
+                continue
+            sid = str(meta.get("sessionId", "")).strip()
+            updated = int(meta.get("updatedAt", 0) or 0)
+            if sid and (best is None or updated > best[0]):
+                best = (updated, sid)
+    return best[1] if best else None
 
-    This uses `openclaw agent` to feed the request contracts back into the main
-    agent session, where tool-level `sessions_spawn` can execute.
-    """
-    out = {"dispatched": 0, "errors": [], "attempted": 0}
+
+def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
+    """Dispatch spawn requests by asking the active OpenClaw session to run them."""
+    out = {"dispatched": 0, "errors": [], "attempted": 0, "session_id": None}
     if not ORCH_REQ_PATH.exists():
         return out
 
@@ -484,6 +580,9 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
         out["errors"].append(f"load requests failed: {exc}")
         return out
 
+    session_id = resolve_dispatch_session_id(agent_id="sandy")
+    out["session_id"] = session_id
+
     for r in requests:
         spawn = r.get("spawn", {})
         msg = (
@@ -493,16 +592,21 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
         out["attempted"] += 1
 
         if dry_run:
-            print("DRY RUN dispatch via openclaw agent for", r.get("id", "(unknown)"))
+            print("DRY RUN dispatch via openclaw agent for", r.get("id", "(unknown)"), "session", session_id or "(auto)")
             out["dispatched"] += 1
             continue
 
+        cmd = ["openclaw", "agent", "--agent", "sandy", "--timeout", "90", "--message", msg]
+        if session_id:
+            cmd[2:2] = ["--session-id", session_id]
+
         try:
-            subprocess.check_call(
-                ["openclaw", "agent", "--session-id", "agent:main:main", "--message", msg],
-                cwd=ROOT,
-            )
-            out["dispatched"] += 1
+            proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=110)
+            if proc.returncode == 0:
+                out["dispatched"] += 1
+            else:
+                err = (proc.stderr or proc.stdout or "unknown error").strip()
+                out["errors"].append(f"{r.get('id','unknown')}: {err}")
         except Exception as exc:
             out["errors"].append(f"{r.get('id','unknown')}: {exc}")
 
@@ -523,6 +627,7 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
     todo = parse_todo_counts(todo_text)
     open_items = list_open_checkbox_items(limit=max_open_items)
     git_lines = git_status_short(limit=12)
+    lane_hits = lanes_from_git_status(git_lines)
     orch = load_orchestrator_snapshot()
     orch["pipeline"] = orchestration
     orch["dispatch"] = dispatch
@@ -530,11 +635,27 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
     state = load_state()
     prev_todo = state.get("last_todo_snapshot", {})
     delta = todo_delta(todo, prev_todo)
+    productive, productivity_reasons = productivity_gate(delta=delta, lane_hits=lane_hits, orch=orch)
     state["last_run"]["full_pass"] = now_dt().isoformat(timespec="seconds")
     state["last_todo_snapshot"] = todo
+    state["last_productivity"] = {
+        "productive": productive,
+        "reasons": productivity_reasons,
+        "at": now_dt().isoformat(timespec="seconds"),
+    }
     save_state(state)
 
-    message = compose_fullpass_message(summary, todo, open_items, git_lines, orch, delta)
+    message = compose_fullpass_message(
+        summary,
+        todo,
+        open_items,
+        git_lines,
+        orch,
+        delta,
+        lane_hits,
+        productive,
+        productivity_reasons,
+    )
 
     queue_notification(message, dry_run=dry_run)
     if send_telegram:

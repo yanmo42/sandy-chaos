@@ -114,41 +114,53 @@ git commit -m "feat: <small scoped change>"
 
 ## 9) Automation loops (daily + weekly)
 
-### Default trigger source
+### Current state (implemented now)
 
+Manual commands:
+
+```bash
+python3 scripts/self_improve.py fast "miss=<issue>; fix=<change>"
+python3 scripts/self_improve.py daily
+python3 scripts/self_improve.py weekly
+```
+
+### Target state (in progress)
+
+Goal: closed loop where repo activity produces scheduled summaries and Telegram pings.
+
+Planned trigger sources:
 - Primary: OpenClaw heartbeat
-- Optional: host cron when strict timing is needed
+- Fallback: host cron (for strict timing)
 
-Run automation check:
+Current artifacts:
+- `memory/self_improve_state.json` (run timestamps + missed-run tracking)
+- `memory/notification_outbox.md` (rich digest queue)
+- `config/automation.json` (notification target/prefix/guardrails)
+
+Telegram delivery:
+- Default routing target: operator-chat chat (`telegram:<REDACTED_CHAT_ID>`)
+- `scripts/self_improve.py full-pass --send-telegram` sends a rich narrative digest
+- Token source for unattended sends: `OPENCLAW_TELEGRAM_BOT_TOKEN` via `~/.config/sandy-chaos/automation.env`
+
+### 5-minute unattended automation (systemd user timer)
+
+Install:
 
 ```bash
-python3 scripts/self_improve.py run --scheduler heartbeat
+bash scripts/install_automation_timer.sh
 ```
 
-Preview notification text without sending/queuing:
+Then fill token env file:
 
 ```bash
-python3 scripts/self_improve.py run --scheduler heartbeat --dry-run
+nano ~/.config/sandy-chaos/automation.env
+# set OPENCLAW_TELEGRAM_BOT_TOKEN=...
 ```
 
-### Cadence
+Check status/logs:
 
-- Daily digest scaffold: once per day (`*-meso-review.md`)
-- Weekly distill scaffold: once per ISO week (`*-slow-distill.md`)
-
-### Missed-run detection
-
-State is tracked in `memory/self_improve_state.json`:
-
-- `last_run.daily`, `last_run.weekly`
-- `missed_runs.daily`, `missed_runs.weekly`
-- recurring `policy_tweak_counts`
-
-### Proactive summary routing
-
-Summaries are queued in `memory/notification_outbox.md`.
-If Telegram routing is configured in the active OpenClaw session, deliver queued summaries as:
-
-- Daily digest summary
-- Weekly distill summary
+```bash
+systemctl --user status sandy-automation.timer --no-pager
+journalctl --user -u sandy-automation.service -n 50 --no-pager
+```
 

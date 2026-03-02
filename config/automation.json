@@ -1,0 +1,22 @@
+{
+  "notifications": {
+    "channel": "telegram",
+    "target": "<REDACTED_CHAT_ID>",
+    "mode": "main_chat_fallback",
+    "prefixes": {
+      "daily": "[SANDY-DAILY]",
+      "weekly": "[SANDY-WEEKLY]",
+      "alert": "[SANDY-ALERT]"
+    },
+    "rateLimits": {
+      "dailyMax": 1,
+      "weeklyMax": 1
+    },
+    "botTokenEnv": "OPENCLAW_TELEGRAM_BOT_TOKEN",
+    "quietHours": {
+      "timezone": "America/New_York",
+      "start": "23:00",
+      "end": "08:00"
+    }
+  }
+}

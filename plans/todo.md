@@ -209,7 +209,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 
 ## Agency + Temporal Communication Buildout (New Direction)
 
-- [ ] Define agency observables in-code (`intervention_gain`, `counterfactual_control_score`, `predictive_horizon`)
+- [x] Define agency observables in-code (`intervention_gain`, `counterfactual_control_score`, `predictive_horizon`)
 - [ ] Add temporal frame communication metrics (`C_A->B(Δτ)`, `C_B->A(Δτ)`, asymmetry surface)
 - [ ] Add null-model vs coupled-model falsification tests for frame asymmetry
 - [ ] Add dashboard traces for observer-coupling drift and frame-channel asymmetry
@@ -253,9 +253,16 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 
 - [x] Add systemd unit + timer files (`ops/systemd/*.service|*.timer`)
 - [x] Add installer script (`scripts/install_automation_timer.sh`)
-- [ ] Configure env token in `~/.config/sandy-chaos/automation.env`
-- [ ] Enable timer locally and verify first auto-send
+- [x] Configure env token in `~/.config/sandy-chaos/automation.env`
+- [x] Enable timer locally and verify first auto-send
 
+### Repo-native auto-improvement definition
+
+- [x] Document lane-based definition in `docs/07_agentic_automation_loop.md`
+- [x] Add lane tagging to orchestrator task contracts (theory/sim/validation/ops)
+- [x] Add cycle productivity gate (must advance TODO/tests/docs/ops reliability)
+- [x] Add TODO delta computation in full-pass digest (vs last snapshot)
+- [ ] Add validation outcome summary (commands run + pass/fail) to full-pass digest
 
 ## OpenClaw Subagent Orchestration v1
 
@@ -266,7 +273,8 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [🟡] Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)
 
 
-- [x] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)
+- [🟡] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)
+  - [x] Resolve dynamic target session selection (service now resolves latest UUID sessionId)
 
 - [x] Add one-command wrapper for plan + spawn-request generation (`scripts/run_sandy_cycle.sh`)
 

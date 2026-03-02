@@ -148,3 +148,37 @@ This means each timer cycle executes:
 4. dispatch bridge via active OpenClaw session,
 5. rich `[SANDY-FULLPASS]` digest emission.
 
+## 12) Auto-improvement definition (repo-native)
+
+To keep autonomy aligned with Sandy Chaos goals, each cycle should score itself on **project-functional outcomes**, not just loop health.
+
+### A) Capability lanes (what "improvement" means)
+
+1. **Theory lane** (`docs/`)
+   - Improves formal clarity, claim-tier discipline, falsification criteria.
+2. **Simulation lane** (`nfem_suite/`)
+   - Improves causal-observer coupling implementation and metrics.
+3. **Validation lane** (`tests/`)
+   - Adds/updates tests proving forward-causal behavior and asymmetry claims.
+4. **Ops lane** (`scripts/`, `ops/`, `config/`)
+   - Improves orchestration reliability, scheduling, and digest quality.
+
+### B) Cycle acceptance gates
+
+A full pass counts as "productive" only if at least one of these is true:
+- TODO state advanced (open→partial/done), or
+- test/validation coverage improved, or
+- docs/spec quality improved with falsification condition updates, or
+- orchestration reliability improved (fewer failures/cleaner dispatch).
+
+### C) Telegram digest minimum fields
+
+Every `[SANDY-FULLPASS]` update should include:
+- what project lane(s) were touched,
+- concrete files changed,
+- validation commands run + outcomes,
+- TODO delta vs previous snapshot,
+- next best action (single highest-leverage task).
+
+This keeps the automation loop tied to real Sandy Chaos progress instead of generic background churn.
+

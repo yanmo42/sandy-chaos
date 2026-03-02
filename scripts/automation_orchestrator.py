@@ -89,6 +89,18 @@ def rank_items(items: List[TodoItem], prefer_sections: list[str], include_partia
     return [it for _, it in ranked[:limit]]
 
 
+def capability_lane_for_item(item: TodoItem) -> str:
+    text = f"{item.section} {item.text}".lower()
+    if any(k in text for k in ["test", "falsification", "verify", "validation"]):
+        return "validation"
+    if any(k in text for k in ["docs", "document", "claim tier", "math", "theory", "foundations"]):
+        return "theory"
+    if any(k in text for k in ["nfem", "simulation", "observer coupling", "temporal communication", "engine"]):
+        return "simulation"
+    return "ops"
+
+
+
 def task_contract(item: TodoItem) -> dict:
     lane = "sandy-builder"
     if "document" in item.text.lower() or "claim tier" in item.text.lower():
@@ -96,12 +108,15 @@ def task_contract(item: TodoItem) -> dict:
     if "test" in item.text.lower() or "falsification" in item.text.lower() or "verify" in item.text.lower():
         lane = "sandy-verifier"
 
+    capability_lane = capability_lane_for_item(item)
+
     validation = "./venv/bin/python -m unittest -q || true"
     if lane == "sandy-planner":
         validation = "python3 scripts/todo_scan.py plans/todo.md"
 
     return {
         "lane": lane,
+        "capability_lane": capability_lane,
         "goal": item.text,
         "section": item.section,
         "constraints": [
@@ -135,7 +150,8 @@ def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], pl
     ]
     if selected:
         for i, it in enumerate(selected, 1):
-            lines.append(f"{i}. [{it.state}] {it.text} ({it.section})")
+            cap = capability_lane_for_item(it)
+            lines.append(f"{i}. [{it.state}] {it.text} ({it.section}) · lane={cap}")
     else:
         lines.append("- none")
 
