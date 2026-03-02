@@ -150,3 +150,6 @@
 {"ts": "2026-03-02T10:37:51", "event": "spawn_requests_prepared", "plan": "${REPO_ROOT}/memory/orchestrator_task_plan.jsonl", "out": "${REPO_ROOT}/memory/orchestrator_spawn_requests.json", "count": 3}
 {"ts": "2026-03-02T10:42:46", "event": "spawn_requests_prepared", "plan": "${REPO_ROOT}/memory/orchestrator_task_plan.jsonl", "out": "${REPO_ROOT}/memory/orchestrator_spawn_requests.json", "count": 3}
 {"ts": "2026-03-02T10:47:01", "event": "spawn_requests_prepared", "plan": "${REPO_ROOT}/memory/orchestrator_task_plan.jsonl", "out": "${REPO_ROOT}/memory/orchestrator_spawn_requests.json", "count": 1}
+{"ts": "2026-03-02T11:15:21", "event": "spawn_requests_prepared", "plan": "/home/ian/dev/sandy-chaos/memory/orchestrator_task_plan.jsonl", "out": "/home/ian/dev/sandy-chaos/memory/orchestrator_spawn_requests.json", "count": 0}
+{"ts": "2026-03-02T11:20:31", "event": "spawn_requests_prepared", "plan": "/home/ian/dev/sandy-chaos/memory/orchestrator_task_plan.jsonl", "out": "/home/ian/dev/sandy-chaos/memory/orchestrator_spawn_requests.json", "count": 0}
+{"ts": "2026-03-02T11:25:51", "event": "spawn_requests_prepared", "plan": "/home/ian/dev/sandy-chaos/memory/orchestrator_task_plan.jsonl", "out": "/home/ian/dev/sandy-chaos/memory/orchestrator_spawn_requests.json", "count": 0}
