@@ -8,6 +8,7 @@ This documentation set is intentionally compressed into a small canonical path:
 4. **[04 Neuro Roadmap](04_neuro_roadmap.md)**
 5. **[05 Hyperstition Temporal Bridge Analysis](05_hyperstition_temporal_bridge_analysis.md)**
 6. **[06 The Observer Ouroboros](06_observer_ouroboros.md)**
+7. **[07 Agentic Automation Loop](07_agentic_automation_loop.md)**
 
 Supporting references:
 
@@ -34,6 +35,14 @@ Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 - Foundations → Micro-Observer → Neuro Roadmap
 
 ---
+
+## Current direction update (2026-03)
+
+The near-term roadmap emphasizes **agency as a computed physical observable**:
+
+- concrete read-write observer coupling in simulation,
+- directional temporal-frame communication metrics,
+- strict claim-tier separation between defensible results and speculative interpretation.
 
 ## Writing policy
 

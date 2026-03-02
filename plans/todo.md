@@ -207,22 +207,52 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 
 ---
 
+## Agency + Temporal Communication Buildout (New Direction)
+
+- [ ] Define agency observables in-code (`intervention_gain`, `counterfactual_control_score`, `predictive_horizon`)
+- [ ] Add temporal frame communication metrics (`C_A->B(Δτ)`, `C_B->A(Δτ)`, asymmetry surface)
+- [ ] Add null-model vs coupled-model falsification tests for frame asymmetry
+- [ ] Add dashboard traces for observer-coupling drift and frame-channel asymmetry
+- [ ] Document claim tiers explicitly for this direction (defensible / speculative split)
+
 ## Assistant Improvement TODOs (OpenClaw)
 
 - [x] Implement **three-layer time improvement loop scaffolding** for assistant behavior
   - [x] Fast loop template (`templates/fast_loop_checklist.md`)
   - [x] Meso loop template (`templates/daily_meso_review.md`)
   - [x] Slow loop template (`templates/weekly_slow_distill.md`)
-  - [x] Integrate weekly policy distillation into `AGENTS.md`/`WORKFLOW.md`
+  - [x] Integrate weekly policy distillation guidance into `WORKFLOW.md`
 - [🟡] Implement **read-write observer memory policy**
   - [x] Add fast-loop logging automation (`scripts/self_improve.py fast ...`)
   - [x] Enforce post-task log schema: context, decision, outcome, policy tweak
-  - [x] Promote repeatedly successful tweaks into long-term guidance docs
-- [x] Automate loop execution schedule (daily/weekly) without manual triggering
-  - [x] Decide scheduler source: OpenClaw heartbeat vs host cron
-  - [x] Add missed-run detection in `self_improve_state.json`
-- [x] Add proactive progress notifications
-  - [x] Enable Telegram routing for summaries (if channel configured)
-  - [x] Define cadence: daily digest + weekly distill
-  - [x] Add dry-run mode to preview notification text
+  - [ ] Promote repeatedly successful tweaks into long-term guidance docs
+
+### Closed automation loop (repo work → digest → Telegram)
+
+- [x] Add scheduler-aware run mode to `scripts/self_improve.py`
+  - [x] `run --scheduler heartbeat|host-cron`
+  - [x] `run --dry-run` preview output
+  - [x] `full-pass --send-telegram` rich digest output
+- [x] Add durable loop state file (`memory/self_improve_state.json`)
+  - [x] Track last daily/weekly run timestamps
+  - [x] Track missed-run counters
+- [🟡] Add notification outbox format (`memory/notification_outbox.md`)
+  - [x] Queue rich digest text entries
+  - [ ] Add explicit daily/weekly markdown templates
+- [🟡] Add Telegram delivery wiring for digests
+  - [x] Route default to existing operator-chat chat (`telegram:<REDACTED_CHAT_ID>`) via `config/automation.json`
+  - [x] Define anti-spam/quiet-hour guardrails in config
+  - [x] Add direct sender in `scripts/self_improve.py` (env-token based)
+  - [ ] Enforce runtime rate-limit checks from config
+- [x] Add docs for operation + failover
+  - [x] Primary trigger: heartbeat
+  - [x] Fallback trigger: cron/systemd timer
+  - [x] Manual override commands
+
+### 5-minute automation runner
+
+- [x] Add systemd unit + timer files (`ops/systemd/*.service|*.timer`)
+- [x] Add installer script (`scripts/install_automation_timer.sh`)
+- [ ] Configure env token in `~/.config/sandy-chaos/automation.env`
+- [ ] Enable timer locally and verify first auto-send
 

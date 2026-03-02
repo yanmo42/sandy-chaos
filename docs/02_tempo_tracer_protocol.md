@@ -122,3 +122,25 @@ If reproducibility/significance thresholds fail, the claim fails.
 - **[01 Foundations](01_foundations.md)** explains the causal boundary and epistemic retro-influence distinction.
 - **[03 Micro-Observer & Agency](03_micro_observer_agency.md)** covers observer-state coupling and ethics.
 - **[Math Appendix](math_appendix.md)** contains extended equation references.
+
+## 9) Temporal-frame communication dynamics (new focus)
+
+To operationalize cross-frame communication, protocol evaluation should compute directional capacity conditioned on proper-time offset:
+
+$$
+C_{A\to B}(\Delta\tau),\quad C_{B\to A}(\Delta\tau)
+$$
+
+with asymmetry metric:
+
+$$
+\mathcal{A}(\Delta\tau)=C_{A\to B}(\Delta\tau)-C_{B\to A}(\Delta\tau)
+$$
+
+Interpretation rules:
+
+- Nonzero $\mathcal{A}$ is a directional communication asymmetry, not retrocausality.
+- Claims require null-model comparison (no observer coupling / flat timing baseline).
+- Report confidence intervals and robustness across noise regimes.
+
+Implementation target: compute an asymmetry surface over $(\Delta\tau,\lambda)$ where $\lambda$ is observer coupling gain, and publish failure conditions for each regime.

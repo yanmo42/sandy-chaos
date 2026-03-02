@@ -134,3 +134,38 @@ Failure indicators:
 
 - **[04 Neuro Roadmap](04_neuro_roadmap.md)** for staged implementation strategy.
 - **[Math Appendix](math_appendix.md)** for compact equation reference.
+
+
+## 10) Updated implementation direction (2026-03)
+
+To make agency a computed physical consequence (not an add-on), this layer now uses a concrete observer coupling term already implemented in simulation:
+
+$$
+\Phi(x,t)=\sum_i \lambda\,G_i(x)\,[r_i m_i(t)+w_i f_i(t)]\,\hat{u}_i(x)
+$$
+
+Where:
+
+- $G_i(x)$ is a bounded spatial kernel around probe $i$,
+- $m_i(t)$ is read-memory (smoothed local measurement),
+- $f_i(t)$ is write-feedback from observer state,
+- $(r_i,w_i)$ are read/write gains,
+- $\lambda$ is a global coupling scale.
+
+This keeps strict forward causality: measurements and feedback at $t$ perturb only future updates.
+
+### Next agency milestone
+
+Agency should be evaluated through explicit observables:
+
+- intervention gain,
+- counterfactual control score,
+- predictive horizon across temporal frames.
+
+These metrics are required before making strong claims about emergent agency or consciousness-like behavior.
+
+### Claim-tier discipline
+
+- **Defensible now:** bounded read-write backreaction and measurable frame-conditioned prediction differences.
+- **Speculative:** metaphysical interpretations (including panpsychic framing) unless tied to reproducible operational metrics.
+
