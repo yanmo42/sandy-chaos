@@ -30,6 +30,8 @@ STATE_PATH = MEMORY_DIR / "self_improve_state.json"
 NOTIFY_OUTBOX = MEMORY_DIR / "notification_outbox.md"
 TODO_PATH = ROOT / "plans" / "todo.md"
 CONFIG_PATH = ROOT / "config" / "automation.json"
+AGENTS_PATH = ROOT / "AGENTS.md"
+WORKFLOW_PATH = ROOT / "WORKFLOW.md"
 ORCH_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
 ORCH_REQ_PATH = ROOT / "memory" / "orchestrator_spawn_requests.json"
 ORCH_DISPATCH_LOG = ROOT / "memory" / "orchestrator_dispatch_log.jsonl"
@@ -58,6 +60,7 @@ def default_state() -> dict:
         "last_run": {"daily": None, "weekly": None, "full_pass": None},
         "missed_runs": {"daily": 0, "weekly": 0},
         "policy_tweak_counts": {},
+        "promoted_policy_tweaks": {},
         "last_todo_snapshot": {"done": 0, "partial": 0, "open": 0, "total": 0},
         "sent": {"daily": None, "weekly": None},
     }
@@ -75,6 +78,7 @@ def load_state() -> dict:
         base["last_run"].update(data.get("last_run", {}))
         base["missed_runs"].update(data.get("missed_runs", {}))
         base["sent"].update(data.get("sent", {}))
+        base["promoted_policy_tweaks"].update(data.get("promoted_policy_tweaks", {}))
         return base
     except Exception:
         return default_state()
@@ -132,7 +136,99 @@ def post_task(context: str, decision: str, outcome: str, policy_tweak: str) -> N
     key = policy_tweak.strip()
     tweaks[key] = int(tweaks.get(key, 0)) + 1
     save_state(state)
-    print(f"Appended post-task schema entry to {f}")
+    promoted = promote_policy_tweaks(min_count=3, dry_run=False)
+    promoted_count = len(promoted.get("promoted", []))
+    if promoted_count:
+        print(f"Appended post-task schema entry to {f} and promoted {promoted_count} tweak(s)")
+    else:
+        print(f"Appended post-task schema entry to {f}")
+
+
+def classify_policy_tweak_target(policy_tweak: str) -> Path:
+    workflow_keywords = {
+        "workflow",
+        "process",
+        "checklist",
+        "validate",
+        "validation",
+        "test",
+        "tests",
+        "commit",
+        "git",
+        "runbook",
+        "cadence",
+        "schedule",
+        "orchestr",
+        "dispatch",
+        "automation",
+    }
+    text = policy_tweak.lower()
+    if any(k in text for k in workflow_keywords):
+        return WORKFLOW_PATH
+    return AGENTS_PATH
+
+
+def append_promoted_tweak(target_path: Path, policy_tweak: str) -> bool:
+    heading = "## Promoted Policy Tweaks"
+    bullet = f"- {policy_tweak.strip()}"
+    if not target_path.exists():
+        target_path.write_text(f"{heading}\n\n{bullet}\n", encoding="utf-8")
+        return True
+
+    text = target_path.read_text(encoding="utf-8")
+    if bullet in text:
+        return False
+
+    if heading in text:
+        lines = text.splitlines()
+        idx = next(i for i, line in enumerate(lines) if line.strip() == heading)
+        insert_at = idx + 1
+        while insert_at < len(lines) and lines[insert_at].strip() == "":
+            insert_at += 1
+        lines.insert(insert_at, bullet)
+        target_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+        return True
+
+    with target_path.open("a", encoding="utf-8") as out:
+        if text and not text.endswith("\n"):
+            out.write("\n")
+        out.write(f"\n{heading}\n\n{bullet}\n")
+    return True
+
+
+def promote_policy_tweaks(min_count: int = 3, dry_run: bool = False) -> dict:
+    state = load_state()
+    tweaks = state.get("policy_tweak_counts", {})
+    promoted = state.setdefault("promoted_policy_tweaks", {})
+    promoted_now: list[dict] = []
+
+    for tweak, count in tweaks.items():
+        if int(count) < min_count:
+            continue
+        if tweak in promoted:
+            continue
+
+        target_path = classify_policy_tweak_target(tweak)
+        changed = True
+        if not dry_run:
+            changed = append_promoted_tweak(target_path, tweak)
+
+        promoted[tweak] = {
+            "target": target_path.name,
+            "promoted_at": now_dt().isoformat(timespec="seconds"),
+            "count": int(count),
+            "applied": bool(changed),
+        }
+        promoted_now.append({"policy_tweak": tweak, "target": target_path.name, "applied": bool(changed)})
+
+    if promoted_now and not dry_run:
+        save_state(state)
+
+    return {
+        "promoted": promoted_now,
+        "min_count": min_count,
+        "dry_run": dry_run,
+    }
 
 
 def scaffold(kind: str) -> Path:
@@ -744,6 +840,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_remove = sub.add_parser("todo-remove", help="Remove first matching todo checkbox")
     p_remove.add_argument("--match", required=True)
 
+    p_promote = sub.add_parser("promote-tweaks", help="Promote repeated policy tweaks into AGENTS/WORKFLOW")
+    p_promote.add_argument("--min-count", type=int, default=3)
+    p_promote.add_argument("--dry-run", action="store_true")
+
     return p
 
 
@@ -800,6 +900,17 @@ def main(argv: list[str] | None = None) -> int:
         ok = todo_remove(match=args.match)
         print("Removed." if ok else "No matching checkbox found.")
         return 0 if ok else 1
+
+    if args.cmd == "promote-tweaks":
+        result = promote_policy_tweaks(min_count=args.min_count, dry_run=args.dry_run)
+        promoted = result.get("promoted", [])
+        if promoted:
+            print(f"Promoted {len(promoted)} tweak(s).")
+            for item in promoted:
+                print(f"- {item['policy_tweak']} -> {item['target']}")
+        else:
+            print("No tweaks met promotion threshold.")
+        return 0
 
     parser.print_help()
     return 1

@@ -120,6 +120,8 @@ Manual commands:
 
 ```bash
 python3 scripts/self_improve.py fast "miss=<issue>; fix=<change>"
+python3 scripts/self_improve.py post-task --context "..." --decision "..." --outcome "..." --policy-tweak "..."
+python3 scripts/self_improve.py promote-tweaks --min-count 3
 python3 scripts/self_improve.py daily
 python3 scripts/self_improve.py weekly
 ```
