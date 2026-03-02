@@ -55,6 +55,15 @@ System updates driven by present local gradients that encode downstream structur
 ### Agency (operational)
 Capacity to choose policy, evaluate outcomes, and update policy under internal objectives.
 
+### Axiomatic Injection
+*(Speculative)* A proposed design constraint where strict human values and temporal coherence requirements are embedded into the lowest-level transition operators of a computational architecture, rather than acting as superficial software filters.
+
+### Ouroboros Stabilization Effect
+An operational feedback loop where a human user and an anticipatory machine system continuously constrain each other. The continuous adaptation between human cognitive priors (slow-clock) and machine probabilistic prediction (fast-clock) narrows the shared optimization basin.
+
+### Predictive Projection
+A measurable forecasting heuristic where a machine, using behavioral histories and semantic models, probabilistically anticipates and presents future state options to the user before explicit input is fully finalized.
+
 ---
 
 ## Governance terms
