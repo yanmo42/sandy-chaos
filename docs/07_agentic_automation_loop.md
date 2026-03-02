@@ -120,3 +120,14 @@ This wraps:
 
 and leaves dispatch-ready artifacts for immediate `sessions_spawn` execution.
 
+
+## 10) Probabilistic 5-minute cadence (4-6 min window)
+
+The automation timer now models a flexible "around 5 minutes" cadence:
+
+- `OnUnitActiveSec=4min`
+- `RandomizedDelaySec=2min`
+
+So each cycle is sampled from a **4-6 minute** interval, centered near 5 minutes.
+This preserves the symbolic/operational target of 5 while introducing jitter to avoid rigid synchronization effects.
+

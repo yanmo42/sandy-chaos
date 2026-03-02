@@ -269,3 +269,5 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [ ] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)
 
 - [x] Add one-command wrapper for plan + spawn-request generation (`scripts/run_sandy_cycle.sh`)
+
+- [x] Upgrade timer cadence to probabilistic 5-minute window (4-6 min)

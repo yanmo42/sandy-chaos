@@ -1,0 +1,15 @@
+[Unit]
+Description=Run Sandy Chaos automation on a probabilistic 5-minute window (4-6 min)
+
+[Timer]
+OnBootSec=2min
+# Base cadence at 4 minutes plus randomized delay up to 2 minutes
+# => effective interval sampled in [4m, 6m], centered around ~5m.
+OnUnitActiveSec=4min
+RandomizedDelaySec=2min
+AccuracySec=15s
+Persistent=true
+Unit=sandy-automation.service
+
+[Install]
+WantedBy=timers.target
