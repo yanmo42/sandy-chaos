@@ -27,7 +27,7 @@ Define a closed operational loop for Sandy Chaos where assistant work on the rep
 
 ## 5) Notification policy
 
-Default target chat (when enabled): `telegram:<REDACTED_CHAT_ID>`
+Default target chat (when enabled): value from `OPENCLAW_TELEGRAM_TARGET`
 
 Current operating mode:
 - Full-pass Telegram emission is enabled in the systemd service wiring.
@@ -238,3 +238,16 @@ In Sandy Chaos terms, this automation provides a practical "forecasting edge" by
 
 Operationally: the system is useful when it reduces decision latency and increases the proportion of productive interventions per unit time.
 
+
+
+## 14) Secrets & portability
+
+Use repo-local secrets for portable setups without committing PII:
+
+1. Copy `.secrets.example.env` -> `.secrets.local.env`
+2. Fill values for `OPENCLAW_TELEGRAM_BOT_TOKEN` and `OPENCLAW_TELEGRAM_TARGET`
+3. Keep `.secrets.local.env` out of git (already in `.gitignore`)
+
+The systemd service loads:
+- `%h/dev/sandy-chaos/.secrets.local.env` (preferred)
+- `%h/.config/sandy-chaos/automation.env` (legacy fallback)

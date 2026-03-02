@@ -10,3 +10,6 @@ venv/
 .vscode/
 simulation_data.csv
 enthalpy_simulation_data.csv
+
+# local secrets (never commit)
+.secrets.local.env

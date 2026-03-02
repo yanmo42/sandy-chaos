@@ -142,9 +142,9 @@ Current artifacts:
 - `config/automation.json` (notification target/prefix/guardrails)
 
 Telegram delivery:
-- Default routing target: configured Telegram chat (`telegram:<REDACTED_CHAT_ID>`)
+- Default routing target: `OPENCLAW_TELEGRAM_TARGET` from local secrets
 - `scripts/self_improve.py full-pass --send-telegram` sends a rich narrative digest
-- Token source for unattended sends: `OPENCLAW_TELEGRAM_BOT_TOKEN` via `~/.config/sandy-chaos/automation.env`
+- Token/chat source for unattended sends: repo-local `.secrets.local.env` (preferred, gitignored) or `~/.config/sandy-chaos/automation.env` (legacy fallback)
 
 ### 5-minute unattended automation (systemd user timer)
 
@@ -154,12 +154,17 @@ Install:
 bash scripts/install_automation_timer.sh
 ```
 
-Then fill token env file:
+Then fill local secrets file:
 
 ```bash
-nano ~/.config/sandy-chaos/automation.env
+cp .secrets.example.env .secrets.local.env
+chmod 600 .secrets.local.env
+nano .secrets.local.env
 # set OPENCLAW_TELEGRAM_BOT_TOKEN=...
+# set OPENCLAW_TELEGRAM_TARGET=...
 ```
+
+(legacy fallback still supported: `~/.config/sandy-chaos/automation.env`)
 
 Check status/logs:
 

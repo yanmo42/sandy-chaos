@@ -240,7 +240,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
   - [x] Queue rich digest text entries
   - [x] Add explicit daily/weekly markdown templates
 - [x] Add Telegram delivery wiring for digests
-  - [x] Route default to configured Telegram chat (`telegram:<REDACTED_CHAT_ID>`) via `config/automation.json`
+  - [x] Route default to `OPENCLAW_TELEGRAM_TARGET` via `config/automation.json`
   - [x] Define anti-spam/quiet-hour guardrails in config
   - [x] Add direct sender in `scripts/self_improve.py` (env-token based)
   - [x] Enforce runtime rate-limit checks from config
