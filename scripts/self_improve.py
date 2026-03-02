@@ -33,6 +33,7 @@ CONFIG_PATH = ROOT / "config" / "automation.json"
 ORCH_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
 ORCH_REQ_PATH = ROOT / "memory" / "orchestrator_spawn_requests.json"
 ORCH_DISPATCH_LOG = ROOT / "memory" / "orchestrator_dispatch_log.jsonl"
+ORCH_CYCLE_LOG = ROOT / "memory" / "orchestrator_cycle_events.jsonl"
 
 
 def now_dt() -> datetime:
@@ -152,6 +153,13 @@ def scaffold(kind: str) -> Path:
     shutil.copyfile(src, dst)
     return dst
 
+
+
+
+def append_jsonl(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(payload, ensure_ascii=False) + "\n")
 
 def queue_notification(text: str, dry_run: bool) -> None:
     stamp = now_dt().strftime("%Y-%m-%d %H:%M")
@@ -614,6 +622,8 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
 
 
 def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3) -> None:
+    started = now_dt()
+    cycle_id = started.strftime("%Y%m%dT%H%M%S")
     summary = run_scheduler(scheduler=scheduler, dry_run=dry_run)
 
     orchestration = {"orchestrator_ok": False, "autospawn_ok": False, "errors": []}
@@ -658,15 +668,40 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
     )
 
     queue_notification(message, dry_run=dry_run)
+    telegram_sent = False
+    telegram_error = None
     if send_telegram:
         try:
             send_telegram_message(message, dry_run=dry_run)
+            telegram_sent = True
         except Exception as exc:
+            telegram_error = str(exc)
             warn = f"[SANDY-ALERT] Telegram send skipped: {exc}"
             queue_notification(warn, dry_run=dry_run)
             print(warn)
 
-    print("Full pass complete.")
+    ended = now_dt()
+    duration_ms = int((ended - started).total_seconds() * 1000)
+    cycle_event = {
+        "ts": ended.isoformat(timespec="seconds"),
+        "event": "full_pass",
+        "cycle_id": cycle_id,
+        "scheduler": scheduler,
+        "dry_run": dry_run,
+        "with_orchestration": with_orchestration,
+        "with_dispatch": with_dispatch,
+        "dispatch_limit": dispatch_limit,
+        "duration_ms": duration_ms,
+        "todo": todo,
+        "todo_delta": delta,
+        "pipeline": orch.get("pipeline", {}),
+        "dispatch": orch.get("dispatch", {}),
+        "telegram_sent": telegram_sent,
+        "telegram_error": telegram_error,
+    }
+    append_jsonl(ORCH_CYCLE_LOG, cycle_event)
+
+    print(f"Full pass complete. cycle_id={cycle_id} duration_ms={duration_ms}")
 
 
 def build_parser() -> argparse.ArgumentParser:
