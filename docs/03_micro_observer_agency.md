@@ -154,15 +154,18 @@ Where:
 
 This keeps strict forward causality: measurements and feedback at $t$ perturb only future updates.
 
-### Next agency milestone
+### Agency observables now computed in-code
 
-Agency should be evaluated through explicit observables:
+The simulation now exports three forward-causal agency observables from `ObserverCoupling.collect_step_stats(...)`:
 
-- intervention gain,
-- counterfactual control score,
-- predictive horizon across temporal frames.
+- **`intervention_gain`**: normalized actuation strength,
+  \(	ext{clip}(\lambda\,\mathbb{E}[|r_im_i+w_if_i|]/\Phi_{max}, 0, 1)\).
+- **`counterfactual_control_score`**: write-channel contribution versus read-only drive,
+  \(\mathbb{E}[|w_if_i|/(|r_im_i+w_if_i|+arepsilon)]\).
+- **`predictive_horizon`**: effective forward-looking persistence (in update steps),
+  \((1-	ext{decay})^{-1} 	imes \mathbb{E}[	ext{temporal\_frame\_scale}]\).
 
-These metrics are required before making strong claims about emergent agency or consciousness-like behavior.
+All three are computed from present-step measurements/state and characterize only future update influence (no retrocausal interpretation).
 
 ### Claim-tier discipline
 

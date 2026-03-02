@@ -51,10 +51,14 @@ class ObserverCoupling:
     def __init__(self, config: ObserverCouplingConfig):
         self.config = config
         self._measurement_memory: Dict[str, float] = {}
+        self._observer_activity: Dict[str, Dict[str, float]] = {}
         self._last_stats: Dict[str, float] = {
             "mean_perturbation": 0.0,
             "max_perturbation": 0.0,
             "active_observers": 0.0,
+            "intervention_gain": 0.0,
+            "counterfactual_control_score": 0.0,
+            "predictive_horizon": 0.0,
         }
 
     @staticmethod
@@ -75,6 +79,8 @@ class ObserverCoupling:
         if positions.size == 0 or velocities.size == 0:
             return
 
+        activity: Dict[str, Dict[str, float]] = {}
+
         for name, state in observer_states.items():
             probe = np.asarray(state["probe_position"], dtype=float)
             deltas = positions - probe
@@ -92,6 +98,23 @@ class ObserverCoupling:
             prev = self._measurement_memory.get(name, measurement)
             smooth = self.config.decay * prev + (1.0 - self.config.decay) * measurement
             self._measurement_memory[name] = float(smooth)
+
+            read_gain = float(state.get("read_gain", 1.0))
+            write_gain = float(state.get("write_gain", 1.0))
+            feedback = float(state.get("feedback", 0.0))
+            frame_scale = float(state.get("temporal_frame_scale", 1.0))
+
+            read_term = read_gain * float(smooth)
+            write_term = write_gain * feedback
+
+            activity[name] = {
+                "read_term": read_term,
+                "write_term": write_term,
+                "full_drive": read_term + write_term,
+                "frame_scale": max(0.0, frame_scale),
+            }
+
+        self._observer_activity = activity
 
     def perturbation_for_node(self, node_position: np.ndarray,
                               observer_states: Dict[str, Dict[str, Any]]) -> np.ndarray:
@@ -131,10 +154,41 @@ class ObserverCoupling:
             mean_p = 0.0
             max_p = 0.0
 
+        if self._observer_activity:
+            drives = list(self._observer_activity.values())
+            mean_abs_drive = float(np.mean([abs(v["full_drive"]) for v in drives]))
+            intervention_gain = float(
+                np.clip(
+                    self.config.gain * mean_abs_drive / max(self.config.max_perturbation, 1e-9),
+                    0.0,
+                    1.0,
+                )
+            )
+
+            control_ratios = [
+                abs(v["write_term"]) / (abs(v["full_drive"]) + 1e-9)
+                for v in drives
+            ]
+            counterfactual_control_score = float(np.clip(np.mean(control_ratios), 0.0, 1.0))
+
+            # Predictive horizon proxy in effective future update steps.
+            # Larger smoothing memory and larger frame-scale imply longer
+            # forward-looking persistence of actionable signal.
+            memory_steps = 1.0 / max(1.0 - min(self.config.decay, 0.999), 1e-3)
+            mean_frame_scale = float(np.mean([v["frame_scale"] for v in drives]))
+            predictive_horizon = float(memory_steps * mean_frame_scale)
+        else:
+            intervention_gain = 0.0
+            counterfactual_control_score = 0.0
+            predictive_horizon = 0.0
+
         self._last_stats = {
             "mean_perturbation": mean_p,
             "max_perturbation": max_p,
             "active_observers": float(observer_count),
+            "intervention_gain": intervention_gain,
+            "counterfactual_control_score": counterfactual_control_score,
+            "predictive_horizon": predictive_horizon,
         }
         return self._last_stats
 

@@ -63,6 +63,52 @@ class TestObserverCoupling(unittest.TestCase):
 
         self.assertGreater(np.linalg.norm(phi_high), np.linalg.norm(phi_low))
 
+    def test_agency_observables_present_and_bounded(self):
+        coupling = ObserverCoupling(
+            ObserverCouplingConfig(enabled=True, gain=0.5, probe_sigma=10.0, decay=0.8, max_perturbation=1.0)
+        )
+        states = {
+            "A": {**self.observer_states["A"], "temporal_frame_scale": 1.0},
+            "B": {**self.observer_states["B"], "temporal_frame_scale": 2.0},
+        }
+
+        coupling.update_measurements(states, self.positions, self.velocities)
+        _ = coupling.perturbation_for_node(np.array([52.0, 50.0]), states)
+        stats = coupling.collect_step_stats([0.1, 0.2, 0.3], len(states))
+
+        self.assertIn("intervention_gain", stats)
+        self.assertIn("counterfactual_control_score", stats)
+        self.assertIn("predictive_horizon", stats)
+        self.assertGreaterEqual(stats["intervention_gain"], 0.0)
+        self.assertLessEqual(stats["intervention_gain"], 1.0)
+        self.assertGreaterEqual(stats["counterfactual_control_score"], 0.0)
+        self.assertLessEqual(stats["counterfactual_control_score"], 1.0)
+        self.assertGreater(stats["predictive_horizon"], 0.0)
+
+    def test_counterfactual_control_increases_with_write_feedback(self):
+        coupling_low = ObserverCoupling(ObserverCouplingConfig(enabled=True, decay=0.7))
+        coupling_high = ObserverCoupling(ObserverCouplingConfig(enabled=True, decay=0.7))
+
+        low_states = {
+            "A": {**self.observer_states["A"], "feedback": 0.01},
+            "B": {**self.observer_states["B"], "feedback": -0.01},
+        }
+        high_states = {
+            "A": {**self.observer_states["A"], "feedback": 0.8},
+            "B": {**self.observer_states["B"], "feedback": -0.8},
+        }
+
+        coupling_low.update_measurements(low_states, self.positions, self.velocities)
+        coupling_high.update_measurements(high_states, self.positions, self.velocities)
+
+        low_stats = coupling_low.collect_step_stats([0.1], len(low_states))
+        high_stats = coupling_high.collect_step_stats([0.1], len(high_states))
+
+        self.assertGreater(
+            high_stats["counterfactual_control_score"],
+            low_stats["counterfactual_control_score"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
