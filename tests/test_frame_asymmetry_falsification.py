@@ -88,6 +88,32 @@ class TestFrameAsymmetryFalsification(unittest.TestCase):
         observed_scale = coupled_metrics["C_B_to_A"][support] / null_metrics["C_B_to_A"][support]
         self.assertTrue(np.allclose(observed_scale, 0.5, atol=0.05))
 
+    def test_nonpositive_delay_packets_cannot_create_false_asymmetry(self):
+        channel = VortexChannel(
+            vortex_center=np.array([0.0, 0.0]),
+            vortex_radius=10.0,
+            coupling_strength=1.0,
+            backward_attenuation=1.0,
+        )
+
+        channel.forward_transmission_history.append({
+            "signal": 10.0,
+            "sent_time": 2.0,
+            "received_time": 1.0,
+            "delay": -1.0,
+        })
+        channel.backward_transmission_history.append({
+            "signal": 10.0,
+            "sent_time": 3.0,
+            "received_time": 3.0,
+            "delay": 0.0,
+        })
+
+        metrics = channel.compute_temporal_frame_metrics(delta_tau_bins=np.array([0.0, 0.5, 1.0]))
+        self.assertTrue(np.allclose(metrics["C_A_to_B"], np.zeros(2)))
+        self.assertTrue(np.allclose(metrics["C_B_to_A"], np.zeros(2)))
+        self.assertTrue(np.allclose(metrics["asymmetry"], np.zeros(2)))
+
 
 if __name__ == "__main__":
     unittest.main()
