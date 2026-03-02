@@ -1,21 +1,22 @@
 {
   "last_productivity": {
-    "at": "2026-03-02T00:16:19",
+    "at": "2026-03-02T10:43:25",
     "productive": true,
     "reasons": [
-      "orchestrator pipeline healthy"
+      "orchestrator pipeline healthy",
+      "dispatch completed without errors"
     ]
   },
   "last_run": {
     "daily": "2026-03-02T00:00:20",
-    "full_pass": "2026-03-02T00:16:19",
+    "full_pass": "2026-03-02T10:43:25",
     "weekly": "2026-03-02T00:00:20"
   },
   "last_todo_snapshot": {
-    "done": 42,
-    "open": 11,
-    "partial": 6,
-    "pct": 71.1864406779661,
+    "done": 51,
+    "open": 5,
+    "partial": 3,
+    "pct": 86.4406779661017,
     "total": 59
   },
   "missed_runs": {
@@ -23,6 +24,7 @@
     "weekly": 0
   },
   "policy_tweak_counts": {},
+  "promoted_policy_tweaks": {},
   "scheduler_source": "host-cron",
   "sent": {
     "daily": null,

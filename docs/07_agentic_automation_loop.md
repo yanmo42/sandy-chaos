@@ -46,7 +46,7 @@ Guardrails:
 - [x] Add Telegram sender integration for rich full-pass digests
 - [x] Add dry-run preview mode for notification text
 - [x] Add systemd user timer for 5-minute unattended cycles (`ops/systemd/` + installer script)
-- [ ] Enforce runtime rate-limit and quiet-hour checks in sender
+- [x] Enforce runtime rate-limit and quiet-hour checks in sender
 
 ## 7) Safety and reliability constraints
 

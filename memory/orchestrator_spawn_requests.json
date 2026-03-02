@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-03-02T00:16:19",
+  "generatedAt": "2026-03-02T10:42:46",
   "requests": [
     {
       "id": "spawn-01",
-      "createdAt": "2026-03-02T00:16:19",
+      "createdAt": "2026-03-02T10:42:46",
       "lane": "sandy-builder",
       "spawn": {
         "runtime": "subagent",
@@ -11,25 +11,12 @@
         "cleanup": "delete",
         "model": "openai-codex/gpt-5.3-codex",
         "cwd": "${REPO_ROOT}",
-        "task": "You are executing one Sandy-Chaos automation contract.\nLane: sandy-builder\nSection: Agency + Temporal Communication Buildout (New Direction)\nGoal: Add temporal frame communication metrics (`C_A->B(\u0394\u03c4)`, `C_B->A(\u0394\u03c4)`, asymmetry surface)\n\nConstraints:\n- Use openai-codex/gpt-5.3-codex\n- Keep strict causality; no retrocausal claims\n- Update tests/docs for any behavioral change\n- Commit scoped changes with clear message\n\nDefinition of done:\n- Relevant files updated\n- Validation command executed\n- Short completion note prepared\n\nValidation command: ./venv/bin/python -m unittest -q || true\nWork in ${REPO_ROOT}. Make scoped changes and commit when done."
+        "task": "You are executing one Sandy-Chaos automation contract.\nLane: sandy-builder\nSection: Assistant Improvement TODOs (OpenClaw)\nGoal: Enforce runtime rate-limit checks from config\n\nConstraints:\n- Use openai-codex/gpt-5.3-codex\n- Keep strict causality; no retrocausal claims\n- Update tests/docs for any behavioral change\n- Commit scoped changes with clear message\n\nDefinition of done:\n- Relevant files updated\n- Validation command executed\n- Short completion note prepared\n\nValidation command: ./venv/bin/python -m unittest -q || true\nWork in ${REPO_ROOT}. Make scoped changes and commit when done."
       }
     },
     {
       "id": "spawn-02",
-      "createdAt": "2026-03-02T00:16:19",
-      "lane": "sandy-verifier",
-      "spawn": {
-        "runtime": "subagent",
-        "mode": "run",
-        "cleanup": "delete",
-        "model": "openai-codex/gpt-5.3-codex",
-        "cwd": "${REPO_ROOT}",
-        "task": "You are executing one Sandy-Chaos automation contract.\nLane: sandy-verifier\nSection: Agency + Temporal Communication Buildout (New Direction)\nGoal: Add null-model vs coupled-model falsification tests for frame asymmetry\n\nConstraints:\n- Use openai-codex/gpt-5.3-codex\n- Keep strict causality; no retrocausal claims\n- Update tests/docs for any behavioral change\n- Commit scoped changes with clear message\n\nDefinition of done:\n- Relevant files updated\n- Validation command executed\n- Short completion note prepared\n\nValidation command: ./venv/bin/python -m unittest -q || true\nWork in ${REPO_ROOT}. Make scoped changes and commit when done."
-      }
-    },
-    {
-      "id": "spawn-03",
-      "createdAt": "2026-03-02T00:16:19",
+      "createdAt": "2026-03-02T10:42:46",
       "lane": "sandy-builder",
       "spawn": {
         "runtime": "subagent",
@@ -37,7 +24,20 @@
         "cleanup": "delete",
         "model": "openai-codex/gpt-5.3-codex",
         "cwd": "${REPO_ROOT}",
-        "task": "You are executing one Sandy-Chaos automation contract.\nLane: sandy-builder\nSection: Agency + Temporal Communication Buildout (New Direction)\nGoal: Add dashboard traces for observer-coupling drift and frame-channel asymmetry\n\nConstraints:\n- Use openai-codex/gpt-5.3-codex\n- Keep strict causality; no retrocausal claims\n- Update tests/docs for any behavioral change\n- Commit scoped changes with clear message\n\nDefinition of done:\n- Relevant files updated\n- Validation command executed\n- Short completion note prepared\n\nValidation command: ./venv/bin/python -m unittest -q || true\nWork in ${REPO_ROOT}. Make scoped changes and commit when done."
+        "task": "You are executing one Sandy-Chaos automation contract.\nLane: sandy-builder\nSection: Assistant Improvement TODOs (OpenClaw)\nGoal: Add validation outcome summary (commands run + pass/fail) to full-pass digest\n\nConstraints:\n- Use openai-codex/gpt-5.3-codex\n- Keep strict causality; no retrocausal claims\n- Update tests/docs for any behavioral change\n- Commit scoped changes with clear message\n\nDefinition of done:\n- Relevant files updated\n- Validation command executed\n- Short completion note prepared\n\nValidation command: ./venv/bin/python -m unittest -q || true\nWork in ${REPO_ROOT}. Make scoped changes and commit when done."
+      }
+    },
+    {
+      "id": "spawn-03",
+      "createdAt": "2026-03-02T10:42:46",
+      "lane": "sandy-builder",
+      "spawn": {
+        "runtime": "subagent",
+        "mode": "run",
+        "cleanup": "delete",
+        "model": "openai-codex/gpt-5.3-codex",
+        "cwd": "${REPO_ROOT}",
+        "task": "You are executing one Sandy-Chaos automation contract.\nLane: sandy-builder\nSection: OpenClaw Subagent Orchestration v1\nGoal: Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)\n\nConstraints:\n- Use openai-codex/gpt-5.3-codex\n- Keep strict causality; no retrocausal claims\n- Update tests/docs for any behavioral change\n- Commit scoped changes with clear message\n\nDefinition of done:\n- Relevant files updated\n- Validation command executed\n- Short completion note prepared\n\nValidation command: ./venv/bin/python -m unittest -q || true\nWork in ${REPO_ROOT}. Make scoped changes and commit when done."
       }
     }
   ]

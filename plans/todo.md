@@ -236,10 +236,10 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add durable loop state file (`memory/self_improve_state.json`)
   - [x] Track last daily/weekly run timestamps
   - [x] Track missed-run counters
-- [🟡] Add notification outbox format (`memory/notification_outbox.md`)
+- [x] Add notification outbox format (`memory/notification_outbox.md`)
   - [x] Queue rich digest text entries
   - [x] Add explicit daily/weekly markdown templates
-- [🟡] Add Telegram delivery wiring for digests
+- [x] Add Telegram delivery wiring for digests
   - [x] Route default to existing operator-chat chat (`telegram:<REDACTED_CHAT_ID>`) via `config/automation.json`
   - [x] Define anti-spam/quiet-hour guardrails in config
   - [x] Add direct sender in `scripts/self_improve.py` (env-token based)

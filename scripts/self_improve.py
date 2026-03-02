@@ -545,8 +545,111 @@ def todo_remove(match: str) -> bool:
     return False
 
 
+def _message_cadence_kind(text: str, cfg: dict) -> str | None:
+    prefixes = (cfg.get("prefixes", {}) or {}) if isinstance(cfg, dict) else {}
+    daily_prefix = str(prefixes.get("daily", "[SANDY-DAILY]")).strip()
+    weekly_prefix = str(prefixes.get("weekly", "[SANDY-WEEKLY]")).strip()
+    stripped = text.strip()
+    if daily_prefix and stripped.startswith(daily_prefix):
+        return "daily"
+    if weekly_prefix and stripped.startswith(weekly_prefix):
+        return "weekly"
+    return None
+
+
+def _is_quiet_hours_now(now: datetime, quiet_cfg: dict) -> bool:
+    if not isinstance(quiet_cfg, dict):
+        return False
+
+    start_raw = str(quiet_cfg.get("start", "")).strip()
+    end_raw = str(quiet_cfg.get("end", "")).strip()
+    if not start_raw or not end_raw:
+        return False
+
+    try:
+        start = datetime.strptime(start_raw, "%H:%M").time()
+        end = datetime.strptime(end_raw, "%H:%M").time()
+    except Exception:
+        return False
+
+    t = now.time()
+    if start < end:
+        return start <= t < end
+    if start > end:
+        return t >= start or t < end
+    return True
+
+
+def _get_rate_limit_max(kind: str, cfg: dict) -> int:
+    rate = (cfg.get("rateLimits", {}) or {}) if isinstance(cfg, dict) else {}
+    if kind == "daily":
+        return int(rate.get("dailyMax", 1) or 0)
+    if kind == "weekly":
+        return int(rate.get("weeklyMax", 1) or 0)
+    return 0
+
+
+def _rate_limit_key(kind: str, now: datetime) -> str:
+    if kind == "daily":
+        return now.strftime("%Y-%m-%d")
+    y, w, _ = now.isocalendar()
+    return f"{y}-W{w:02d}"
+
+
+def _can_send_now(text: str, state: dict, cfg: dict, now: datetime) -> tuple[bool, str | None, str | None]:
+    if _is_quiet_hours_now(now, cfg.get("quietHours", {})):
+        qh = cfg.get("quietHours", {}) or {}
+        return False, f"Within quiet hours ({qh.get('start', '?')}–{qh.get('end', '?')}); send suppressed.", None
+
+    kind = _message_cadence_kind(text, cfg)
+    if kind not in {"daily", "weekly"}:
+        return True, None, None
+
+    max_allowed = _get_rate_limit_max(kind, cfg)
+    if max_allowed <= 0:
+        return False, f"Rate limit blocks all {kind} sends (max={max_allowed}).", kind
+
+    sent = state.setdefault("sent", {})
+    entry = sent.get(kind)
+    if not isinstance(entry, dict):
+        entry = {}
+        sent[kind] = entry
+
+    key = _rate_limit_key(kind, now)
+    if entry.get("window") != key:
+        return True, None, kind
+
+    count = int(entry.get("count", 0) or 0)
+    if count >= max_allowed:
+        return False, f"{kind} send suppressed by rate limit ({count}/{max_allowed} in {key}).", kind
+    return True, None, kind
+
+
+def _record_send(state: dict, kind: str | None, now: datetime) -> None:
+    if kind not in {"daily", "weekly"}:
+        return
+    sent = state.setdefault("sent", {})
+    entry = sent.get(kind)
+    if not isinstance(entry, dict):
+        entry = {}
+        sent[kind] = entry
+    key = _rate_limit_key(kind, now)
+    if entry.get("window") != key:
+        entry["window"] = key
+        entry["count"] = 0
+    entry["count"] = int(entry.get("count", 0) or 0) + 1
+    entry["last_at"] = now.isoformat(timespec="seconds")
+
+
 def send_telegram_message(text: str, dry_run: bool) -> None:
     cfg = load_config().get("notifications", {})
+    state = load_state()
+    now = now_dt()
+
+    allowed, reason, kind = _can_send_now(text=text, state=state, cfg=cfg, now=now)
+    if not allowed:
+        raise RuntimeError(reason or "Telegram send suppressed by runtime policy")
+
     target = str(cfg.get("target", "")).strip()
     token_env = cfg.get("botTokenEnv", "OPENCLAW_TELEGRAM_BOT_TOKEN")
 
@@ -568,6 +671,9 @@ def send_telegram_message(text: str, dry_run: bool) -> None:
     )
     with urllib.request.urlopen(req, timeout=20) as resp:
         _ = resp.read()
+
+    _record_send(state=state, kind=kind, now=now)
+    save_state(state)
 
 
 
@@ -630,6 +736,44 @@ def todo_delta(current: dict, previous: dict) -> dict:
         "open": int(current.get("open", 0)) - int(previous.get("open", 0)),
     }
 
+def format_validation_outcomes(outcomes: list[dict]) -> str:
+    if not outcomes:
+        return "- (no validation commands run)"
+
+    lines: list[str] = []
+    for row in outcomes:
+        cmd = str(row.get("command", "")).strip() or "(unknown command)"
+        ok = bool(row.get("ok", False))
+        code = row.get("returncode")
+        verdict = "PASS" if ok else "FAIL"
+        if isinstance(code, int):
+            lines.append(f"- {verdict} (exit {code}): `{cmd}`")
+        else:
+            lines.append(f"- {verdict}: `{cmd}`")
+    return "\n".join(lines)
+
+
+def run_validation_commands(commands: list[str], dry_run: bool) -> list[dict]:
+    outcomes: list[dict] = []
+    for command in commands:
+        cmd = str(command).strip()
+        if not cmd:
+            continue
+        if dry_run:
+            outcomes.append({"command": cmd, "ok": True, "returncode": 0, "dry_run": True})
+            continue
+
+        proc = subprocess.run(cmd, cwd=ROOT, shell=True, capture_output=True, text=True)
+        outcomes.append(
+            {
+                "command": cmd,
+                "ok": proc.returncode == 0,
+                "returncode": proc.returncode,
+            }
+        )
+    return outcomes
+
+
 def compose_fullpass_message(
     summary: dict,
     todo: dict,
@@ -640,6 +784,7 @@ def compose_fullpass_message(
     lane_hits: dict[str, int],
     productive: bool,
     productivity_reasons: list[str],
+    validation_outcomes: list[dict],
 ) -> str:
     cfg = load_config().get("notifications", {})
     prefix = cfg.get("prefixes", {}).get("fullpass", "[SANDY-FULLPASS]")
@@ -655,6 +800,7 @@ def compose_fullpass_message(
     touch_lane_text = ", ".join([f"{k}={v}" for k, v in sorted(lane_hits.items())]) if lane_hits else "none"
     verdict = "productive" if productive else "maintenance/no-op"
     reason_text = "; ".join(productivity_reasons) if productivity_reasons else "no gate condition met"
+    validation_text = format_validation_outcomes(validation_outcomes)
 
     return (
         f"{prefix} automation cycle complete.\n\n"
@@ -678,6 +824,7 @@ def compose_fullpass_message(
         f"- touched lanes (from git): {touch_lane_text}\n"
         f"- cycle productivity verdict: {verdict}\n"
         f"- productivity reasons: {reason_text}\n\n"
+        f"Validation outcomes (commands run):\n{validation_text}\n\n"
         f"Current repo changes:\n{git_text}\n\n"
         f"Top open/partial TODO items:\n{open_text}\n\n"
         f"Narrative summary: Sandy ran planning + execution bookkeeping, refreshed queue visibility, and emitted lane-aware productivity telemetry for the next autonomous cycle."
@@ -849,7 +996,7 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
     return out
 
 
-def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3) -> None:
+def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3, validation_commands: list[str] | None = None) -> None:
     started = now_dt()
     cycle_id = started.strftime("%Y%m%dT%H%M%S")
     summary = run_scheduler(scheduler=scheduler, dry_run=dry_run)
@@ -860,6 +1007,9 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
         orchestration = run_orchestrator_pipeline(limit=dispatch_limit, dry_run=dry_run)
     if with_dispatch:
         dispatch = dispatch_spawn_requests(dry_run=dry_run, max_dispatch=dispatch_limit)
+
+    validation_commands = validation_commands or ["./venv/bin/python -m unittest -q"]
+    validation_outcomes = run_validation_commands(validation_commands, dry_run=dry_run)
 
     todo_text = TODO_PATH.read_text(encoding="utf-8", errors="ignore") if TODO_PATH.exists() else ""
     todo = parse_todo_counts(todo_text)
@@ -893,6 +1043,7 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
         lane_hits,
         productive,
         productivity_reasons,
+        validation_outcomes,
     )
 
     queue_notification(message, dry_run=dry_run)
@@ -924,6 +1075,7 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
         "todo_delta": delta,
         "pipeline": orch.get("pipeline", {}),
         "dispatch": orch.get("dispatch", {}),
+        "validation": validation_outcomes,
         "telegram_sent": telegram_sent,
         "telegram_error": telegram_error,
     }
@@ -960,6 +1112,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_full.add_argument("--with-orchestration", action="store_true", help="Run orchestrator + autospawn before digest")
     p_full.add_argument("--with-dispatch", action="store_true", help="Dispatch spawn requests via openclaw agent bridge")
     p_full.add_argument("--dispatch-limit", type=int, default=3, help="Max requests to prepare/dispatch")
+    p_full.add_argument(
+        "--validation-command",
+        action="append",
+        dest="validation_commands",
+        default=None,
+        help="Validation shell command to run and summarize (repeatable)",
+    )
 
     p_add = sub.add_parser("todo-add", help="Add a checkbox item to plans/todo.md")
     p_add.add_argument("--text", required=True)
@@ -1015,6 +1174,7 @@ def main(argv: list[str] | None = None) -> int:
             with_orchestration=args.with_orchestration,
             with_dispatch=args.with_dispatch,
             dispatch_limit=args.dispatch_limit,
+            validation_commands=args.validation_commands,
         )
         return 0
 
