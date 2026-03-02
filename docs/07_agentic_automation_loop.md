@@ -14,10 +14,11 @@ Define a closed operational loop for Sandy Chaos where assistant work on the rep
 
 1. Human gives objective/constraints.
 2. Agent executes repo work and logs outcomes.
-3. Scheduler triggers daily/weekly loop checks.
-4. Digest text is generated and queued.
-5. Digest is pushed to Telegram (operator-chat chat).
-6. Human feedback modifies next loop policy.
+3. Scheduler triggers loop checks.
+4. Orchestrator builds bounded task contracts.
+5. Spawn-request artifacts are generated and dispatch is attempted via OpenClaw session bridge.
+6. Digest text is generated (outbox + optional Telegram delivery).
+7. Human feedback modifies next loop policy.
 
 ## 4) Scheduler policy
 
@@ -26,7 +27,11 @@ Define a closed operational loop for Sandy Chaos where assistant work on the rep
 
 ## 5) Notification policy
 
-Target chat: `telegram:<REDACTED_CHAT_ID>`
+Default target chat (when enabled): `telegram:<REDACTED_CHAT_ID>`
+
+Current operating mode:
+- Full-pass Telegram emission is disabled by default in the systemd service (to avoid high-frequency noise).
+- Digests are still generated in `memory/notification_outbox.md`.
 
 Guardrails:
 - max 1 daily digest
@@ -137,7 +142,11 @@ This preserves the symbolic/operational target of 5 while introducing jitter to 
 `ops/systemd/sandy-automation.service` now runs:
 
 ```bash
-python3 scripts/self_improve.py full-pass   --scheduler host-cron   --with-orchestration   --with-dispatch   --dispatch-limit 3   --send-telegram
+python3 scripts/self_improve.py full-pass \
+  --scheduler host-cron \
+  --with-orchestration \
+  --with-dispatch \
+  --dispatch-limit 3
 ```
 
 This means each timer cycle executes:
@@ -146,7 +155,7 @@ This means each timer cycle executes:
 2. orchestrator task-plan generation,
 3. spawn-request generation,
 4. dispatch bridge via active OpenClaw session,
-5. rich `[SANDY-FULLPASS]` digest emission.
+5. lane-aware productivity digest generation (outbox-first, Telegram optional).
 
 ## 12) Auto-improvement definition (repo-native)
 
@@ -181,4 +190,40 @@ Every `[SANDY-FULLPASS]` update should include:
 - next best action (single highest-leverage task).
 
 This keeps the automation loop tied to real Sandy Chaos progress instead of generic background churn.
+
+## 13) Current execution setup (agent automation as implemented)
+
+### Active scheduler
+
+- `systemd --user` timer: `sandy-automation.timer`
+- cadence: probabilistic 4-6 minute window around a 5-minute center
+- unit: `sandy-automation.service` (oneshot)
+
+### What runs each cycle
+
+1. `self_improve.py full-pass`
+2. `automation_orchestrator.py` builds task contracts from TODO priorities
+3. `orchestrator_autospawn.py` emits spawn-request payloads
+4. dispatch bridge attempts OpenClaw agent handoff using resolved live UUID session id (not hardcoded key)
+5. digest and telemetry are written to memory artifacts
+
+### Core artifacts
+
+- `memory/orchestrator_task_plan.jsonl`
+- `memory/orchestrator_spawn_requests.json`
+- `memory/orchestrator_dispatch_log.jsonl`
+- `memory/orchestrator_cycle_summary.md`
+- `memory/self_improve_state.json`
+- `memory/notification_outbox.md`
+
+### Why this matters for temporal forecasting advantage
+
+In Sandy Chaos terms, this automation provides a practical "forecasting edge" by continuously converting near-term structural signals into actionable policy updates, while preserving forward causality:
+
+- **Faster legibility of downstream constraints:** TODO drift, dispatch reliability, and test-state changes are surfaced every cycle.
+- **Observer-state updates in bounded time:** each cycle updates policy traces and next actions before backlog noise accumulates.
+- **Cross-lane temporal coupling:** theory/simulation/validation/ops signals are co-reported, improving intervention timing.
+- **No retrocausal claims:** gains come from higher-frequency inference + disciplined feedback loops, not backward-time effects.
+
+Operationally: the system is useful when it reduces decision latency and increases the proportion of productive interventions per unit time.
 
