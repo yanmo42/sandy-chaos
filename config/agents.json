@@ -1,0 +1,34 @@
+{
+  "defaultModel": "openai-codex/gpt-5.3-codex",
+  "coordinator": {
+    "name": "sandy-coordinator",
+    "role": "triage, spawn tasks, aggregate outcomes",
+    "model": "openai-codex/gpt-5.3-codex"
+  },
+  "subagents": [
+    {
+      "name": "sandy-planner",
+      "role": "parse TODO, rank priorities, define acceptance criteria",
+      "model": "openai-codex/gpt-5.3-codex",
+      "allowedAreas": ["plans", "docs"]
+    },
+    {
+      "name": "sandy-builder",
+      "role": "implement scoped code changes",
+      "model": "openai-codex/gpt-5.3-codex",
+      "allowedAreas": ["nfem_suite", "tests", "scripts"]
+    },
+    {
+      "name": "sandy-verifier",
+      "role": "run validations, test falsification conditions",
+      "model": "openai-codex/gpt-5.3-codex",
+      "allowedAreas": ["tests", "nfem_suite", "plans"]
+    },
+    {
+      "name": "sandy-reporter",
+      "role": "prepare concise daily/weekly Telegram updates",
+      "model": "openai-codex/gpt-5.3-codex",
+      "allowedAreas": ["memory", "plans", "docs"]
+    }
+  ]
+}

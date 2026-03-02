@@ -1,0 +1,18 @@
+{
+  "repoRoot": "${REPO_ROOT}",
+  "todoPath": "plans/todo.md",
+  "maxTasksPerCycle": 3,
+  "taskSelection": {
+    "prefer": ["Agency + Temporal Communication Buildout", "Closed automation loop"],
+    "includePartial": true
+  },
+  "gates": {
+    "requireCleanCommitForAutopush": true,
+    "requireTestsForCodeTasks": true,
+    "allowAutoPush": false
+  },
+  "output": {
+    "taskPlanJsonl": "memory/orchestrator_task_plan.jsonl",
+    "cycleSummary": "memory/orchestrator_cycle_summary.md"
+  }
+}

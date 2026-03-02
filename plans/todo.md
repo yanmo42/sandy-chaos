@@ -256,3 +256,12 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [ ] Configure env token in `~/.config/sandy-chaos/automation.env`
 - [ ] Enable timer locally and verify first auto-send
 
+
+## OpenClaw Subagent Orchestration v1
+
+- [x] Add agent lane config (`config/agents.json`) pinned to codex-5.3
+- [x] Add orchestrator config (`config/orchestrator.json`) for selection/gates
+- [x] Add coordinator script to emit task contracts (`scripts/automation_orchestrator.py`)
+- [x] Document v1 orchestration flow in `docs/07_agentic_automation_loop.md`
+- [ ] Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)
+
