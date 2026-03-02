@@ -111,3 +111,44 @@ git commit -m "feat: <small scoped change>"
 - Routine coding / grep / edits: `low` or `minimal`
 - Architecture / formalization / critiques: `high` or `xhigh`
 - Keep default in build lane at `low` for speed
+
+## 9) Automation loops (daily + weekly)
+
+### Default trigger source
+
+- Primary: OpenClaw heartbeat
+- Optional: host cron when strict timing is needed
+
+Run automation check:
+
+```bash
+python3 scripts/self_improve.py run --scheduler heartbeat
+```
+
+Preview notification text without sending/queuing:
+
+```bash
+python3 scripts/self_improve.py run --scheduler heartbeat --dry-run
+```
+
+### Cadence
+
+- Daily digest scaffold: once per day (`*-meso-review.md`)
+- Weekly distill scaffold: once per ISO week (`*-slow-distill.md`)
+
+### Missed-run detection
+
+State is tracked in `memory/self_improve_state.json`:
+
+- `last_run.daily`, `last_run.weekly`
+- `missed_runs.daily`, `missed_runs.weekly`
+- recurring `policy_tweak_counts`
+
+### Proactive summary routing
+
+Summaries are queued in `memory/notification_outbox.md`.
+If Telegram routing is configured in the active OpenClaw session, deliver queued summaries as:
+
+- Daily digest summary
+- Weekly distill summary
+
