@@ -8,9 +8,8 @@ Examples:
     --decision "Used bullets + one recommendation" \
     --outcome "Accepted without follow-up" \
     --policy-tweak "Default to 4 bullets max for recaps"
-  python3 scripts/self_improve.py daily
-  python3 scripts/self_improve.py weekly
-  python3 scripts/self_improve.py run --scheduler heartbeat --dry-run
+  python3 scripts/self_improve.py full-pass --scheduler host-cron --send-telegram
+  python3 scripts/self_improve.py todo-add --text "Implement digest sender" --section "Closed automation loop"
 """
 
 from __future__ import annotations
@@ -18,6 +17,9 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
+import subprocess
+import urllib.parse
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -26,6 +28,11 @@ TEMPLATES = ROOT / "templates"
 MEMORY_DIR = ROOT / "memory"
 STATE_PATH = MEMORY_DIR / "self_improve_state.json"
 NOTIFY_OUTBOX = MEMORY_DIR / "notification_outbox.md"
+TODO_PATH = ROOT / "plans" / "todo.md"
+CONFIG_PATH = ROOT / "config" / "automation.json"
+ORCH_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
+ORCH_REQ_PATH = ROOT / "memory" / "orchestrator_spawn_requests.json"
+ORCH_DISPATCH_LOG = ROOT / "memory" / "orchestrator_dispatch_log.jsonl"
 
 
 def now_dt() -> datetime:
@@ -44,29 +51,58 @@ def ensure_memory_file() -> Path:
     return f
 
 
+def default_state() -> dict:
+    return {
+        "scheduler_source": "heartbeat",
+        "last_run": {"daily": None, "weekly": None, "full_pass": None},
+        "missed_runs": {"daily": 0, "weekly": 0},
+        "policy_tweak_counts": {},
+        "last_todo_snapshot": {"done": 0, "partial": 0, "open": 0, "total": 0},
+        "sent": {"daily": None, "weekly": None},
+    }
+
+
 def load_state() -> dict:
     MEMORY_DIR.mkdir(parents=True, exist_ok=True)
     if not STATE_PATH.exists():
-        return {
-            "scheduler_source": "heartbeat",
-            "last_run": {"daily": None, "weekly": None},
-            "missed_runs": {"daily": 0, "weekly": 0},
-            "policy_tweak_counts": {},
-        }
+        return default_state()
 
     try:
-        return json.loads(STATE_PATH.read_text(encoding="utf-8"))
+        data = json.loads(STATE_PATH.read_text(encoding="utf-8"))
+        base = default_state()
+        base.update(data)
+        base["last_run"].update(data.get("last_run", {}))
+        base["missed_runs"].update(data.get("missed_runs", {}))
+        base["sent"].update(data.get("sent", {}))
+        return base
     except Exception:
-        return {
-            "scheduler_source": "heartbeat",
-            "last_run": {"daily": None, "weekly": None},
-            "missed_runs": {"daily": 0, "weekly": 0},
-            "policy_tweak_counts": {},
-        }
+        return default_state()
 
 
 def save_state(state: dict) -> None:
     STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def load_config() -> dict:
+    if not CONFIG_PATH.exists():
+        return {
+            "notifications": {
+                "channel": "telegram",
+                "target": "<REDACTED_CHAT_ID>",
+                "prefixes": {
+                    "daily": "[SANDY-DAILY]",
+                    "weekly": "[SANDY-WEEKLY]",
+                    "alert": "[SANDY-ALERT]",
+                    "fullpass": "[SANDY-FULLPASS]",
+                },
+                "rateLimits": {"dailyMax": 1, "weeklyMax": 1},
+                "botTokenEnv": "OPENCLAW_TELEGRAM_BOT_TOKEN",
+            }
+        }
+    try:
+        return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return load_config.__defaults__[0] if load_config.__defaults__ else {}
 
 
 def fast(note: str) -> None:
@@ -77,7 +113,6 @@ def fast(note: str) -> None:
 
 
 def post_task(context: str, decision: str, outcome: str, policy_tweak: str) -> None:
-    """Enforce a structured post-task log schema."""
     f = ensure_memory_file()
     stamp = now_dt().strftime("%Y-%m-%d %H:%M")
 
@@ -96,7 +131,6 @@ def post_task(context: str, decision: str, outcome: str, policy_tweak: str) -> N
     key = policy_tweak.strip()
     tweaks[key] = int(tweaks.get(key, 0)) + 1
     save_state(state)
-
     print(f"Appended post-task schema entry to {f}")
 
 
@@ -113,11 +147,9 @@ def scaffold(kind: str) -> Path:
 
     MEMORY_DIR.mkdir(parents=True, exist_ok=True)
     if dst.exists():
-        print(f"Already exists: {dst}")
         return dst
 
     shutil.copyfile(src, dst)
-    print(f"Created: {dst}")
     return dst
 
 
@@ -130,11 +162,9 @@ def queue_notification(text: str, dry_run: bool) -> None:
 
     with NOTIFY_OUTBOX.open("a", encoding="utf-8") as out:
         out.write(payload + "\n")
-    print(f"Queued notification in {NOTIFY_OUTBOX}")
 
 
 def cadence_due(state: dict, cadence: str) -> tuple[bool, int]:
-    """Return (is_due, missed_intervals)."""
     now = now_dt()
     last_raw = state.get("last_run", {}).get(cadence)
     if not last_raw:
@@ -161,7 +191,7 @@ def cadence_due(state: dict, cadence: str) -> tuple[bool, int]:
     return True, max(0, gap - 1)
 
 
-def run_scheduler(scheduler: str, dry_run: bool = False) -> None:
+def run_scheduler(scheduler: str, dry_run: bool = False) -> dict:
     state = load_state()
     state["scheduler_source"] = scheduler
 
@@ -188,18 +218,252 @@ def run_scheduler(scheduler: str, dry_run: bool = False) -> None:
     if created:
         queue_notification(
             "Self-improve loop update: "
-            + "; ".join([f"created {Path(c).name}" for c in created]),
+            + "; ".join([f"prepared {Path(c).name}" for c in created]),
             dry_run=dry_run,
         )
-    else:
-        queue_notification("Self-improve loop check: nothing due.", dry_run=dry_run)
 
-    top_tweaks = sorted(
-        state.get("policy_tweak_counts", {}).items(), key=lambda kv: kv[1], reverse=True
-    )[:3]
-    if top_tweaks:
-        preview = ", ".join([f"{k} ({v}x)" for k, v in top_tweaks])
-        print(f"Promotion candidates (top recurring tweaks): {preview}")
+    return {
+        "daily_due": daily_due,
+        "weekly_due": weekly_due,
+        "created": created,
+        "daily_missed": daily_missed,
+        "weekly_missed": weekly_missed,
+    }
+
+
+def parse_todo_counts(todo_text: str) -> dict:
+    done = partial = open_ = 0
+    for line in todo_text.splitlines():
+        s = line.strip()
+        if s.startswith("- [x]") or s.startswith("- [X]"):
+            done += 1
+        elif s.startswith("- [ ]"):
+            open_ += 1
+        elif s.startswith("- [🟡]"):
+            partial += 1
+        elif "|" in s and "✅" in s:
+            done += 1
+        elif "|" in s and "🟡" in s:
+            partial += 1
+        elif "|" in s and "⬜" in s:
+            open_ += 1
+    total = done + partial + open_
+    pct = (done / total * 100.0) if total else 0.0
+    return {"done": done, "partial": partial, "open": open_, "total": total, "pct": pct}
+
+
+def list_open_checkbox_items(limit: int = 5) -> list[str]:
+    if not TODO_PATH.exists():
+        return []
+    items: list[str] = []
+    for line in TODO_PATH.read_text(encoding="utf-8", errors="ignore").splitlines():
+        s = line.strip()
+        if s.startswith("- [ ]") or s.startswith("- [🟡]"):
+            items.append(s)
+        if len(items) >= limit:
+            break
+    return items
+
+
+def git_status_short(limit: int = 12) -> list[str]:
+    try:
+        out = subprocess.check_output(["git", "status", "--short"], cwd=ROOT, text=True)
+    except Exception:
+        return []
+    lines = [ln for ln in out.splitlines() if ln.strip()]
+    return lines[:limit]
+
+
+def todo_add(text: str, section: str | None = None) -> bool:
+    if not TODO_PATH.exists():
+        return False
+    lines = TODO_PATH.read_text(encoding="utf-8").splitlines()
+
+    insert_idx = len(lines)
+    if section:
+        header = f"## {section.strip()}"
+        for i, ln in enumerate(lines):
+            if ln.strip() == header:
+                insert_idx = i + 1
+                while insert_idx < len(lines) and lines[insert_idx].strip() == "":
+                    insert_idx += 1
+                break
+
+    lines.insert(insert_idx, f"- [ ] {text.strip()}")
+    TODO_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return True
+
+
+def todo_set(match: str, state_name: str) -> bool:
+    if not TODO_PATH.exists():
+        return False
+    marker = {"done": "[x]", "open": "[ ]", "partial": "[🟡]"}.get(state_name)
+    if not marker:
+        return False
+
+    lines = TODO_PATH.read_text(encoding="utf-8").splitlines()
+    for i, ln in enumerate(lines):
+        s = ln.strip()
+        if s.startswith("- [") and match.lower() in s.lower():
+            prefix_len = ln.find("[")
+            end = ln.find("]", prefix_len)
+            if prefix_len >= 0 and end > prefix_len:
+                lines[i] = ln[:prefix_len] + marker + ln[end + 1 :]
+                TODO_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+                return True
+    return False
+
+
+def todo_remove(match: str) -> bool:
+    if not TODO_PATH.exists():
+        return False
+    lines = TODO_PATH.read_text(encoding="utf-8").splitlines()
+    for i, ln in enumerate(lines):
+        s = ln.strip()
+        if s.startswith("- [") and match.lower() in s.lower():
+            del lines[i]
+            TODO_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            return True
+    return False
+
+
+def send_telegram_message(text: str, dry_run: bool) -> None:
+    cfg = load_config().get("notifications", {})
+    target = str(cfg.get("target", "")).strip()
+    token_env = cfg.get("botTokenEnv", "OPENCLAW_TELEGRAM_BOT_TOKEN")
+
+    import os
+
+    token = os.environ.get(token_env, "").strip()
+    if not target:
+        raise RuntimeError("Telegram target missing in config/automation.json")
+    if not token:
+        raise RuntimeError(
+            f"Telegram bot token missing. Export {token_env}=<bot_token> for automation service."
+        )
+
+    if dry_run:
+        print("DRY RUN telegram send:\n" + text)
+        return
+
+    payload = urllib.parse.urlencode({"chat_id": target, "text": text}).encode("utf-8")
+    req = urllib.request.Request(
+        f"https://api.telegram.org/bot{token}/sendMessage", data=payload, method="POST"
+    )
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        _ = resp.read()
+
+
+
+def load_orchestrator_snapshot() -> dict:
+    plan_count = 0
+    req_count = 0
+    dispatched = 0
+    latest_runs: list[str] = []
+
+    if ORCH_PLAN_PATH.exists():
+        try:
+            plan_count = len([ln for ln in ORCH_PLAN_PATH.read_text(encoding="utf-8", errors="ignore").splitlines() if ln.strip()])
+        except Exception:
+            plan_count = 0
+
+    if ORCH_REQ_PATH.exists():
+        try:
+            data = json.loads(ORCH_REQ_PATH.read_text(encoding="utf-8"))
+            req_count = len(data.get("requests", []))
+        except Exception:
+            req_count = 0
+
+    if ORCH_DISPATCH_LOG.exists():
+        try:
+            lines = [ln for ln in ORCH_DISPATCH_LOG.read_text(encoding="utf-8", errors="ignore").splitlines() if ln.strip()]
+            events = []
+            for ln in lines[-80:]:
+                try:
+                    events.append(json.loads(ln))
+                except Exception:
+                    continue
+            disp = [e for e in events if e.get("event") == "spawn_dispatched"]
+            dispatched = len(disp)
+            latest_runs = [str(e.get("runId", "")) for e in disp[-5:] if e.get("runId")]
+        except Exception:
+            pass
+
+    return {
+        "plan_count": plan_count,
+        "request_count": req_count,
+        "dispatched_count": dispatched,
+        "latest_run_ids": latest_runs,
+    }
+
+
+def todo_delta(current: dict, previous: dict) -> dict:
+    return {
+        "done": int(current.get("done", 0)) - int(previous.get("done", 0)),
+        "partial": int(current.get("partial", 0)) - int(previous.get("partial", 0)),
+        "open": int(current.get("open", 0)) - int(previous.get("open", 0)),
+    }
+
+def compose_fullpass_message(summary: dict, todo: dict, open_items: list[str], git_lines: list[str], orch: dict, delta: dict) -> str:
+    cfg = load_config().get("notifications", {})
+    prefix = cfg.get("prefixes", {}).get("fullpass", "[SANDY-FULLPASS]")
+
+    created = summary.get("created", [])
+    created_text = ", ".join([Path(c).name for c in created]) if created else "none"
+
+    git_text = "\n".join([f"- {g}" for g in git_lines]) if git_lines else "- (no unstaged changes)"
+    open_text = "\n".join([f"- {it}" for it in open_items]) if open_items else "- (no open checkbox items found)"
+    run_text = ", ".join(orch.get("latest_run_ids", [])) if orch.get("latest_run_ids") else "none"
+
+    return (
+        f"{prefix} automation cycle complete.\n\n"
+        f"Execution workflow status:\n"
+        f"- orchestrator tasks planned: {orch.get('plan_count', 0)}\n"
+        f"- spawn requests prepared: {orch.get('request_count', 0)}\n"
+        f"- recent dispatch events logged: {orch.get('dispatched_count', 0)}\n"
+        f"- recent run ids: {run_text}\n\n"
+        f"Cadence artifacts prepared: {created_text}.\n"
+        f"Missed intervals detected: daily={summary.get('daily_missed', 0)}, weekly={summary.get('weekly_missed', 0)}.\n\n"
+        f"Project progress snapshot:\n"
+        f"- done={todo['done']} (Δ {delta['done']:+d})\n"
+        f"- partial={todo['partial']} (Δ {delta['partial']:+d})\n"
+        f"- open={todo['open']} (Δ {delta['open']:+d})\n"
+        f"- total={todo['total']}\n"
+        f"- completion={todo['pct']:.1f}%\n\n"
+        f"Current repo changes:\n{git_text}\n\n"
+        f"Top open/partial TODO items:\n{open_text}\n\n"
+        f"Narrative summary: Sandy ran planning + execution bookkeeping, refreshed queue visibility, and produced dispatch-aware telemetry for the next autonomous cycle."
+    )
+
+
+def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int) -> None:
+    summary = run_scheduler(scheduler=scheduler, dry_run=dry_run)
+
+    todo_text = TODO_PATH.read_text(encoding="utf-8", errors="ignore") if TODO_PATH.exists() else ""
+    todo = parse_todo_counts(todo_text)
+    open_items = list_open_checkbox_items(limit=max_open_items)
+    git_lines = git_status_short(limit=12)
+    orch = load_orchestrator_snapshot()
+
+    state = load_state()
+    prev_todo = state.get("last_todo_snapshot", {})
+    delta = todo_delta(todo, prev_todo)
+    state["last_run"]["full_pass"] = now_dt().isoformat(timespec="seconds")
+    state["last_todo_snapshot"] = todo
+    save_state(state)
+
+    message = compose_fullpass_message(summary, todo, open_items, git_lines, orch, delta)
+
+    queue_notification(message, dry_run=dry_run)
+    if send_telegram:
+        try:
+            send_telegram_message(message, dry_run=dry_run)
+        except Exception as exc:
+            warn = f"[SANDY-ALERT] Telegram send skipped: {exc}"
+            queue_notification(warn, dry_run=dry_run)
+            print(warn)
+
+    print("Full pass complete.")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -219,13 +483,25 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("weekly", help="Create weekly slow distill scaffold")
 
     p_run = sub.add_parser("run", help="Run cadence checks + missed-run detection")
-    p_run.add_argument(
-        "--scheduler",
-        choices=["heartbeat", "host-cron"],
-        default="heartbeat",
-        help="Source of periodic triggering",
-    )
+    p_run.add_argument("--scheduler", choices=["heartbeat", "host-cron"], default="heartbeat")
     p_run.add_argument("--dry-run", action="store_true", help="Preview notification text only")
+
+    p_full = sub.add_parser("full-pass", help="Run full cycle and build rich digest")
+    p_full.add_argument("--scheduler", choices=["heartbeat", "host-cron"], default="host-cron")
+    p_full.add_argument("--send-telegram", action="store_true", help="Send full digest to Telegram")
+    p_full.add_argument("--dry-run", action="store_true", help="Preview output only")
+    p_full.add_argument("--max-open-items", type=int, default=5)
+
+    p_add = sub.add_parser("todo-add", help="Add a checkbox item to plans/todo.md")
+    p_add.add_argument("--text", required=True)
+    p_add.add_argument("--section", required=False)
+
+    p_set = sub.add_parser("todo-set", help="Mark first matching todo checkbox")
+    p_set.add_argument("--match", required=True)
+    p_set.add_argument("--state", choices=["done", "open", "partial"], required=True)
+
+    p_remove = sub.add_parser("todo-remove", help="Remove first matching todo checkbox")
+    p_remove.add_argument("--match", required=True)
 
     return p
 
@@ -243,16 +519,43 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == "daily":
-        scaffold("daily")
+        p = scaffold("daily")
+        print(p)
         return 0
 
     if args.cmd == "weekly":
-        scaffold("weekly")
+        p = scaffold("weekly")
+        print(p)
         return 0
 
     if args.cmd == "run":
         run_scheduler(scheduler=args.scheduler, dry_run=args.dry_run)
+        print("Cadence check complete.")
         return 0
+
+    if args.cmd == "full-pass":
+        full_pass(
+            scheduler=args.scheduler,
+            send_telegram=args.send_telegram,
+            dry_run=args.dry_run,
+            max_open_items=args.max_open_items,
+        )
+        return 0
+
+    if args.cmd == "todo-add":
+        ok = todo_add(text=args.text, section=args.section)
+        print("Added." if ok else "Failed.")
+        return 0 if ok else 1
+
+    if args.cmd == "todo-set":
+        ok = todo_set(match=args.match, state_name=args.state)
+        print("Updated." if ok else "No matching checkbox found.")
+        return 0 if ok else 1
+
+    if args.cmd == "todo-remove":
+        ok = todo_remove(match=args.match)
+        print("Removed." if ok else "No matching checkbox found.")
+        return 0 if ok else 1
 
     parser.print_help()
     return 1
