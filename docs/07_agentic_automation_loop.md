@@ -104,3 +104,19 @@ python3 scripts/orchestrator_autospawn.py --limit 3
 
 This is a bridge design: repo automation prepares deterministic `sessions_spawn` payloads, then the active OpenClaw coordinator executes them.
 
+
+### One-command wrapper
+
+Use:
+
+```bash
+./scripts/run_sandy_cycle.sh 3
+```
+
+This wraps:
+
+1. `automation_orchestrator.py`
+2. `orchestrator_autospawn.py --limit 3`
+
+and leaves dispatch-ready artifacts for immediate `sessions_spawn` execution.
+
