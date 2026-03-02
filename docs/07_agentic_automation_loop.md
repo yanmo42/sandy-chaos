@@ -30,8 +30,8 @@ Define a closed operational loop for Sandy Chaos where assistant work on the rep
 Default target chat (when enabled): `telegram:<REDACTED_CHAT_ID>`
 
 Current operating mode:
-- Full-pass Telegram emission is disabled by default in the systemd service (to avoid high-frequency noise).
-- Digests are still generated in `memory/notification_outbox.md`.
+- Full-pass Telegram emission is enabled in the systemd service wiring.
+- Digests are also generated in `memory/notification_outbox.md`.
 
 Guardrails:
 - max 1 daily digest
@@ -146,7 +146,8 @@ python3 scripts/self_improve.py full-pass \
   --scheduler host-cron \
   --with-orchestration \
   --with-dispatch \
-  --dispatch-limit 3
+  --dispatch-limit 3 \
+  --send-telegram
 ```
 
 This means each timer cycle executes:
