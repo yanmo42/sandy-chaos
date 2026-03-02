@@ -225,7 +225,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [🟡] Implement **read-write observer memory policy**
   - [x] Add fast-loop logging automation (`scripts/self_improve.py fast ...`)
   - [x] Enforce post-task log schema: context, decision, outcome, policy tweak
-  - [ ] Promote repeatedly successful tweaks into long-term guidance docs
+  - [x] Promote repeatedly successful tweaks into long-term guidance docs
 
 ### Closed automation loop (repo work → digest → Telegram)
 
