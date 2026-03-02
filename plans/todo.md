@@ -262,7 +262,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add lane tagging to orchestrator task contracts (theory/sim/validation/ops)
 - [x] Add cycle productivity gate (must advance TODO/tests/docs/ops reliability)
 - [x] Add TODO delta computation in full-pass digest (vs last snapshot)
-- [ ] Add validation outcome summary (commands run + pass/fail) to full-pass digest
+- [x] Add validation outcome summary (commands run + pass/fail) to full-pass digest
 
 ## OpenClaw Subagent Orchestration v1
 
