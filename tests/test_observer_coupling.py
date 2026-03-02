@@ -109,6 +109,38 @@ class TestObserverCoupling(unittest.TestCase):
             low_stats["counterfactual_control_score"],
         )
 
+    def test_intervention_gain_tracks_realized_perturbation(self):
+        coupling = ObserverCoupling(ObserverCouplingConfig(enabled=True, max_perturbation=2.0))
+        coupling.update_measurements(self.observer_states, self.positions, self.velocities)
+
+        low_stats = coupling.collect_step_stats([0.2, 0.4], len(self.observer_states))
+        high_stats = coupling.collect_step_stats([1.4, 1.6], len(self.observer_states))
+
+        self.assertGreater(high_stats["intervention_gain"], low_stats["intervention_gain"])
+        self.assertAlmostEqual(low_stats["intervention_gain"], 0.15, places=6)
+        self.assertAlmostEqual(high_stats["intervention_gain"], 0.75, places=6)
+
+    def test_predictive_horizon_increases_with_decay_and_frame_scale(self):
+        fast = ObserverCoupling(ObserverCouplingConfig(enabled=True, decay=0.5))
+        slow = ObserverCoupling(ObserverCouplingConfig(enabled=True, decay=0.9))
+
+        fast_states = {
+            "A": {**self.observer_states["A"], "temporal_frame_scale": 1.0},
+            "B": {**self.observer_states["B"], "temporal_frame_scale": 1.0},
+        }
+        slow_states = {
+            "A": {**self.observer_states["A"], "temporal_frame_scale": 2.0},
+            "B": {**self.observer_states["B"], "temporal_frame_scale": 2.0},
+        }
+
+        fast.update_measurements(fast_states, self.positions, self.velocities)
+        slow.update_measurements(slow_states, self.positions, self.velocities)
+
+        fast_stats = fast.collect_step_stats([0.1], len(fast_states))
+        slow_stats = slow.collect_step_stats([0.1], len(slow_states))
+
+        self.assertGreater(slow_stats["predictive_horizon"], fast_stats["predictive_horizon"])
+
 
 if __name__ == "__main__":
     unittest.main()

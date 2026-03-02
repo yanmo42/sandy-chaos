@@ -156,17 +156,23 @@ class ObserverCoupling:
 
         if self._observer_activity:
             drives = list(self._observer_activity.values())
-            mean_abs_drive = float(np.mean([abs(v["full_drive"]) for v in drives]))
+
+            # Fraction of available perturbation budget currently being used.
+            # This is tied to realized perturbation (not latent drive terms),
+            # keeping the observable grounded in forward-applied actuation.
             intervention_gain = float(
                 np.clip(
-                    self.config.gain * mean_abs_drive / max(self.config.max_perturbation, 1e-9),
+                    mean_p / max(self.config.max_perturbation, 1e-9),
                     0.0,
                     1.0,
                 )
             )
 
+            # Write-channel share of total local control effort.
+            # Using |read| + |write| avoids cancellation artifacts and preserves
+            # a strictly present-step decomposition of control allocation.
             control_ratios = [
-                abs(v["write_term"]) / (abs(v["full_drive"]) + 1e-9)
+                abs(v["write_term"]) / (abs(v["read_term"]) + abs(v["write_term"]) + 1e-9)
                 for v in drives
             ]
             counterfactual_control_score = float(np.clip(np.mean(control_ratios), 0.0, 1.0))

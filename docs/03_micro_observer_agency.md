@@ -158,12 +158,12 @@ This keeps strict forward causality: measurements and feedback at $t$ perturb on
 
 The simulation now exports three forward-causal agency observables from `ObserverCoupling.collect_step_stats(...)`:
 
-- **`intervention_gain`**: normalized actuation strength,
-  \(	ext{clip}(\lambda\,\mathbb{E}[|r_im_i+w_if_i|]/\Phi_{max}, 0, 1)\).
-- **`counterfactual_control_score`**: write-channel contribution versus read-only drive,
-  \(\mathbb{E}[|w_if_i|/(|r_im_i+w_if_i|+arepsilon)]\).
+- **`intervention_gain`**: normalized realized actuation strength,
+  \(\mathrm{clip}(\mathbb{E}[\|\Phi\|]/\Phi_{\max}, 0, 1)\). 
+- **`counterfactual_control_score`**: write-channel share of present control effort,
+  \(\mathbb{E}[\,|w_i f_i|/(|r_i m_i| + |w_i f_i| + \varepsilon)\,]\). 
 - **`predictive_horizon`**: effective forward-looking persistence (in update steps),
-  \((1-	ext{decay})^{-1} 	imes \mathbb{E}[	ext{temporal\_frame\_scale}]\).
+  \((1-\mathrm{decay})^{-1} \cdot \mathbb{E}[\mathrm{temporal\_frame\_scale}]\). 
 
 All three are computed from present-step measurements/state and characterize only future update influence (no retrocausal interpretation).
 
