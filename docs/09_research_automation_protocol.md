@@ -63,6 +63,13 @@ A cycle is complete only if all gates pass:
 2. Every summary claim maps to one or more source rows.
 3. At least one counterargument is documented for central claims.
 4. Final output includes a concrete next experiment/check.
+5. Synthesis includes a `## Claims` section where each bullet has source tags like `[S001]`.
+
+Verifier command:
+
+```bash
+python3 scripts/research_verifier.py --synthesis memory/research/<date>-synthesis.md --evidence memory/research/<date>-evidence.csv
+```
 
 ## 8) OpenClaw lane mapping
 

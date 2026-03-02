@@ -202,6 +202,11 @@ When running evidence-heavy work, use this cycle:
 3. Generate synthesis + adversarial check
 4. Run falsification pass via `templates/falsification_report.md`
 5. Commit artifacts + one next-best action
+6. Run mapping verifier:
+
+```bash
+python3 scripts/research_verifier.py --synthesis memory/research/<date>-synthesis.md --evidence memory/research/<date>-evidence.csv
+```
 
 Recommended artifact location:
 

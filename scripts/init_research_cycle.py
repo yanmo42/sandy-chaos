@@ -50,7 +50,15 @@ def main() -> int:
     files = {
         f"{prefix}-query.md": "# Query\n\n## Question\n\n## Scope\n\n## Claim tier\n\n## Failure condition\n",
         f"{prefix}-evidence.csv": "source_id,url_or_doi,query,claim_supported,method_type,dataset_or_context,key_result,limitation,extraction_confidence,reviewer_status,notes\n",
-        f"{prefix}-synthesis.md": "# Synthesis\n\n## Supportive synthesis\n\n## Adversarial synthesis\n\n## Confidence\n",
+        f"{prefix}-synthesis.md": (
+            "# Synthesis\n\n"
+            "## Claims\n"
+            "- <claim 1> [S001]\n"
+            "- <claim 2> [S001][S002]\n\n"
+            "## Supportive synthesis\n\n"
+            "## Adversarial synthesis\n\n"
+            "## Confidence\n"
+        ),
         f"{prefix}-falsification.md": "# Falsification\n\n## Primary claim\n\n## Disproof conditions\n1. \n2. \n3. \n\n## Decisive next check\n",
     }
 
