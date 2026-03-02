@@ -222,7 +222,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
   - [x] Meso loop template (`templates/daily_meso_review.md`)
   - [x] Slow loop template (`templates/weekly_slow_distill.md`)
   - [x] Integrate weekly policy distillation guidance into `WORKFLOW.md`
-- [🟡] Implement **read-write observer memory policy**
+- [x] Implement **read-write observer memory policy**
   - [x] Add fast-loop logging automation (`scripts/self_improve.py fast ...`)
   - [x] Enforce post-task log schema: context, decision, outcome, policy tweak
   - [x] Promote repeatedly successful tweaks into long-term guidance docs
@@ -238,7 +238,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
   - [x] Track missed-run counters
 - [🟡] Add notification outbox format (`memory/notification_outbox.md`)
   - [x] Queue rich digest text entries
-  - [ ] Add explicit daily/weekly markdown templates
+  - [x] Add explicit daily/weekly markdown templates
 - [🟡] Add Telegram delivery wiring for digests
   - [x] Route default to existing operator-chat chat (`telegram:<REDACTED_CHAT_ID>`) via `config/automation.json`
   - [x] Define anti-spam/quiet-hour guardrails in config

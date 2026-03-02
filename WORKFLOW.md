@@ -137,6 +137,8 @@ Planned trigger sources:
 Current artifacts:
 - `memory/self_improve_state.json` (run timestamps + missed-run tracking)
 - `memory/notification_outbox.md` (rich digest queue)
+- `templates/daily_digest_notification.md` (explicit daily markdown format)
+- `templates/weekly_digest_notification.md` (explicit weekly markdown format)
 - `config/automation.json` (notification target/prefix/guardrails)
 
 Telegram delivery:
