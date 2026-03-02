@@ -16,7 +16,7 @@ retrograde orbits.
 """
 
 import numpy as np
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Sequence
 from collections import deque
 
 
@@ -32,7 +32,8 @@ class VortexChannel:
     """
     
     def __init__(self, vortex_center: np.ndarray, vortex_radius: float,
-                 coupling_strength: float = 1.0):
+                 coupling_strength: float = 1.0,
+                 backward_attenuation: float = 0.5):
         """
         Initialize the vortex communication channel.
         
@@ -40,10 +41,12 @@ class VortexChannel:
             vortex_center: Position of vortex center
             vortex_radius: Effective radius of vortex influence
             coupling_strength: How strongly the vortex couples A and B
+            backward_attenuation: Multiplicative loss on B→A path (1.0 = null symmetric model)
         """
         self.vortex_center = vortex_center.copy()
         self.vortex_radius = vortex_radius
         self.coupling_strength = coupling_strength
+        self.backward_attenuation = float(backward_attenuation)
         
         # Source A (upstream)
         self.source_a_position = None
@@ -171,8 +174,9 @@ class VortexChannel:
                     self.source_a_position
                 )
                 
-                # Backward transmission is weaker (more dissipation)
-                received_signal = packet['signal'] * coupling_factor * 0.5
+                # Backward transmission can be attenuated relative to forward path.
+                # Set backward_attenuation=1.0 for a symmetric null model.
+                received_signal = packet['signal'] * coupling_factor * self.backward_attenuation
                 backward_received.append(received_signal)
                 
                 # Update vortex state
@@ -294,6 +298,85 @@ class VortexChannel:
         
         return mi
     
+    @staticmethod
+    def _aggregate_directional_communication(transmissions: List[Dict[str, float]],
+                                             delta_tau_bins: np.ndarray) -> np.ndarray:
+        """Estimate C(Δτ) from delivered transmissions in a strictly causal way.
+
+        Only packets with positive propagation delay contribute. This enforces
+        forward causality: no packet can contribute at Δτ <= 0.
+        """
+        if len(delta_tau_bins) < 2:
+            raise ValueError("delta_tau_bins must contain at least two bin edges")
+
+        profile = np.zeros(len(delta_tau_bins) - 1, dtype=float)
+        counts = np.zeros(len(delta_tau_bins) - 1, dtype=float)
+
+        for tx in transmissions:
+            delta_tau = float(tx.get('delay', tx['received_time'] - tx['sent_time']))
+            if delta_tau <= 0.0:
+                continue
+            bin_idx = int(np.searchsorted(delta_tau_bins, delta_tau, side='right') - 1)
+            if 0 <= bin_idx < len(profile):
+                profile[bin_idx] += abs(float(tx['signal']))
+                counts[bin_idx] += 1.0
+
+        nz = counts > 0
+        profile[nz] = profile[nz] / counts[nz]
+        return profile
+
+    def compute_temporal_frame_metrics(self,
+                                       delta_tau_bins: Optional[Sequence[float]] = None,
+                                       coupling_values: Optional[Sequence[float]] = None) -> Dict[str, np.ndarray]:
+        """Compute directional communication profiles C_A→B(Δτ), C_B→A(Δτ), and asymmetry.
+
+        Args:
+            delta_tau_bins: Optional bin edges in simulation-time units.
+            coupling_values: Optional λ values used to build asymmetry surface
+                over (Δτ, λ). Surface scales with channel coupling strength.
+
+        Returns:
+            Dictionary containing profiles sampled at bin centers and optional
+            asymmetry surface.
+        """
+        if delta_tau_bins is None:
+            max_delay = max(
+                [float(tx['delay']) for tx in self.forward_transmission_history] +
+                [float(tx['delay']) for tx in self.backward_transmission_history] +
+                [max(self.forward_delay, self.backward_delay) * 0.1, 1e-3]
+            )
+            delta_tau_bins = np.linspace(0.0, max_delay + 1e-9, 12)
+        else:
+            delta_tau_bins = np.asarray(delta_tau_bins, dtype=float)
+
+        c_a_to_b = self._aggregate_directional_communication(
+            list(self.forward_transmission_history),
+            delta_tau_bins,
+        )
+        c_b_to_a = self._aggregate_directional_communication(
+            list(self.backward_transmission_history),
+            delta_tau_bins,
+        )
+
+        asymmetry = c_a_to_b - c_b_to_a
+        delta_tau_centers = 0.5 * (delta_tau_bins[:-1] + delta_tau_bins[1:])
+
+        metrics = {
+            'delta_tau_centers': delta_tau_centers,
+            'C_A_to_B': c_a_to_b,
+            'C_B_to_A': c_b_to_a,
+            'asymmetry': asymmetry,
+        }
+
+        if coupling_values is not None:
+            lambdas = np.asarray(coupling_values, dtype=float)
+            base = max(float(self.coupling_strength), 1e-9)
+            scale = (lambdas / base)[:, None]
+            metrics['lambda_values'] = lambdas
+            metrics['asymmetry_surface'] = scale * asymmetry[None, :]
+
+        return metrics
+
     def get_statistics(self) -> Dict[str, float]:
         """
         Get comprehensive channel statistics.
@@ -301,6 +384,8 @@ class VortexChannel:
         Returns:
             Dictionary with statistics
         """
+        frame_metrics = self.compute_temporal_frame_metrics()
+        asymmetry_l1 = float(np.sum(np.abs(frame_metrics['asymmetry'])))
         return {
             'vortex_state': self.vortex_state,
             'forward_quality': self.get_forward_channel_quality(),
@@ -311,7 +396,8 @@ class VortexChannel:
             'total_backward_bits': self.total_backward_bits,
             'forward_transmissions': len(self.forward_transmission_history),
             'backward_transmissions': len(self.backward_transmission_history),
-            'asymmetry_ratio': self.total_backward_bits / max(self.total_forward_bits, 1e-6)
+            'asymmetry_ratio': self.total_backward_bits / max(self.total_forward_bits, 1e-6),
+            'temporal_asymmetry_l1': asymmetry_l1,
         }
     
     def visualize_signal_paths(self) -> Tuple[np.ndarray, np.ndarray]:
