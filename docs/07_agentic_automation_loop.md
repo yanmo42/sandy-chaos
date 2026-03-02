@@ -93,21 +93,31 @@ Outputs:
 - Allows gradual expansion to fully automatic spawn execution later.
 
 
-## 9) Auto-spawn executor (v1.5 bridge)
+## 9) Auto-spawn executor (v2 direct dispatch)
 
-Added `scripts/orchestrator_autospawn.py` to consume `memory/orchestrator_task_plan.jsonl` and emit concrete spawn payloads:
+`scripts/orchestrator_autospawn.py` consumes `memory/orchestrator_task_plan.jsonl`, emits concrete spawn payloads, and can dispatch them directly via the OpenClaw Gateway sessions API (`sessions_spawn`).
 
 - Input: `memory/orchestrator_task_plan.jsonl`
 - Output: `memory/orchestrator_spawn_requests.json`
 - Log: `memory/orchestrator_dispatch_log.jsonl`
 
-Run:
+Prepare only:
 
 ```bash
 python3 scripts/orchestrator_autospawn.py --limit 3
 ```
 
-This is a bridge design: repo automation prepares deterministic `sessions_spawn` payloads, then the active OpenClaw coordinator executes them.
+Prepare + dispatch:
+
+```bash
+python3 scripts/orchestrator_autospawn.py --limit 3 --execute
+```
+
+Dry-run dispatch path (no API call):
+
+```bash
+python3 scripts/orchestrator_autospawn.py --limit 3 --execute --dry-run
+```
 
 
 ### One-command wrapper

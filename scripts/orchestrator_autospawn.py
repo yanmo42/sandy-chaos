@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""Auto-spawn plan executor (v1.5 bridge).
+"""Auto-spawn plan executor (v2).
 
-Consumes `memory/orchestrator_task_plan.jsonl` and emits concrete OpenClaw
-sessions_spawn request payloads for each task contract.
-
-Why bridge mode:
-- Repository automation can run unattended on host timers.
-- OpenClaw session spawning currently occurs in an active OpenClaw session.
-- This script prepares deterministic spawn payloads + dispatch logs so an
-  OpenClaw coordinator can execute them immediately.
+Consumes `memory/orchestrator_task_plan.jsonl`, emits concrete OpenClaw
+`sessions_spawn` request payloads, and can optionally dispatch them through the
+Gateway sessions API.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import shutil
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -80,11 +78,122 @@ def append_dispatch_log(entry: dict) -> None:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
 
+def resolve_openclaw_command() -> list[str]:
+    env_bin = os.environ.get("OPENCLAW_BIN", "").strip()
+    candidates: list[Path] = []
+    if env_bin:
+        candidates.append(Path(env_bin).expanduser())
+
+    candidates.extend(
+        [
+            Path.home() / ".npm-global" / "bin" / "openclaw",
+            Path("/usr/local/bin/openclaw"),
+            Path("/usr/bin/openclaw"),
+        ]
+    )
+
+    for c in candidates:
+        try:
+            if c.is_file() and os.access(c, os.X_OK):
+                return [str(c)]
+        except Exception:
+            continue
+
+    found = shutil.which("openclaw")
+    if found:
+        return [found]
+
+    return []
+
+
+def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict:
+    out = {"attempted": 0, "dispatched": 0, "errors": [], "results": []}
+
+    openclaw_cmd = resolve_openclaw_command()
+    if not openclaw_cmd:
+        out["errors"].append("openclaw binary not found")
+        return out
+
+    for req in requests:
+        out["attempted"] += 1
+        spawn = req.get("spawn", {})
+        cmd = openclaw_cmd + [
+            "gateway",
+            "call",
+            "sessions_spawn",
+            "--json",
+            "--timeout",
+            "120000",
+            "--params",
+            json.dumps(spawn, ensure_ascii=False),
+        ]
+
+        if dry_run:
+            out["dispatched"] += 1
+            out["results"].append({"id": req.get("id"), "ok": True, "dry_run": True})
+            append_dispatch_log(
+                {
+                    "ts": now_iso(),
+                    "event": "spawn_dispatched",
+                    "id": req.get("id"),
+                    "ok": True,
+                    "dry_run": True,
+                    "method": "sessions_spawn",
+                }
+            )
+            continue
+
+        try:
+            proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=130)
+            ok = proc.returncode == 0
+            result = {
+                "id": req.get("id"),
+                "ok": ok,
+                "stdout": (proc.stdout or "").strip()[:2000],
+                "stderr": (proc.stderr or "").strip()[:2000],
+            }
+            out["results"].append(result)
+            if ok:
+                out["dispatched"] += 1
+            else:
+                out["errors"].append(f"{req.get('id', 'unknown')}: {(proc.stderr or proc.stdout or '').strip()}")
+
+            append_dispatch_log(
+                {
+                    "ts": now_iso(),
+                    "event": "spawn_dispatched",
+                    "id": req.get("id"),
+                    "ok": ok,
+                    "dry_run": False,
+                    "method": "sessions_spawn",
+                    "stdout": result["stdout"],
+                    "stderr": result["stderr"],
+                }
+            )
+        except Exception as exc:
+            out["errors"].append(f"{req.get('id', 'unknown')}: {exc}")
+            append_dispatch_log(
+                {
+                    "ts": now_iso(),
+                    "event": "spawn_dispatched",
+                    "id": req.get("id"),
+                    "ok": False,
+                    "dry_run": False,
+                    "method": "sessions_spawn",
+                    "error": str(exc),
+                }
+            )
+
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plan", default=str(DEFAULT_PLAN))
     ap.add_argument("--out", default=str(REQUESTS_OUT))
     ap.add_argument("--limit", type=int, default=3)
+    ap.add_argument("--execute", action="store_true", help="Call OpenClaw sessions API (sessions_spawn) for each request")
+    ap.add_argument("--dry-run", action="store_true", help="Prepare/dispatch without making API calls")
     args = ap.parse_args()
 
     plan_path = Path(args.plan)
@@ -108,7 +217,20 @@ def main() -> int:
     )
 
     print(f"Prepared {len(requests)} spawn requests -> {out_path}")
-    print("Next step: OpenClaw coordinator consumes this file and calls sessions_spawn for each request.")
+
+    if args.execute:
+        result = dispatch_spawn_requests(requests=requests, dry_run=args.dry_run)
+        print(
+            f"Dispatch complete via sessions_spawn: dispatched={result['dispatched']} "
+            f"attempted={result['attempted']} errors={len(result['errors'])}"
+        )
+        if result["errors"]:
+            for e in result["errors"]:
+                print(f"- {e}")
+            return 1
+    else:
+        print("Next step: run with --execute to dispatch via OpenClaw sessions_spawn API.")
+
     return 0
 
 
