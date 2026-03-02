@@ -58,6 +58,24 @@ class TestTemporalFrameMetrics(unittest.TestCase):
         self.assertTrue(np.allclose(metrics['C_B_to_A'], np.array([0.0])))
         self.assertTrue(np.allclose(metrics['asymmetry'], np.array([0.0])))
 
+    def test_invalid_delta_tau_bins_raise(self):
+        channel = VortexChannel(vortex_center=np.array([0.0, 0.0]), vortex_radius=5.0)
+
+        with self.assertRaises(ValueError):
+            channel.compute_temporal_frame_metrics(delta_tau_bins=[0.0, 0.0, 1.0])
+
+        with self.assertRaises(ValueError):
+            channel.compute_temporal_frame_metrics(delta_tau_bins=[-0.1, 0.5, 1.0])
+
+    def test_invalid_coupling_values_raise(self):
+        channel = VortexChannel(vortex_center=np.array([0.0, 0.0]), vortex_radius=5.0)
+
+        with self.assertRaises(ValueError):
+            channel.compute_temporal_frame_metrics(delta_tau_bins=[0.0, 1.0], coupling_values=[])
+
+        with self.assertRaises(ValueError):
+            channel.compute_temporal_frame_metrics(delta_tau_bins=[0.0, 1.0], coupling_values=[-0.1, 1.0])
+
 
 if __name__ == '__main__':
     unittest.main()

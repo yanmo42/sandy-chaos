@@ -349,6 +349,13 @@ class VortexChannel:
         else:
             delta_tau_bins = np.asarray(delta_tau_bins, dtype=float)
 
+        if not np.all(np.isfinite(delta_tau_bins)):
+            raise ValueError("delta_tau_bins must be finite")
+        if np.any(np.diff(delta_tau_bins) <= 0.0):
+            raise ValueError("delta_tau_bins must be strictly increasing")
+        if float(delta_tau_bins[0]) < 0.0:
+            raise ValueError("delta_tau_bins must start at nonnegative Δτ")
+
         c_a_to_b = self._aggregate_directional_communication(
             list(self.forward_transmission_history),
             delta_tau_bins,
@@ -370,6 +377,12 @@ class VortexChannel:
 
         if coupling_values is not None:
             lambdas = np.asarray(coupling_values, dtype=float)
+            if lambdas.ndim != 1 or lambdas.size == 0:
+                raise ValueError("coupling_values must be a non-empty 1D sequence")
+            if not np.all(np.isfinite(lambdas)):
+                raise ValueError("coupling_values must be finite")
+            if np.any(lambdas < 0.0):
+                raise ValueError("coupling_values must be nonnegative")
             base = max(float(self.coupling_strength), 1e-9)
             scale = (lambdas / base)[:, None]
             metrics['lambda_values'] = lambdas

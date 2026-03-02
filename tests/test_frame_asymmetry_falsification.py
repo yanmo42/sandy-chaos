@@ -6,6 +6,7 @@ from nfem_suite.simulation.communication import VortexChannel
 
 class TestFrameAsymmetryFalsification(unittest.TestCase):
     def _run_bidirectional_trial(self, channel: VortexChannel, steps: int = 80, dt: float = 0.1) -> dict:
+        np.random.seed(1234)
         channel.set_source_a(np.array([3.0, 0.0]))
         channel.set_receiver_b(np.array([-3.0, 0.0]))
 
@@ -50,6 +51,42 @@ class TestFrameAsymmetryFalsification(unittest.TestCase):
         # Falsification check: observed coupled ratio must contradict
         # the null expectation of ~1.0 by a meaningful margin.
         self.assertGreater(abs(stats["asymmetry_ratio"] - 1.0), 0.45)
+
+    def test_profile_level_falsification_between_null_and_coupled_models(self):
+        # Shared causal binning for both model runs.
+        delta_tau_bins = np.linspace(0.0, 1.2, 7)
+
+        null_channel = VortexChannel(
+            vortex_center=np.array([0.0, 0.0]),
+            vortex_radius=10.0,
+            coupling_strength=1.0,
+            backward_attenuation=1.0,
+        )
+        # Match nominal delays so the null profile test isolates attenuation asymmetry
+        # rather than fixed transport-latency differences.
+        null_channel.backward_delay = null_channel.forward_delay
+        self._run_bidirectional_trial(null_channel)
+        null_metrics = null_channel.compute_temporal_frame_metrics(delta_tau_bins=delta_tau_bins)
+
+        coupled_channel = VortexChannel(
+            vortex_center=np.array([0.0, 0.0]),
+            vortex_radius=10.0,
+            coupling_strength=1.0,
+            backward_attenuation=0.5,
+        )
+        coupled_channel.backward_delay = coupled_channel.forward_delay
+        self._run_bidirectional_trial(coupled_channel)
+        coupled_metrics = coupled_channel.compute_temporal_frame_metrics(delta_tau_bins=delta_tau_bins)
+
+        # Coupling should not change the forward A→B profile under matched drives.
+        self.assertTrue(np.allclose(coupled_metrics["C_A_to_B"], null_metrics["C_A_to_B"]))
+
+        # Coupled model should attenuate the reverse B→A profile vs null model.
+        # Use bins where null profile has support to avoid zero-division artifacts.
+        support = null_metrics["C_B_to_A"] > 1e-9
+        self.assertTrue(np.any(support))
+        observed_scale = coupled_metrics["C_B_to_A"][support] / null_metrics["C_B_to_A"][support]
+        self.assertTrue(np.allclose(observed_scale, 0.5, atol=0.05))
 
 
 if __name__ == "__main__":

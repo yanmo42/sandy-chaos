@@ -148,6 +148,7 @@ Falsification harness (implemented in automated tests):
 
 - **Null model**: symmetric bidirectional attenuation (`backward_attenuation = 1.0`) with matched source drives predicts asymmetry ratio near 1.
 - **Coupled model**: attenuated reverse path (`backward_attenuation < 1`) predicts a stable deviation from 1 while preserving forward-time packet propagation.
+- **Profile-level falsification**: under shared $\Delta\tau$ bins, the null model keeps low $\|\mathcal{A}\|_1$ while the coupled model yields a clearly larger $\|\mathcal{A}\|_1$.
 - Reject any interpretation that requires influence from future states; all packet handling is computed from current/past state only.
 
 Implementation target: compute an asymmetry surface over $(\Delta\tau,\lambda)$ where $\lambda$ is observer coupling gain, and publish failure conditions for each regime.
@@ -163,4 +164,6 @@ Implementation target: compute an asymmetry surface over $(\Delta\tau,\lambda)$ 
 - optional `asymmetry_surface` over $(\Delta\tau, \lambda)$ via `coupling_values`
 
 Causality guardrail: only packets with strictly positive propagation delay
-($\Delta\tau > 0$) contribute to these metrics.
+($\Delta\tau > 0$) contribute to these metrics. Input bins are required to be
+finite, strictly increasing, and nonnegative to prevent invalid cross-frame
+indexing.
