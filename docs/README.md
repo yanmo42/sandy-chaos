@@ -9,6 +9,8 @@ This documentation set is intentionally compressed into a small canonical path:
 5. **[05 Hyperstition Temporal Bridge Analysis](05_hyperstition_temporal_bridge_analysis.md)**
 6. **[06 The Observer Ouroboros](06_observer_ouroboros.md)**
 7. **[07 Agentic Automation Loop](07_agentic_automation_loop.md)**
+8. **[08 Git Automation Protocol](08_git_automation_protocol.md)**
+9. **[09 Research Automation Protocol](09_research_automation_protocol.md)**
 
 Supporting references:
 

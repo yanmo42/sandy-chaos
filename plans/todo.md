@@ -279,3 +279,14 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add one-command wrapper for plan + spawn-request generation (`scripts/run_sandy_cycle.sh`)
 
 - [x] Upgrade timer cadence to probabilistic 5-minute window (4-6 min)
+
+## Research Automation Workflow v1 (OpenClaw-aligned)
+
+- [x] Add canonical protocol doc (`docs/09_research_automation_protocol.md`)
+- [x] Add research task contract template (`templates/research_task_contract.md`)
+- [x] Add evidence extraction schema template (`templates/evidence_extraction_schema.md`)
+- [x] Add falsification report template (`templates/falsification_report.md`)
+- [x] Integrate protocol into top-level workflow (`WORKFLOW.md`)
+- [x] Add helper script to initialize dated `memory/research/*` artifact bundle (`scripts/init_research_cycle.py`)
+- [ ] Add verifier test that checks claim-to-source row mapping completeness
+- [ ] Add daily automation hook to produce one research-cycle summary when active

@@ -189,3 +189,31 @@ Planned controls:
 - validation gate before push
 - structured logs + digest on failure
 - dry-run mode before enabling live push
+
+
+## 11) Research automation workflow (new default)
+
+Reference: `docs/09_research_automation_protocol.md`
+
+When running evidence-heavy work, use this cycle:
+
+1. Create a scoped contract from `templates/research_task_contract.md`
+2. Extract source rows using `templates/evidence_extraction_schema.md`
+3. Generate synthesis + adversarial check
+4. Run falsification pass via `templates/falsification_report.md`
+5. Commit artifacts + one next-best action
+
+Recommended artifact location:
+
+- `memory/research/<date>-query.md`
+- `memory/research/<date>-evidence.csv`
+- `memory/research/<date>-synthesis.md`
+- `memory/research/<date>-falsification.md`
+
+Bootstrap command:
+
+```bash
+python3 scripts/init_research_cycle.py --slug <topic>
+```
+
+This keeps speed high while preserving reproducibility and claim-tier integrity.
