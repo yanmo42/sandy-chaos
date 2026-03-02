@@ -131,3 +131,20 @@ The automation timer now models a flexible "around 5 minutes" cadence:
 So each cycle is sampled from a **4-6 minute** interval, centered near 5 minutes.
 This preserves the symbolic/operational target of 5 while introducing jitter to avoid rigid synchronization effects.
 
+
+## 11) Full automation wiring (service-level)
+
+`ops/systemd/sandy-automation.service` now runs:
+
+```bash
+python3 scripts/self_improve.py full-pass   --scheduler host-cron   --with-orchestration   --with-dispatch   --dispatch-limit 3   --send-telegram
+```
+
+This means each timer cycle executes:
+
+1. cadence checks,
+2. orchestrator task-plan generation,
+3. spawn-request generation,
+4. dispatch bridge via active OpenClaw session,
+5. rich `[SANDY-FULLPASS]` digest emission.
+

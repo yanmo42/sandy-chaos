@@ -421,7 +421,9 @@ def compose_fullpass_message(summary: dict, todo: dict, open_items: list[str], g
         f"- orchestrator tasks planned: {orch.get('plan_count', 0)}\n"
         f"- spawn requests prepared: {orch.get('request_count', 0)}\n"
         f"- recent dispatch events logged: {orch.get('dispatched_count', 0)}\n"
-        f"- recent run ids: {run_text}\n\n"
+        f"- recent run ids: {run_text}\n"
+        f"- pipeline orchestrator/autospawn: {orch.get('pipeline',{}).get('orchestrator_ok', False)}/{orch.get('pipeline',{}).get('autospawn_ok', False)}\n"
+        f"- dispatch attempted/sent: {orch.get('dispatch',{}).get('attempted', 0)}/{orch.get('dispatch',{}).get('dispatched', 0)}\n\n"
         f"Cadence artifacts prepared: {created_text}.\n"
         f"Missed intervals detected: daily={summary.get('daily_missed', 0)}, weekly={summary.get('weekly_missed', 0)}.\n\n"
         f"Project progress snapshot:\n"
@@ -436,14 +438,94 @@ def compose_fullpass_message(summary: dict, todo: dict, open_items: list[str], g
     )
 
 
-def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int) -> None:
+def run_orchestrator_pipeline(limit: int, dry_run: bool) -> dict:
+    """Run orchestrator + autospawn preparation pipeline."""
+    results = {"orchestrator_ok": False, "autospawn_ok": False, "errors": []}
+
+    cmds = [
+        ["python3", "scripts/automation_orchestrator.py"],
+        ["python3", "scripts/orchestrator_autospawn.py", "--limit", str(limit)],
+    ]
+
+    for i, cmd in enumerate(cmds):
+        if dry_run:
+            print("DRY RUN pipeline cmd:", " ".join(cmd))
+            if i == 0:
+                results["orchestrator_ok"] = True
+            else:
+                results["autospawn_ok"] = True
+            continue
+        try:
+            subprocess.check_call(cmd, cwd=ROOT)
+            if i == 0:
+                results["orchestrator_ok"] = True
+            else:
+                results["autospawn_ok"] = True
+        except Exception as exc:
+            results["errors"].append(str(exc))
+
+    return results
+
+
+def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
+    """Dispatch spawn requests by asking the active OpenClaw session to run them.
+
+    This uses `openclaw agent` to feed the request contracts back into the main
+    agent session, where tool-level `sessions_spawn` can execute.
+    """
+    out = {"dispatched": 0, "errors": [], "attempted": 0}
+    if not ORCH_REQ_PATH.exists():
+        return out
+
+    try:
+        req = json.loads(ORCH_REQ_PATH.read_text(encoding="utf-8"))
+        requests = req.get("requests", [])[: max_dispatch]
+    except Exception as exc:
+        out["errors"].append(f"load requests failed: {exc}")
+        return out
+
+    for r in requests:
+        spawn = r.get("spawn", {})
+        msg = (
+            "Dispatch this spawn contract now using sessions_spawn with exact JSON params: "
+            + json.dumps(spawn, ensure_ascii=False)
+        )
+        out["attempted"] += 1
+
+        if dry_run:
+            print("DRY RUN dispatch via openclaw agent for", r.get("id", "(unknown)"))
+            out["dispatched"] += 1
+            continue
+
+        try:
+            subprocess.check_call(
+                ["openclaw", "agent", "--session-id", "agent:main:main", "--message", msg],
+                cwd=ROOT,
+            )
+            out["dispatched"] += 1
+        except Exception as exc:
+            out["errors"].append(f"{r.get('id','unknown')}: {exc}")
+
+    return out
+
+
+def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3) -> None:
     summary = run_scheduler(scheduler=scheduler, dry_run=dry_run)
+
+    orchestration = {"orchestrator_ok": False, "autospawn_ok": False, "errors": []}
+    dispatch = {"dispatched": 0, "errors": [], "attempted": 0}
+    if with_orchestration:
+        orchestration = run_orchestrator_pipeline(limit=dispatch_limit, dry_run=dry_run)
+    if with_dispatch:
+        dispatch = dispatch_spawn_requests(dry_run=dry_run, max_dispatch=dispatch_limit)
 
     todo_text = TODO_PATH.read_text(encoding="utf-8", errors="ignore") if TODO_PATH.exists() else ""
     todo = parse_todo_counts(todo_text)
     open_items = list_open_checkbox_items(limit=max_open_items)
     git_lines = git_status_short(limit=12)
     orch = load_orchestrator_snapshot()
+    orch["pipeline"] = orchestration
+    orch["dispatch"] = dispatch
 
     state = load_state()
     prev_todo = state.get("last_todo_snapshot", {})
@@ -491,6 +573,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_full.add_argument("--send-telegram", action="store_true", help="Send full digest to Telegram")
     p_full.add_argument("--dry-run", action="store_true", help="Preview output only")
     p_full.add_argument("--max-open-items", type=int, default=5)
+    p_full.add_argument("--with-orchestration", action="store_true", help="Run orchestrator + autospawn before digest")
+    p_full.add_argument("--with-dispatch", action="store_true", help="Dispatch spawn requests via openclaw agent bridge")
+    p_full.add_argument("--dispatch-limit", type=int, default=3, help="Max requests to prepare/dispatch")
 
     p_add = sub.add_parser("todo-add", help="Add a checkbox item to plans/todo.md")
     p_add.add_argument("--text", required=True)
@@ -539,6 +624,9 @@ def main(argv: list[str] | None = None) -> int:
             send_telegram=args.send_telegram,
             dry_run=args.dry_run,
             max_open_items=args.max_open_items,
+            with_orchestration=args.with_orchestration,
+            with_dispatch=args.with_dispatch,
+            dispatch_limit=args.dispatch_limit,
         )
         return 0
 

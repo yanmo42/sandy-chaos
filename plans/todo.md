@@ -266,7 +266,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [🟡] Add auto-spawn executor (consume JSONL and call OpenClaw sessions API)
 
 
-- [ ] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)
+- [x] Add coordinator-side dispatch runner (execute spawn requests via sessions_spawn in active OpenClaw session)
 
 - [x] Add one-command wrapper for plan + spawn-request generation (`scripts/run_sandy_cycle.sh`)
 
