@@ -1,4 +1,18 @@
 {
-  "generatedAt": "2026-03-02T11:25:51",
-  "requests": []
+  "generatedAt": "2026-03-03T09:53:48",
+  "requests": [
+    {
+      "id": "spawn-01",
+      "createdAt": "2026-03-03T09:53:48",
+      "lane": "sandy-builder",
+      "spawn": {
+        "runtime": "subagent",
+        "mode": "run",
+        "cleanup": "delete",
+        "model": "openai-codex/gpt-5.3-codex",
+        "cwd": "/home/ian/dev/sandy-chaos",
+        "task": "You are executing one Sandy-Chaos automation contract.\nLane: sandy-builder\nSection: Research Automation Workflow v1 (OpenClaw-aligned)\nGoal: Add daily automation hook to produce one research-cycle summary when active\n\nConstraints:\n- Use openai-codex/gpt-5.3-codex\n- Keep strict causality; no retrocausal claims\n- Update tests/docs for any behavioral change\n- Commit scoped changes with clear message\n\nDefinition of done:\n- Relevant files updated\n- Validation command executed\n- Short completion note prepared\n\nValidation command: ./venv/bin/python -m unittest -q || true\nWork in /home/ian/dev/sandy-chaos. Make scoped changes and commit when done."
+      }
+    }
+  ]
 }
