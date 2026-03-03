@@ -99,6 +99,38 @@ Evidence required:
 Falsification condition:
 ```
 
+### Kickoff prompt (`main` → `sandy`)
+
+```text
+Task:
+Why this matters now:
+Constraints:
+Files in scope:
+Out of scope:
+Acceptance checks (commands + expected result):
+Definition of done:
+Deliverable format:
+- short plan
+- patches by file
+- validation output
+- risks/unknowns
+```
+
+Example:
+
+```text
+Task: Add a dry-run flag to scripts/self_improve.py full-pass.
+Why this matters now: We need safer unattended automation testing.
+Constraints: Keep current behavior unchanged when flag is omitted.
+Files in scope: scripts/self_improve.py, tests/*
+Out of scope: Telegram delivery refactor.
+Acceptance checks:
+- python3 scripts/self_improve.py full-pass --dry-run exits 0
+- Existing full-pass path still sends when --send-telegram is used
+Definition of done: Flag works, tests updated, docs note added.
+Deliverable format: plan, diffs, command output, risks.
+```
+
 ## 6) Suggested terminal commands
 
 From repo root (`~/dev/sandy-chaos`):
