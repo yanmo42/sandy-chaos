@@ -91,3 +91,13 @@ python3 scripts/research_verifier.py --synthesis memory/research/<date>-synthesi
 - If evidence is weak or conflicting, output uncertainty explicitly.
 
 This protocol is intentionally lightweight so it can run daily.
+
+## 11) Daily automation hook (active-cycle summary)
+
+`self_improve.py full-pass` now includes a research-cycle summary hook:
+
+- It scans `memory/research/` for today's cycle bundles (`*-query/evidence/synthesis/falsification`).
+- It treats a cycle as active when at least one artifact in a complete bundle was updated in the last 24 hours.
+- When active, it writes or refreshes exactly one summary artifact per cycle prefix:
+  - `memory/research/<date-or-date-slug>-cycle-summary.md`
+- The summary is descriptive only (strictly forward-causal) and includes evidence row count, unique source count, and synthesis claim-bullet count.

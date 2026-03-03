@@ -35,6 +35,7 @@ class FullPassValidationSummaryTests(unittest.TestCase):
             productive=False,
             productivity_reasons=[],
             validation_outcomes=[{"command": "./venv/bin/python -m unittest -q", "ok": True, "returncode": 0}],
+            research_summary={"active": False, "generated": False, "path": None},
         )
 
         self.assertIn("Validation outcomes (commands run):", msg)

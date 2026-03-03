@@ -15,13 +15,15 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import shutil
 import subprocess
 import urllib.parse
 import urllib.request
-from datetime import datetime
+import uuid
+from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,6 +41,7 @@ ORCH_DISPATCH_LOG = ROOT / "memory" / "orchestrator_dispatch_log.jsonl"
 ORCH_CYCLE_LOG = ROOT / "memory" / "orchestrator_cycle_events.jsonl"
 DAILY_DIGEST_TEMPLATE = TEMPLATES / "daily_digest_notification.md"
 WEEKLY_DIGEST_TEMPLATE = TEMPLATES / "weekly_digest_notification.md"
+RESEARCH_DIR = MEMORY_DIR / "research"
 
 
 def now_dt() -> datetime:
@@ -774,6 +777,125 @@ def run_validation_commands(commands: list[str], dry_run: bool) -> list[dict]:
     return outcomes
 
 
+def _find_active_research_cycle(now: datetime, active_window_hours: int = 24) -> dict | None:
+    if not RESEARCH_DIR.exists():
+        return None
+
+    date_prefix = now.strftime("%Y-%m-%d")
+    candidates = sorted(RESEARCH_DIR.glob(f"{date_prefix}*-synthesis.md"))
+    if not candidates:
+        return None
+
+    threshold = now - timedelta(hours=active_window_hours)
+    for synthesis in reversed(candidates):
+        base = synthesis.name[: -len("-synthesis.md")]
+        bundle = {
+            "query": RESEARCH_DIR / f"{base}-query.md",
+            "evidence": RESEARCH_DIR / f"{base}-evidence.csv",
+            "synthesis": synthesis,
+            "falsification": RESEARCH_DIR / f"{base}-falsification.md",
+        }
+        if not all(p.exists() for p in bundle.values()):
+            continue
+        latest_mtime = max(datetime.fromtimestamp(p.stat().st_mtime) for p in bundle.values())
+        if latest_mtime >= threshold:
+            return {"base": base, "files": bundle, "latest_mtime": latest_mtime}
+
+    return None
+
+
+def maybe_write_research_cycle_summary(dry_run: bool, now: datetime | None = None) -> dict:
+    now = now or now_dt()
+    cycle = _find_active_research_cycle(now)
+    if not cycle:
+        return {"active": False, "generated": False, "path": None, "reason": "no active research cycle"}
+
+    files = cycle["files"]
+    evidence_rows = 0
+    source_ids: set[str] = set()
+    claims_count = 0
+
+    try:
+        with files["evidence"].open("r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                evidence_rows += 1
+                sid = str((row or {}).get("source_id", "")).strip()
+                if sid:
+                    source_ids.add(sid)
+    except Exception:
+        evidence_rows = 0
+        source_ids = set()
+
+    try:
+        in_claims = False
+        for raw in files["synthesis"].read_text(encoding="utf-8", errors="ignore").splitlines():
+            s = raw.strip()
+            if s.startswith("## "):
+                in_claims = s.lower().startswith("## claims")
+                continue
+            if in_claims and s.startswith("- "):
+                claims_count += 1
+    except Exception:
+        claims_count = 0
+
+    summary_path = RESEARCH_DIR / f"{cycle['base']}-cycle-summary.md"
+    source_count = len(source_ids)
+    lines = [
+        f"# Research Cycle Summary ({cycle['base']})",
+        "",
+        f"Generated: {now.strftime('%Y-%m-%d %H:%M')}",
+        "",
+        "## Activity status",
+        "- active: yes (artifact updates within last 24h)",
+        "",
+        "## Evidence + claims snapshot",
+        f"- evidence rows: {evidence_rows}",
+        f"- unique source_ids: {source_count}",
+        f"- synthesis claims bullets: {claims_count}",
+        "",
+        "## Artifact set",
+        f"- query: `{files['query'].relative_to(ROOT)}`",
+        f"- evidence: `{files['evidence'].relative_to(ROOT)}`",
+        f"- synthesis: `{files['synthesis'].relative_to(ROOT)}`",
+        f"- falsification: `{files['falsification'].relative_to(ROOT)}`",
+        "",
+        "## Causality guardrail",
+        "- This summary is descriptive only and makes no retrocausal claim.",
+        "",
+    ]
+
+    write_needed = True
+    if summary_path.exists():
+        summary_mtime = datetime.fromtimestamp(summary_path.stat().st_mtime)
+        write_needed = summary_mtime < cycle["latest_mtime"]
+
+    if dry_run:
+        return {
+            "active": True,
+            "generated": write_needed,
+            "path": str(summary_path),
+            "reason": "dry-run",
+            "claims": claims_count,
+            "evidence_rows": evidence_rows,
+            "source_ids": source_count,
+        }
+
+    if write_needed:
+        summary_path.parent.mkdir(parents=True, exist_ok=True)
+        summary_path.write_text("\n".join(lines), encoding="utf-8")
+
+    return {
+        "active": True,
+        "generated": write_needed,
+        "path": str(summary_path),
+        "reason": "updated" if write_needed else "up-to-date",
+        "claims": claims_count,
+        "evidence_rows": evidence_rows,
+        "source_ids": source_count,
+    }
+
+
 def compose_fullpass_message(
     summary: dict,
     todo: dict,
@@ -785,6 +907,7 @@ def compose_fullpass_message(
     productive: bool,
     productivity_reasons: list[str],
     validation_outcomes: list[dict],
+    research_summary: dict,
 ) -> str:
     cfg = load_config().get("notifications", {})
     prefix = cfg.get("prefixes", {}).get("fullpass", "[SANDY-FULLPASS]")
@@ -801,6 +924,20 @@ def compose_fullpass_message(
     verdict = "productive" if productive else "maintenance/no-op"
     reason_text = "; ".join(productivity_reasons) if productivity_reasons else "no gate condition met"
     validation_text = format_validation_outcomes(validation_outcomes)
+    research_path = research_summary.get("path") if isinstance(research_summary, dict) else None
+    research_text = "inactive"
+    if isinstance(research_summary, dict) and research_summary.get("active"):
+        if research_path:
+            p = Path(str(research_path))
+            if p.is_absolute():
+                try:
+                    p = p.relative_to(ROOT)
+                except Exception:
+                    pass
+            state = "updated" if research_summary.get("generated") else "up-to-date"
+            research_text = f"{state}: `{p}`"
+        else:
+            research_text = "active (no summary path)"
 
     return (
         f"{prefix} automation cycle complete.\n\n"
@@ -814,7 +951,8 @@ def compose_fullpass_message(
         f"- dispatch attempted/sent: {orch.get('dispatch',{}).get('attempted', 0)}/{orch.get('dispatch',{}).get('dispatched', 0)}\n"
         f"- dispatch session id: {orch.get('dispatch',{}).get('session_id', 'none')}\n\n"
         f"Cadence artifacts prepared: {created_text}.\n"
-        f"Missed intervals detected: daily={summary.get('daily_missed', 0)}, weekly={summary.get('weekly_missed', 0)}.\n\n"
+        f"Missed intervals detected: daily={summary.get('daily_missed', 0)}, weekly={summary.get('weekly_missed', 0)}.\n"
+        f"Research cycle summary: {research_text}.\n\n"
         f"Project progress snapshot:\n"
         f"- done={todo['done']} (Δ {delta['done']:+d})\n"
         f"- partial={todo['partial']} (Δ {delta['partial']:+d})\n"
@@ -925,8 +1063,27 @@ def resolve_openclaw_command() -> tuple[list[str], list[str]]:
     return [], tried
 
 
+def _build_dispatch_agent_payload(request: dict) -> dict:
+    spawn = request.get("spawn", {}) if isinstance(request, dict) else {}
+    raw_id = str(request.get("id", "spawn")).strip() or "spawn"
+    safe_id = "".join(ch.lower() if ch.isalnum() else "-" for ch in raw_id).strip("-") or "spawn"
+    stamp = now_dt().strftime("%Y%m%dt%H%M%S")
+
+    payload = {
+        "agentId": "sandy",
+        "sessionKey": f"agent:sandy:orchestrator-{safe_id}-{stamp}",
+        "idempotencyKey": str(uuid.uuid4()),
+        "message": str(spawn.get("task", "")).strip(),
+    }
+
+    lane = str(request.get("lane", "")).strip()
+    if lane:
+        payload["lane"] = lane
+    return payload
+
+
 def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
-    """Dispatch spawn requests directly through coordinator-side `sessions_spawn` calls."""
+    """Dispatch orchestrator requests through Gateway `agent` calls."""
     out = {
         "dispatched": 0,
         "errors": [],
@@ -960,27 +1117,40 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
 
     for r in requests:
         out["attempted"] += 1
-        spawn = r.get("spawn", {})
+        payload = _build_dispatch_agent_payload(r)
+        if not payload["message"]:
+            out["errors"].append(f"{r.get('id', 'unknown')}: empty spawn task message")
+            continue
 
         cmd = openclaw_cmd + [
             "gateway",
             "call",
-            "sessions_spawn",
+            "agent",
             "--json",
             "--timeout",
             "120000",
             "--params",
-            json.dumps(spawn, ensure_ascii=False),
+            json.dumps(payload, ensure_ascii=False),
         ]
 
         if dry_run:
-            print("DRY RUN dispatch via sessions_spawn for", r.get("id", "(unknown)"))
+            print("DRY RUN dispatch via agent for", r.get("id", "(unknown)"))
             out["dispatched"] += 1
             continue
 
         try:
             proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=130)
-            if proc.returncode == 0:
+            ok = proc.returncode == 0
+            if ok:
+                try:
+                    parsed = json.loads((proc.stdout or "").strip() or "{}")
+                except Exception:
+                    parsed = {}
+                status = str(parsed.get("status", "")).strip().lower() if isinstance(parsed, dict) else ""
+                run_id = parsed.get("runId") if isinstance(parsed, dict) else None
+                ok = bool(run_id) or status in {"accepted", "ok", "in_flight"}
+
+            if ok:
                 out["dispatched"] += 1
             else:
                 err = (proc.stderr or proc.stdout or "unknown error").strip()
@@ -1005,6 +1175,7 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
 
     validation_commands = validation_commands or ["./venv/bin/python -m unittest -q"]
     validation_outcomes = run_validation_commands(validation_commands, dry_run=dry_run)
+    research_summary = maybe_write_research_cycle_summary(dry_run=dry_run)
 
     todo_text = TODO_PATH.read_text(encoding="utf-8", errors="ignore") if TODO_PATH.exists() else ""
     todo = parse_todo_counts(todo_text)
@@ -1039,6 +1210,7 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
         productive,
         productivity_reasons,
         validation_outcomes,
+        research_summary,
     )
 
     queue_notification(message, dry_run=dry_run)
@@ -1071,6 +1243,7 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
         "pipeline": orch.get("pipeline", {}),
         "dispatch": orch.get("dispatch", {}),
         "validation": validation_outcomes,
+        "research_summary": research_summary,
         "telegram_sent": telegram_sent,
         "telegram_error": telegram_error,
     }

@@ -289,4 +289,4 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Integrate protocol into top-level workflow (`WORKFLOW.md`)
 - [x] Add helper script to initialize dated `memory/research/*` artifact bundle (`scripts/init_research_cycle.py`)
 - [x] Add verifier test that checks claim-to-source row mapping completeness (`tests/test_research_verifier.py`, `scripts/research_verifier.py`)
-- [ ] Add daily automation hook to produce one research-cycle summary when active
+- [x] Add daily automation hook to produce one research-cycle summary when active
