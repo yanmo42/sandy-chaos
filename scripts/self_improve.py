@@ -18,6 +18,7 @@ import argparse
 import csv
 import json
 import os
+import re
 import shutil
 import subprocess
 import urllib.parse
@@ -33,6 +34,7 @@ STATE_PATH = MEMORY_DIR / "self_improve_state.json"
 NOTIFY_OUTBOX = MEMORY_DIR / "notification_outbox.md"
 TODO_PATH = ROOT / "plans" / "todo.md"
 CONFIG_PATH = ROOT / "config" / "automation.json"
+ORCHESTRATOR_CONFIG_PATH = ROOT / "config" / "orchestrator.json"
 AGENTS_PATH = ROOT / "AGENTS.md"
 WORKFLOW_PATH = ROOT / "WORKFLOW.md"
 ORCH_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
@@ -42,6 +44,44 @@ ORCH_CYCLE_LOG = ROOT / "memory" / "orchestrator_cycle_events.jsonl"
 DAILY_DIGEST_TEMPLATE = TEMPLATES / "daily_digest_notification.md"
 WEEKLY_DIGEST_TEMPLATE = TEMPLATES / "weekly_digest_notification.md"
 RESEARCH_DIR = MEMORY_DIR / "research"
+DEFAULT_VALIDATION_COMMAND = "./venv/bin/python -m unittest discover -s tests -q"
+DEFAULT_VALIDATION_POLICY = {
+    "requireAtLeastOneCommand": True,
+    "requireAllPass": True,
+    "failOnZeroTests": True,
+    "disallowCommandSubstrings": ["|| true"],
+}
+DEFAULT_PROMPT_TEMPLATE = (
+    "You are executing one Sandy-Chaos automation contract.\n"
+    "Lane: {lane}\n"
+    "Section: {section}\n"
+    "Goal: {goal}\n\n"
+    "Global constraints:\n{global_constraints}\n\n"
+    "Lane-specific instructions:\n{lane_instructions}\n\n"
+    "Task constraints:\n{constraints}\n\n"
+    "Definition of done:\n{definition_of_done}\n\n"
+    "Output contract:\n{output_contract}\n\n"
+    "Forbidden patterns:\n{forbidden}\n\n"
+    "Validation command: {validation_command}\n"
+    "Work in {workspace}. Make scoped changes and commit when done."
+)
+DEFAULT_PROMPTING = {
+    "template": DEFAULT_PROMPT_TEMPLATE,
+    "globalConstraints": [
+        "Use openai-codex/gpt-5.3-codex.",
+        "Keep strict causality; no retrocausal claims.",
+    ],
+    "byLane": {},
+    "outputContract": [
+        "List files changed.",
+        "Report validation command + outcome.",
+        "Give one concise completion note.",
+    ],
+    "forbidden": [
+        "Do not bypass validation (no '|| true').",
+        "Do not make unrelated broad refactors.",
+    ],
+}
 
 
 def now_dt() -> datetime:
@@ -114,6 +154,148 @@ def load_config() -> dict:
         return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     except Exception:
         return load_config.__defaults__[0] if load_config.__defaults__ else {}
+
+
+def load_orchestrator_config() -> dict:
+    if not ORCHESTRATOR_CONFIG_PATH.exists():
+        return {}
+    try:
+        data = json.loads(ORCHESTRATOR_CONFIG_PATH.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _as_lines(raw: object) -> list[str]:
+    if isinstance(raw, str):
+        return [raw.strip()] if raw.strip() else []
+    if isinstance(raw, list):
+        out: list[str] = []
+        for item in raw:
+            text = str(item).strip()
+            if text:
+                out.append(text)
+        return out
+    return []
+
+
+def _render_bullets(lines: list[str]) -> str:
+    if not lines:
+        return "- (none)"
+    return "\n".join(f"- {line}" for line in lines)
+
+
+def _normalize_prompting(raw: dict | None) -> dict:
+    merged = dict(DEFAULT_PROMPTING)
+    if isinstance(raw, dict):
+        tmpl = raw.get("template")
+        if isinstance(tmpl, str) and tmpl.strip():
+            merged["template"] = tmpl
+        for key in ["globalConstraints", "outputContract", "forbidden"]:
+            merged[key] = _as_lines(raw.get(key, merged.get(key))) or _as_lines(merged.get(key))
+
+        by_lane_raw = raw.get("byLane")
+        by_lane: dict[str, list[str]] = {}
+        if isinstance(by_lane_raw, dict):
+            for lane, lane_value in by_lane_raw.items():
+                lane_key = str(lane).strip()
+                if not lane_key:
+                    continue
+                if isinstance(lane_value, dict):
+                    lane_lines = _as_lines(lane_value.get("instructions"))
+                else:
+                    lane_lines = _as_lines(lane_value)
+                by_lane[lane_key] = lane_lines
+        merged["byLane"] = by_lane
+    return merged
+
+
+def resolve_prompting_runtime() -> dict:
+    cfg = load_orchestrator_config()
+    raw = cfg.get("prompting", {}) if isinstance(cfg, dict) else {}
+    return _normalize_prompting(raw if isinstance(raw, dict) else None)
+
+
+def render_contract_prompt(contract: dict, prompting: dict | None = None) -> str:
+    cfg = _normalize_prompting(prompting)
+    lane = str(contract.get("lane", "sandy-builder")).strip() or "sandy-builder"
+    section = str(contract.get("section", "(unknown section)")).strip() or "(unknown section)"
+    goal = str(contract.get("goal", "(missing goal)")).strip() or "(missing goal)"
+    constraints = _as_lines(contract.get("constraints"))
+    dod = _as_lines(contract.get("definition_of_done"))
+    validation_command = str(contract.get("validation_command", DEFAULT_VALIDATION_COMMAND)).strip() or DEFAULT_VALIDATION_COMMAND
+
+    by_lane = cfg.get("byLane", {}) if isinstance(cfg, dict) else {}
+    lane_specific = _as_lines(by_lane.get(lane))
+
+    fields = {
+        "lane": lane,
+        "section": section,
+        "goal": goal,
+        "global_constraints": _render_bullets(_as_lines(cfg.get("globalConstraints"))),
+        "lane_instructions": _render_bullets(lane_specific),
+        "constraints": _render_bullets(constraints),
+        "definition_of_done": _render_bullets(dod),
+        "output_contract": _render_bullets(_as_lines(cfg.get("outputContract"))),
+        "forbidden": _render_bullets(_as_lines(cfg.get("forbidden"))),
+        "validation_command": validation_command,
+        "workspace": str(ROOT),
+    }
+
+    try:
+        return str(cfg.get("template", DEFAULT_PROMPT_TEMPLATE)).format(**fields).strip()
+    except Exception:
+        return DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
+
+
+def _normalize_validation_policy(raw: dict | None) -> dict:
+    merged = dict(DEFAULT_VALIDATION_POLICY)
+    if isinstance(raw, dict):
+        for k in ["requireAtLeastOneCommand", "requireAllPass", "failOnZeroTests"]:
+            if k in raw:
+                merged[k] = bool(raw.get(k))
+        disallow = raw.get("disallowCommandSubstrings")
+        if isinstance(disallow, list):
+            merged["disallowCommandSubstrings"] = [str(x).strip() for x in disallow if str(x).strip()]
+    return merged
+
+
+def resolve_validation_runtime(validation_commands_override: list[str] | None = None) -> dict:
+    cfg = load_orchestrator_config()
+    validation = cfg.get("validation", {}) if isinstance(cfg, dict) else {}
+    commands_cfg = validation.get("commands", {}) if isinstance(validation, dict) else {}
+
+    default_commands = commands_cfg.get("default") if isinstance(commands_cfg, dict) else None
+    if isinstance(default_commands, list):
+        default_commands_list = [str(c).strip() for c in default_commands if str(c).strip()]
+    elif isinstance(default_commands, str) and default_commands.strip():
+        default_commands_list = [default_commands.strip()]
+    else:
+        default_commands_list = [DEFAULT_VALIDATION_COMMAND]
+
+    if validation_commands_override:
+        commands = [str(c).strip() for c in validation_commands_override if str(c).strip()]
+    else:
+        commands = default_commands_list
+
+    policy = _normalize_validation_policy(validation.get("policy") if isinstance(validation, dict) else None)
+    return {
+        "commands": commands,
+        "policy": policy,
+    }
+
+
+def evaluate_validation_gate(outcomes: list[dict], policy: dict) -> bool:
+    require_at_least_one = bool(policy.get("requireAtLeastOneCommand", True))
+    require_all_pass = bool(policy.get("requireAllPass", True))
+
+    if require_at_least_one and not outcomes:
+        return False
+    if not outcomes:
+        return True
+    if require_all_pass:
+        return all(bool(row.get("ok", False)) for row in outcomes)
+    return any(bool(row.get("ok", False)) for row in outcomes)
 
 
 def fast(note: str) -> None:
@@ -749,29 +931,70 @@ def format_validation_outcomes(outcomes: list[dict]) -> str:
         ok = bool(row.get("ok", False))
         code = row.get("returncode")
         verdict = "PASS" if ok else "FAIL"
+        suffix = ""
+        if row.get("zero_tests"):
+            suffix = " (0 tests discovered)"
+        if row.get("policy_violation"):
+            suffix = f" (policy violation: {row.get('policy_violation')})"
         if isinstance(code, int):
-            lines.append(f"- {verdict} (exit {code}): `{cmd}`")
+            lines.append(f"- {verdict} (exit {code}){suffix}: `{cmd}`")
         else:
-            lines.append(f"- {verdict}: `{cmd}`")
+            lines.append(f"- {verdict}{suffix}: `{cmd}`")
     return "\n".join(lines)
 
 
-def run_validation_commands(commands: list[str], dry_run: bool) -> list[dict]:
+def _extract_unittest_ran_count(output_text: str) -> int | None:
+    m = re.search(r"Ran\s+(\d+)\s+tests?", output_text)
+    if not m:
+        return None
+    try:
+        return int(m.group(1))
+    except Exception:
+        return None
+
+
+def run_validation_commands(commands: list[str], dry_run: bool, policy: dict | None = None) -> list[dict]:
+    policy = _normalize_validation_policy(policy)
+    disallow = [str(x).strip() for x in policy.get("disallowCommandSubstrings", []) if str(x).strip()]
+    fail_on_zero_tests = bool(policy.get("failOnZeroTests", True))
+
     outcomes: list[dict] = []
     for command in commands:
         cmd = str(command).strip()
         if not cmd:
             continue
+
+        blocked = next((needle for needle in disallow if needle in cmd), None)
+        if blocked:
+            outcomes.append(
+                {
+                    "command": cmd,
+                    "ok": False,
+                    "returncode": None,
+                    "policy_violation": f"command contains disallowed substring: {blocked}",
+                }
+            )
+            continue
+
         if dry_run:
-            outcomes.append({"command": cmd, "ok": True, "returncode": 0, "dry_run": True})
+            outcomes.append({"command": cmd, "ok": True, "returncode": 0, "dry_run": True, "ran_tests": None})
             continue
 
         proc = subprocess.run(cmd, cwd=ROOT, shell=True, capture_output=True, text=True)
+        combined = f"{proc.stdout or ''}\n{proc.stderr or ''}"
+        ran_tests = _extract_unittest_ran_count(combined)
+        zero_tests = bool(fail_on_zero_tests and ran_tests == 0)
+        ok = proc.returncode == 0 and not zero_tests
+
         outcomes.append(
             {
                 "command": cmd,
-                "ok": proc.returncode == 0,
+                "ok": ok,
                 "returncode": proc.returncode,
+                "ran_tests": ran_tests,
+                "zero_tests": zero_tests,
+                "stdout": (proc.stdout or "").strip()[:2000],
+                "stderr": (proc.stderr or "").strip()[:2000],
             }
         )
     return outcomes
@@ -1063,8 +1286,20 @@ def resolve_openclaw_command() -> tuple[list[str], list[str]]:
     return [], tried
 
 
-def _build_dispatch_agent_payload(request: dict) -> dict:
+def _resolve_request_message(request: dict) -> str:
     spawn = request.get("spawn", {}) if isinstance(request, dict) else {}
+    direct = str(spawn.get("task", "")).strip() if isinstance(spawn, dict) else ""
+    if direct:
+        return direct
+
+    prompt_context = request.get("prompt_context") if isinstance(request, dict) else None
+    if isinstance(prompt_context, dict):
+        return render_contract_prompt(prompt_context, prompting=resolve_prompting_runtime())
+
+    return ""
+
+
+def _build_dispatch_agent_payload(request: dict) -> dict:
     raw_id = str(request.get("id", "spawn")).strip() or "spawn"
     safe_id = "".join(ch.lower() if ch.isalnum() else "-" for ch in raw_id).strip("-") or "spawn"
     stamp = now_dt().strftime("%Y%m%dt%H%M%S")
@@ -1073,7 +1308,7 @@ def _build_dispatch_agent_payload(request: dict) -> dict:
         "agentId": "sandy",
         "sessionKey": f"agent:sandy:orchestrator-{safe_id}-{stamp}",
         "idempotencyKey": str(uuid.uuid4()),
-        "message": str(spawn.get("task", "")).strip(),
+        "message": _resolve_request_message(request),
     }
 
     lane = str(request.get("lane", "")).strip()
@@ -1161,7 +1396,7 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
     return out
 
 
-def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3, validation_commands: list[str] | None = None) -> None:
+def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3, validation_commands: list[str] | None = None) -> bool:
     started = now_dt()
     cycle_id = started.strftime("%Y%m%dT%H%M%S")
     summary = run_scheduler(scheduler=scheduler, dry_run=dry_run)
@@ -1173,8 +1408,11 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
     if with_dispatch:
         dispatch = dispatch_spawn_requests(dry_run=dry_run, max_dispatch=dispatch_limit)
 
-    validation_commands = validation_commands or ["./venv/bin/python -m unittest -q"]
-    validation_outcomes = run_validation_commands(validation_commands, dry_run=dry_run)
+    validation_runtime = resolve_validation_runtime(validation_commands_override=validation_commands)
+    effective_validation_commands = validation_runtime.get("commands", [])
+    validation_policy = validation_runtime.get("policy", {})
+    validation_outcomes = run_validation_commands(effective_validation_commands, dry_run=dry_run, policy=validation_policy)
+    validation_gate_ok = evaluate_validation_gate(validation_outcomes, validation_policy)
     research_summary = maybe_write_research_cycle_summary(dry_run=dry_run)
 
     todo_text = TODO_PATH.read_text(encoding="utf-8", errors="ignore") if TODO_PATH.exists() else ""
@@ -1190,11 +1428,16 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
     prev_todo = state.get("last_todo_snapshot", {})
     delta = todo_delta(todo, prev_todo)
     productive, productivity_reasons = productivity_gate(delta=delta, lane_hits=lane_hits, orch=orch)
+    if not validation_gate_ok:
+        productive = False
+        productivity_reasons.append("validation gate failed")
     state["last_run"]["full_pass"] = now_dt().isoformat(timespec="seconds")
     state["last_todo_snapshot"] = todo
     state["last_productivity"] = {
         "productive": productive,
         "reasons": productivity_reasons,
+        "validation_gate_ok": validation_gate_ok,
+        "validation_commands": effective_validation_commands,
         "at": now_dt().isoformat(timespec="seconds"),
     }
     save_state(state)
@@ -1243,6 +1486,9 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
         "pipeline": orch.get("pipeline", {}),
         "dispatch": orch.get("dispatch", {}),
         "validation": validation_outcomes,
+        "validation_gate_ok": validation_gate_ok,
+        "validation_commands": effective_validation_commands,
+        "validation_policy": validation_policy,
         "research_summary": research_summary,
         "telegram_sent": telegram_sent,
         "telegram_error": telegram_error,
@@ -1250,6 +1496,7 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
     append_jsonl(ORCH_CYCLE_LOG, cycle_event)
 
     print(f"Full pass complete. cycle_id={cycle_id} duration_ms={duration_ms}")
+    return validation_gate_ok
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -1334,7 +1581,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.cmd == "full-pass":
-        full_pass(
+        validation_gate_ok = full_pass(
             scheduler=args.scheduler,
             send_telegram=args.send_telegram,
             dry_run=args.dry_run,
@@ -1344,7 +1591,7 @@ def main(argv: list[str] | None = None) -> int:
             dispatch_limit=args.dispatch_limit,
             validation_commands=args.validation_commands,
         )
-        return 0
+        return 0 if validation_gate_ok else 1
 
     if args.cmd == "todo-add":
         ok = todo_add(text=args.text, section=args.section)

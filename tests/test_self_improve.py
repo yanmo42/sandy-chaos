@@ -105,11 +105,11 @@ class SelfImprovePromotionTests(unittest.TestCase):
 
 
 class SelfImproveDispatchTests(unittest.TestCase):
-    def test_dispatch_uses_coordinator_sessions_spawn(self):
+    def test_dispatch_uses_coordinator_agent_bridge(self):
         with tempfile.TemporaryDirectory() as td:
             req_path = Path(td) / "orchestrator_spawn_requests.json"
             req_path.write_text(
-                json.dumps({"requests": [{"id": "spawn-01", "spawn": {"runtime": "subagent", "task": "x"}}]}),
+                json.dumps({"requests": [{"id": "spawn-01", "lane": "sandy-builder", "spawn": {"runtime": "subagent", "task": "x"}}]}),
                 encoding="utf-8",
             )
 
@@ -119,7 +119,7 @@ class SelfImproveDispatchTests(unittest.TestCase):
                 with patch.object(self_improve, "resolve_openclaw_command", return_value=(["openclaw"], ["openclaw"])), \
                      patch("scripts.self_improve.subprocess.run") as mock_run:
                     mock_run.return_value.returncode = 0
-                    mock_run.return_value.stdout = '{"ok":true}'
+                    mock_run.return_value.stdout = '{"runId":"r1","status":"accepted"}'
                     mock_run.return_value.stderr = ""
 
                     out = self_improve.dispatch_spawn_requests(dry_run=False, max_dispatch=1)
@@ -131,9 +131,100 @@ class SelfImproveDispatchTests(unittest.TestCase):
                 called = mock_run.call_args[0][0]
                 self.assertIn("gateway", called)
                 self.assertIn("call", called)
-                self.assertIn("sessions_spawn", called)
+                self.assertIn("agent", called)
             finally:
                 self_improve.ORCH_REQ_PATH = original_req_path
+
+
+class SelfImprovePromptingConfigTests(unittest.TestCase):
+    def test_resolve_prompting_runtime_uses_orchestrator_config(self):
+        with tempfile.TemporaryDirectory() as td:
+            cfg_path = Path(td) / "orchestrator.json"
+            cfg_path.write_text(
+                json.dumps(
+                    {
+                        "prompting": {
+                            "template": "Goal={goal}",
+                            "globalConstraints": ["A"],
+                            "byLane": {"sandy-builder": ["Keep scope tight"]},
+                            "outputContract": ["Report files"],
+                            "forbidden": ["No bypass"],
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            original = self_improve.ORCHESTRATOR_CONFIG_PATH
+            try:
+                self_improve.ORCHESTRATOR_CONFIG_PATH = cfg_path
+                runtime = self_improve.resolve_prompting_runtime()
+            finally:
+                self_improve.ORCHESTRATOR_CONFIG_PATH = original
+
+            self.assertEqual(runtime["template"], "Goal={goal}")
+            self.assertIn("sandy-builder", runtime["byLane"])
+
+    def test_build_dispatch_payload_renders_from_prompt_context_when_task_missing(self):
+        request = {
+            "id": "spawn-01",
+            "lane": "sandy-builder",
+            "spawn": {},
+            "prompt_context": {
+                "lane": "sandy-builder",
+                "section": "Ops",
+                "goal": "Improve prompt renderer",
+                "constraints": ["Small patch"],
+                "definition_of_done": ["Prompt renders"],
+                "validation_command": "python -m unittest discover -s tests -q",
+            },
+        }
+
+        payload = self_improve._build_dispatch_agent_payload(request)
+        self.assertIn("Improve prompt renderer", payload["message"])
+
+
+class SelfImproveValidationConfigTests(unittest.TestCase):
+    def test_resolve_validation_runtime_uses_orchestrator_config(self):
+        with tempfile.TemporaryDirectory() as td:
+            cfg_path = Path(td) / "orchestrator.json"
+            cfg_path.write_text(
+                json.dumps(
+                    {
+                        "validation": {
+                            "commands": {"default": ["python -m unittest discover -s tests -q"]},
+                            "policy": {
+                                "requireAtLeastOneCommand": True,
+                                "requireAllPass": True,
+                                "failOnZeroTests": False,
+                                "disallowCommandSubstrings": ["|| true"],
+                            },
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            original = self_improve.ORCHESTRATOR_CONFIG_PATH
+            try:
+                self_improve.ORCHESTRATOR_CONFIG_PATH = cfg_path
+                runtime = self_improve.resolve_validation_runtime()
+            finally:
+                self_improve.ORCHESTRATOR_CONFIG_PATH = original
+
+            self.assertEqual(runtime["commands"], ["python -m unittest discover -s tests -q"])
+            self.assertFalse(runtime["policy"]["failOnZeroTests"])
+
+    def test_run_validation_commands_rejects_disallowed_substrings(self):
+        outcomes = self_improve.run_validation_commands(
+            ["python -m unittest -q || true"],
+            dry_run=False,
+            policy={"disallowCommandSubstrings": ["|| true"]},
+        )
+
+        self.assertEqual(len(outcomes), 1)
+        self.assertFalse(outcomes[0]["ok"])
+        self.assertIn("policy_violation", outcomes[0])
 
 
 if __name__ == "__main__":

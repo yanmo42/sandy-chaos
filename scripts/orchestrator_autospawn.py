@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Auto-spawn plan executor (v2).
 
-Consumes `memory/orchestrator_task_plan.jsonl`, emits concrete OpenClaw
-`sessions_spawn` request payloads, and can optionally dispatch them through the
-Gateway sessions API.
+Consumes `memory/orchestrator_task_plan.jsonl`, emits concrete task-dispatch
+payloads, and can optionally dispatch them through the Gateway `agent` API.
 """
 
 from __future__ import annotations
@@ -13,13 +12,47 @@ import json
 import os
 import shutil
 import subprocess
+import uuid
 from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+ORCH_CONFIG = ROOT / "config" / "orchestrator.json"
 DEFAULT_PLAN = ROOT / "memory" / "orchestrator_task_plan.jsonl"
 REQUESTS_OUT = ROOT / "memory" / "orchestrator_spawn_requests.json"
 DISPATCH_LOG = ROOT / "memory" / "orchestrator_dispatch_log.jsonl"
+
+DEFAULT_PROMPT_TEMPLATE = (
+    "You are executing one Sandy-Chaos automation contract.\n"
+    "Lane: {lane}\n"
+    "Section: {section}\n"
+    "Goal: {goal}\n\n"
+    "Global constraints:\n{global_constraints}\n\n"
+    "Lane-specific instructions:\n{lane_instructions}\n\n"
+    "Task constraints:\n{constraints}\n\n"
+    "Definition of done:\n{definition_of_done}\n\n"
+    "Output contract:\n{output_contract}\n\n"
+    "Forbidden patterns:\n{forbidden}\n\n"
+    "Validation command: {validation_command}\n"
+    "Work in {workspace}. Make scoped changes and commit when done."
+)
+DEFAULT_PROMPTING = {
+    "template": DEFAULT_PROMPT_TEMPLATE,
+    "globalConstraints": [
+        "Use openai-codex/gpt-5.3-codex.",
+        "Keep strict causality; no retrocausal claims.",
+    ],
+    "byLane": {},
+    "outputContract": [
+        "List files changed.",
+        "Report validation command + outcome.",
+        "Give one concise completion note.",
+    ],
+    "forbidden": [
+        "Do not bypass validation (no '|| true').",
+        "Do not make unrelated broad refactors.",
+    ],
+}
 
 
 def now_iso() -> str:
@@ -38,29 +71,127 @@ def load_jsonl(path: Path) -> list[dict]:
     return tasks
 
 
-def to_spawn_request(task: dict, idx: int) -> dict:
-    lane = task.get("lane", "sandy-builder")
-    goal = task.get("goal", "(missing goal)")
-    section = task.get("section", "(unknown section)")
-    constraints = task.get("constraints", [])
-    dod = task.get("definition_of_done", [])
-    validation = task.get("validation_command", "./venv/bin/python -m unittest -q || true")
+def _as_lines(raw: object) -> list[str]:
+    if isinstance(raw, str):
+        return [raw.strip()] if raw.strip() else []
+    if isinstance(raw, list):
+        out: list[str] = []
+        for item in raw:
+            text = str(item).strip()
+            if text:
+                out.append(text)
+        return out
+    return []
 
-    prompt = (
-        "You are executing one Sandy-Chaos automation contract.\n"
-        f"Lane: {lane}\n"
-        f"Section: {section}\n"
-        f"Goal: {goal}\n\n"
-        "Constraints:\n- " + "\n- ".join(constraints) + "\n\n"
-        "Definition of done:\n- " + "\n- ".join(dod) + "\n\n"
-        f"Validation command: {validation}\n"
-        f"Work in {ROOT}. Make scoped changes and commit when done."
-    )
+
+def _render_bullets(lines: list[str]) -> str:
+    if not lines:
+        return "- (none)"
+    return "\n".join(f"- {line}" for line in lines)
+
+
+def _normalize_prompting(raw: dict | None) -> dict:
+    merged = dict(DEFAULT_PROMPTING)
+    if isinstance(raw, dict):
+        tmpl = raw.get("template")
+        if isinstance(tmpl, str) and tmpl.strip():
+            merged["template"] = tmpl
+        for key in ["globalConstraints", "outputContract", "forbidden"]:
+            merged[key] = _as_lines(raw.get(key, merged.get(key))) or _as_lines(merged.get(key))
+
+        by_lane_raw = raw.get("byLane")
+        by_lane: dict[str, list[str]] = {}
+        if isinstance(by_lane_raw, dict):
+            for lane, lane_value in by_lane_raw.items():
+                lane_key = str(lane).strip()
+                if not lane_key:
+                    continue
+                if isinstance(lane_value, dict):
+                    lane_lines = _as_lines(lane_value.get("instructions"))
+                else:
+                    lane_lines = _as_lines(lane_value)
+                by_lane[lane_key] = lane_lines
+        merged["byLane"] = by_lane
+    return merged
+
+
+def resolve_prompting_runtime() -> dict:
+    try:
+        if ORCH_CONFIG.exists():
+            cfg = json.loads(ORCH_CONFIG.read_text(encoding="utf-8"))
+            raw = cfg.get("prompting", {}) if isinstance(cfg, dict) else {}
+            return _normalize_prompting(raw if isinstance(raw, dict) else None)
+    except Exception:
+        pass
+    return _normalize_prompting(None)
+
+
+def render_contract_prompt(task: dict, prompting: dict | None = None) -> str:
+    cfg = _normalize_prompting(prompting)
+    lane = str(task.get("lane", "sandy-builder")).strip() or "sandy-builder"
+    section = str(task.get("section", "(unknown section)")).strip() or "(unknown section)"
+    goal = str(task.get("goal", "(missing goal)")).strip() or "(missing goal)"
+    constraints = _as_lines(task.get("constraints"))
+    dod = _as_lines(task.get("definition_of_done"))
+    validation_command = str(task.get("validation_command", resolve_default_validation_command())).strip() or resolve_default_validation_command()
+
+    lane_map = cfg.get("byLane", {}) if isinstance(cfg, dict) else {}
+    lane_specific = _as_lines(lane_map.get(lane))
+
+    fields = {
+        "lane": lane,
+        "section": section,
+        "goal": goal,
+        "global_constraints": _render_bullets(_as_lines(cfg.get("globalConstraints"))),
+        "lane_instructions": _render_bullets(lane_specific),
+        "constraints": _render_bullets(constraints),
+        "definition_of_done": _render_bullets(dod),
+        "output_contract": _render_bullets(_as_lines(cfg.get("outputContract"))),
+        "forbidden": _render_bullets(_as_lines(cfg.get("forbidden"))),
+        "validation_command": validation_command,
+        "workspace": str(ROOT),
+    }
+
+    try:
+        return str(cfg.get("template", DEFAULT_PROMPT_TEMPLATE)).format(**fields).strip()
+    except Exception:
+        return DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
+
+
+def resolve_default_validation_command() -> str:
+    try:
+        if ORCH_CONFIG.exists():
+            cfg = json.loads(ORCH_CONFIG.read_text(encoding="utf-8"))
+            validation = cfg.get("validation", {}) if isinstance(cfg, dict) else {}
+            commands_cfg = validation.get("commands", {}) if isinstance(validation, dict) else {}
+            default_value = commands_cfg.get("default") if isinstance(commands_cfg, dict) else None
+            if isinstance(default_value, list):
+                default_value = default_value[0] if default_value else None
+            if isinstance(default_value, str) and default_value.strip():
+                return default_value.strip()
+    except Exception:
+        pass
+    return "./venv/bin/python -m unittest discover -s tests -q"
+
+
+def to_spawn_request(task: dict, idx: int, prompting: dict | None = None) -> dict:
+    lane = str(task.get("lane", "sandy-builder")).strip() or "sandy-builder"
+    contract = {
+        "lane": lane,
+        "goal": task.get("goal", "(missing goal)"),
+        "section": task.get("section", "(unknown section)"),
+        "constraints": task.get("constraints", []),
+        "definition_of_done": task.get("definition_of_done", []),
+        "validation_command": task.get("validation_command", resolve_default_validation_command()),
+    }
+    prompt = render_contract_prompt(contract, prompting=prompting)
 
     return {
         "id": f"spawn-{idx:02d}",
         "createdAt": now_iso(),
         "lane": lane,
+        "prompt_context": contract,
+        "prompt_schema_version": "v1",
         "spawn": {
             "runtime": "subagent",
             "mode": "run",
@@ -106,6 +237,26 @@ def resolve_openclaw_command() -> list[str]:
     return []
 
 
+def _build_dispatch_agent_call(req: dict) -> dict:
+    """Build a Gateway `agent` call payload from a spawn request."""
+    spawn = req.get("spawn", {}) if isinstance(req, dict) else {}
+    raw_id = str(req.get("id", "spawn")).strip() or "spawn"
+    safe_id = "".join(ch.lower() if ch.isalnum() else "-" for ch in raw_id).strip("-") or "spawn"
+    stamp = datetime.now().strftime("%Y%m%dt%H%M%S")
+
+    payload = {
+        "agentId": "sandy",
+        "sessionKey": f"agent:sandy:orchestrator-{safe_id}-{stamp}",
+        "idempotencyKey": str(uuid.uuid4()),
+        "message": str(spawn.get("task", "")).strip(),
+    }
+
+    lane = str(req.get("lane", "")).strip()
+    if lane:
+        payload["lane"] = lane
+    return payload
+
+
 def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict:
     out = {"attempted": 0, "dispatched": 0, "errors": [], "results": []}
 
@@ -116,16 +267,21 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
 
     for req in requests:
         out["attempted"] += 1
-        spawn = req.get("spawn", {})
+        payload = _build_dispatch_agent_call(req)
+
+        if not payload["message"]:
+            out["errors"].append(f"{req.get('id', 'unknown')}: empty spawn task message")
+            continue
+
         cmd = openclaw_cmd + [
             "gateway",
             "call",
-            "sessions_spawn",
+            "agent",
             "--json",
             "--timeout",
             "120000",
             "--params",
-            json.dumps(spawn, ensure_ascii=False),
+            json.dumps(payload, ensure_ascii=False),
         ]
 
         if dry_run:
@@ -138,7 +294,8 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
                     "id": req.get("id"),
                     "ok": True,
                     "dry_run": True,
-                    "method": "sessions_spawn",
+                    "method": "agent",
+                    "sessionKey": payload["sessionKey"],
                 }
             )
             continue
@@ -146,9 +303,23 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
         try:
             proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=130)
             ok = proc.returncode == 0
+            run_id = None
+            status = None
+            if ok:
+                try:
+                    parsed = json.loads((proc.stdout or "").strip() or "{}")
+                except Exception:
+                    parsed = {}
+                if isinstance(parsed, dict):
+                    run_id = parsed.get("runId")
+                    status = str(parsed.get("status", "")).strip().lower()
+                ok = bool(run_id) or status in {"accepted", "ok", "in_flight"}
+
             result = {
                 "id": req.get("id"),
                 "ok": ok,
+                "runId": run_id,
+                "status": status,
                 "stdout": (proc.stdout or "").strip()[:2000],
                 "stderr": (proc.stderr or "").strip()[:2000],
             }
@@ -165,7 +336,10 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
                     "id": req.get("id"),
                     "ok": ok,
                     "dry_run": False,
-                    "method": "sessions_spawn",
+                    "method": "agent",
+                    "sessionKey": payload["sessionKey"],
+                    "runId": run_id,
+                    "status": status,
                     "stdout": result["stdout"],
                     "stderr": result["stderr"],
                 }
@@ -179,7 +353,8 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
                     "id": req.get("id"),
                     "ok": False,
                     "dry_run": False,
-                    "method": "sessions_spawn",
+                    "method": "agent",
+                    "sessionKey": payload["sessionKey"],
                     "error": str(exc),
                 }
             )
@@ -192,7 +367,7 @@ def main() -> int:
     ap.add_argument("--plan", default=str(DEFAULT_PLAN))
     ap.add_argument("--out", default=str(REQUESTS_OUT))
     ap.add_argument("--limit", type=int, default=3)
-    ap.add_argument("--execute", action="store_true", help="Call OpenClaw sessions API (sessions_spawn) for each request")
+    ap.add_argument("--execute", action="store_true", help="Dispatch each request via OpenClaw Gateway `agent` method")
     ap.add_argument("--dry-run", action="store_true", help="Prepare/dispatch without making API calls")
     args = ap.parse_args()
 
@@ -202,7 +377,8 @@ def main() -> int:
     tasks = load_jsonl(plan_path)
     selected = tasks[: max(0, args.limit)]
 
-    requests = [to_spawn_request(task, i + 1) for i, task in enumerate(selected)]
+    prompting = resolve_prompting_runtime()
+    requests = [to_spawn_request(task, i + 1, prompting=prompting) for i, task in enumerate(selected)]
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps({"generatedAt": now_iso(), "requests": requests}, indent=2), encoding="utf-8")
 
@@ -221,7 +397,7 @@ def main() -> int:
     if args.execute:
         result = dispatch_spawn_requests(requests=requests, dry_run=args.dry_run)
         print(
-            f"Dispatch complete via sessions_spawn: dispatched={result['dispatched']} "
+            f"Dispatch complete via agent bridge: dispatched={result['dispatched']} "
             f"attempted={result['attempted']} errors={len(result['errors'])}"
         )
         if result["errors"]:
@@ -229,7 +405,7 @@ def main() -> int:
                 print(f"- {e}")
             return 1
     else:
-        print("Next step: run with --execute to dispatch via OpenClaw sessions_spawn API.")
+        print("Next step: run with --execute to dispatch via OpenClaw Gateway `agent` API.")
 
     return 0
 

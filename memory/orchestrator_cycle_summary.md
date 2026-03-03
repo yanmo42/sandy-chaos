@@ -1,9 +1,11 @@
-# Orchestrator Cycle Summary (2026-03-03 09:53)
+# Orchestrator Cycle Summary (2026-03-03 11:09)
 
 ## Selected tasks
-1. [open] Add daily automation hook to produce one research-cycle summary when active (Research Automation Workflow v1 (OpenClaw-aligned)) · lane=ops
+- none
 
 ## Git working tree
+-  M config/orchestrator.json
+-  M docs/07_agentic_automation_loop.md
 -  M memory/notification_outbox.md
 -  M memory/orchestrator_cycle_events.jsonl
 -  M memory/orchestrator_cycle_summary.md
@@ -11,6 +13,14 @@
 -  M memory/orchestrator_spawn_requests.json
 -  M memory/orchestrator_task_plan.jsonl
 -  M memory/self_improve_state.json
-- ?? memory/2026-03-03-meso-review.md
+-  M scripts/automation_orchestrator.py
+-  M scripts/orchestrator_autospawn.py
+-  M scripts/run_sandy_cycle.sh
+-  M scripts/self_improve.py
+-  M tests/test_fullpass_validation_summary.py
+-  M tests/test_orchestrator_autospawn.py
+-  M tests/test_self_improve.py
+- ?? memory/2026-03-03.md
+- ?? tests/test_automation_orchestrator_validation_config.py
 
 Task plan JSONL: `memory/orchestrator_task_plan.jsonl`

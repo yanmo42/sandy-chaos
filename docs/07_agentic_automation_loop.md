@@ -83,7 +83,7 @@ Outputs:
    - constraints
    - definition of done
    - validation command
-3. OpenClaw main session spawns subagents from these contracts (`sessions_spawn`) and routes by lane.
+3. OpenClaw coordinator dispatches these contracts through the Gateway `agent` bridge and routes by lane.
 4. Reporter lane composes daily/weekly Telegram summary after completion.
 
 ### Why this shape
@@ -95,7 +95,7 @@ Outputs:
 
 ## 9) Auto-spawn executor (v2 direct dispatch)
 
-`scripts/orchestrator_autospawn.py` consumes `memory/orchestrator_task_plan.jsonl`, emits concrete spawn payloads, and can dispatch them directly via the OpenClaw Gateway sessions API (`sessions_spawn`).
+`scripts/orchestrator_autospawn.py` consumes `memory/orchestrator_task_plan.jsonl`, emits concrete spawn payloads, and can dispatch them directly via the OpenClaw Gateway `agent` API.
 
 - Input: `memory/orchestrator_task_plan.jsonl`
 - Output: `memory/orchestrator_spawn_requests.json`
@@ -133,8 +133,30 @@ This wraps:
 1. `automation_orchestrator.py`
 2. `orchestrator_autospawn.py --limit 3`
 
-and leaves dispatch-ready artifacts for immediate `sessions_spawn` execution.
+and leaves dispatch-ready artifacts for immediate coordinator dispatch execution.
 
+
+### Validation policy source of truth
+
+Validation command routing + gate policy are now configured in `config/orchestrator.json` under:
+
+- `validation.commands.default`
+- `validation.commands.byLane`
+- `validation.policy`
+
+This makes tuning and audits configuration-driven instead of hardcoded in scripts.
+
+### Prompting template source of truth
+
+Task prompt structure is also config-driven in `config/orchestrator.json` under:
+
+- `prompting.template`
+- `prompting.globalConstraints`
+- `prompting.byLane`
+- `prompting.outputContract`
+- `prompting.forbidden`
+
+`orchestrator_autospawn.py` renders subagent contract prompts from this schema, and `self_improve.py` can re-render from `prompt_context` during dispatch if needed.
 
 ## 10) Probabilistic 5-minute cadence (4-6 min window)
 
@@ -165,7 +187,7 @@ This means each timer cycle executes:
 1. cadence checks,
 2. orchestrator task-plan generation,
 3. spawn-request generation,
-4. coordinator-side `sessions_spawn` dispatch in the active OpenClaw runtime,
+4. coordinator-side Gateway `agent` dispatch in the active OpenClaw runtime,
 5. lane-aware productivity digest generation (outbox-first, Telegram optional).
 
 ## 12) Auto-improvement definition (repo-native)
@@ -215,7 +237,7 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 1. `self_improve.py full-pass`
 2. `automation_orchestrator.py` builds task contracts from TODO priorities
 3. `orchestrator_autospawn.py` emits spawn-request payloads
-4. coordinator dispatch executes `sessions_spawn` directly from the active OpenClaw runtime (with session-id telemetry retained for debugging)
+4. coordinator dispatch executes Gateway `agent` calls directly from the active OpenClaw runtime (with session-id telemetry retained for debugging)
 5. digest and telemetry are written to memory artifacts
 
 ### Core artifacts

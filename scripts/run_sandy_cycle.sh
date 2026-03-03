@@ -18,4 +18,4 @@ echo "- Task plan:    $ROOT/memory/orchestrator_task_plan.jsonl"
 echo "- Spawn reqs:   $ROOT/memory/orchestrator_spawn_requests.json"
 echo "- Cycle summary:$ROOT/memory/orchestrator_cycle_summary.md"
 echo
-echo "Next: dispatch spawn requests from active OpenClaw session (sessions_spawn)."
+echo "Next: dispatch spawn requests via OpenClaw Gateway agent bridge."

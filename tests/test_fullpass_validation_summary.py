@@ -1,4 +1,6 @@
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from scripts import self_improve
 
@@ -14,6 +16,32 @@ class FullPassValidationSummaryTests(unittest.TestCase):
 
         self.assertIn("PASS (exit 0): `python -m unittest -q`", text)
         self.assertIn("FAIL (exit 1): `python -m unittest tests.test_missing`", text)
+
+    def test_run_validation_commands_fails_on_zero_test_discovery(self):
+        fake = SimpleNamespace(returncode=0, stdout="Ran 0 tests in 0.000s\n\nOK\n", stderr="")
+        with patch("scripts.self_improve.subprocess.run", return_value=fake):
+            outcomes = self_improve.run_validation_commands(
+                ["./venv/bin/python -m unittest discover -s tests -q"],
+                dry_run=False,
+            )
+
+        self.assertEqual(len(outcomes), 1)
+        self.assertFalse(outcomes[0]["ok"])
+        self.assertTrue(outcomes[0]["zero_tests"])
+        self.assertEqual(outcomes[0]["ran_tests"], 0)
+
+    def test_run_validation_commands_passes_when_tests_execute(self):
+        fake = SimpleNamespace(returncode=0, stdout="Ran 7 tests in 0.012s\n\nOK\n", stderr="")
+        with patch("scripts.self_improve.subprocess.run", return_value=fake):
+            outcomes = self_improve.run_validation_commands(
+                ["./venv/bin/python -m unittest discover -s tests -q"],
+                dry_run=False,
+            )
+
+        self.assertEqual(len(outcomes), 1)
+        self.assertTrue(outcomes[0]["ok"])
+        self.assertFalse(outcomes[0]["zero_tests"])
+        self.assertEqual(outcomes[0]["ran_tests"], 7)
 
     def test_compose_fullpass_message_contains_validation_section(self):
         msg = self_improve.compose_fullpass_message(

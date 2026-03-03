@@ -4,7 +4,7 @@
 Purpose:
 - Select high-priority TODO items
 - Build explicit subagent task contracts
-- Emit task plan JSONL for OpenClaw `sessions_spawn`
+- Emit task plan JSONL for OpenClaw dispatch (Gateway `agent` bridge)
 - Write cycle summary for human + reporter lane
 
 This script is intentionally transport-agnostic: it prepares task contracts that
@@ -100,8 +100,29 @@ def capability_lane_for_item(item: TodoItem) -> str:
     return "ops"
 
 
+def resolve_validation_command(cfg: dict, lane: str) -> str:
+    validation = cfg.get("validation", {}) if isinstance(cfg, dict) else {}
+    commands_cfg = validation.get("commands", {}) if isinstance(validation, dict) else {}
+    by_lane = commands_cfg.get("byLane", {}) if isinstance(commands_cfg, dict) else {}
 
-def task_contract(item: TodoItem) -> dict:
+    lane_value = by_lane.get(lane)
+    if isinstance(lane_value, list):
+        lane_value = lane_value[0] if lane_value else None
+    if isinstance(lane_value, str) and lane_value.strip():
+        return lane_value.strip()
+
+    default_value = commands_cfg.get("default") if isinstance(commands_cfg, dict) else None
+    if isinstance(default_value, list):
+        default_value = default_value[0] if default_value else None
+    if isinstance(default_value, str) and default_value.strip():
+        return default_value.strip()
+
+    # Safe fallback if config is missing/malformed.
+    return "./venv/bin/python -m unittest discover -s tests -q"
+
+
+
+def task_contract(item: TodoItem, cfg: dict) -> dict:
     lane = "sandy-builder"
     if "document" in item.text.lower() or "claim tier" in item.text.lower():
         lane = "sandy-planner"
@@ -110,9 +131,7 @@ def task_contract(item: TodoItem) -> dict:
 
     capability_lane = capability_lane_for_item(item)
 
-    validation = "./venv/bin/python -m unittest -q || true"
-    if lane == "sandy-planner":
-        validation = "python3 scripts/todo_scan.py plans/todo.md"
+    validation = resolve_validation_command(cfg, lane=lane)
 
     return {
         "lane": lane,
@@ -131,6 +150,10 @@ def task_contract(item: TodoItem) -> dict:
             "Short completion note prepared"
         ],
         "validation_command": validation,
+        "validation_policy_ref": {
+            "config": "config/orchestrator.json",
+            "lane": lane,
+        },
     }
 
 
@@ -180,7 +203,7 @@ def main() -> int:
         include_partial=bool(cfg["taskSelection"].get("includePartial", True)),
         limit=int(cfg.get("maxTasksPerCycle", 3)),
     )
-    tasks = [task_contract(it) for it in selected]
+    tasks = [task_contract(it, cfg=cfg) for it in selected]
 
     out_plan = repo / cfg["output"]["taskPlanJsonl"]
     out_summary = repo / cfg["output"]["cycleSummary"]

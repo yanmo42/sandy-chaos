@@ -3,13 +3,75 @@
   "todoPath": "plans/todo.md",
   "maxTasksPerCycle": 3,
   "taskSelection": {
-    "prefer": ["Agency + Temporal Communication Buildout", "Closed automation loop"],
+    "prefer": [
+      "Agency + Temporal Communication Buildout",
+      "Closed automation loop"
+    ],
     "includePartial": true
   },
   "gates": {
     "requireCleanCommitForAutopush": true,
     "requireTestsForCodeTasks": true,
     "allowAutoPush": false
+  },
+  "validation": {
+    "commands": {
+      "default": [
+        "./venv/bin/python -m unittest discover -s tests -q"
+      ],
+      "byLane": {
+        "sandy-builder": [
+          "./venv/bin/python -m unittest discover -s tests -q"
+        ],
+        "sandy-verifier": [
+          "./venv/bin/python -m unittest discover -s tests -q"
+        ],
+        "sandy-planner": [
+          "python3 scripts/todo_scan.py plans/todo.md"
+        ]
+      }
+    },
+    "policy": {
+      "requireAtLeastOneCommand": true,
+      "requireAllPass": true,
+      "failOnZeroTests": true,
+      "disallowCommandSubstrings": [
+        "|| true"
+      ]
+    }
+  },
+  "prompting": {
+    "template": "You are executing one Sandy-Chaos automation contract.\nLane: {lane}\nSection: {section}\nGoal: {goal}\n\nGlobal constraints:\n{global_constraints}\n\nLane-specific instructions:\n{lane_instructions}\n\nTask constraints:\n{constraints}\n\nDefinition of done:\n{definition_of_done}\n\nOutput contract:\n{output_contract}\n\nForbidden patterns:\n{forbidden}\n\nValidation command: {validation_command}\nWork in {workspace}. Make scoped changes and commit when done.",
+    "globalConstraints": [
+      "Use openai-codex/gpt-5.3-codex.",
+      "Keep strict causality; no retrocausal claims."
+    ],
+    "byLane": {
+      "sandy-planner": {
+        "instructions": [
+          "Favor docs/spec precision and explicit claim-tier language."
+        ]
+      },
+      "sandy-verifier": {
+        "instructions": [
+          "Prioritize falsification-oriented validation and failure clarity."
+        ]
+      },
+      "sandy-builder": {
+        "instructions": [
+          "Prefer minimal scoped changes over broad rewrites."
+        ]
+      }
+    },
+    "outputContract": [
+      "List files changed.",
+      "Report validation command and outcome.",
+      "Provide one concise completion summary."
+    ],
+    "forbidden": [
+      "Do not bypass validation (no '|| true').",
+      "Do not make unrelated broad refactors."
+    ]
   },
   "output": {
     "taskPlanJsonl": "memory/orchestrator_task_plan.jsonl",
