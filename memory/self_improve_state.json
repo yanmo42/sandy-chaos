@@ -1,8 +1,9 @@
 {
   "last_productivity": {
-    "at": "2026-03-03T11:09:46",
+    "at": "2026-03-03T11:31:36",
     "productive": true,
     "reasons": [
+      "theory/docs lane touched",
       "orchestrator pipeline healthy"
     ],
     "validation_commands": [
@@ -12,7 +13,7 @@
   },
   "last_run": {
     "daily": "2026-03-03T00:04:22",
-    "full_pass": "2026-03-03T11:09:46",
+    "full_pass": "2026-03-03T11:31:36",
     "weekly": "2026-03-02T00:00:20"
   },
   "last_todo_snapshot": {
@@ -30,6 +31,7 @@
     "Agent prompt templates should be centrally configured and rendered from structured fields, with code-enforced fallbacks for malformed/missing config": 1,
     "Before integrating any OpenClaw RPC method into automation, verify availability against current gateway method catalog and run a live probe call": 1,
     "Keep automation gate logic config-driven: commands and enforcement policy must live in versioned JSON, not scattered script defaults": 1,
+    "Require pre-registration + proper scoring + baseline lift checks for any claim of forecasting advantage": 1,
     "Validation commands in automation must fail closed: never append '|| true', and treat zero discovered tests as gate failure": 1,
     "When automation is marked productive, require at least one real outcome delta and no critical dispatch/validation failures": 1
   },
