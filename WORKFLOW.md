@@ -40,7 +40,37 @@ Reset any lane when it gets noisy:
 /new
 ```
 
-## 3) Daily loop
+## 3) Planner/Builder split (recommended)
+
+For best quality in this setup, separate architecture from implementation:
+
+- **`main` agent = Architect/Planner**
+  - requirements clarification
+  - design options + tradeoffs
+  - acceptance criteria + rollout plan
+  - code review framing and risk checks
+- **`sandy` agent = Builder/Executor**
+  - code edits, tests, refactors, scripts
+  - command execution + quick iteration loops
+  - implementation summaries per step
+
+Suggested handoff template from `main` → `sandy`:
+
+```text
+Task:
+Why:
+Constraints:
+Files in scope:
+Acceptance checks:
+Definition of done:
+```
+
+Cadence:
+- Plan in `main` (5–15 min)
+- Build in `sandy` (30–60 min blocks)
+- Review in `main` before merge/push
+
+## 4) Daily loop
 
 1. State objective + acceptance criteria
 2. Ask for short plan + file map
@@ -49,7 +79,7 @@ Reset any lane when it gets noisy:
 5. Summarize result + next step
 6. Commit
 
-## 4) Recommended prompt format
+## 5) Recommended prompt format
 
 Use this pattern for implementation tasks:
 
@@ -69,7 +99,7 @@ Evidence required:
 Falsification condition:
 ```
 
-## 5) Suggested terminal commands
+## 6) Suggested terminal commands
 
 From repo root (`~/dev/sandy-chaos`):
 
@@ -82,7 +112,7 @@ python -m nfem_suite.main
 python -m cosmic_comm.main
 ```
 
-## 6) Git discipline
+## 7) Git discipline
 
 - Keep commits small and hypothesis-linked
 - Include validation note in commit message/body when relevant
@@ -96,7 +126,7 @@ git add <files>
 git commit -m "feat: <small scoped change>"
 ```
 
-## 7) Useful OpenClaw commands in chat
+## 8) Useful OpenClaw commands in chat
 
 ```text
 /status
@@ -106,13 +136,13 @@ git commit -m "feat: <small scoped change>"
 /reasoning off
 ```
 
-## 8) Escalate thinking only when needed
+## 9) Escalate thinking only when needed
 
 - Routine coding / grep / edits: `low` or `minimal`
 - Architecture / formalization / critiques: `high` or `xhigh`
 - Keep default in build lane at `low` for speed
 
-## 9) Automation loops (daily + weekly)
+## 10) Automation loops (daily + weekly)
 
 ### Current state (implemented now)
 
@@ -175,7 +205,7 @@ journalctl --user -u sandy-automation.service -n 50 --no-pager
 
 
 
-## 10) Git automation goals (planned)
+## 11) Git automation goals (planned)
 
 Reference: `docs/08_git_automation_protocol.md`
 
@@ -191,7 +221,7 @@ Planned controls:
 - dry-run mode before enabling live push
 
 
-## 11) Research automation workflow (new default)
+## 12) Research automation workflow (new default)
 
 Reference: `docs/09_research_automation_protocol.md`
 
