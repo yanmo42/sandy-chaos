@@ -11,8 +11,9 @@ This documentation set is intentionally compressed into a small canonical path:
 7. **[07 Agentic Automation Loop](07_agentic_automation_loop.md)**
 8. **[08 Git Automation Protocol](08_git_automation_protocol.md)**
 9. **[09 Research Automation Protocol](09_research_automation_protocol.md)**
-10. **[Prediction Protocol](prediction-protocol.md)**
-11. **[Paradox Registry](paradox-registry.md)**
+10. **[10 Tempo Tracing Refactor Note](10_tempo_tracing_refactor_note.md)**
+11. **[Prediction Protocol](prediction-protocol.md)**
+12. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 

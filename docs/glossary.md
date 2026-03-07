@@ -18,6 +18,9 @@ A temporally distributed constraint loop where all physical causation remains fo
 
 ## Tempo Tracer protocol terms
 
+### Tempo Tracing (preferred framing)
+Method/process framing for cross-frame communication inference and validation under strict causality constraints. Use compatibility phrasing as needed: "Tempo Tracing (formerly Tempo Tracer)" during migration.
+
 ### Mode A (Direct Light Path)
 Conventional line-of-sight signaling with light-speed constraints.
 

@@ -123,6 +123,7 @@ If reproducibility/significance thresholds fail, the claim fails.
 - **[03 Micro-Observer & Agency](03_micro_observer_agency.md)** covers observer-state coupling and ethics.
 - **[07 Agentic Automation Loop](07_agentic_automation_loop.md)** maps these protocol ideas into live execution loops (systemd cadence, orchestration contracts, dispatch telemetry, and productivity gating).
 - **[Math Appendix](math_appendix.md)** contains extended equation references.
+- **[10 Tempo Tracing Refactor Note](10_tempo_tracing_refactor_note.md)** records the planned migration to process-first terminology ("Tempo Tracing").
 
 ## 9) Temporal-frame communication dynamics (new focus)
 
