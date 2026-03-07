@@ -12,14 +12,16 @@ This documentation set is intentionally compressed into a small canonical path:
 8. **[08 Git Automation Protocol](08_git_automation_protocol.md)**
 9. **[09 Research Automation Protocol](09_research_automation_protocol.md)**
 10. **[10 Tempo Tracing Refactor Note](10_tempo_tracing_refactor_note.md)**
-11. **[Prediction Protocol](prediction-protocol.md)**
-12. **[Paradox Registry](paradox-registry.md)**
+11. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+12. **[Prediction Protocol](prediction-protocol.md)**
+13. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
 - **[Glossary](glossary.md)**
 - **[Math Appendix](math_appendix.md)**
 - **[Math Foundations ZF](math_foundations_zf.md)**
+- **[Research Backlog](../plans/research_backlog.md)**
 
 Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
