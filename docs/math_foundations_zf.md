@@ -18,40 +18,58 @@ These eight axioms (plus Choice) define what a *set* is and what operations
 are permitted. They are the only premises the entire framework requires.
 
 **ZF1 — Extensionality.**
-$$\forall A\;\forall B\;\bigl[\,\forall x\;(x\in A \Leftrightarrow x\in B)\;\Rightarrow\;A=B\,\bigr]$$
+```math
+\forall A\;\forall B\;\bigl[\,\forall x\;(x\in A \Leftrightarrow x\in B)\;\Rightarrow\;A=B\,\bigr]
+```
 Two sets are equal if and only if they have the same members.
 
 **ZF2 — Empty Set.**
-$$\exists\,\varnothing\;\forall x\;\bigl(x\notin\varnothing\bigr)$$
+```math
+\exists\,\varnothing\;\forall x\;\bigl(x\notin\varnothing\bigr)
+```
 There exists a set with no elements. This is the sole primitive object.
 
 **ZF3 — Pairing.**
-$$\forall a\;\forall b\;\exists P\;\forall x\;\bigl[x\in P \Leftrightarrow (x=a\lor x=b)\bigr]$$
+```math
+\forall a\;\forall b\;\exists P\;\forall x\;\bigl[x\in P \Leftrightarrow (x=a\lor x=b)\bigr]
+```
 Given any two objects, the set $\{a,b\}$ exists.
 
 **ZF4 — Union.**
-$$\forall\mathcal{F}\;\exists U\;\forall x\;\bigl[x\in U \Leftrightarrow \exists A\in\mathcal{F}\;(x\in A)\bigr]$$
+```math
+\forall\mathcal{F}\;\exists U\;\forall x\;\bigl[x\in U \Leftrightarrow \exists A\in\mathcal{F}\;(x\in A)\bigr]
+```
 Given a family of sets, their union $\bigcup\mathcal{F}$ exists.
 
 **ZF5 — Power Set.**
-$$\forall A\;\exists\mathcal{P}\;\forall S\;\bigl[S\in\mathcal{P} \Leftrightarrow S\subseteq A\bigr]$$
+```math
+\forall A\;\exists\mathcal{P}\;\forall S\;\bigl[S\in\mathcal{P} \Leftrightarrow S\subseteq A\bigr]
+```
 Given $A$, the set of all subsets $\mathcal{P}(A)$ exists.
 
 **ZF6 — Infinity.**
-$$\exists I\;\bigl[\varnothing\in I\;\land\;\forall x\;(x\in I\Rightarrow x\cup\{x\}\in I)\bigr]$$
+```math
+\exists I\;\bigl[\varnothing\in I\;\land\;\forall x\;(x\in I\Rightarrow x\cup\{x\}\in I)\bigr]
+```
 There exists an inductive set. This axiom *gives* us the natural numbers as a completed totality.
 
 **ZF7 — Replacement (Schema).**
 For any definable function $\varphi(x,y)$ and set $A$:
-$$\forall x\in A\;\exists!\,y\;\varphi(x,y)\;\Rightarrow\;\exists B\;\forall y\;\bigl[y\in B \Leftrightarrow \exists x\in A\;\varphi(x,y)\bigr]$$
+```math
+\forall x\in A\;\exists!\,y\;\varphi(x,y)\;\Rightarrow\;\exists B\;\forall y\;\bigl[y\in B \Leftrightarrow \exists x\in A\;\varphi(x,y)\bigr]
+```
 The image of a set under a definable function is a set.
 
 **ZF8 — Foundation (Regularity).**
-$$\forall A\;\bigl[A\neq\varnothing\;\Rightarrow\;\exists x\in A\;(x\cap A=\varnothing)\bigr]$$
+```math
+\forall A\;\bigl[A\neq\varnothing\;\Rightarrow\;\exists x\in A\;(x\cap A=\varnothing)\bigr]
+```
 Every non-empty set has a $\in$-minimal element. No set contains itself. This prohibits pathological self-reference.
 
 **ZFC — Axiom of Choice.**
-$$\forall\mathcal{F}\;\bigl[\varnothing\notin\mathcal{F}\;\Rightarrow\;\exists f:\mathcal{F}\to\bigcup\mathcal{F}\;\;\forall A\in\mathcal{F}\;\bigl(f(A)\in A\bigr)\bigr]$$
+```math
+\forall\mathcal{F}\;\bigl[\varnothing\notin\mathcal{F}\;\Rightarrow\;\exists f:\mathcal{F}\to\bigcup\mathcal{F}\;\;\forall A\in\mathcal{F}\;\bigl(f(A)\in A\bigr)\bigr]
+```
 For any family of non-empty sets, a selection function exists.
 
 > **Note.** $\varnothing$ is the only object obtained for free. Every number, every
@@ -64,29 +82,29 @@ For any family of non-empty sets, a selection function exists.
 
 **Construction (von Neumann ordinals).**
 
-$$
+```math
 0 := \varnothing, \qquad
 1 := \{\varnothing\} = \{0\}, \qquad
 2 := \{\varnothing,\,\{\varnothing\}\} = \{0,\,1\}
-$$
+```
 
 In general, the successor operation is:
-$$
+```math
 S(n) := n \cup \{n\}
-$$
+```
 
 so $n+1 = S(n)$, and every natural number $n = \{0,1,\ldots,n-1\}$.
 
 The Axiom of Infinity (ZF6) guarantees the existence of the set:
-$$
+```math
 \mathbb{N} := \{0,\,1,\,2,\,3,\,\ldots\}
-$$
+```
 as a completed infinite set — the smallest inductive set.
 
 **Addition** is defined recursively:
-$$
+```math
 m + 0 = m, \qquad m + S(n) = S(m + n)
-$$
+```
 
 **Theorem.** $1 + 1 = 2$.
 
@@ -101,23 +119,23 @@ This is not a primitive fact. It is a consequence of the successor definition ap
 **Problem.** In $\mathbb{N}$, subtraction is not closed: $1 - 2$ has no solution. To solve $a + x = b$ for all $a, b \in \mathbb{N}$, we must extend to a group.
 
 **Construction.** Define equivalence classes of ordered pairs:
-$$
+```math
 \mathbb{Z} := (\mathbb{N}\times\mathbb{N})\,/\!\sim
-$$
+```
 where $(a,b) \sim (c,d) \iff a + d = b + c$. The class $[(a,b)]$ represents the integer $a - b$.
 
 Key elements:
-$$
+```math
 0_{\mathbb{Z}} := [(n,n)] \;\text{ for any } n\in\mathbb{N}
-$$
-$$
+```
+```math
 +1 := [(n+1,\,n)], \qquad -1 := [(n,\,n+1)]
-$$
+```
 
 **Addition:**
-$$
+```math
 [(a,b)] + [(c,d)] = [(a+c,\;b+d)]
-$$
+```
 
 **Theorems derived, not assumed:**
 
@@ -133,9 +151,9 @@ $$
 ### §3 — Rationals and the First Gap: √2
 
 **Construction.** Define equivalence classes of ordered pairs:
-$$
+```math
 \mathbb{Q} := (\mathbb{Z}\times(\mathbb{Z}\setminus\{0\}))\,/\!\approx
-$$
+```
 where $(p,q)\approx(r,s)\iff p\cdot s = q\cdot r$. The class $[(p,q)]$ represents $p/q$.
 
 $\mathbb{Q}$ is an **ordered field**: it has $+$, $\times$, additive and multiplicative inverses (except $0$), and a total order compatible with both operations. It is also **dense**: between any two rationals there exists another.
@@ -143,9 +161,9 @@ $\mathbb{Q}$ is an **ordered field**: it has $+$, $\times$, additive and multipl
 **But $\mathbb{Q}$ has gaps.**
 
 Consider the right triangle with legs of length $1$ and $1$:
-$$
+```math
 c^2 = 1^2 + 1^2 = 2 \qquad\Rightarrow\qquad c = \sqrt{2}
-$$
+```
 
 **Theorem (Euclid, *Elements* Book X).** $\sqrt{2}\notin\mathbb{Q}$.
 
@@ -159,41 +177,41 @@ The proof by contradiction is classical and is referenced rather than reproduced
 
 **Construction (Dedekind cuts).** A *cut* is a partition of $\mathbb{Q}$ into two non-empty sets $(L, R)$ such that every element of $L$ is less than every element of $R$, and $L$ has no greatest element. Each cut defines a real number.
 
-$$
+```math
 \sqrt{2}\;\text{ is the cut }\;\bigl\{q\in\mathbb{Q} : q < 0 \;\text{ or }\; q^2 < 2\bigr\}
-$$
+```
 
 $\mathbb{R}$ is the **unique complete ordered field** (up to isomorphism). "Complete" means every Cauchy sequence converges and every bounded set has a supremum. All the gaps in $\mathbb{Q}$ are filled.
 
 **Definition of $\pi$ via integration.**
 
 The unit circle in $\mathbb{R}^2$ is $C = \{(x,y)\in\mathbb{R}^2 : x^2 + y^2 = 1\}$. On the upper semicircle, $y = \sqrt{1-x^2}$, and the Pythagorean arc-length element is:
-$$
+```math
 ds = \sqrt{dx^2 + dy^2} = \sqrt{1 + \frac{x^2}{1-x^2}}\,dx = \frac{1}{\sqrt{1-x^2}}\,dx
-$$
+```
 
 We define:
-$$
+```math
 \pi \;:=\; \int_{-1}^{1} \frac{1}{\sqrt{1-x^2}}\,dx
-$$
+```
 
 This improper Riemann integral converges and defines a unique element $\pi\in\mathbb{R}$, $\pi\approx 3.14159\ldots$
 
 **Key observation.** The integrand $1/\sqrt{1-x^2}$ is itself a consequence of the Pythagorean theorem — the same theorem that produced $\sqrt{2}$ in §3. **$\pi$ is the Pythagorean theorem integrated over the unit interval.** It is not an independent constant; it is forced by the geometry of circles, which is forced by the distance formula, which is forced by the completeness of $\mathbb{R}$, which is forced by the incompleteness of $\mathbb{Q}$ (the $\sqrt{2}$ gap), which is forced by $1+1=2$.
 
 The chain of necessity:
-$$
+```math
 \varnothing \;\xrightarrow{\text{ZF6}}\; \mathbb{N} \;\xrightarrow{\text{group completion}}\; \mathbb{Z} \;\xrightarrow{\text{field of fractions}}\; \mathbb{Q} \;\xrightarrow{1^2+1^2=2,\;\sqrt{2}\notin\mathbb{Q}}\; \mathbb{R} \;\xrightarrow{\text{Pythagoras integrated}}\; \pi
-$$
+```
 
 ---
 
 ### §5 — Complex Numbers: Zero as Circle
 
 **Construction.** $\mathbb{C} := \mathbb{R}[i]/(i^2+1)$, or equivalently, $\mathbb{C} = \mathbb{R}^2$ with multiplication:
-$$
+```math
 (a,b)\cdot(c,d) = (ac - bd,\; ad + bc)
-$$
+```
 
 The equation $x^2 + 1 = 0$ has no solution in $\mathbb{R}$. The element $i := (0,1)$ satisfies $i^2 = (-1,0) = -1$, resolving this.
 
@@ -204,14 +222,14 @@ The equation $x^2 + 1 = 0$ has no solution in $\mathbb{R}$. The element $i := (0
 **The unit circle.** $S^1 := \{z\in\mathbb{C} : |z| = 1\}$ is the set of all complex numbers at unit distance from the origin.
 
 **Euler's formula.** The complex exponential, defined by the power series $e^z = \sum_{n=0}^{\infty} z^n/n!$ (convergent for all $z\in\mathbb{C}$), satisfies:
-$$
+```math
 e^{i\theta} = \cos\theta + i\sin\theta
-$$
+```
 
 At $\theta = \pi$:
-$$
+```math
 e^{i\pi} + 1 = 0
-$$
+```
 
 This equation links the five constants $\{0, 1, e, i, \pi\}$. None are independent choices:
 
@@ -224,9 +242,9 @@ This equation links the five constants $\{0, 1, e, i, \pi\}$. None are independe
 | $\pi$ | $\int_{-1}^{1}(1-x^2)^{-1/2}\,dx$ (§4) |
 
 **Zero as circle.** The point $0\in\mathbb{C}$ is the center of every circle $\{z : |z| = r\}$. Every nonzero $z\in\mathbb{C}$ admits a unique **polar decomposition**:
-$$
+```math
 z = |z|\cdot e^{i\varphi}, \qquad |z| > 0,\;\; \varphi\in(-\pi,\pi]
-$$
+```
 
 This is not a coordinate choice. It is the unique factorization of $z$ into:
 - a **magnitude** $|z|\in\mathbb{R}_{>0}$ (distance from zero), and
@@ -254,9 +272,9 @@ locally Euclidean yet globally unconstrained.
 ### §6 — From ℝⁿ to Smooth Manifolds
 
 **Euclidean space.** $\mathbb{R}^n$ with the standard metric
-$$
+```math
 ds^2 = \sum_{i=1}^{n} dx_i^2 = \delta_{ij}\,dx^i\,dx^j
-$$
+```
 (summation convention; $\delta_{ij}$ is the Kronecker delta) is the base case. All distances are positive; all angles are measured by the inner product $\langle u,v\rangle = \sum u_i v_i$.
 
 **Smooth manifold.** A topological space $M$ is a smooth $n$-manifold if every point $p\in M$ has a neighborhood homeomorphic to an open subset of $\mathbb{R}^n$. These neighborhoods are called *charts*; the collection of compatible charts is an *atlas*.
@@ -272,9 +290,9 @@ The critical structure: at every point $p$, the **tangent space** $T_pM \cong \m
 **The physical requirement.** Special relativity establishes that the speed of light $c$ is invariant across all inertial frames. This is not derivable from ZF — it is an empirical axiom. But once accepted, the geometry it implies is forced.
 
 **Minkowski spacetime** $\mathbb{R}^{1,3}$ is $\mathbb{R}^4$ with the metric of signature $(-,+,+,+)$:
-$$
+```math
 ds^2 = -c^2\,dt^2 + dx^2 + dy^2 + dz^2 = \eta_{\mu\nu}\,dx^\mu\,dx^\nu
-$$
+```
 
 where $\eta_{\mu\nu} = \mathrm{diag}(-c^2,\,1,\,1,\,1)$.
 
@@ -289,9 +307,9 @@ This is "quasi-Euclidean" in Einstein's terminology: it resembles Euclidean $\ma
 **Relativity of simultaneity.** Two events simultaneous in one frame ($dt = 0$, $ds^2 > 0$) are not simultaneous in a boosted frame. But the interval $ds^2$ is Lorentz-invariant: every observer agrees on it. "Everything is relative to something else" means: coordinates are frame-dependent, but the metric interval is absolute.
 
 **Proper time.** Along a timelike worldline $x^\mu(\lambda)$:
-$$
+```math
 d\tau = \frac{1}{c}\sqrt{-ds^2} = \frac{1}{c}\sqrt{c^2\,dt^2 - dx^2 - dy^2 - dz^2}
-$$
+```
 
 Proper time $\tau$ is the time measured by a clock traveling along the worldline. It is invariant (all observers agree) and determined by the metric.
 
@@ -304,16 +322,16 @@ Proper time $\tau$ is the time measured by a clock traveling along the worldline
 **Curvature.** The Riemann curvature tensor $R^\rho{}_{\sigma\mu\nu}$ measures how parallel-transporting a vector around a small loop changes it. It is computed entirely from $g_{\mu\nu}$ and its first and second derivatives. Contraction yields the Ricci tensor $R_{\mu\nu} = R^\lambda{}_{\mu\lambda\nu}$ and scalar curvature $R = g^{\mu\nu}R_{\mu\nu}$.
 
 **Einstein's field equations.**
-$$
+```math
 G_{\mu\nu} = \frac{8\pi G}{c^4}\,T_{\mu\nu}
-$$
+```
 
 where $G_{\mu\nu} = R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu}$ is the Einstein tensor and $T_{\mu\nu}$ is the stress-energy tensor. These say: **mass-energy determines curvature; curvature determines the metric; the metric determines all distances, times, and causal structure.** There is no background geometry — geometry itself is the dynamical field.
 
 **Geodesics.** Free-falling particles follow geodesics of $g_{\mu\nu}$:
-$$
+```math
 \frac{d^2 x^\mu}{d\tau^2} + \Gamma^\mu_{\alpha\beta}\frac{dx^\alpha}{d\tau}\frac{dx^\beta}{d\tau} = 0
-$$
+```
 
 where $\Gamma^\mu_{\alpha\beta}$ are the Christoffel symbols (functions of $g_{\mu\nu}$ and its first derivatives). Null geodesics ($ds^2 = 0$) are the paths of light; they define the causal boundary.
 
@@ -323,13 +341,13 @@ where $\Gamma^\mu_{\alpha\beta}$ are the Christoffel symbols (functions of $g_{\
 
 **The Kerr solution** describes the spacetime around a rotating mass with mass $M$ and angular momentum $J = Ma$ (where $a$ has dimensions of length). In Boyer-Lindquist coordinates $(t, r, \theta, \phi)$:
 
-$$
+```math
 ds^2 = -\left(1 - \frac{r_s r}{\Sigma}\right)c^2\,dt^2
 - \frac{r_s r a \sin^2\theta}{\Sigma}\,2c\,dt\,d\phi
 + \frac{\Sigma}{\Delta}\,dr^2
 + \Sigma\,d\theta^2
 + \left(r^2 + a^2 + \frac{r_s r a^2 \sin^2\theta}{\Sigma}\right)\sin^2\theta\,d\phi^2
-$$
+```
 
 where $r_s = 2GM/c^2$ (Schwarzschild radius), $\Sigma = r^2 + a^2\cos^2\theta$, $\Delta = r^2 - r_s r + a^2$.
 
@@ -375,16 +393,16 @@ resolves the critiques in `plans/todo.md`.
 Both live in $[0,1]\subset\mathbb{R}$, which exists by §4 (Dedekind completion of $\mathbb{Q}$).
 
 **Why a complex number.** The pair $(\alpha,\beta)\in\mathbb{R}^2$ admits a canonical embedding into $\mathbb{C}$ (§5):
-$$
+```math
 Z := \alpha + i\beta \in\mathbb{C}
-$$
+```
 
 This is not a modeling choice. $\mathbb{C}$ is the unique algebraic closure of $\mathbb{R}$ (Fundamental Theorem of Algebra, §5). The embedding $\mathbb{R}^2\hookrightarrow\mathbb{C}$ is the standard identification $(a,b)\mapsto a+ib$, which preserves the metric (the norm $|Z| = \sqrt{\alpha^2+\beta^2}$ is the Pythagorean distance, §3).
 
 **Polar decomposition (forced, not chosen).**
-$$
+```math
 Z = |Z|\cdot e^{i\varphi}, \qquad |Z| = \sqrt{\alpha^2+\beta^2}, \qquad \varphi = \mathrm{arctan2}(\beta,\alpha)
-$$
+```
 
 - $|Z|$ is the **entropy magnitude**: total intensity of both order and disorder.
 - $\varphi$ is the **entropy phase**: the angle between pure order ($\varphi=0$, on the positive real axis) and pure disorder ($\varphi=\pi/2$, on the positive imaginary axis).
@@ -405,9 +423,9 @@ No step is arbitrary.
 ### §11 — The Path Integral and Winding Number
 
 **Path integral.** Given a path $\gamma: [0,L]\to\mathbb{R}^n$ in physical space and a complex entropy field $Z(s)\in\mathbb{C}$ along it, the emergent time is:
-$$
+```math
 \tau_\gamma := \int_\gamma Z(s)\,ds = \int_0^L Z(s)\,\|d\gamma/ds\|\,ds
-$$
+```
 
 This is a standard complex line integral (Riemann integral in $\mathbb{C}$, which is well-defined because $\mathbb{C}$ is a complete metric space, §5). It yields a complex number $\tau_\gamma = \mathrm{Re}(\tau_\gamma) + i\,\mathrm{Im}(\tau_\gamma)$.
 
@@ -416,16 +434,16 @@ This is a standard complex line integral (Riemann integral in $\mathbb{C}$, whic
 - $\mathrm{Im}(\tau_\gamma) = \int_\gamma \beta(s)\,ds$: the accumulated disorder along the path. This is the "entropic time" — how much disordering occurs.
 
 **Contour integral (closed loops).** For a closed loop $\gamma$ enclosing a region $\Omega\subset\mathbb{R}^2$:
-$$
+```math
 \Delta T := \oint_\gamma Z(s)\,ds
-$$
+```
 
 **Cauchy's Integral Theorem** (§5, complex analysis): If $Z$ is holomorphic (complex-differentiable) everywhere inside $\Omega$, then $\Delta T = 0$. A non-zero $\Delta T$ means $Z$ has a **singularity** — a source, sink, or vortex — inside the loop.
 
 **The winding number.** For a closed curve $\gamma$ around a point $z_0\in\mathbb{C}$:
-$$
+```math
 n(\gamma, z_0) = \frac{1}{2\pi i}\oint_\gamma \frac{dz}{z - z_0} \;\in\;\mathbb{Z}
-$$
+```
 
 The winding number is always an **integer** — an element of $\mathbb{Z}$ (§2). This is topologically quantized: it cannot change continuously. It counts the number of times $\gamma$ wraps around $z_0$.
 
@@ -463,30 +481,30 @@ The three-layer time model from the foundations document (doc 01) assigns each a
 The three layers are not independent. Their coupling is:
 
 1. **Geometric → Proper:** $\tau_i$ is a functional of $t$ and the worldline $x^\mu_i(t)$ through the metric:
-$$
+```math
 \tau_i = \int_0^t \frac{1}{c}\sqrt{-g_{\mu\nu}\frac{dx_i^\mu}{dt'}\frac{dx_i^\nu}{dt'}}\,dt'
-$$
+```
 
 2. **Proper → Informational:** Agential time $\sigma_i$ advances in proportion to proper time, modulated by the mutual information between the agent and the entropy field:
-$$
+```math
 \frac{d\sigma_i}{d\tau_i} = \lambda_i \cdot I(S_{t_i};\, Z_{local})
-$$
+```
 where $\lambda_i > 0$ is the agent's processing bandwidth and $I(\cdot;\cdot)$ is the mutual information (a real-valued, non-negative quantity computable from the probability distributions over $S_t$ and $Z$).
 
 3. **Informational → Geometric (feedback):** The agent's actions $A_t$, determined by $\sigma_i$ and $S_t$, can alter the local entropy field $Z$, which in turn affects the boundary-condition propagation equation from doc 01:
-$$
+```math
 \partial_t q + u\,\partial_x q = D\,\partial_{xx} q + \eta + \delta(x - x_i)\,\Phi(S_t, A_t)
-$$
+```
 where the $\delta$-function source term represents the agent's local intervention (the read-write observer effect, formerly the unspecified $\Phi$ in the math appendix).
 
 **Composition law (two agents).** For agents $A$ and $B$ with temporal states $\Theta^A$ and $\Theta^B$, their joint evolution is:
 
-$$
+```math
 \Theta_{t+\Delta}^A = \mathcal{U}^A\bigl(\Theta_t^A;\; g_{\mu\nu},\; Z,\; \mathcal{C}_{AB}(t)\bigr)
-$$
-$$
+```
+```math
 \Theta_{t+\Delta}^B = \mathcal{U}^B\bigl(\Theta_t^B;\; g_{\mu\nu},\; Z,\; \mathcal{C}_{BA}(t)\bigr)
-$$
+```
 
 where $\mathcal{C}_{AB}(t)$ is the communication received by $A$ from $B$ at time $t$, transmitted through the channel $\mathcal{F}_{\text{Kerr}}$ with the asymmetry established in §9. The asymmetry means $\mathcal{C}_{AB}\neq\mathcal{C}_{BA}$ in general — even if $A$ and $B$ send identical signals, the Kerr channel's directional asymmetry produces different received information. This is a prediction that single-layer models miss.
 
@@ -497,29 +515,29 @@ where $\mathcal{C}_{AB}(t)$ is the communication received by $A$ from $B$ at tim
 The central physical model from doc 01 — the subcritical-flow PDE — is now placed on the manifold framework of Part II:
 
 **Flat-space form (doc 01):**
-$$
+```math
 \partial_t q + u\,\partial_x q = D\,\partial_{xx} q + \eta(x,t), \qquad q(L,t)=B(t), \qquad Fr<1
-$$
+```
 
 **Manifold generalization.** Let $(M,g_{\mu\nu})$ be a Lorentzian manifold. The structural-information field $q$ becomes a scalar field on $M$. The advection-diffusion equation generalizes to:
-$$
+```math
 u^\mu\nabla_\mu q = D\,\nabla^\mu\nabla_\mu q + \eta
-$$
+```
 
 where $u^\mu$ is the flow four-velocity and $\nabla_\mu$ is the covariant derivative compatible with $g_{\mu\nu}$.
 
 The subcritical condition $Fr<1$ generalizes to: the flow velocity is subluminal ($u^\mu u_\mu < 0$, timelike), and the characteristic speed of information propagation in the medium exceeds the flow speed. Under this condition, downstream boundary structure $B$ at the boundary $\partial M$ can influence upstream regions through local gradients — exactly as in the flat case, but now the propagation speed $c_{up}$ and the delay $\tau_u$ are determined by $g_{\mu\nu}$:
 
-$$
+```math
 \tau_u = \int_{\text{boundary}}^{x_u} \frac{ds}{c_{up}(s;\,g_{\mu\nu})} > 0
-$$
+```
 
 The delay is always positive (forward-causal) because $c_{up} > 0$ under the subcritical condition. **No backward-time channel is introduced by the manifold generalization.**
 
 **Causal safety test (unchanged):**
-$$
+```math
 P(s_t \mid do(B_{t+\Delta}=b),\,\mathcal{I}_t) = P(s_t \mid \mathcal{I}_t)
-$$
+```
 
 If this holds, the present state $s_t$ is not causally influenced by future boundary conditions — only by their present-time gradient footprint propagated forward.
 
@@ -527,7 +545,7 @@ If this holds, the present state $s_t$ is not causally influenced by future boun
 
 ### §14 — Summary: The Complete Derivation Chain
 
-$$
+```math
 \boxed{
 \varnothing
 \;\xrightarrow{\text{ZF}}\;
@@ -547,7 +565,7 @@ $$
 \;\xrightarrow{\text{field on }M}\;
 \text{Sandy Chaos}
 }
-$$
+```
 
 | Sandy Chaos construct | Lives in | Derived from |
 |---|---|---|
