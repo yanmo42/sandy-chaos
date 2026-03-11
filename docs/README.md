@@ -1,5 +1,7 @@
 # Sandy Chaos Documentation
 
+For a concise reader-facing synthesis, start with **[00 Sandy Chaos Blueprint](00_sandy_chaos_blueprint.md)**.
+
 This documentation set is intentionally compressed into a small canonical path:
 
 1. **[01 Foundations](01_foundations.md)**
