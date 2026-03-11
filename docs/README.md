@@ -12,7 +12,7 @@ This documentation set is intentionally compressed into a small canonical path:
 8. **[08 Git Automation Protocol](08_git_automation_protocol.md)**
 9. **[09 Research Automation Protocol](09_research_automation_protocol.md)**
 10. **[10 Tempo Tracing Refactor Note](10_tempo_tracing_refactor_note.md)**
-11. **[11 Geodesic Hydrology Contracts](11_geodesic_hydrology_contracts.md)**
+11. **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)**
 12. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
 13. **[Prediction Protocol](prediction-protocol.md)**
 14. **[Paradox Registry](paradox-registry.md)**
