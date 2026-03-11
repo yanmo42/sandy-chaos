@@ -80,6 +80,17 @@ Each paradox entry must include:
 - **Prediction hook:** calibrated degradation profile when leakage paths are removed.
 - **Status:** active
 
+### PRX-006 — Hyperstition inversion paradox (self-fulfilling vs self-defeating)
+
+- **Type:** informational + causal
+- **Setup:** two-agent/two-narrative toy dynamics `N_{t+1}=\mathcal{G}(N_t,O_t,A_t,\xi_t)` with bounded temporal-asymmetry bias in the action channel (`tests/test_hyperstition_dynamics.py`).
+- **Apparent contradiction:** the same initial narrative can become either self-fulfilling or self-defeating depending on cross-frame asymmetry sign, appearing to "rewrite" trajectory destiny.
+- **Framework resolution:** no backward causation; asymmetry bias only changes present action-selection gradients, which then causally alter later observations and attractor basin entry.
+- **Marker stress:** C1, I1, E2, A2
+- **Falsifier:** paradox regimes remain after removing temporal-asymmetry term (or require retrocausal intervention assumptions).
+- **Prediction hook:** bifurcation boundary in `(truth, temporal_asymmetry)` space separating fulfillment and defeat regimes.
+- **Status:** active
+
 ---
 
 ## Case lifecycle policy

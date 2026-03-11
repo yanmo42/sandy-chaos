@@ -1,0 +1,33 @@
+{
+  "model_profile": "paradox-v1",
+  "parameters": {
+    "narrative_inertia": 0.3,
+    "social_coupling": 0.0,
+    "observation_gain": 1.4,
+    "observer_coupling": 0.9,
+    "action_gain": 2.5,
+    "temporal_bias_gain": 3.0,
+    "noise_std": 0.0
+  },
+  "truth_range": [
+    -0.8,
+    0.8
+  ],
+  "delta_range": [
+    -0.8,
+    0.8
+  ],
+  "grid": 81,
+  "steps": 80,
+  "initial_m": 0.6,
+  "counts": {
+    "self_fulfilling": 1886,
+    "self_defeating": 1320,
+    "neutral": 3355
+  },
+  "fractions": {
+    "self_fulfilling": 0.2874561804602957,
+    "self_defeating": 0.2011888431641518,
+    "neutral": 0.5113549763755525
+  }
+}
