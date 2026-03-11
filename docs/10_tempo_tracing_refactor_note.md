@@ -9,7 +9,7 @@ This note records a planned naming and framing refactor:
 
 Working thesis statement:
 
-> **Tempo tracing — a novel method of leveraging temporal differences in computing to exploit almost paradoxical informational advantages.**
+> **Tempo tracing — a method for studying temporal differences in computation to seek measurable informational advantages under strict causal constraints.**
 
 The refactor is semantic, architectural, and communication-facing: move from a tool/object framing ("tracer") to a method/process framing ("tracing").
 

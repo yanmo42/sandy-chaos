@@ -1,21 +1,37 @@
 # Mathematical Foundations: ZF Set Theory to Sandy Chaos
 
-> **Purpose.** Every equation, structure, and claim in the Sandy Chaos framework
-> must trace back to axioms that are non-falsifiable — true by logical necessity.
-> This document builds the entire formal apparatus from the Zermelo-Fraenkel axiom
-> set (ZF/ZFC), through the number systems, into the geometric and analytic
-> structures that underpin the theory.
+> **Purpose.** Equations and structures used in Sandy Chaos should be traceable
+> to explicit formal assumptions and derivation steps whenever possible.
+> This document builds a formal chain from the Zermelo-Fraenkel axiom
+> set (ZF/ZFC), through the number systems, into geometric and analytic
+> structures used by the framework.
 >
-> Nothing here is assumed. Everything is derived.
+> Many results here are derived from stated assumptions; where modeling choices enter,
+> they should be identified explicitly.
 
 ---
+
+## Formal Assumption Ledger
+
+This document uses several different kinds of assumptions. Keeping them separate matters.
+
+1. **Set-theoretic axioms**
+   - ZF/ZFC supports the constructions of sets, number systems, and related formal objects.
+2. **Mathematical structure choices**
+   - smooth manifolds, differentiability, complex embedding, and related analytic machinery are standard mathematical frameworks adopted for this derivation chain.
+3. **Physical postulates**
+   - invariance of the speed of light, relativistic spacetime structure, and use of general relativity/Kerr geometry are empirical/theoretical commitments, not consequences of ZF alone.
+4. **Sandy Chaos modeling choices**
+   - mappings such as order/disorder $\mapsto (\alpha,\beta)$, the complex entropy state $Z=\alpha+i\beta$, and observer-coupling field terms are framework-specific modeling moves that must ultimately earn support through clarity, utility, and empirical/computational success.
+
+The goal of this document is therefore not to erase assumptions, but to make the derivation chain and assumption boundaries explicit.
 
 ## Part I — The Axiomatic Spine: ZF → ℂ
 
 ### §0 — Zermelo-Fraenkel Axioms
 
 These eight axioms (plus Choice) define what a *set* is and what operations
-are permitted. They are the only premises the entire framework requires.
+are permitted. They are the set-theoretic premises used for the formal derivations in this document.
 
 **ZF1 — Extensionality.**
 ```math
@@ -72,8 +88,8 @@ Every non-empty set has a $\in$-minimal element. No set contains itself. This pr
 ```
 For any family of non-empty sets, a selection function exists.
 
-> **Note.** $\varnothing$ is the only object obtained for free. Every number, every
-> geometric structure, every calculation that follows is built from $\varnothing$
+> **Note.** In this construction, $\varnothing$ is the starting object. Number systems,
+> geometric structures, and subsequent calculations are built from it
 > under these rules.
 
 ---
@@ -114,7 +130,7 @@ This is not a primitive fact. It is a consequence of the successor definition ap
 
 ---
 
-### §2 — Integers: Why Zero and Negatives Are Forced
+### §2 — Integers: Why Zero and Negatives Arise Naturally
 
 **Problem.** In $\mathbb{N}$, subtraction is not closed: $1 - 2$ has no solution. To solve $a + x = b$ for all $a, b \in \mathbb{N}$, we must extend to a group.
 
@@ -197,9 +213,9 @@ We define:
 
 This improper Riemann integral converges and defines a unique element $\pi\in\mathbb{R}$, $\pi\approx 3.14159\ldots$
 
-**Key observation.** The integrand $1/\sqrt{1-x^2}$ is itself a consequence of the Pythagorean theorem — the same theorem that produced $\sqrt{2}$ in §3. **$\pi$ is the Pythagorean theorem integrated over the unit interval.** It is not an independent constant; it is forced by the geometry of circles, which is forced by the distance formula, which is forced by the completeness of $\mathbb{R}$, which is forced by the incompleteness of $\mathbb{Q}$ (the $\sqrt{2}$ gap), which is forced by $1+1=2$.
+**Key observation.** The integrand $1/\sqrt{1-x^2}$ follows from Pythagorean circle geometry — the same geometric structure that introduces $\sqrt{2}$ in §3. In this derivation chain, $\pi$ is defined via that geometry integrated over the unit interval. Framed this way, circle constants connect back to the distance formula, real-number completeness, and earlier number-system constructions.
 
-The chain of necessity:
+Derivation chain used here:
 ```math
 \varnothing \;\xrightarrow{\text{ZF6}}\; \mathbb{N} \;\xrightarrow{\text{group completion}}\; \mathbb{Z} \;\xrightarrow{\text{field of fractions}}\; \mathbb{Q} \;\xrightarrow{1^2+1^2=2,\;\sqrt{2}\notin\mathbb{Q}}\; \mathbb{R} \;\xrightarrow{\text{Pythagoras integrated}}\; \pi
 ```
@@ -262,10 +278,10 @@ This is not a coordinate choice. It is the unique factorization of $z$ into:
 > world in which we live is a four-dimensional space-time continuum."*
 > — A. Einstein, *Relativity* (1916)
 
-Everything in Part I is necessary arithmetic and analysis. Part II shows that
-once you have $\mathbb{R}$ and calculus, the passage to curved spacetime is equally
-forced — not by axiom, but by the physical requirement that geometry be
-locally Euclidean yet globally unconstrained.
+Part I develops the arithmetic/analysis scaffold. Part II argues that,
+once you have $\mathbb{R}$ and calculus, the passage to curved spacetime is a
+natural extension under standard physical assumptions about geometry being
+locally Euclidean while globally unconstrained.
 
 ---
 
@@ -287,7 +303,7 @@ The critical structure: at every point $p$, the **tangent space** $T_pM \cong \m
 
 ### §7 — Pseudo-Euclidean Geometry: The Minkowski Case
 
-**The physical requirement.** Special relativity establishes that the speed of light $c$ is invariant across all inertial frames. This is not derivable from ZF — it is an empirical axiom. But once accepted, the geometry it implies is forced.
+**The physical requirement.** Special relativity establishes that the speed of light $c$ is invariant across all inertial frames. This is not derivable from ZF — it is an empirical axiom. Once accepted, it naturally leads to Minkowski geometry.
 
 **Minkowski spacetime** $\mathbb{R}^{1,3}$ is $\mathbb{R}^4$ with the metric of signature $(-,+,+,+)$:
 ```math
@@ -304,7 +320,7 @@ This is "quasi-Euclidean" in Einstein's terminology: it resembles Euclidean $\ma
 | **Null / lightlike** | $ds^2 = 0$ | Light cone boundary; photon worldlines |
 | **Timelike** | $ds^2 < 0$ | Causally connected events; massive-particle worldlines |
 
-**Relativity of simultaneity.** Two events simultaneous in one frame ($dt = 0$, $ds^2 > 0$) are not simultaneous in a boosted frame. But the interval $ds^2$ is Lorentz-invariant: every observer agrees on it. "Everything is relative to something else" means: coordinates are frame-dependent, but the metric interval is absolute.
+**Relativity of simultaneity.** Two events simultaneous in one frame ($dt = 0$, $ds^2 > 0$) are not simultaneous in a boosted frame. But the interval $ds^2$ is Lorentz-invariant: every observer agrees on it. "Everything is relative to something else" means: coordinates are frame-dependent, but the metric interval remains invariant.
 
 **Proper time.** Along a timelike worldline $x^\mu(\lambda)$:
 ```math
@@ -397,9 +413,9 @@ Both live in $[0,1]\subset\mathbb{R}$, which exists by §4 (Dedekind completion 
 Z := \alpha + i\beta \in\mathbb{C}
 ```
 
-This is not a modeling choice. $\mathbb{C}$ is the unique algebraic closure of $\mathbb{R}$ (Fundamental Theorem of Algebra, §5). The embedding $\mathbb{R}^2\hookrightarrow\mathbb{C}$ is the standard identification $(a,b)\mapsto a+ib$, which preserves the metric (the norm $|Z| = \sqrt{\alpha^2+\beta^2}$ is the Pythagorean distance, §3).
+Within this framework, this is the standard modeling move. $\mathbb{C}$ is the unique algebraic closure of $\mathbb{R}$ (Fundamental Theorem of Algebra, §5), and the embedding $\mathbb{R}^2\hookrightarrow\mathbb{C}$ via $(a,b)\mapsto a+ib$ preserves the metric (the norm $|Z| = \sqrt{\alpha^2+\beta^2}$ is the Pythagorean distance, §3).
 
-**Polar decomposition (forced, not chosen).**
+**Polar decomposition (canonical in this setup).**
 ```math
 Z = |Z|\cdot e^{i\varphi}, \qquad |Z| = \sqrt{\alpha^2+\beta^2}, \qquad \varphi = \mathrm{arctan2}(\beta,\alpha)
 ```
@@ -408,7 +424,7 @@ Z = |Z|\cdot e^{i\varphi}, \qquad |Z| = \sqrt{\alpha^2+\beta^2}, \qquad \varphi 
 - $\varphi$ is the **entropy phase**: the angle between pure order ($\varphi=0$, on the positive real axis) and pure disorder ($\varphi=\pi/2$, on the positive imaginary axis).
 - This decomposition is unique for $Z\neq 0$ (§5, polar decomposition theorem).
 
-**The bijection $\beta = 1-\alpha$.** If order and disorder are complementary (total budget is 1), then $Z = \alpha + i(1-\alpha)$ traces the line segment from $Z=i$ ($\alpha=0$, pure disorder) to $Z=1$ ($\alpha=1$, pure order) in $\mathbb{C}$. The midpoint $\alpha=1/2$ gives $Z = \frac{1}{2}+\frac{i}{2}$, with phase $\varphi=\pi/4$ — the angle of maximal mixed entropy. This line segment is the image of the bijection in $\mathbb{C}$; its geometry is determined by $\mathbb{R}$ and the Pythagorean distance, not by any external assumption.
+**The bijection $\beta = 1-\alpha$.** If order and disorder are complementary (total budget is 1), then $Z = \alpha + i(1-\alpha)$ traces the line segment from $Z=i$ ($\alpha=0$, pure disorder) to $Z=1$ ($\alpha=1$, pure order) in $\mathbb{C}$. The midpoint $\alpha=1/2$ gives $Z = \frac{1}{2}+\frac{i}{2}$, with phase $\varphi=\pi/4$ — the angle of maximal mixed entropy. This line segment is the image of the bijection in $\mathbb{C}$; within this setup, its geometry follows from $\mathbb{R}$ structure and the Pythagorean distance.
 
 **Resolution of fix-list item #1.** The complex entropy state is derived from:
 - $\mathbb{R}$ (§4) for the parameter spaces
@@ -416,7 +432,7 @@ Z = |Z|\cdot e^{i\varphi}, \qquad |Z| = \sqrt{\alpha^2+\beta^2}, \qquad \varphi 
 - The Pythagorean norm (§3) for the metric
 - The polar decomposition (§5) for the magnitude/phase factorization
 
-No step is arbitrary.
+Within the stated assumptions and mappings, each step is explicitly motivated.
 
 ---
 
@@ -581,7 +597,7 @@ If this holds, the present state $s_t$ is not causally influenced by future boun
 | Boundary-propagation field $q$ | Scalar field on $(M,g)$ | §13 (covariant PDE) |
 | Causal safety | Conditional independence | §13 (forward-only propagation) |
 
-**Every formal object traces back to $\varnothing$ and the ZF axioms through a chain of necessary constructions. No step is arbitrary. No structure is imported without derivation.**
+**Most formal objects in this document are traced back to $\varnothing$ and the ZF axioms through explicit construction steps. Where additional modeling assumptions enter, they should be called out directly.**
 
 ---
 
@@ -597,4 +613,4 @@ The following elements remain as future work (corresponding to fix-list items no
 
 ---
 
-*Document version: 1.0. Derivation chain: ZF/ZFC → Sandy Chaos. All equations reference this document for their axiomatic grounding.*
+*Document version: 1.0. Derivation chain: ZF/ZFC → Sandy Chaos. Core equations in canonical docs are intended to reference this document for axiomatic grounding, with explicit modeling assumptions noted where applicable.*

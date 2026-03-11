@@ -60,13 +60,15 @@ We separate three timing layers:
 - Observer-local clocks: $\tau_A, \tau_B$
 - Protocol/meta-time: $\sigma$
 
-Canonical packet schema:
+Current minimal packet schema:
 
 $$
-P = \{payload, \tau_{send}, \sigma_{send}, confidence, checksum, validity window\}
+P_{min} = \{payload, \tau_{send}, \sigma_{send}, confidence, checksum\}
 $$
 
-Interpretation requires all three planes: data, timing, trust.
+Planned optional trust/interpretation extensions may add fields such as validity windows, boundary tags, narrative context, or audit traces, but those are not baseline requirements of the current implementation.
+
+Interpretation still requires all three planes: data, timing, trust.
 
 ---
 

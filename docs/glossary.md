@@ -37,7 +37,7 @@ Payload transport layer.
 Cross-frame temporal alignment layer (e.g., $t$, $\tau$, $\sigma$).
 
 ### Trust plane
-Integrity and uncertainty metadata (checksum, confidence, validity window).
+Integrity and uncertainty metadata attached to a packet. In the current minimal protocol this is primarily checksum + confidence; expiry or narrative metadata are planned extensions, not baseline requirements.
 
 ---
 
@@ -59,13 +59,13 @@ System updates driven by present local gradients that encode downstream structur
 Capacity to choose policy, evaluate outcomes, and update policy under internal objectives.
 
 ### Axiomatic Injection
-*(Speculative)* A proposed design constraint where strict human values and temporal coherence requirements are embedded into the lowest-level transition operators of a computational architecture, rather than acting as superficial software filters.
+*(Speculative)* A hypothetical design where low-level transition operators include explicit penalties or hard constraints against declared disallowed states. Not a current Sandy Chaos implementation, and not evidence of substrate-level physical enforcement.
 
 ### Ouroboros Stabilization Effect
-An operational feedback loop where a human user and an anticipatory machine system continuously constrain each other. The continuous adaptation between human cognitive priors (slow-clock) and machine probabilistic prediction (fast-clock) narrows the shared optimization basin.
+A forward-causal reduction in mismatch between machine-suggested next actions and user-selected actions over repeated interaction. Candidate observables include suggestion acceptance rate, edit distance, correction burden, and latency-to-useful-action.
 
 ### Predictive Projection
-A measurable forecasting heuristic where a machine, using behavioral histories and semantic models, probabilistically anticipates and presents future state options to the user before explicit input is fully finalized.
+A machine-generated ranking or presentation of candidate next actions based on present context, priors, and behavioral history. Evaluate it with calibration, top-k usefulness/acceptance, correction rate, and latency; it is not a claim of pre-input certainty.
 
 ---
 

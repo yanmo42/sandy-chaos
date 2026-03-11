@@ -5,7 +5,7 @@ Main entry point for the enhanced simulation with:
 - Enthalpy field (driving potential)
 - Order-disorder duality space
 - Complex entropy states
-- Tachyonic loop detection
+- Entropic circulation detection
 - Vortex-mediated A↔B communication
 
 Run with: python -m nfem_suite.main
@@ -228,7 +228,7 @@ def main():
             duality_space.update(positions, velocities, gradients, t)
             duality_stats = duality_space.get_statistics()
             
-            # 3. Tachyonic Loop Detection
+            # 3. Entropic circulation detection
             loop_data = tachyonic_loop.detect_and_close_loop(
                 list(duality_space.position_history),
                 list(duality_space.complex_state_history),
@@ -238,7 +238,7 @@ def main():
             )
             
             if loop_data:
-                print(f"\n⚡ TEMPORAL LOOP DETECTED at t={t:.1f}s!")
+                print(f"\n⚡ ENTROPIC CIRCULATION DETECTED at t={t:.1f}s!")
                 print(f"   ΔT = {loop_data['delta_t_real']:.3f} + {loop_data['delta_t_imag']:.3f}i")
                 print(f"   |ΔT| = {loop_data['delta_t_magnitude']:.3f}")
                 print(f"   Winding # = {loop_data['winding_number']:.2f}\n")
@@ -361,7 +361,7 @@ def main():
             print(f"  {key}: {value:.4f}")
         
         loop_stats = tachyonic_loop.get_loop_statistics()
-        print("\nTachyonic Loops:")
+        print("\nEntropic Circulation Loops:")
         for key, value in loop_stats.items():
             print(f"  {key}: {value:.4f}")
         

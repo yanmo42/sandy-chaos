@@ -1,10 +1,11 @@
 # Math Appendix
 
-> **Axiomatic grounding.** All equations in this appendix derive from the
-> ZF set-theoretic foundations established in
-> [`math_foundations_zf.md`](math_foundations_zf.md). Section references
-> (§0–§14) point to specific derivation layers in that document.
-> The chain: $\varnothing \to \mathbb{N} \to \mathbb{Z} \to \mathbb{Q} \to \mathbb{R} \to \mathbb{C} \to (M, g_{\mu\nu}) \to \text{Kerr} \to \text{Sandy Chaos}$.
+> **Axiomatic grounding.** Equations in this appendix are intended to be
+> traceable to the formal foundations in
+> [`math_foundations_zf.md`](math_foundations_zf.md), together with explicitly
+> stated modeling assumptions where needed.
+> Section references (§0–§14) point to derivation layers in that document.
+> Working chain: $\varnothing \to \mathbb{N} \to \mathbb{Z} \to \mathbb{Q} \to \mathbb{R} \to \mathbb{C} \to (M, g_{\mu\nu}) \to \text{Kerr} \to \text{Sandy Chaos}$. 
 
 This appendix collects compact formal elements used across the core docs.  
 Derivations are intentionally lightweight; this project prioritizes conceptual clarity plus falsifiable structure.
@@ -78,11 +79,13 @@ $$
 E_{align}=\left|(\tau_{recv}-\tau_{send})-\tau_{expected}\right|
 $$
 
-Packet schema:
+Packet schema (current minimal):
 
 $$
-P = \{payload,\tau_{send},\sigma_{send},confidence,checksum,validity\_window\}
+P_{min} = \{payload,\tau_{send},\sigma_{send},confidence,checksum\}
 $$
+
+Planned experiment-layer extensions may add fields such as `validity_window`, `boundary_tag`, `narrative_context`, or `audit_trace`, but those are not part of the baseline protocol contract.
 
 ---
 

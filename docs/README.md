@@ -12,9 +12,10 @@ This documentation set is intentionally compressed into a small canonical path:
 8. **[08 Git Automation Protocol](08_git_automation_protocol.md)**
 9. **[09 Research Automation Protocol](09_research_automation_protocol.md)**
 10. **[10 Tempo Tracing Refactor Note](10_tempo_tracing_refactor_note.md)**
-11. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-12. **[Prediction Protocol](prediction-protocol.md)**
-13. **[Paradox Registry](paradox-registry.md)**
+11. **[11 Geodesic Hydrology Contracts](11_geodesic_hydrology_contracts.md)**
+12. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+13. **[Prediction Protocol](prediction-protocol.md)**
+14. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -50,6 +51,15 @@ The near-term roadmap emphasizes **agency as a computed physical observable**:
 - concrete read-write observer coupling in simulation,
 - directional temporal-frame communication metrics,
 - strict claim-tier separation between defensible results and speculative interpretation.
+
+## Documentation status policy
+
+Canonical docs should follow these rules:
+
+- Major claims should carry an explicit claim tier when ambiguity is likely.
+- Defensible and plausible claims should include a failure condition.
+- Speculative sections must be visibly labeled.
+- If docs describe features not present in code, they must be marked as planned extensions.
 
 ## Writing policy
 

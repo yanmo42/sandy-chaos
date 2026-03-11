@@ -244,12 +244,12 @@ Acceptance criteria:
 
 ## 8) Quick verification checklist
 
-- [ ] `docs/06` rewritten with explicit tiering and no absolute certainty language
-- [ ] `glossary` terms aligned with measurable semantics
-- [ ] packet schema parity achieved (or roadmap-marked)
-- [ ] no runtime “tachyonic” UI strings remain
-- [ ] `math_foundations_zf` includes assumption ledger and toned claims
-- [ ] synthesis/blog doc carries status disclaimer
+- [x] `docs/06` rewritten with explicit tiering and no absolute certainty language
+- [x] `glossary` terms aligned with measurable semantics
+- [x] packet schema parity achieved (or roadmap-marked)
+- [x] no runtime “tachyonic” UI strings remain
+- [x] `math_foundations_zf` includes assumption ledger and toned claims
+- [x] synthesis/blog doc carries status disclaimer
 
 ---
 

@@ -1,5 +1,8 @@
 # Time With Grain: Sandy Chaos and Communication Across Emergent Temporal Frames
 
+> **Status note**
+> This synthesis is a public-facing overview, not a validation report. It mixes **defensible framing**, **plausible but still open modeling claims**, and **speculative interpretation**. It should not be read as evidence that all described mechanisms are already demonstrated in code or experiment; for claim boundaries, defer to the canonical docs and their failure conditions.
+
 Imagine two drummers in a spiral stairwell. They cannot see each other. They trade rhythms through curved echoes, delays, and reflections. Each beat arrives shaped by the architecture itself. One drummer hears patterns that feel early, the other hears patterns that feel late, and both are reading the same physical space.
 
 That image captures the center of Sandy Chaos.
@@ -49,7 +52,7 @@ Each packet carries three planes together:
 
 - **Data plane** (payload),
 - **Timing plane** (clock references),
-- **Trust plane** (confidence, integrity, validity window).
+- **Trust plane** (confidence, integrity, and optional expiry/audit metadata).
 
 That packet design turns temporal ambiguity into something measurable and auditable.
 
@@ -110,6 +113,6 @@ It links:
 - agency-aware policy dynamics,
 - and narrative-conditioned experimentation.
 
-The central contribution is a coherent framework where bidirectional exchange across emergent temporal frames becomes modelable, testable, and philosophically generative. Causality, in this frame, appears as an evolving structure of constrained flows rather than a flat line on a chalkboard.
+A proposed contribution is a coherent framework aiming to make bidirectional exchange across emergent temporal frames progressively more modelable and testable, while still leaving room for philosophical interpretation. Causality, in this frame, is treated as an evolving structure of constrained flows rather than a flat line on a chalkboard.
 
 For a personal website audience, that synthesis carries both ambition and humility: a bold map, clear boundaries, and a serious invitation to test the map against reality.
