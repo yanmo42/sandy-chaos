@@ -4,7 +4,7 @@
 
 This layer describes how observation, interpretation, and action couple at local scale.
 
-If Tempo Tracer is the channel geometry, this document is the **observer geometry**: how humans, machines, and hybrids change what is seen and what is done.
+If **[02 Tempo Tracer Protocol](02_tempo_tracer_protocol.md)** measures channel transport and **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)** scores resulting trajectories, this document defines the **observer-coupling layer**: how humans, machines, and hybrids change what is seen and what is done.
 
 ---
 
@@ -27,6 +27,31 @@ $$
 
 Observation is not purely passive: measuring changes future measurability.
 
+### 2.1 Mapping the local state model into the shared layer
+
+For notation consistency across **02 / 03 / 11**, this local decomposition should be read as one observer-centric chart of the shared augmented state:
+
+$$
+z_t \sim (L_t, O_t, S_t, A_t, h_t)
+$$
+
+Where:
+
+- $L_t$ is the latent environment component,
+- $O_t$ is the observed / measured slice,
+- $S_t$ is the observer-internal state,
+- $A_t$ is the intervention / control component,
+- $h_t$ collects any additional memory variables needed for path dependence.
+
+Under this mapping:
+
+- the shared transport geometry $(g, K)$ constrains how future updates can propagate,
+- the observer-coupling term $B_\lambda$ acts mainly through the $S_t$ and $A_t$ channels,
+- Tempo Tracing later reads out directional asymmetry over $\Delta\tau$,
+- and Potential-Flow Contracts score trajectories through this augmented state space.
+
+So this document is not using a conflicting ontology; it is using a more fine-grained observer-local coordinate system for the same forward-causal framework.
+
 ---
 
 ## 3) Read-write observer effect
@@ -41,6 +66,25 @@ Compactly:
 $$
 \Delta L_t \propto \Phi(S_t, \text{measurement policy}, \text{feedback loop})
 $$
+
+In the shared formal layer used across **02 / 03 / 11**, this observer term is best understood as a bounded forcing/control contribution inside the transport law:
+
+$$
+\dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B_\lambda(z_t,t)
+$$
+
+Where:
+
+- $H$ is the head / potential field defined at the contract layer,
+- $g$ and $K$ define the weighted transport geometry,
+- $B_\lambda$ is the observer-coupling term defined here,
+- and Tempo Tracing measures the resulting directional asymmetries over $\Delta\tau$.
+
+This keeps the role of agency precise:
+
+- observer coupling does **not** mean a backward-causal signal,
+- it does **not** yet mean a learned universal potential field,
+- it means present-step measurement, framing, and feedback alter **future admissible transport** in a bounded, measurable way.
 
 This unifies physical, cognitive, and socio-technical observer effects under one formal language.
 
@@ -133,15 +177,18 @@ Failure indicators:
 ## 9) Read next
 
 - **[04 Neuro Roadmap](04_neuro_roadmap.md)** for staged implementation strategy.
+- **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)** for the head-field and path-functional contract layer built on top of observer-coupled transport.
 - **[Math Appendix](math_appendix.md)** for compact equation reference.
 
 
 ## 10) Updated implementation direction (2026-03)
 
-To make agency a computed physical consequence (not an add-on), this layer now uses a concrete observer coupling term already implemented in simulation:
+To make agency a computed physical consequence (not an add-on), this layer now uses a concrete observer coupling term already implemented in simulation.
+
+In the shared formal layer, this is the operational realization of the bounded forcing term $B_\lambda$:
 
 $$
-\Phi(x,t)=\sum_i \lambda\,G_i(x)\,[r_i m_i(t)+w_i f_i(t)]\,\hat{u}_i(x)
+B_\lambda(x,t) \equiv \Phi(x,t)=\sum_i \lambda\,G_i(x)\,[r_i m_i(t)+w_i f_i(t)]\,\hat{u}_i(x)
 $$
 
 Where:
@@ -153,6 +200,8 @@ Where:
 - $\lambda$ is a global coupling scale.
 
 This keeps strict forward causality: measurements and feedback at $t$ perturb only future updates.
+
+Important scope note: the current implementation realizes observer coupling primarily as a **forcing / steering term** $B_\lambda$. It does **not** yet implement a full learned deformation of the head field $H$ itself. That distinction matters for keeping the present claim level honest.
 
 ### Agency observables now computed in-code
 

@@ -10,7 +10,74 @@ The objective is **forecasting advantage without retrocausality**.
 
 ## 2) Channel model (minimal formal core)
 
-We model propagation through a curved-spacetime medium as:
+At the shared formal layer used across **[02 Tempo Tracer Protocol](02_tempo_tracer_protocol.md)**, **[03 Micro-Observer & Agency](03_micro_observer_agency.md)**, and **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)**, Tempo Tracing measures forward-causal transport on an observer-coupled state space.
+
+A useful modeling tuple is:
+
+$$
+\Theta = (M,\; g,\; K,\; H,\; B_\lambda,\; P,\; \Delta\tau,\; \rho)
+$$
+
+Where:
+
+- $M$: declared state space (optionally augmented with memory/history variables),
+- $g$: metric / topology / timing geometry,
+- $K$: mobility / permeability / admissibility operator,
+- $H$: scalar head / potential field ordering states by unresolved load,
+- $B_\lambda$: observer-coupling control term parameterized by coupling scale $\lambda$,
+- $P$: packet schema,
+- $\Delta\tau$: proper-time offset coordinate,
+- $\rho$: state or packet density for ensemble views.
+
+At this shared layer, the generic forward-causal transport law is:
+
+$$
+\dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B_\lambda(z_t,t)
+$$
+
+or, for collective behavior,
+
+$$
+\partial_t \rho + \nabla\cdot J = s-d,
+\qquad
+J = -\rho K\nabla_g H - D\nabla_g\rho + B_\lambda\rho
+$$
+
+Interpretation of ownership across docs:
+
+- **this document (02)** defines the transport/packet/timing observables,
+- **[03](03_micro_observer_agency.md)** defines the observer-coupling term $B_\lambda$ and its local observables,
+- **[11](11_geodesic_hydrology_contracts.md)** defines the head field $H$ and path-functional reward layer.
+
+Tempo Tracing does **not** claim that every term in this tuple is fully implemented in one production simulator today. This is the connective tissue that makes the causal core legible across the three documents.
+
+### 2.1 Shared notation bridge (02 / 03 / 11)
+
+To prevent symbol drift, the shared symbols should be interpreted as follows:
+
+| Shared symbol | Shared-layer meaning | Local reading in `02` | Local reading in `03` | Local reading in `11` |
+|---|---|---|---|---|
+| $z_t$ | present augmented state | packet/channel state at step $t$ | may bundle $(L_t, O_t, S_t, A_t, h_t)$ | trajectory state being scored |
+| $M$ | total state space | timing/channel state space | observer-environment-action state space | contract-evaluation state space |
+| $g$ | metric / topology / geometry | timing / propagation geometry | observer-local interaction geometry | weighted state geometry |
+| $K$ | mobility / admissibility structure | transport / attenuation / routing structure | bounded steerability of future updates | mobility / permeability operator |
+| $H$ | scalar head / potential | abstract ordering field for transport, not yet a primary implementation object here | inherited/exogenous structure, not yet a learned field in current implementation | explicit contract head |
+| $B_\lambda$ | bounded forcing / control term | source of transport asymmetry over $\Delta\tau$ | realized concretely as observer coupling $\Phi(x,t)$ | observer-coupled steering term inside contract dynamics |
+| $P$ | packet / information object | minimal packet schema $P_{min}$ | measurement/intervention payloads may influence it but do not redefine it | optional future carrier for path-score metadata |
+| $\Delta\tau$ | proper-time offset coordinate | primary asymmetry coordinate | contributes to predictive-horizon and frame-asymmetry diagnostics | empirical readout that may later enter scoring |
+| $\rho$ | density / ensemble view | packet profile / transport distribution | ensemble of observer-coupled trajectories | state density in free-energy / payout analysis |
+
+Rule of thumb:
+
+- **02** measures transport asymmetry,
+- **03** defines the observer-coupling contribution,
+- **11** defines the potential/head field and path-functional scoring.
+
+When a symbol appears in more than one doc, default to the **shared-layer meaning first** and the **local specialization second**.
+
+### 2.2 Kerr-specific channel realization
+
+A current channel-specific realization models propagation through a curved-spacetime medium as:
 
 $$
 Y = \mathcal{F}_{\text{Kerr}}(X, u, n)
@@ -24,7 +91,7 @@ $$
 Null-geodesic consistency condition:
 
 $$
-H = \tfrac{1}{2}g^{\mu\nu}p_\mu p_\nu \approx 0
+\mathcal{H}_{null} = \tfrac{1}{2}g^{\mu\nu}p_\mu p_\nu \approx 0
 $$
 
 If this fails numerically, the run is invalid.
@@ -122,7 +189,8 @@ If reproducibility/significance thresholds fail, the claim fails.
 ## 8) Relationship to other docs
 
 - **[01 Foundations](01_foundations.md)** explains the causal boundary and epistemic retro-influence distinction.
-- **[03 Micro-Observer & Agency](03_micro_observer_agency.md)** covers observer-state coupling and ethics.
+- **[03 Micro-Observer & Agency](03_micro_observer_agency.md)** supplies the observer-coupling term $B_\lambda$ and its local observables.
+- **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)** supplies the head field $H$ and path-functional evaluation layer that sit on top of these transport dynamics.
 - **[07 Agentic Automation Loop](07_agentic_automation_loop.md)** maps these protocol ideas into live execution loops (systemd cadence, orchestration contracts, dispatch telemetry, and productivity gating).
 - **[Math Appendix](math_appendix.md)** contains extended equation references.
 - **[10 Tempo Tracing Refactor Note](10_tempo_tracing_refactor_note.md)** records the planned migration to process-first terminology ("Tempo Tracing").
@@ -146,6 +214,8 @@ Interpretation rules:
 - Nonzero $\mathcal{A}$ is a directional communication asymmetry, not retrocausality.
 - Claims require null-model comparison (no observer coupling / flat timing baseline).
 - Report confidence intervals and robustness across noise regimes.
+- In the shared formal layer, these are **empirical readouts of transport asymmetry over $\Delta\tau$**, not stand-alone metaphysical quantities.
+- **[03](03_micro_observer_agency.md)** explains how observer coupling contributes the bounded forcing term $B_\lambda$; **[11](11_geodesic_hydrology_contracts.md)** explains how these traced transport patterns may later be scored by path-functional contract logic.
 
 Falsification harness (implemented in automated tests):
 

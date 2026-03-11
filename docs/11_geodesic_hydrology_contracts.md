@@ -113,10 +113,16 @@ Avoid letting the hydrology language stand alone without the operational transla
 
 ## 6) Formal foundations: weighted geometry, contract head, and dissipative transport
 
+This section inherits the shared notation bridge defined in **[02 Tempo Tracer Protocol](02_tempo_tracer_protocol.md)**. In particular, the scored state $z_t$ should be read as the augmented forward-causal state, which may include the observer-local decomposition from **[03 Micro-Observer & Agency](03_micro_observer_agency.md)**:
+
+$$
+z_t \sim (L_t, O_t, S_t, A_t, h_t)
+$$
+
 The cleanest mathematical skeleton is the tuple:
 
 $$
-(M,\; g,\; K,\; H,\; B,\; \Omega)
+(M,\; g,\; K,\; H,\; B_\lambda,\; \Omega)
 $$
 
 Where:
@@ -125,7 +131,7 @@ Where:
 - $g$ is a declared metric / topology / geometric structure on that space,
 - $K$ is a mobility or permeability operator,
 - $H$ is the scalar **contract head** field,
-- $B$ is a control / forcing / non-potential steering term,
+- $B_\lambda$ is the observer-coupling control / forcing term (as operationalized in **[03 Micro-Observer & Agency](03_micro_observer_agency.md)**),
 - $\Omega$ is the penalty / slashing / hard-constraint layer.
 
 ### 6.1 State space and path dependence
@@ -192,7 +198,7 @@ This is why the right formulation is:
 For single-trajectory dynamics, the natural equation is:
 
 $$
-\dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B(z_t,t)
+\dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B_\lambda(z_t,t)
 $$
 
 Interpretation:
@@ -200,7 +206,7 @@ Interpretation:
 - the system tends toward lower contract head,
 - the metric $g$ determines what the gradient means,
 - the mobility $K$ filters which descent directions are accessible,
-- and $B$ captures control, forcing, or non-potential steering.
+- and $B_\lambda$ captures observer-coupled control, forcing, or non-potential steering.
 
 ### 6.5 Collective transport law
 
@@ -213,7 +219,7 @@ $$
 with transport flux:
 
 $$
-J = -\rho\,K\nabla_g H - D\nabla_g \rho + B\rho
+J = -\rho\,K\nabla_g H - D\nabla_g \rho + B_\lambda\rho
 $$
 
 where:
@@ -229,7 +235,28 @@ This is the collective version of the same theory:
 - protocol steering,
 - and open-system injection/removal.
 
-### 6.6 Free-energy-like functional
+### 6.6 Tempo-tracing observables as empirical readouts
+
+The transport layer should be connected to empirical observables through the Tempo Tracing metrics defined in **[02 Tempo Tracer Protocol](02_tempo_tracer_protocol.md)**:
+
+$$
+C_{A\to B}(\Delta\tau),\quad C_{B\to A}(\Delta\tau),\quad \mathcal{A}(\Delta\tau)=C_{A\to B}(\Delta\tau)-C_{B\to A}(\Delta\tau)
+$$
+
+Interpretation in this contract framework:
+
+- $C_{A\to B}(\Delta\tau)$ and $C_{B\to A}(\Delta\tau)$ are directional transport-capacity readouts over proper-time offset,
+- $\mathcal{A}(\Delta\tau)$ measures asymmetry induced by geometry, mobility, and observer-coupled forcing,
+- these are **measurement-layer observables**, not the reward function themselves,
+- but they help determine whether the proposed transport structure has any empirical leverage worth scoring.
+
+So the connective tissue across the docs is:
+
+- **[02](02_tempo_tracer_protocol.md)** measures transport asymmetry,
+- **[03](03_micro_observer_agency.md)** defines the observer-coupling term $B_\lambda$,
+- **this document (11)** defines the head field $H$ and path-functional evaluation of trajectories generated under those dynamics.
+
+### 6.7 Free-energy-like functional
 
 A natural global functional is:
 
@@ -247,7 +274,7 @@ $$
 
 This is the most rigorous bridge to thermodynamic or heat-transfer intuition: the analogy becomes meaningful only once the free-energy-like functional is explicit.
 
-### 6.7 Contract payout as a path functional
+### 6.8 Contract payout as a path functional
 
 For participant $i$ over horizon $[0,T]$:
 
@@ -291,7 +318,7 @@ This is useful when describing:
 But the core mechanism here is instead:
 
 $$
-\dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B(z_t,t)
+\dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B_\lambda(z_t,t)
 $$
 
 So the priority order is:
@@ -404,8 +431,9 @@ Non-negotiable interpretation rules:
 
 ### Phase A (doc + simulation spec)
 
-- Define a toy 2-agent / 2-task landscape with explicit $H$, $K$, $J$, and $R_i$.
+- Define a toy 2-agent / 2-task landscape with explicit $H$, $K$, $B_\lambda$, $J$, and $R_i$.
 - Make path dependence explicit through an augmented state or memory variable.
+- Connect the toy landscape to Tempo Tracing observables $C_{A\to B}(\Delta\tau)$, $C_{B\to A}(\Delta\tau)$, and $\mathcal{A}(\Delta\tau)$.
 - Add or refine the matrix row for this direction.
 - Keep decision state at `REVIEW` until comparative evidence exists.
 
@@ -431,7 +459,8 @@ Human review gate required at each phase boundary.
 
 - `FOUNDATIONS.md` — hard governance + marker gates
 - `docs/01_foundations.md` — causality contract
-- `docs/03_micro_observer_agency.md` — operational agency + ethics invariants
+- `docs/02_tempo_tracer_protocol.md` — transport observables, packet semantics, and directional asymmetry metrics over $\Delta\tau$
+- `docs/03_micro_observer_agency.md` — observer-coupling term $B_\lambda$ and operational agency invariants
 - `docs/assumptions_register.md` — central dependency ledger; especially **A-005**, **A-011**, **A-012**, **A-013**
 - `docs/prediction-protocol.md` — pre-registration / scoring / novelty rules
 - `docs/theory-implementation-matrix.md` — traceability + decision ledger (`T-011`)
