@@ -78,9 +78,7 @@ In Sandy Chaos, the analogous idea is therefore:
 
 In stripped-down form, the operational commitment is:
 
-$$
- x_{t+\Delta} = F_\Delta(x_t, a_t, \eta_t; \Gamma)
-$$
+$$ x_{t+\Delta} = F_\Delta(x_t, a_t, \eta_t; \Gamma) $$
 
 with no admissible implementation depending on future intervention to determine present state.
 
@@ -127,9 +125,7 @@ At present, the most important formal unification is the shared layer connecting
 
 That shared layer can be summarized by the tuple:
 
-$$
-\Theta = (M,\; g,\; K,\; H,\; B_\lambda,\; P,\; \Delta\tau,\; \rho)
-$$
+$$ \Theta = (M,\; g,\; K,\; H,\; B_\lambda,\; P,\; \Delta\tau,\; \rho) $$
 
 where:
 
@@ -144,17 +140,11 @@ where:
 
 The generic forward-causal transport law is then:
 
-$$
-\dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B_\lambda(z_t,t)
-$$
+$$ \dot{z}_t = -K_{z_t}\,\mathrm{grad}_g H(z_t,t) + B_\lambda(z_t,t) $$
 
 with collective version:
 
-$$
-\partial_t \rho + \nabla\cdot J = s-d,
-\qquad
-J = -\rho K\nabla_g H - D\nabla_g\rho + B_\lambda\rho
-$$
+$$ \partial_t \rho + \nabla\cdot J = s-d, \qquad J = -\rho K\nabla_g H - D\nabla_g\rho + B_\lambda\rho $$
 
 This is the connective tissue of the current framework.
 
@@ -175,13 +165,7 @@ Its job is not to make grand ontological claims. Its job is to define measurable
 
 The most important current observables are directional communication metrics over proper-time offset:
 
-$$
-C_{A\to B}(\Delta\tau),
-\qquad
-C_{B\to A}(\Delta\tau),
-\qquad
-\mathcal{A}(\Delta\tau)=C_{A\to B}(\Delta\tau)-C_{B\to A}(\Delta\tau)
-$$
+$$ C_{A\to B}(\Delta\tau), \qquad C_{B\to A}(\Delta\tau), \qquad \mathcal{A}(\Delta\tau)=C_{A\to B}(\Delta\tau)-C_{B\to A}(\Delta\tau) $$
 
 These are interpreted as:
 
@@ -337,9 +321,7 @@ A second ambition is **retrodictive trace reconstruction**: inferring prior stat
 
 This is neither time reversal nor retrocausality. It is lawful inference from surviving evidence kernels under a forward model. In compact form, the idea is:
 
-$$
-\hat{a}_t = R(x_{t+\Delta})
-$$
+$$ \hat{a}_t = R(x_{t+\Delta}) $$
 
 where later observables constrain a posterior over prior causes.
 
