@@ -22,6 +22,7 @@ Supporting references:
 - **[Glossary](glossary.md)**
 - **[Math Appendix](math_appendix.md)**
 - **[Math Foundations ZF](math_foundations_zf.md)**
+- **[Assumptions Register](assumptions_register.md)**
 - **[Research Backlog](../plans/research_backlog.md)**
 
 Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.

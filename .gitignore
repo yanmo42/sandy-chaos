@@ -13,3 +13,12 @@ enthalpy_simulation_data.csv
 
 # local secrets (never commit)
 .secrets.local.env
+
+# OpenClaw workspace-local files (do not commit)
+.openclaw/
+AGENTS.md
+HEARTBEAT.md
+IDENTITY.md
+SOUL.md
+TOOLS.md
+USER.md
