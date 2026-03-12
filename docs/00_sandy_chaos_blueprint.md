@@ -456,3 +456,153 @@ If read in reverse, the project looks mystical.
 If read in the correct order, it looks like what it is trying to become:
 
 > a rigorous framework for studying anticipatory informational structure without abandoning physics, falsifiability, implementation discipline, or present-world anchoring.
+
+---
+
+## 15) Open research program: reality anchoring, bounded-now estimation, and retrodictive reconstruction
+
+The blueprint should not only summarize the current framework; it should also expose the most promising next questions in a way that is disciplined enough to guide both theory and implementation.
+
+The following research pillars are intended as a structured agenda rather than as validated conclusions.
+
+### 15.1 Reality-anchor ladder
+
+Not all present-world signal injection is equally informative. A useful next step is to define a **reality-anchor ladder** that ranks sensory channels by:
+
+- latency,
+- fidelity,
+- provenance,
+- compressibility,
+- adversarial vulnerability,
+- and persistence of trace structure.
+
+Illustrative progression:
+
+1. public/logged internet traces,
+2. local telemetry and system sensors,
+3. live camera and audio streams,
+4. multi-modal fused anchor stacks,
+5. higher-cost physical channels with stronger provenance but slower update loops.
+
+The core scientific question is not "how many channels can be added," but:
+
+> which kinds of anchors improve calibration, reconstruction, and prediction enough to justify their complexity and uncertainty burden?
+
+### 15.2 Bounded-now estimation
+
+Because no observer has latency-free access to a universal present, Sandy Chaos should explicitly study the quality of present-state estimation under realistic delays.
+
+This suggests a family of **bounded-now estimators** that track:
+
+- freshness of incoming evidence,
+- inferred staleness of the internal state estimate,
+- latency decomposition by channel,
+- calibration of belief against newly arriving anchors,
+- and recoverability after observation gaps.
+
+A useful candidate object is a **now-contact quality** metric, not yet fully defined, but conceptually of the form:
+
+$$ Q_{now} = f(\text{latency},\, \text{provenance},\, \text{noise},\, \text{calibration},\, \text{coverage}) $$
+
+The point of such a quantity would be modest but important: to replace vague language about being "closer to the real now" with explicit, benchmarkable criteria.
+
+### 15.3 Measurement backaction regimes
+
+The project should distinguish regimes in which sensing is approximately passive from regimes in which sensing materially perturbs the future trajectory.
+
+This matters because the observer effect should not be invoked monolithically. In some settings, measurement backaction will be negligible relative to system noise; in others, measurement policy will strongly alter future admissible dynamics.
+
+A useful program here is to map a **backaction regime diagram** with axes such as:
+
+- measurement gain,
+- intervention sensitivity,
+- observer latency,
+- channel coupling strength,
+- and state fragility.
+
+This would let the project say, with more precision, when observer-coupling language is structurally important and when it is merely a small correction.
+
+### 15.4 Retrodictive trace reconstruction
+
+The retrodictive program should begin in domains where traces are rich, timestamped, and reproducible.
+
+The internet is a natural first domain because it preserves:
+
+- logs,
+- timestamps,
+- distributed replicas,
+- protocol traces,
+- and causal residue across multiple storage surfaces.
+
+From there, the framework can move toward harder domains in which present evidence carries weaker or noisier memory of prior states.
+
+The key question is:
+
+> under what conditions does a present evidence kernel support stable posterior reconstruction of earlier states, actions, or events?
+
+This is an inverse-problem program, not a metaphysical one.
+
+### 15.5 Contractized reconstruction
+
+Potential-Flow Contracts currently emphasize path quality and forward coordination. A natural extension is to ask whether contract logic can also reward **disciplined reconstruction**.
+
+For example, a future contract layer might score:
+
+- predictive accuracy,
+- reconstructive fidelity,
+- calibration under partial evidence,
+- robustness to adversarial or noisy traces,
+- and abstention when evidence quality falls below threshold.
+
+This is attractive because it links epistemology to mechanism design: if agents are rewarded for calibrated reconstruction rather than dramatic overclaiming, the system may become safer and more scientifically useful.
+
+### 15.6 Causal kernel extraction
+
+Many high-value applications will depend not on abundant evidence, but on a small surviving residue of it.
+
+This motivates a program of **causal kernel extraction**: identifying the minimal subset of present traces still sufficient to support stable reconstruction.
+
+Questions here include:
+
+- how small can an evidence kernel become before inference destabilizes,
+- which modalities preserve the strongest causal residue,
+- what redundancy patterns are most reconstruction-friendly,
+- and how provenance constraints interact with sparsity.
+
+This is one of the places where the project could eventually become practically distinctive.
+
+### 15.7 Null models, failure modes, and governance envelope
+
+If this research program is to remain serious, every ambitious layer needs explicit nulls and failure criteria.
+
+Examples include:
+
+- anchor versus no-anchor baselines,
+- passive-observer versus coupled-observer baselines,
+- memoryless versus path-dependent scoring,
+- flat versus geometry-weighted transport,
+- and reconstruction versus calibrated abstention under low-evidence conditions.
+
+High-stakes applications — especially forensic or policy-facing ones — require an even stricter envelope:
+
+- uncertainty thresholds,
+- provenance requirements,
+- audit trails,
+- chain-of-custody logic,
+- human review gates,
+- and clear prohibitions against treating speculative reconstruction as operational fact.
+
+Without that envelope, the project would risk turning a disciplined inference framework into an overconfident narrative machine.
+
+### 15.8 Immediate synthesis
+
+Taken together, these pillars suggest that Sandy Chaos is converging toward a broader program than forecasting alone.
+
+It is becoming a framework for studying how observers with finite latency and finite access to evidence can:
+
+- estimate the present,
+- anticipate the future,
+- reconstruct the past,
+- and do all three under explicit causal, informational, and governance constraints.
+
+That is a sufficiently strong research direction to justify sustained iteration, but only if each layer continues to earn its place through formalization, benchmarking, and disciplined restraint.
