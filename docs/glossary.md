@@ -14,6 +14,15 @@ Condition where future observers can infer past states/actions with high fidelit
 ### Causality-safe informational closure
 A temporally distributed constraint loop where all physical causation remains forward, but coupled systems coordinate through shared boundary-conditioned legibility.
 
+### Bounded-now access
+No observer has direct access to a latency-free global present; all "now" estimates are inferred from delayed/noisy channels.
+
+### Measurement backaction
+Observation policy can perturb future admissible dynamics (possibly weakly), so sensing and intervention are generally coupled.
+
+### Causal-admissible retrodiction
+Inference from present/later traces to earlier states/actions without implying backward-time physical influence.
+
 ---
 
 ## Tempo Tracer protocol terms

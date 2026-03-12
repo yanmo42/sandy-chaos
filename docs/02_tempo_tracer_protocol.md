@@ -137,6 +137,30 @@ Planned optional trust/interpretation extensions may add fields such as validity
 
 Interpretation still requires all three planes: data, timing, trust.
 
+### 4.1 Bounded-now estimator and latency budget
+
+Under the operational-present axioms (N1–N3), Tempo Tracing does not assume direct access to an absolute present. Instead, it estimates present state from delayed channel observations:
+
+$$
+y_i(\tau_i)=\mathcal{M}_i\big(x_{t-\delta_i},\pi_i\big)+\epsilon_i
+$$
+
+A practical latency decomposition is:
+
+$$
+\delta_{total}=\delta_{sense}+\delta_{transport}+\delta_{inference}+\delta_{decision}+\delta_{actuation}
+$$
+
+Where:
+
+- $\delta_{sense}$: sensor/acquisition delay,
+- $\delta_{transport}$: channel/network/propagation delay,
+- $\delta_{inference}$: decoding/model compute delay,
+- $\delta_{decision}$: policy-selection delay,
+- $\delta_{actuation}$: command-to-effect delay.
+
+Operational implication: Tempo Tracing outputs should be interpreted as latency-bounded estimates of present state quality, not as claims of instantaneous or retrocausal access.
+
 ---
 
 ## 5) Causality-safe interpretation rule

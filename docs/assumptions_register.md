@@ -82,6 +82,7 @@ If an assumption is challenged, classify the impact:
 | A-011 | **Claim tiers + marker gates meaningfully constrain repo drift.** | Governance | Adopted, Partial | `FOUNDATIONS.md`, `docs/README.md`, `docs/theory-implementation-matrix.md` | Lets the repo distinguish defensible, open, and speculative layers instead of letting them blur together. | Documentation and automation drift back toward overclaiming; stronger linting/tests become necessary. | Redirect | O1, A2, A3; T-003, T-007 |
 | A-012 | **Empirical success requires lift over declared baselines with reproducible metrics.** | Empirical, Governance | Adopted, Open | `docs/prediction-protocol.md`, `docs/09_research_automation_protocol.md`, `docs/theory-implementation-matrix.md` | Gives the project a scientific success criterion rather than a vibes-based one. | Predictions and demos become illustrative only; no strong framework-success claim should be made. | Downscope | E1–E5, I2, A1 |
 | A-013 | **Speculative design layers (e.g. axiomatic injection, potential-flow contract proposals; legacy geodesic-hydrology / geometric-transport phrasing) must remain sandboxed until they cash out in explicit models/tests.** | Governance, Speculative | Contract, Adopted | `docs/06_observer_ouroboros.md`, `docs/11_geodesic_hydrology_contracts.md`, `FOUNDATIONS.md` | Preserves ambition without letting speculative language silently become policy or “fact.” | These layers can remain in the repo, but only as roadmap/proposal material with visible labels. | Quarantine | O3, A2; T-007, T-011 |
+| A-014 | **Operational-present axioms (N1 bounded-now, N2 measurement backaction, N3 causal-admissible retrodiction) must constrain any “real now”, sensory-anchoring, or reconstruction claim.** | Physical, Modeling, Governance | Adopted, Open | `FOUNDATIONS.md`, `docs/00_sandy_chaos_blueprint.md`, `docs/02_tempo_tracer_protocol.md`, `docs/03_micro_observer_agency.md` | Prevents latency-free “now oracle” language and keeps observer-coupled inference framed as lawful forward dynamics. | Downscope to ordinary forecasting/latency effects and quarantine stronger reconstruction claims until latency/backaction assumptions are explicit. | Redirect | N1, N2, N3, C1, A2; T-001, T-002 |
 
 ---
 
@@ -94,6 +95,7 @@ A useful way to read the table is:
 - **A-006 fails** → the representation changes, but not necessarily the underlying phenomena.
 - **A-008 fails** → hyperstition becomes interpretation/UX language rather than theoretical machinery.
 - **A-010 fails** → docs or code must be corrected immediately; this is a documentation-truth problem, not a metaphysical one.
+- **A-014 fails** → claims about sensory anchoring or reconstruction must be downscoped until latency/backaction models are explicit and testable.
 
 This lets the project distinguish between:
 

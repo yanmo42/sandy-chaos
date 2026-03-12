@@ -71,6 +71,22 @@ No production claim or implementation may require operational dependence of pres
 
 Interpretation: no ontic backward-causal channel is permitted.
 
+### Operational-present axioms (N1–N3)
+
+These axioms constrain any claim involving "real now" access, observer effects, sensory anchoring, or retrodictive reconstruction.
+
+- **N1 — Bounded-now:** no observer has direct access to a latency-free global present. Observation is channel-limited, delayed, and noisy.
+- **N2 — Measurement backaction:** measurement policy may perturb future admissible dynamics (possibly weakly), so sensing and intervention are generally coupled.
+- **N3 — Causal admissibility:** prediction and retrodiction may be strong, but all physical state evolution remains forward-causal.
+
+Reference form:
+
+`y_i(τ_i) = M_i(x_{t-δ_i}, π_i) + ε_i`
+
+`x_{t+Δ} = F_Δ(x_t, a_t, η_t; Γ) + B_λ(x_t, π_t, y_t)`
+
+where `δ_i` is observer/channel latency, `π_i` is measurement policy, and `B_λ` is bounded observer-coupled backaction.
+
 ---
 
 ## 3) Information-theoretic constraints
@@ -179,6 +195,12 @@ Use these stable IDs in code, tests, and docs.
 - **O2** Explicit semantics for every new symbol
 - **O3** Non-metaphorical mapping (concept ↔ measurable/stateful construct)
 
+### Temporal-observer markers
+
+- **N1** Bounded-now access (no latency-free global present oracle)
+- **N2** Measurement-backaction acknowledgment/modeling
+- **N3** Causal-admissible prediction/retrodiction framing
+
 ### Information markers
 
 - **I1** Capacity admissibility
@@ -258,6 +280,7 @@ The following are never admissible in project-facing claims or automation behavi
 2. Claims exceeding channel/compute/energy limits without declared assumptions.
 3. Metaphorical language presented as verified mechanism.
 4. Policy promotion from speculative claims without empirical/computational support.
+5. Claims assuming latency-free direct access to a universal "real now" without explicit observer/frame/latency model.
 
 ---
 
@@ -268,6 +291,7 @@ Before accepting any non-trivial change:
 - [ ] Claims labeled (F/C/E/S)
 - [ ] At least one criterion marker satisfied and evidenced
 - [ ] No hard-marker violations (C1/I1/P1/P2)
+- [ ] If time/observer coupling is involved, N1/N2/N3 constraints are explicitly addressed
 - [ ] Theory-implementation matrix row updated
 - [ ] Reproducibility + rollback artifacts stored
 

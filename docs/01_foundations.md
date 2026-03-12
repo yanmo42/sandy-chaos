@@ -32,6 +32,28 @@ $$
 x_{t+\Delta} = F_\Delta(x_t, a_t, \eta_t)
 $$
 
+### Operational-present axioms (N1–N3)
+
+To keep causality claims and observer claims coherent, this document adopts three operational-present axioms:
+
+1. **N1 — Bounded-now:** no observer directly samples a latency-free global present. Measurements are delayed/noisy channel outputs.
+2. **N2 — Measurement backaction:** observation policy can perturb future admissible dynamics (possibly weakly), so sensing and control are coupled.
+3. **N3 — Causal admissibility:** prediction and retrodiction may be strong, but physical evolution remains forward-causal.
+
+Compactly:
+
+$$
+y_i(\tau_i)=\mathcal{M}_i\big(x_{t-\delta_i},\pi_i\big)+\epsilon_i
+$$
+
+$$
+x_{t+\Delta}=F_\Delta(x_t,a_t,\eta_t)+B_\lambda(x_t,\pi_t,y_t)
+$$
+
+where $\delta_i$ is observer/channel latency, $\pi_i$ is measurement policy, and $B_\lambda$ is bounded observer-coupled backaction.
+
+These axioms do **not** license backward-time influence; they formalize how latency and observation coupling shape lawful forward dynamics.
+
 ---
 
 ## 4) Structural back-propagation vs retrocausality

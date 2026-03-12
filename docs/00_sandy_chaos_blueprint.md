@@ -86,6 +86,24 @@ A better way to summarize the thesis is therefore not “the future acts on the 
 
 > a structured medium can make downstream constraints differentially legible to differently situated observers while all physical evolution remains forward-causal.
 
+### 3.1 Operational-present axioms (N-series)
+
+To keep this thesis mathematically disciplined, Sandy Chaos now uses three operational-present axioms:
+
+- **N1 — Bounded-now axiom:** no observer has direct access to a latency-free global present. Each observer has delayed, noisy measurements of world state.
+- **N2 — Measurement-backaction axiom:** observation policy can perturb future admissible dynamics (possibly weakly), so sensing and acting cannot be modeled as perfectly separable in general.
+- **N3 — Causal-admissibility axiom:** prediction and retrodiction may be strong, but all state evolution remains forward-causal; reconstruction never implies backward-time physical influence.
+
+A compact shared form is:
+
+$$ y_i(\tau_i)=\mathcal{M}_i\big(x_{t-\delta_i},\pi_i\big)+\epsilon_i $$
+
+$$ x_{t+\Delta}=F_\Delta(x_t,a_t,\eta_t;\Gamma)+B_\lambda(x_t,\pi_t,y_t) $$
+
+where $\delta_i$ is channel/observer latency, $\pi_i$ is measurement policy, and $B_\lambda$ is bounded observer-coupled backaction.
+
+Implication: Sandy Chaos does not model an absolute accessible $t=0$ oracle. It models a continuously updated, latency-bounded estimate of present state constrained by causal physics and evidence quality.
+
 That causal discipline is the project’s load-bearing axiom. If it fails, the project ceases to be itself.
 
 ---
@@ -291,6 +309,8 @@ This layered reading is not rhetorical modesty. It is one of the project’s mai
 The project should state ambitious goals, provided they are formulated in a way that remains lawful, falsifiable, and ontologically disciplined.
 
 Two such goals deserve explicit statement.
+
+Both are constrained by the operational-present axioms from §3.1 (N1 bounded-now, N2 measurement backaction, N3 causal admissibility).
 
 ### A) Present-world signal injection and sensory anchoring
 

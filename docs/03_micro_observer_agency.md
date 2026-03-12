@@ -67,6 +67,14 @@ $$
 \Delta L_t \propto \Phi(S_t, \text{measurement policy}, \text{feedback loop})
 $$
 
+Under the operational-present axioms (N1–N3), the observer update channel is latency-bounded and policy-conditioned:
+
+$$
+y_i(\tau_i)=\mathcal{M}_i\big(x_{t-\delta_i},\pi_i\big)+\epsilon_i
+$$
+
+This means the observer never has direct access to a global instantaneous present; it has delayed/noisy evidence streams whose interpretation depends on policy.
+
 In the shared formal layer used across **02 / 03 / 11**, this observer term is best understood as a bounded forcing/control contribution inside the transport law:
 
 $$
@@ -113,7 +121,7 @@ This is where the key distinction lives at micro scale:
 - downstream/topological structure can become locally legible upstream,
 - present systems update from local gradients carrying that structural information.
 
-That is **epistemic retro-influence**, not physical retrocausality.
+This is **epistemic retro-influence**, not physical retrocausality, and corresponds to N3 causal admissibility in the operational-present axioms.
 
 Gradient-coupled view:
 
