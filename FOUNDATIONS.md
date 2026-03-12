@@ -268,7 +268,32 @@ Every autonomous improvement cycle must execute:
 - changed files,
 - validation commands + outputs,
 - decision + rationale,
-- rollback plan/result.
+- rollback plan/result,
+- branch/lane identifier (when applicable),
+- disposition or promotion target.
+
+### Branch continuity discipline
+
+For any non-trivial branch run (implementation, research, automation, or policy-affecting analysis), the cycle must end with an explicit disposition.
+
+Recommended disposition classes:
+
+- `DROP_LOCAL`
+- `LOG_ONLY`
+- `TODO_PROMOTE`
+- `DOC_PROMOTE`
+- `POLICY_PROMOTE`
+- `ESCALATE`
+
+Silent termination is admissible only for discarded scratch work with no claimed evidence, no external effect, and no requested follow-on consequence.
+
+### Promotion admissibility
+
+Promotion into more durable surfaces (`docs/`, `WORKFLOW.md`, `FOUNDATIONS.md`, tests/config, or equivalent policy-bearing artifacts) requires:
+
+- explicit provenance,
+- an evidence-bearing rationale proportionate to consequence,
+- and a rollback or reversal path when practical.
 
 ---
 
@@ -293,6 +318,7 @@ Before accepting any non-trivial change:
 - [ ] No hard-marker violations (C1/I1/P1/P2)
 - [ ] If time/observer coupling is involved, N1/N2/N3 constraints are explicitly addressed
 - [ ] Theory-implementation matrix row updated
+- [ ] Explicit branch disposition/promotion target recorded when applicable
 - [ ] Reproducibility + rollback artifacts stored
 
 ---

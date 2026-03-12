@@ -165,7 +165,7 @@ The project gestures at this but doesn't engage with any of these works or expla
 |----------|-------|--------|--------|--------|
 | 1 | Complex entropy state needs physical derivation | High | Transforms the entire formal core | ✅ **Resolved** — `math_foundations_zf.md` §10 |
 | 2 | Show GR does actual theoretical work (not just aesthetics) | High | Justifies the project's distinctive premise | ✅ **Resolved** — `math_foundations_zf.md` §9 |
-| 3 | Specify $\mathcal{G}$ for hyperstition dynamics, analyze fixed points | Medium | First genuine novel theoretical result | ⬜ Open |
+| 3 | Specify $\mathcal{G}$ for hyperstition dynamics, analyze fixed points | Medium | First genuine novel theoretical result | 🟡 **Partial** — toy model + fixed-point classifier in `nfem_suite/intelligence/cognition/hyperstition.py`; broader literature integration still open |
 | 4 | Anchor epistemic retro-influence in existing game theory | Low | Instant credibility + clarity on what's new | ⬜ Open |
 | 5 | Three-layer time composition law | Medium | Makes the most original idea rigorous | ✅ **Resolved** — `math_foundations_zf.md` §12 |
 | 6 | Rename/rethink "tachyonic loop" claims | Low | Removes internal contradiction | ✅ **Resolved** — `math_foundations_zf.md` §11; `tachyonic_loop.py` + `complex_euler.py` updated |
@@ -183,10 +183,10 @@ The project gestures at this but doesn't engage with any of these works or expla
 - **#6 (Tachyonic loop renamed):** §11 gives correct interpretation as entropic vortex charge (topological defect detection via Cauchy theorem). Winding number ∈ ℤ. Code files `complex_euler.py` and `tachyonic_loop.py` updated with corrected docstrings; class name retained for backward compatibility.
 
 **Items partially addressed:**
+- **#3 (Hyperstition dynamics $\mathcal{G}$):** toy-model specification + fixed-point analysis scaffold added in `nfem_suite/intelligence/cognition/hyperstition.py` with tests in `tests/test_hyperstition_dynamics.py`; integration with literature lane and protocol experiments remains.
 - **#7 (Observer Φ):** §12 provides the structural form (δ-function source modulated by S_t, A_t). Concrete specification for the fluid simulation domain is future work.
 
 **Items remaining:**
-- **#3:** Hyperstition dynamics $\mathcal{G}$ — needs toy-model specification and fixed-point analysis.
 - **#4:** Epistemic retro-influence — needs anchoring in game theory literature.
 - **#8:** Entropy-causality — needs engagement with Wissner-Gross, Verlinde, Penrose, Carroll.
 
@@ -290,3 +290,22 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add helper script to initialize dated `memory/research/*` artifact bundle (`scripts/init_research_cycle.py`)
 - [x] Add verifier test that checks claim-to-source row mapping completeness (`tests/test_research_verifier.py`, `scripts/research_verifier.py`)
 - [x] Add daily automation hook to produce one research-cycle summary when active
+
+## Yggdrasil Continuity Integration (2026-03)
+
+### Documentation + governance landing (completed)
+
+- [x] Add canonical continuity doc (`docs/12_yggdrasil_continuity_architecture.md`)
+- [x] Index Yggdrasil doc in `docs/README.md`
+- [x] Add branch disposition / context-carry guidance to `WORKFLOW.md`
+- [x] Add hardened continuity rules to `FOUNDATIONS.md`
+
+### Next implementation tasks
+
+- [ ] Add explicit disposition field to orchestrator artifacts and summaries
+- [ ] Add branch outcome classes to research task contracts and daily/weekly digests
+- [ ] Add a lightweight context-carry / resume artifact helper for cross-session continuation
+- [ ] Add validation that non-trivial automation runs cannot end without a disposition
+- [ ] Define canonical promotion targets more explicitly in automation outputs (`todo`, `docs`, `workflow`, `foundations`, `tests/config`, `log-only`)
+- [ ] Map fast / meso / slow loops onto edge / bridge / spine cadence in automation docs where still implicit
+- [ ] Decide which promotion classes are safe to automate vs require human review

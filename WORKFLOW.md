@@ -284,3 +284,46 @@ python3 scripts/init_research_cycle.py --slug <topic>
 ```
 
 This keeps speed high while preserving reproducibility and claim-tier integrity.
+
+## 13) Yggdrasil continuity hygiene
+
+Reference: `docs/12_yggdrasil_continuity_architecture.md`
+
+When work branches across sessions, tools, or cadences, use these rules:
+
+1. **Name the branch purpose early**
+   - objective
+   - claim tier (when relevant)
+   - expected landing zone (`local`, `memory`, `todo`, `docs`, `workflow`, `foundations`, `tests/config`)
+
+2. **Keep edge work cheap**
+   - exploratory sessions, scratch notes, provisional scripts, and local experiments do not need immediate promotion
+   - prefer reversibility at the edge
+
+3. **End meaningful branches with an explicit disposition**
+   - `DROP_LOCAL`
+   - `LOG_ONLY`
+   - `TODO_PROMOTE`
+   - `DOC_PROMOTE`
+   - `POLICY_PROMOTE`
+   - `ESCALATE`
+
+4. **Use context carry when switching lanes or sessions**
+   Leave a short note containing:
+   - current state
+   - next step
+   - blocking unknown
+   - intended destination of the result
+
+5. **Promote conservatively toward the spine**
+   - use `plans/todo.md` for tactical work
+   - use `docs/` for canonical explanation/design
+   - use `WORKFLOW.md` for repeatable operator behavior
+   - use `FOUNDATIONS.md` only for hardened rules/constraints
+
+6. **Match cadence to consequence**
+   - fast loop = edge sensing / local adaptation
+   - meso loop = summary / routing / comparison
+   - slow loop = consolidation / policy shaping / durable continuity
+
+The goal is not bureaucracy. The goal is to let many local processes stay alive without losing the center of the project.
