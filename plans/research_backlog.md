@@ -81,7 +81,8 @@ Build a repeatable pipeline that turns scientific literature into:
 
 ### 3.1 Open theoretical priorities (from `plans/todo.md`)
 
-- [ ] Specify hyperstition update function `\mathcal{G}` with toy model + fixed-point analysis
+- [x] Specify hyperstition update function `\mathcal{G}` with toy model + fixed-point analysis (`nfem_suite/intelligence/cognition/hyperstition.py`, `tests/test_hyperstition_dynamics.py`)
+- [ ] Benchmark Nested Temporal Domains neighbor-layer transfer against all-to-all and uncoupled baselines (`docs/13_nested_temporal_domains.md`)
 - [ ] Anchor epistemic retro-influence framing in formal literature baseline
 - [ ] Advance observer read-write `\Phi` from structural placeholder to concrete fluid-domain implementation
 - [ ] Build entropy-causality literature synthesis lane (Wissner-Gross / Verlinde / Penrose / Carroll, etc.)

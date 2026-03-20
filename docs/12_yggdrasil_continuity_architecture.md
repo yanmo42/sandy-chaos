@@ -155,6 +155,8 @@ Distance from the spine is also a temporal variable.
 
 This is not a metaphorical flourish. It is an operating rule.
 
+This cadence structure can also be read as an **organizational instance of nested temporal domains**: fast / meso / slow continuity surfaces exchange summaries and constraints across adjacent bands rather than through unrestricted all-to-all coupling. In this document, however, that idea remains a continuity and governance rule, not a claim about new physics or raw shared state.
+
 ---
 
 ## 4) Mapping Yggdrasil into Sandy Chaos

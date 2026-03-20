@@ -44,7 +44,7 @@ Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
 ### Philosophy-first path
 
-- Foundations → Micro-Observer → Neuro Roadmap
+- Foundations → Micro-Observer → Nested Temporal Domains → Neuro Roadmap
 
 ---
 
@@ -54,6 +54,7 @@ The near-term roadmap emphasizes **agency as a computed physical observable**:
 
 - concrete read-write observer coupling in simulation,
 - directional temporal-frame communication metrics,
+- clearer multiscale coupling language via adjacent nested temporal domains,
 - strict claim-tier separation between defensible results and speculative interpretation.
 
 ## Documentation status policy

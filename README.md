@@ -17,6 +17,7 @@ Canonical set (compressed):
 
 Supporting:
 
+- **[13 Nested Temporal Domains](docs/13_nested_temporal_domains.md)**
 - **[Glossary](docs/glossary.md)**
 - **[Math Appendix](docs/math_appendix.md)**
 

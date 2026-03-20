@@ -96,6 +96,8 @@ This keeps the role of agency precise:
 
 This unifies physical, cognitive, and socio-technical observer effects under one formal language.
 
+When the same observer/control process is modeled across fast, meso, and slow bands, Sandy Chaos should treat those bands as **adjacent nested temporal domains** rather than as a flat stack with unrestricted access. In that reading, each band exchanges bounded encodings with its neighbors, not raw omniscient state. See **[13 Nested Temporal Domains](13_nested_temporal_domains.md)** for the cross-cutting architecture.
+
 ---
 
 ## 4) Agency and communicator types

@@ -29,6 +29,12 @@ Use a multi-timescale framing:
 - meso loops (routing and contextual alignment),
 - slow loops (goal continuity and identity-level constraints).
 
+A useful discipline rule is to treat these as **nested temporal domains** with neighbor-first coupling:
+
+- fast ↔ meso,
+- meso ↔ slow,
+- and cross-band exchange should use bounded summaries, gains, or errors rather than assumed full-state access.
+
 Neuromorphic/event-driven intuitions are useful, but should remain tied to measurable benchmarks.
 
 ---

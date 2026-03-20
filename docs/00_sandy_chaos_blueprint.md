@@ -425,13 +425,14 @@ Near-term, the priority is not ontological expansion for its own sake. It is to 
 That means:
 
 1. make the shared formal layer across `02 / 03 / 11` increasingly explicit,
-2. benchmark null vs coupled transport models,
-3. benchmark flat vs geometry-weighted formulations,
-4. benchmark endpoint-only vs path-functional evaluation,
-5. introduce present-world sensory anchors with explicit provenance/fidelity accounting,
-6. define bounded retrodictive benchmark tasks in domains with recoverable traces,
-7. keep speculative frontier docs visibly quarantined,
-8. continue aligning code/tests with the strongest defensible layer.
+2. make the fast / meso / slow layering more legible through explicit nested temporal-domain architecture and adjacency rules,
+3. benchmark null vs coupled transport models,
+4. benchmark flat vs geometry-weighted formulations,
+5. benchmark endpoint-only vs path-functional evaluation,
+6. introduce present-world sensory anchors with explicit provenance/fidelity accounting,
+7. define bounded retrodictive benchmark tasks in domains with recoverable traces,
+8. keep speculative frontier docs visibly quarantined,
+9. continue aligning code/tests with the strongest defensible layer.
 
 In short:
 

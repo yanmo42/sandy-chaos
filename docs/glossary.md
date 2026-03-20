@@ -50,6 +50,28 @@ Integrity and uncertainty metadata attached to a packet. In the current minimal 
 
 ---
 
+## Nested temporal architecture terms
+
+### Nested Temporal Domain
+A domain indexed by both role polarity and temporal band, allowed to exchange only constrained representations with adjacent domains under explicit latency, distortion, and reconstruction limits.
+
+### Role polarity
+The relational side occupied by a domain (for example observer/observed, chaser/chased, parent/child).
+
+### Temporal band
+The cadence class at which a domain updates (for example fast, meso, slow).
+
+### Polarity coupling
+Exchange between opposite-role domains at the same temporal band.
+
+### Temporal coupling
+Exchange between same-role domains at adjacent temporal bands.
+
+### Neighbor-layer codec
+The embed / extract / translate / reconstruct operator family used for bounded information transfer between adjacent domains.
+
+---
+
 ## Observer and agency terms
 
 ### Read-write observer effect
