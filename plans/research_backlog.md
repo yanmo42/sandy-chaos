@@ -91,6 +91,7 @@ Build a repeatable pipeline that turns scientific literature into:
 
 - [ ] Promote defensible results into docs with citations and failure conditions
 - [ ] Keep speculative threads in clearly labeled roadmap sections
+- [ ] Maintain the canonical split across `04` neuro evidence, `13` nested temporal domains, and `14` cognitive tempo orchestration
 - [ ] Add changelog section for claim-tier promotions/demotions
 
 ---

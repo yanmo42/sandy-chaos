@@ -14,6 +14,7 @@ Canonical set (compressed):
 - **[02 Tempo Tracer Protocol](docs/02_tempo_tracer_protocol.md)**
 - **[03 Micro-Observer & Agency](docs/03_micro_observer_agency.md)**
 - **[04 Neuro Roadmap](docs/04_neuro_roadmap.md)**
+- **[14 Cognitive Tempo Orchestration](docs/14_cognitive_tempo_orchestration.md)**
 
 Supporting:
 

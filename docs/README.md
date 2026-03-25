@@ -16,9 +16,10 @@ This documentation set is intentionally compressed into a small canonical path:
 10. **[10 Tempo Tracing Refactor Note](10_tempo_tracing_refactor_note.md)**
 11. **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)**
 12. **[12 Yggdrasil Continuity Architecture](12_yggdrasil_continuity_architecture.md)**
-13. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-14. **[Prediction Protocol](prediction-protocol.md)**
-15. **[Paradox Registry](paradox-registry.md)**
+13. **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)**
+14. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+15. **[Prediction Protocol](prediction-protocol.md)**
+16. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -40,11 +41,11 @@ Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
 ### Research path (full)
 
-- Foundations → Protocol → Micro-Observer → Neuro Roadmap → Math Appendix
+- Foundations → Protocol → Micro-Observer → Nested Temporal Domains → Neuro Roadmap → Cognitive Tempo Orchestration → Math Appendix
 
 ### Philosophy-first path
 
-- Foundations → Micro-Observer → Nested Temporal Domains → Neuro Roadmap
+- Foundations → Micro-Observer → Nested Temporal Domains → Neuro Roadmap → Cognitive Tempo Orchestration
 
 ---
 
@@ -55,6 +56,7 @@ The near-term roadmap emphasizes **agency as a computed physical observable**:
 - concrete read-write observer coupling in simulation,
 - directional temporal-frame communication metrics,
 - clearer multiscale coupling language via adjacent nested temporal domains,
+- a practical external-scaffolding lane via cognitive tempo orchestration,
 - strict claim-tier separation between defensible results and speculative interpretation.
 
 ## Documentation status policy

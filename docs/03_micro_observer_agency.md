@@ -186,7 +186,9 @@ Failure indicators:
 
 ## 9) Read next
 
-- **[04 Neuro Roadmap](04_neuro_roadmap.md)** for staged implementation strategy.
+- **[04 Neuro Roadmap](04_neuro_roadmap.md)** for the neural evidence / decoding lane.
+- **[13 Nested Temporal Domains](13_nested_temporal_domains.md)** for the multiscale coupling grammar used across fast / meso / slow bands.
+- **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)** for the bounded external scaffolding / execution-support lane.
 - **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)** for the head-field and path-functional contract layer built on top of observer-coupled transport.
 - **[Math Appendix](math_appendix.md)** for compact equation reference.
 

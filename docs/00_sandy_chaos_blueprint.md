@@ -438,6 +438,12 @@ In short:
 
 > the next task is not to claim more. It is to make the existing framework sharper, cleaner, more reality-anchored, and harder to misread.
 
+That now includes keeping the canonical split legible:
+
+- **[04 Neuro Roadmap](04_neuro_roadmap.md)** for the neural evidence / decoding lane,
+- **[13 Nested Temporal Domains](13_nested_temporal_domains.md)** for multiscale coupling grammar,
+- **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)** for the practical external scaffolding lane.
+
 ---
 
 ## 14) Reading Sandy Chaos correctly

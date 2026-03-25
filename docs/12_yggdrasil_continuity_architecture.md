@@ -286,7 +286,13 @@ Likewise, the existing fast / meso / slow cadence maps naturally onto:
 - **meso** → routing, summarization, and comparison
 - **slow** → consolidation, policy shaping, and long-horizon continuity
 
-This means Yggdrasil should be understood as an integrative architecture over mechanisms the repo already has.
+This cadence interpretation is now easier to align with the broader canonical split:
+
+- **[13 Nested Temporal Domains](13_nested_temporal_domains.md)** supplies the multiscale coupling grammar,
+- **[04 Neuro Roadmap](04_neuro_roadmap.md)** carries the neural evidence / decoding lane,
+- **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)** carries the bounded external scaffolding lane.
+
+This means Yggdrasil should be understood as an integrative continuity architecture over mechanisms the repo already has, not as a competing theory of cognition or control.
 
 ---
 
