@@ -1,0 +1,106 @@
+[
+  {
+    "source_object": "Rimuru Tempest",
+    "source_domain": "That Time I Got Reincarnated as a Slime",
+    "narrative_role": "adaptive sovereignty protagonist",
+    "core_fantasy": "growth through absorption and integration into benevolent order",
+    "signature_operators": [
+      "adaptive substrate",
+      "capability absorption",
+      "post-threshold integration",
+      "benevolent sovereignty"
+    ],
+    "constraint_pattern": "must metabolize external complexity without losing coherence",
+    "failure_modes": [
+      "power inflation without discrimination",
+      "soft-form mystique masking generic escalation"
+    ],
+    "composable_with": ["Gojo Satoru", "Doctor Strange", "Tony Stark"],
+    "excluded_domains": ["tragic paralysis", "pure nihilistic detachment"],
+    "confidence_tier": "defensible",
+    "notes": "Best treated as an adaptive substrate to coherence-organizer archetype."
+  },
+  {
+    "source_object": "Gojo Satoru",
+    "source_domain": "Jujutsu Kaisen",
+    "narrative_role": "untouchable elite guardian",
+    "core_fantasy": "inviolable superiority through asymmetry of access",
+    "signature_operators": [
+      "boundary supremacy",
+      "protected center",
+      "charismatic overmatch"
+    ],
+    "constraint_pattern": "extreme power produces distance from peers and systems",
+    "failure_modes": [
+      "detachment",
+      "overconfidence",
+      "social isolation through asymmetry"
+    ],
+    "composable_with": ["Batman", "Rimuru Tempest", "Doctor Strange"],
+    "excluded_domains": ["communal softness", "collective vulnerability"],
+    "confidence_tier": "defensible",
+    "notes": "Core operator is boundary supremacy rather than generic strength."
+  },
+  {
+    "source_object": "Rick Sanchez",
+    "source_domain": "Rick and Morty",
+    "narrative_role": "trans-context engineer-trickster",
+    "core_fantasy": "escape from any frame through corrosive intelligence",
+    "signature_operators": [
+      "frame escape",
+      "recursive tool generation",
+      "intelligence as solvent"
+    ],
+    "constraint_pattern": "competence erodes meaning and attachment",
+    "failure_modes": [
+      "nihilism",
+      "social collapse",
+      "self-poisoning through contempt"
+    ],
+    "composable_with": ["Tony Stark", "Phineas Flynn", "Rimuru Tempest"],
+    "excluded_domains": ["stable civic governance", "trustworthy moral leadership"],
+    "confidence_tier": "defensible",
+    "notes": "Useful for extracting frame-escape and tool recursion operators."
+  },
+  {
+    "source_object": "Phineas and Ferb",
+    "source_domain": "Phineas and Ferb",
+    "narrative_role": "constructive acceleration duo",
+    "core_fantasy": "joyful worldbuilding at impossible velocity",
+    "signature_operators": [
+      "innocent generative acceleration",
+      "frictionless prototyping",
+      "playful constructive agency"
+    ],
+    "constraint_pattern": "creation occurs outside ordinary institutional drag",
+    "failure_modes": [
+      "implausible execution assumptions",
+      "under-modeling maintenance and cost"
+    ],
+    "composable_with": ["Tony Stark", "Rimuru Tempest", "Spider-Man"],
+    "excluded_domains": ["trauma realism", "institutional scarcity"],
+    "confidence_tier": "defensible",
+    "notes": "A strong operator source for constructive velocity and cheerful agency."
+  },
+  {
+    "source_object": "Spider-Man",
+    "source_domain": "Marvel",
+    "narrative_role": "burdened local hero",
+    "core_fantasy": "maintaining responsibility under instability and pressure",
+    "signature_operators": [
+      "moral load-bearing",
+      "agile improvisation",
+      "human-scale heroism"
+    ],
+    "constraint_pattern": "ordinary life load constrains exceptional action",
+    "failure_modes": [
+      "overextension",
+      "guilt lock",
+      "sacrifice spiral"
+    ],
+    "composable_with": ["Batman", "Phineas and Ferb", "Doctor Strange"],
+    "excluded_domains": ["carefree domination", "pure sovereignty"],
+    "confidence_tier": "defensible",
+    "notes": "Encodes responsibility as constraint-bearing function, not just hero flair."
+  }
+]

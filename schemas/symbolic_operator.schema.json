@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yanmo42/sandy-chaos/schemas/symbolic_operator.schema.json",
+  "title": "SymbolicOperatorRecord",
+  "type": "object",
+  "required": [
+    "source_object",
+    "source_domain",
+    "narrative_role",
+    "core_fantasy",
+    "signature_operators",
+    "constraint_pattern",
+    "failure_modes",
+    "composable_with",
+    "excluded_domains",
+    "confidence_tier"
+  ],
+  "properties": {
+    "source_object": { "type": "string" },
+    "source_domain": { "type": "string" },
+    "narrative_role": { "type": "string" },
+    "core_fantasy": { "type": "string" },
+    "signature_operators": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "constraint_pattern": { "type": "string" },
+    "failure_modes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "composable_with": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "excluded_domains": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "confidence_tier": {
+      "type": "string",
+      "enum": ["defensible", "plausible", "speculative"]
+    },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}
