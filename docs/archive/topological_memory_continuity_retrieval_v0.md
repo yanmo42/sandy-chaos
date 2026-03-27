@@ -33,10 +33,22 @@ In this framing:
 
 ## Architecture role split
 - **Sandy Chaos** is the research/model engine that asks: *does this compute intelligently?*
-- **Ygg** is the control/continuity shell that later exposes checkpoint/query/promotion surfaces around validated mechanisms.
+- **Ygg** is the control/continuity shell for **planned coordination across temporal frames**. It should expose checkpoint/query/promotion surfaces around validated mechanisms rather than duplicate the research engine.
+- **Ravens** are bounded scouting/review processes commissioned by Ygg. Because they can gather evidence and touch bounded state, their outputs must return through Ygg for adjudication before any durable promotion.
+
+## Governance invariant
+- Amoeba can propose and explore.
+- Ravens can inspect and may touch bounded state.
+- Ygg commissions, receives returns, adjudicates, and controls promotion.
+- Durable repo/docs/workflow surfaces should only change through explicit promotion paths.
 
 ## Core research question
 Does topology-aware continuity retrieval outperform simpler baselines in the current ecosystem?
+
+## Win condition
+The geometry must pay rent.
+
+This direction wins only if topology-aware retrieval beats at least one flatter baseline on bounded continuity tasks **and** produces inspectable paths explaining why an artifact, checkpoint, or next action surfaced.
 
 ## Initial success criterion
 The approach should beat at least one or more of:
