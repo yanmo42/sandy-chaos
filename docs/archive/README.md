@@ -14,4 +14,8 @@ Supporting references:
 - `glossary.md`
 - `math_appendix.md`
 
+Active provisional drafts may also land here when they are intentionally bounded and not yet ready for canonical promotion. Current example:
+
+- `topological_memory_continuity_retrieval_v0.md`
+
 If content from this archive is reused, prefer extracting it into the canonical docs in compressed form (claim → rationale → minimal formalism → falsification).
