@@ -309,3 +309,13 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [ ] Define canonical promotion targets more explicitly in automation outputs (`todo`, `docs`, `workflow`, `foundations`, `tests/config`, `log-only`)
 - [ ] Map fast / meso / slow loops onto edge / bridge / spine cadence in automation docs where still implicit
 - [ ] Decide which promotion classes are safe to automate vs require human review
+
+## Topological Memory Continuity Retrieval (2026-03)
+
+- [x] Ratify bounded research draft in `docs/archive/topological_memory_continuity_retrieval_v0.md`
+- [ ] Define v0 node / edge / trace schema for bounded ecosystem topology
+- [ ] Build a ~30-query benchmark from real continuity retrieval questions
+- [ ] Add baseline retrieval scorers (keyword / recency / embedding if available)
+- [ ] Add topology-aware retriever with inspectable path output
+- [ ] Compare topology-aware retrieval against flat baselines
+- [ ] Only promote beyond archive if it beats at least one baseline with interpretable paths

@@ -94,6 +94,16 @@ Build a repeatable pipeline that turns scientific literature into:
 - [ ] Maintain the canonical split across `04` neuro evidence, `13` nested temporal domains, and `14` cognitive tempo orchestration
 - [ ] Add changelog section for claim-tier promotions/demotions
 
+### 3.3 Topological memory continuity retrieval (bounded)
+
+- [x] Land provisional ratification note in `docs/archive/topological_memory_continuity_retrieval_v0.md`
+- [ ] Freeze a v0 node / edge / trace schema for bounded ecosystem topology
+- [ ] Build a ~30-query continuity benchmark from real repo/session/checkpoint questions
+- [ ] Implement baseline retrievals: keyword, recency, and embedding (if available)
+- [ ] Implement topology-aware retrieval with inspectable path output
+- [ ] Evaluate whether promotion/disposition metadata improves retrieval quality
+- [ ] Promote only if topology-aware retrieval beats at least one flat baseline with interpretable paths
+
 ---
 
 ## Recurring operating checklist (per cycle)
@@ -114,3 +124,9 @@ Build a repeatable pipeline that turns scientific literature into:
 1. [ ] Add docs/workflow references to `research_ingestion_protocol.md`
 2. [ ] Build adapter stub for `ferroelectric-materials-project` output import
 3. [ ] Run first pilot cycle on temporal asymmetry topic and publish full artifact bundle
+
+## Topological memory next 3 tasks
+
+1. [ ] Define the v0 node / edge / trace schema
+2. [ ] Assemble the 30-query benchmark set from real continuity questions
+3. [ ] Implement baseline scorers before building the topology-aware retriever
