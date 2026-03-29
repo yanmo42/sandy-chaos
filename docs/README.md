@@ -19,9 +19,10 @@ This documentation set is intentionally compressed into a small canonical path:
 13. **[13 Nested Temporal Domains](13_nested_temporal_domains.md)**
 14. **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)**
 15. **[15 Gravitational Centers and Energistics](15_gravitational_centers_and_energistics.md)**
-16. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-17. **[Prediction Protocol](prediction-protocol.md)**
-18. **[Paradox Registry](paradox-registry.md)**
+16. **[16 Temporal Predictive Processing via Potential-Flow Contracts](16_temporal_predictive_processing.md)**
+17. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+18. **[Prediction Protocol](prediction-protocol.md)**
+19. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -44,7 +45,7 @@ Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
 ### Research path (full)
 
-- Foundations → Protocol → Micro-Observer → Nested Temporal Domains → Cognitive Tempo Orchestration → Gravitational Centers and Energistics → Neuro Roadmap → Math Appendix
+- Foundations → Protocol → Micro-Observer → Nested Temporal Domains → Potential-Flow Contracts → Temporal Predictive Processing → Cognitive Tempo Orchestration → Gravitational Centers and Energistics → Neuro Roadmap → Math Appendix
 
 ### Philosophy-first path
 
@@ -60,6 +61,7 @@ The near-term roadmap emphasizes **agency as a computed physical observable**:
 - directional temporal-frame communication metrics,
 - clearer multiscale coupling language via adjacent nested temporal domains,
 - a practical external-scaffolding lane via cognitive tempo orchestration,
+- a bridge architecture for temporal predictive processing under potential-flow constraints,
 - a cross-cutting thesis surface around effective gravitational centers and energistics,
 - strict claim-tier separation between defensible results and speculative interpretation.
 

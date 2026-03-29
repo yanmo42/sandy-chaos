@@ -12,6 +12,8 @@
 > - `docs/04_neuro_roadmap.md`
 > - `docs/05_hyperstition_temporal_bridge_analysis.md`
 > - `docs/12_yggdrasil_continuity_architecture.md`
+> - `docs/14_cognitive_tempo_orchestration.md`
+> - `docs/15_gravitational_centers_and_energistics.md`
 >
 > Claim posture:
 >
@@ -286,6 +288,10 @@ Nested Temporal Domains can be read as a **cross-cutting coupling grammar** that
 - **Yggdrasil** governs continuity, promotion, and provenance,
 - **Nested Temporal Domains** govern admissible multiscale coupling language.
 
+For the cross-cutting thesis built on top of this grammar, see:
+
+- **[15 Gravitational Centers and Energistics](15_gravitational_centers_and_energistics.md)**
+
 ---
 
 ## 7) Useful instantiations
@@ -385,3 +391,7 @@ The core commitments are simple:
 
 If this architecture proves useful, it can unify several existing Sandy Chaos threads without flattening them into mysticism.
 If it fails, it should fail cleanly by showing that the extra structure adds no explanatory or experimental value.
+
+For the bridge document that instantiates this coupling grammar as a predictive-processing architecture under explicit transfer constraints, see:
+
+- **[16 Temporal Predictive Processing via Potential-Flow Contracts](16_temporal_predictive_processing.md)**
