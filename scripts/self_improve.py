@@ -82,6 +82,7 @@ DEFAULT_PROMPTING = {
         "Do not make unrelated broad refactors.",
     ],
 }
+DEFAULT_DISPATCH_AGENT_ID = ROOT.name
 
 
 def now_dt() -> datetime:
@@ -1299,14 +1300,29 @@ def _resolve_request_message(request: dict) -> str:
     return ""
 
 
+def resolve_dispatch_agent_id() -> str:
+    cfg = load_orchestrator_config()
+    dispatch = cfg.get("dispatch", {}) if isinstance(cfg, dict) else {}
+    configured = str(dispatch.get("agentId", "")).strip() if isinstance(dispatch, dict) else ""
+    if configured:
+        return configured
+
+    env_value = os.environ.get("OPENCLAW_AGENT_ID", "").strip()
+    if env_value:
+        return env_value
+
+    return DEFAULT_DISPATCH_AGENT_ID
+
+
 def _build_dispatch_agent_payload(request: dict) -> dict:
     raw_id = str(request.get("id", "spawn")).strip() or "spawn"
     safe_id = "".join(ch.lower() if ch.isalnum() else "-" for ch in raw_id).strip("-") or "spawn"
     stamp = now_dt().strftime("%Y%m%dt%H%M%S")
+    agent_id = resolve_dispatch_agent_id()
 
     payload = {
-        "agentId": "sandy",
-        "sessionKey": f"agent:sandy:orchestrator-{safe_id}-{stamp}",
+        "agentId": agent_id,
+        "sessionKey": f"agent:{agent_id}:orchestrator-{safe_id}-{stamp}",
         "idempotencyKey": str(uuid.uuid4()),
         "message": _resolve_request_message(request),
     }

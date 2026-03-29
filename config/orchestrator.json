@@ -76,5 +76,8 @@
   "output": {
     "taskPlanJsonl": "memory/orchestrator_task_plan.jsonl",
     "cycleSummary": "memory/orchestrator_cycle_summary.md"
+  },
+  "dispatch": {
+    "agentId": "sandy-chaos"
   }
 }
