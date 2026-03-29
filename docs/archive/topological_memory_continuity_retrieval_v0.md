@@ -121,6 +121,13 @@ For each query, compare:
 Benchmark query set is now seeded at:
 - `memory/research/topological-memory-v0/benchmark_queries_v0.json` (30 continuity questions)
 
+Baseline runner surface:
+- `scripts/topological_memory_v0.py`
+- `nfem_suite/intelligence/ygg/topological_memory.py`
+- current report sink: `memory/research/topological-memory-v0/baseline_report_v0.json`
+
+Embedding baseline is optional and currently reports unavailable when `sentence-transformers` is not installed.
+
 Score:
 - retrieval accuracy
 - usefulness

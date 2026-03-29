@@ -67,7 +67,9 @@
             "task",
             "workflow",
             "state",
-            "concept"
+            "concept",
+            "spine-concept",
+            "spine-pressure"
           ]
         },
         "surface": { "$ref": "#/$defs/surface" },
@@ -161,12 +163,17 @@
             "create",
             "edit",
             "review",
+            "pressure",
             "checkpoint",
             "promote",
+            "promotion",
+            "test",
             "test_run",
+            "todo",
             "resume",
             "retrieval_hit",
-            "retrieval_miss"
+            "retrieval_miss",
+            "run"
           ]
         },
         "timestamp": {
