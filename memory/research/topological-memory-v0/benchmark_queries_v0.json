@@ -1,0 +1,249 @@
+{
+  "schema_version": "topological-memory-queries-v0",
+  "generated_at": "2026-03-29T00:16:00Z",
+  "notes": "Task #2 benchmark set: 30 real continuity retrieval questions over current Sandy Chaos/Ygg surfaces.",
+  "queries": [
+    {
+      "id": "Q-001",
+      "question": "Where is the bounded topological-memory thesis currently defined?",
+      "category": "origin_trace",
+      "difficulty": "easy",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_TOPO_DRAFT"]
+    },
+    {
+      "id": "Q-002",
+      "question": "Which TODO surface currently tracks the execution steps for topological memory?",
+      "category": "resume_next",
+      "difficulty": "easy",
+      "time_horizon": "meso",
+      "expected_nodes": ["N_PLAN_TODO"]
+    },
+    {
+      "id": "Q-003",
+      "question": "Where in the research backlog is the topological-memory lane listed?",
+      "category": "origin_trace",
+      "difficulty": "easy",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_PLAN_RESEARCH_BACKLOG"]
+    },
+    {
+      "id": "Q-004",
+      "question": "What concept artifact tracks topological-memory claim tiers and failure conditions?",
+      "category": "origin_trace",
+      "difficulty": "medium",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_SPINE_CONCEPT_TM"]
+    },
+    {
+      "id": "Q-005",
+      "question": "Which pressure review required schema + benchmark + baselines before promotion?",
+      "category": "policy_context",
+      "difficulty": "medium",
+      "time_horizon": "meso",
+      "expected_nodes": ["N_SPINE_PRESSURE_TM_20260328_03"]
+    },
+    {
+      "id": "Q-006",
+      "question": "Which document defines the canonical Ygg continuity architecture?",
+      "category": "policy_context",
+      "difficulty": "easy",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_YGG_ARCH"]
+    },
+    {
+      "id": "Q-007",
+      "question": "What CLI surface provides status/checkpoint/promote for continuity operations?",
+      "category": "checkpoint_lookup",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_SCRIPT_YGG"]
+    },
+    {
+      "id": "Q-008",
+      "question": "Where is the continuity checkpoint helper implementation for Ygg?",
+      "category": "dependency_path",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_CODE_YGG_CONTINUITY"]
+    },
+    {
+      "id": "Q-009",
+      "question": "Which test validates write/load checkpoint behavior for the Ygg continuity helpers?",
+      "category": "validation_surface",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_TEST_YGG"]
+    },
+    {
+      "id": "Q-010",
+      "question": "What script should run the topological-memory v0 benchmark end-to-end?",
+      "category": "resume_next",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_SCRIPT_TM_BENCH"]
+    },
+    {
+      "id": "Q-011",
+      "question": "Where is the topology-aware retrieval scorer implementation located?",
+      "category": "dependency_path",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_CODE_TM_MODULE"]
+    },
+    {
+      "id": "Q-012",
+      "question": "Which test suite validates graph loading, baselines, and topology scoring?",
+      "category": "validation_surface",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_TEST_TM_MODULE"]
+    },
+    {
+      "id": "Q-013",
+      "question": "What schema file defines the node/edge/trace graph contract for v0?",
+      "category": "checkpoint_lookup",
+      "difficulty": "easy",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_SCHEMA_GRAPH_V0"]
+    },
+    {
+      "id": "Q-014",
+      "question": "What schema file defines the benchmark query contract for v0?",
+      "category": "checkpoint_lookup",
+      "difficulty": "easy",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_SCHEMA_QUERIES_V0"]
+    },
+    {
+      "id": "Q-015",
+      "question": "Where is the protocol for pre-registration and scoring of predictive claims?",
+      "category": "policy_context",
+      "difficulty": "medium",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_PREDICTION_PROTOCOL"]
+    },
+    {
+      "id": "Q-016",
+      "question": "Which doc catalogs paradox stress tests for informational and causal edge cases?",
+      "category": "policy_context",
+      "difficulty": "medium",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_PARADOX_REGISTRY"]
+    },
+    {
+      "id": "Q-017",
+      "question": "Where is the theory-to-implementation evidence ledger documented?",
+      "category": "origin_trace",
+      "difficulty": "medium",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_THEORY_MATRIX"]
+    },
+    {
+      "id": "Q-018",
+      "question": "What script checks claim-to-source mapping completeness in research syntheses?",
+      "category": "validation_surface",
+      "difficulty": "easy",
+      "time_horizon": "meso",
+      "expected_nodes": ["N_SCRIPT_RESEARCH_VERIFIER"]
+    },
+    {
+      "id": "Q-019",
+      "question": "Which tests confirm the research verifier behavior?",
+      "category": "validation_surface",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_TEST_RESEARCH_VERIFIER"]
+    },
+    {
+      "id": "Q-020",
+      "question": "Which workflow document ties together automation protocol and continuity hygiene?",
+      "category": "policy_context",
+      "difficulty": "medium",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_WORKFLOW"]
+    },
+    {
+      "id": "Q-021",
+      "question": "What script builds lane-aware task contracts from TODO surfaces?",
+      "category": "dependency_path",
+      "difficulty": "medium",
+      "time_horizon": "meso",
+      "expected_nodes": ["N_SCRIPT_AUTOMATION_ORCH"]
+    },
+    {
+      "id": "Q-022",
+      "question": "What script dispatches orchestrator task contracts through the gateway bridge?",
+      "category": "dependency_path",
+      "difficulty": "medium",
+      "time_horizon": "meso",
+      "expected_nodes": ["N_SCRIPT_ORCH_AUTOSPAWN"]
+    },
+    {
+      "id": "Q-023",
+      "question": "What script drives daily/weekly cadence summaries for self-improvement loops?",
+      "category": "dependency_path",
+      "difficulty": "medium",
+      "time_horizon": "meso",
+      "expected_nodes": ["N_SCRIPT_SELF_IMPROVE"]
+    },
+    {
+      "id": "Q-024",
+      "question": "Where are Ygg checkpoints persisted for continuity traces?",
+      "category": "checkpoint_lookup",
+      "difficulty": "easy",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_STATE_YGG_CHECKPOINTS"]
+    },
+    {
+      "id": "Q-025",
+      "question": "If resuming topological-memory execution right now, which planning artifact should be opened first?",
+      "category": "resume_next",
+      "difficulty": "medium",
+      "time_horizon": "meso",
+      "expected_nodes": ["N_PLAN_TODO"],
+      "expected_any_nodes": ["N_PLAN_RESEARCH_BACKLOG", "N_DOC_TOPO_DRAFT"]
+    },
+    {
+      "id": "Q-026",
+      "question": "Which artifact should anchor promotion decisions before moving topological-memory claims out of archive?",
+      "category": "promotion_target",
+      "difficulty": "hard",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_TOPO_DRAFT"],
+      "expected_any_nodes": ["N_PLAN_TODO", "N_PLAN_RESEARCH_BACKLOG"]
+    },
+    {
+      "id": "Q-027",
+      "question": "Where is the governance invariant for Amoeba, Ravens, and Ygg currently written?",
+      "category": "policy_context",
+      "difficulty": "hard",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_TOPO_DRAFT"]
+    },
+    {
+      "id": "Q-028",
+      "question": "What implementation-and-test pair currently grounds the topology-aware retriever?",
+      "category": "validation_surface",
+      "difficulty": "medium",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_CODE_TM_MODULE", "N_TEST_TM_MODULE"]
+    },
+    {
+      "id": "Q-029",
+      "question": "Which two governance surfaces should be consulted together for continuity policy and operational workflow?",
+      "category": "policy_context",
+      "difficulty": "hard",
+      "time_horizon": "slow",
+      "expected_nodes": ["N_DOC_YGG_ARCH", "N_WORKFLOW"]
+    },
+    {
+      "id": "Q-030",
+      "question": "Before generating benchmark reports, which schema contracts should be validated first?",
+      "category": "checkpoint_lookup",
+      "difficulty": "medium",
+      "time_horizon": "fast",
+      "expected_nodes": ["N_SCHEMA_GRAPH_V0", "N_SCHEMA_QUERIES_V0"]
+    }
+  ]
+}

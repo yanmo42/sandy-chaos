@@ -118,6 +118,9 @@ For each query, compare:
 - embedding baseline (if available)
 - topological memory model
 
+Benchmark query set is now seeded at:
+- `memory/research/topological-memory-v0/benchmark_queries_v0.json` (30 continuity questions)
+
 Score:
 - retrieval accuracy
 - usefulness
