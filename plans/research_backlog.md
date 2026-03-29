@@ -102,7 +102,7 @@ Build a repeatable pipeline that turns scientific literature into:
 - [x] Implement baseline retrievals: keyword, recency, and embedding (if available) (`nfem_suite/intelligence/ygg/topological_memory.py`; embedding baseline reports unavailable when backend is missing)
 - [x] Implement topology-aware retrieval with inspectable path output (`nfem_suite/intelligence/ygg/topological_memory.py`, inspect mode in `scripts/topological_memory_v0.py`)
 - [ ] Evaluate whether promotion/disposition metadata improves retrieval quality
-- [ ] Promote only if topology-aware retrieval beats at least one flat baseline with interpretable paths
+- [x] Promote only if topology-aware retrieval beats at least one flat baseline with interpretable paths (`memory/research/topological-memory-v0/promotion_gate_v0.md`, `docs/notes/topological_memory_v0_provisional_validation.md`)
 
 ---
 

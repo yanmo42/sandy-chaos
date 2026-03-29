@@ -1,7 +1,10 @@
 # Topological Memory for Continuity Retrieval (v0)
 
 ## Status
-Research draft
+Research draft (source thesis) with provisional promotion gate passed.
+
+See provisional validation note:
+- `docs/notes/topological_memory_v0_provisional_validation.md`
 
 ## Date
 2026-03-27

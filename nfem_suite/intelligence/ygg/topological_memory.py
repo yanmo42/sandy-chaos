@@ -180,6 +180,7 @@ class GraphBundle:
     nodes: dict[str, TopologyNode]
     edges: list[TopologyEdge]
     traces: list[TopologyTrace]
+    reference_time: datetime | None = None
 
     def __post_init__(self) -> None:
         self._adjacency = self._build_adjacency()
@@ -194,7 +195,7 @@ class GraphBundle:
         return dict(adjacency)
 
     def _compute_node_trace_weight(self) -> dict[str, float]:
-        now = datetime.now(UTC)
+        now = self.reference_time if self.reference_time is not None else datetime.now(UTC)
         out: dict[str, float] = defaultdict(float)
 
         for trace in self.traces:
@@ -292,6 +293,7 @@ def load_graph_bundle(path: str | Path) -> GraphBundle:
     node_records = payload.get("nodes", [])
     edge_records = payload.get("edges", [])
     trace_records = payload.get("traces", [])
+    reference_time_raw = payload.get("generated_at")
 
     if not isinstance(node_records, list) or not isinstance(edge_records, list) or not isinstance(trace_records, list):
         raise ValueError("graph payload must contain list fields: nodes, edges, traces")
@@ -325,7 +327,8 @@ def load_graph_bundle(path: str | Path) -> GraphBundle:
         if trace.subject_type == "edge" and trace.subject_id not in edge_map:
             raise ValueError(f"trace {trace.id} references missing edge")
 
-    return GraphBundle(nodes=node_map, edges=edges, traces=traces)
+    reference_time = _parse_dt(str(reference_time_raw)) if reference_time_raw else None
+    return GraphBundle(nodes=node_map, edges=edges, traces=traces, reference_time=reference_time)
 
 
 def load_benchmark_queries(path: str | Path) -> list[BenchmarkQuery]:

@@ -90,6 +90,7 @@ class TestTopologicalMemory(unittest.TestCase):
             graph = load_graph_bundle(graph_path)
             queries = load_benchmark_queries(query_path)
             report = evaluate_queries(graph, queries, top_k=2, include_topology=True, include_embedding=True)
+            report_repeat = evaluate_queries(graph, queries, top_k=2, include_topology=True, include_embedding=True)
 
             self.assertIn("keyword", report["baselines"])
             self.assertIn("recency", report["baselines"])
@@ -105,6 +106,10 @@ class TestTopologicalMemory(unittest.TestCase):
             self.assertIn("path_summary", topology_rows[0])
             self.assertIn("path_nodes", topology_rows[0])
             self.assertIn("path_edges", topology_rows[0])
+
+            topology_rows_repeat = report_repeat["baselines"]["topology"]["ranked_results"]["Q1"]
+            self.assertEqual(topology_rows[0]["node_id"], topology_rows_repeat[0]["node_id"])
+            self.assertAlmostEqual(topology_rows[0]["score"], topology_rows_repeat[0]["score"], places=12)
 
             embedding = report["baselines"]["embedding"]
             if embedding.get("available") is False:
