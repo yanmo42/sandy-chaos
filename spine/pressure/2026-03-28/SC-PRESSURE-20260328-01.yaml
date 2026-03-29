@@ -1,0 +1,15 @@
+id: SC-PRESSURE-20260328-01
+date: 2026-03-28
+concepts:
+  - SC-CONCEPT-0003
+kind: toy-model-evaluation
+summary: Hyperstition dynamics received a first executable toy-model scaffold plus tests for fixed-point classification behavior.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - nfem_suite/intelligence/cognition/hyperstition.py
+  - tests/test_hyperstition_dynamics.py
+findings:
+  - the concept now has executable structure rather than purely narrative framing
+  - broader validation against null narrative-free baselines remains open
+next_action: add null-model comparison and regime-scan reporting before promoting the concept further

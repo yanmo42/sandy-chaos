@@ -1,0 +1,16 @@
+id: SC-PRESSURE-20260328-02
+date: 2026-03-28
+concepts:
+  - SC-CONCEPT-0005
+kind: architecture-review
+summary: Continuity governance review concluded that disposition capture should be explicit and spine-centered rather than fragmented across informal notes.
+result: partial-support
+disposition: YGG_BRIDGE
+evidence:
+  - docs/12_yggdrasil_continuity_architecture.md
+  - WORKFLOW.md
+  - FOUNDATIONS.md
+findings:
+  - the concept is strong enough to govern branch hygiene now
+  - the long-term operational authority should still converge toward Ygg rather than remain duplicated indefinitely
+next_action: add disposition fields and promotion targets to Sandy Chaos orchestrator artifacts while preserving Ygg as the long-term control-plane home

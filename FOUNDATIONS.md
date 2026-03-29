@@ -270,7 +270,8 @@ Every autonomous improvement cycle must execute:
 - decision + rationale,
 - rollback plan/result,
 - branch/lane identifier (when applicable),
-- disposition or promotion target.
+- disposition or promotion target,
+- spine linkage (`concept_id`, `pressure_event_id`, and/or `promotion_event_id`) when the work materially affects a tracked concept.
 
 ### Branch continuity discipline
 
@@ -294,6 +295,16 @@ Promotion into more durable surfaces (`docs/`, `WORKFLOW.md`, `FOUNDATIONS.md`, 
 - explicit provenance,
 - an evidence-bearing rationale proportionate to consequence,
 - and a rollback or reversal path when practical.
+
+### Spine governance rule
+
+When a concept becomes important enough to influence architecture, canonical docs, automation policy, or cross-surface continuity, it should no longer live only as scattered prose.
+
+At that point it should be represented in the repo spine with:
+- a **concept node** (`spine/concepts/*.yaml`)
+- at least one **pressure** or **promotion** record when a meaningful evaluation or state transition occurs
+
+This is the project's lightweight mechanism for keeping concept evolution inspectable.
 
 ---
 
@@ -328,3 +339,4 @@ Before accepting any non-trivial change:
 - `docs/01_foundations.md` explains conceptual basis and causal framing.
 - This `FOUNDATIONS.md` is the **formal governance contract** for automation and implementation rigor.
 - `docs/theory-implementation-matrix.md` is the operational traceability ledger.
+- `spine/README.md` defines the concept / pressure / promotion spine for repo-level intellectual state tracking.

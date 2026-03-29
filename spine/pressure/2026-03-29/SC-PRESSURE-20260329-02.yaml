@@ -1,0 +1,18 @@
+id: SC-PRESSURE-20260329-02
+date: 2026-03-29
+concepts:
+  - SC-CONCEPT-0003
+kind: workflow-review
+summary: Lane re-evaluation of hyperstition-policy-attractor-dynamics confirmed executable scaffolding but retained a falsification gap around narrative-off baselines.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - spine/concepts/SC-CONCEPT-0003.yaml
+  - docs/05_hyperstition_temporal_bridge_analysis.md
+  - nfem_suite/intelligence/cognition/hyperstition.py
+  - tests/test_hyperstition_dynamics.py
+findings:
+  - concept now carries an explicit next_test field aligned to null-model comparison needs
+  - current evidence supports plausibility but not defensible promotion
+  - disposition remained stable with prior pressure event outputs
+next_action: implement narrative-on versus narrative-off sweep reporting and attach quantitative regime-separation metrics

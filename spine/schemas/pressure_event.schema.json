@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sandy-chaos.local/spine/pressure_event.schema.json",
+  "title": "Sandy Chaos Pressure Event",
+  "type": "object",
+  "required": ["id", "date", "concepts", "kind", "summary", "result", "disposition", "evidence", "next_action"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^SC-PRESSURE-[0-9]{8}-[0-9]{2}$"},
+    "date": {"type": "string", "format": "date"},
+    "concepts": {"type": "array", "items": {"type": "string", "pattern": "^SC-CONCEPT-[0-9]{4}$"}, "minItems": 1},
+    "kind": {"type": "string", "enum": ["doc-critique", "toy-model-evaluation", "simulation-run", "test-review", "architecture-review", "promotion-review", "literature-pressure", "workflow-review"]},
+    "summary": {"type": "string", "minLength": 1},
+    "result": {"type": "string", "enum": ["support", "partial-support", "contradiction", "insufficient-evidence", "refinement-needed"]},
+    "disposition": {"type": "string", "enum": ["KEEP_EXPLORING", "REVISE", "ARCHIVE", "DOC_PROMOTE", "CODE_PROMOTE", "TEST_PROMOTE", "MERGE_INTO_EXISTING", "YGG_BRIDGE", "NEEDS_FALSIFICATION", "WAITING_ON_EVIDENCE", "KILL"]},
+    "evidence": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "findings": {"type": "array", "items": {"type": "string"}, "default": []},
+    "next_action": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

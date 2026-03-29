@@ -1,0 +1,26 @@
+id: SC-CONCEPT-0005
+name: ygg-continuity-disposition-model
+summary: Meaningful branches should terminate with explicit dispositions, promotion targets, and context-carry artifacts so continuity survives across sessions and cadences.
+lane: continuity
+tags:
+  - ygg
+  - continuity
+  - governance
+claim_tier: defensible
+status: validated-partial
+depends_on: []
+documented_in:
+  - docs/12_yggdrasil_continuity_architecture.md
+  - WORKFLOW.md
+  - FOUNDATIONS.md
+implemented_in: []
+tested_by: []
+contradicts: []
+failure_conditions:
+  - branch outputs continue to end silently without reliable disposition capture
+  - promotion targets remain ambiguous enough that governance fragments across surfaces
+next_test: run three non-trivial orchestrator branches and confirm each terminates with explicit disposition plus promotion target fields
+next_action: add explicit disposition fields to orchestrator outputs and summaries, then validate that non-trivial runs cannot terminate without one
+promotion_target: ygg-bridge
+owner_surface: shared-with-ygg
+notes: Operational home is likely Ygg long-term, but Sandy Chaos still needs the bridge semantics locally.

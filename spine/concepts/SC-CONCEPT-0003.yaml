@@ -1,0 +1,28 @@
+id: SC-CONCEPT-0003
+name: hyperstition-policy-attractor-dynamics
+summary: Narrative expectation can alter action selection and produce stable or unstable policy trajectories without requiring ontic backward causation.
+lane: formalization
+tags:
+  - hyperstition
+  - cognition
+  - control
+claim_tier: plausible
+status: pressure-testing
+depends_on:
+  - SC-CONCEPT-0001
+documented_in:
+  - docs/05_hyperstition_temporal_bridge_analysis.md
+implemented_in:
+  - nfem_suite/intelligence/cognition/hyperstition.py
+  - scripts/hyperstition_phase_sweep.py
+tested_by:
+  - tests/test_hyperstition_dynamics.py
+contradicts: []
+failure_conditions:
+  - toy-model dynamics show no meaningful regime distinction beyond baseline controller behavior
+  - narrative state contributes no measurable explanatory or predictive gain
+next_test: run narrative-on vs narrative-off sweeps with matched initialization and report regime differences plus failure envelopes
+next_action: add null-model comparison plus bifurcation-oriented reporting so the claim can move from named idea to pressure-bearing result
+promotion_target: code/experiment
+owner_surface: sandy-chaos
+notes: Partial executable support exists, but literature anchoring and stronger validation are still open.

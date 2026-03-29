@@ -1,0 +1,20 @@
+id: SC-PRESSURE-20260329-01
+date: 2026-03-29
+concepts:
+  - SC-CONCEPT-0007
+kind: workflow-review
+summary: First end-to-end manual execution of concept pressure lane v1 produced a lane spec, reusable concept template, and seed concept packet with explicit next-test framing.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - plans/concept-pressure-lane-v1.md
+  - templates/spine_concept_packet_v1.yaml
+  - spine/concepts/SC-CONCEPT-0007.yaml
+  - scripts/spine_validate.py
+  - scripts/spine_common.py
+  - spine/pressure/2026-03-29/SC-PRESSURE-20260329-01-report.md
+findings:
+  - stage contracts are explicit enough for repeatable manual execution
+  - adding missing_assumptions and next_test fields reduces planner ambiguity
+  - disposition quality now depends on cross-concept consistency checks rather than one-off confidence
+next_action: run at least two existing concepts through the same lane and evaluate disposition consistency before any promotion-level automation

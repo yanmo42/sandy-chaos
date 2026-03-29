@@ -1,0 +1,14 @@
+id: SC-PRESSURE-20260328-03
+date: 2026-03-28
+concepts:
+  - SC-CONCEPT-0004
+kind: promotion-review
+summary: Topological memory continuity retrieval remains promising but should stay in archive/draft state until benchmarked against flat baselines.
+result: refinement-needed
+disposition: NEEDS_FALSIFICATION
+evidence:
+  - docs/archive/topological_memory_continuity_retrieval_v0.md
+findings:
+  - concept framing is rich enough to justify structured tracking
+  - promotion would currently outrun evidence
+next_action: define schema plus benchmark set and compare against at least one baseline retriever

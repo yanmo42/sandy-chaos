@@ -7,6 +7,7 @@ Focused sandbox for exploring **Tempo Tracer**: causality-preserving, relativist
 Start here:
 
 - **[Docs index](docs/README.md)** ← reading paths + structure
+- **[Spine README](spine/README.md)** ← concept / pressure / promotion governance
 
 Canonical set (compressed):
 
@@ -53,6 +54,31 @@ This project intentionally distinguishes between:
 - **Speculative extensions** (future engineering scenarios)
 
 See `docs/01_foundations.md` for assumptions and claim boundaries, and `docs/02_tempo_tracer_protocol.md` for constraints + falsification metrics.
+
+## Spine governance
+
+Sandy Chaos now includes a lightweight **spine** under `spine/`.
+
+The spine tracks:
+- **concept nodes** — what meaningful ideas/units currently exist
+- **pressure events** — what happened when those concepts were challenged or evaluated
+- **promotion events** — what became more durable, moved, merged, or was redirected
+
+This repo is not just a pile of notes and scripts.
+It is meant to preserve an inspectable relationship between:
+- concepts
+- docs
+- code
+- tests
+- evidence
+- disposition outcomes
+
+Quick spine commands:
+
+```bash
+python3 scripts/spine_report.py
+python3 scripts/spine_validate.py
+```
 
 ## License
 

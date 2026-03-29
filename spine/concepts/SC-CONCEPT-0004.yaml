@@ -1,0 +1,25 @@
+id: SC-CONCEPT-0004
+name: topological-memory-continuity-retrieval
+summary: Continuity retrieval can improve when memory items are treated as nodes, traces, and bounded path structures rather than flat unranked text chunks.
+lane: continuity
+tags:
+  - memory
+  - topology
+  - retrieval
+claim_tier: plausible
+status: draft
+depends_on:
+  - SC-CONCEPT-0001
+documented_in:
+  - docs/archive/topological_memory_continuity_retrieval_v0.md
+implemented_in: []
+tested_by: []
+contradicts: []
+failure_conditions:
+  - topology-aware retrieval fails to beat at least one flat baseline on a real continuity benchmark
+  - path outputs are not interpretable enough to justify added complexity
+next_test: score topology-aware retrieval against keyword and recency baselines on at least 20 continuity prompts with trace readability checks
+next_action: define the v0 node/edge/trace schema and build a small benchmark against keyword/recency baselines
+promotion_target: docs/archive
+owner_surface: sandy-chaos
+notes: Do not promote beyond archive until it beats a baseline with inspectable paths.

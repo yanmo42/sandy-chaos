@@ -1,0 +1,24 @@
+id: SC-CONCEPT-0001
+name: nested-temporal-domains
+summary: Multi-timescale coupling grammar that organizes Sandy Chaos reasoning across adjacent temporal layers without violating bounded-now and forward-causal constraints.
+lane: theory
+tags:
+  - temporal-domains
+  - multiscale
+  - coupling
+claim_tier: plausible
+status: canonical
+depends_on: []
+documented_in:
+  - docs/13_nested_temporal_domains.md
+  - docs/01_foundations.md
+implemented_in: []
+tested_by: []
+contradicts: []
+failure_conditions:
+  - adjacent-layer framing adds no predictive or organizational advantage over flat single-timescale descriptions
+  - coupling language cannot be mapped back to explicit observer/channel/state primitives
+next_action: link the domain grammar to at least one executable experiment or evaluation harness
+promotion_target: docs/canonical
+owner_surface: sandy-chaos
+notes: Good candidate for concept-graph centrality tracking because many newer lanes appear to depend on it implicitly.

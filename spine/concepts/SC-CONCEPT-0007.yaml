@@ -1,0 +1,32 @@
+id: SC-CONCEPT-0007
+name: concept-pressure-lane-v1
+summary: A bounded planner-builder-verifier-reporter lane can convert raw Sandy Chaos concepts into inspectable packets with explicit disposition and promotion logic.
+lane: automation
+tags:
+  - spine
+  - pressure-lane
+  - governance
+claim_tier: plausible
+status: pressure-testing
+depends_on:
+  - SC-CONCEPT-0002
+  - SC-CONCEPT-0005
+documented_in:
+  - plans/concept-pressure-lane-v1.md
+  - spine/README.md
+implemented_in:
+  - scripts/spine_validate.py
+  - scripts/spine_common.py
+tested_by: []
+contradicts: []
+failure_conditions:
+  - repeated runs on similar concepts produce inconsistent dispositions without evidence-traceable causes
+  - verifier gates allow promotion-oriented outputs without explicit failure conditions and next-test framing
+missing_assumptions:
+  - operators will consistently supply honest failure conditions rather than post-hoc confidence language
+  - evidence links remain stable and auditable across branch and refactor changes
+next_test: run SC-CONCEPT-0003 and SC-CONCEPT-0006 through the same lane and compare disposition consistency
+next_action: execute two additional pressure events and tighten verifier warnings based on disagreement patterns
+promotion_target: workflow
+owner_surface: sandy-chaos
+notes: Seed concept created during first manual lane execution on 2026-03-29.
