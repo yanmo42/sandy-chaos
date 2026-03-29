@@ -53,6 +53,7 @@ DEFAULT_PROMPTING = {
         "Do not make unrelated broad refactors.",
     ],
 }
+DEFAULT_DISPATCH_AGENT_ID = ROOT.name
 
 
 def now_iso() -> str:
@@ -237,16 +238,35 @@ def resolve_openclaw_command() -> list[str]:
     return []
 
 
+def resolve_dispatch_agent_id() -> str:
+    try:
+        if ORCH_CONFIG.exists():
+            cfg = json.loads(ORCH_CONFIG.read_text(encoding="utf-8"))
+            dispatch = cfg.get("dispatch", {}) if isinstance(cfg, dict) else {}
+            configured = str(dispatch.get("agentId", "")).strip() if isinstance(dispatch, dict) else ""
+            if configured:
+                return configured
+    except Exception:
+        pass
+
+    env_value = os.environ.get("OPENCLAW_AGENT_ID", "").strip()
+    if env_value:
+        return env_value
+
+    return DEFAULT_DISPATCH_AGENT_ID
+
+
 def _build_dispatch_agent_call(req: dict) -> dict:
     """Build a Gateway `agent` call payload from a spawn request."""
     spawn = req.get("spawn", {}) if isinstance(req, dict) else {}
     raw_id = str(req.get("id", "spawn")).strip() or "spawn"
     safe_id = "".join(ch.lower() if ch.isalnum() else "-" for ch in raw_id).strip("-") or "spawn"
     stamp = datetime.now().strftime("%Y%m%dt%H%M%S")
+    agent_id = resolve_dispatch_agent_id()
 
     payload = {
-        "agentId": "sandy",
-        "sessionKey": f"agent:sandy:orchestrator-{safe_id}-{stamp}",
+        "agentId": agent_id,
+        "sessionKey": f"agent:{agent_id}:orchestrator-{safe_id}-{stamp}",
         "idempotencyKey": str(uuid.uuid4()),
         "message": str(spawn.get("task", "")).strip(),
     }

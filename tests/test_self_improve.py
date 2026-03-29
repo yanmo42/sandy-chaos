@@ -183,6 +183,27 @@ class SelfImprovePromptingConfigTests(unittest.TestCase):
         payload = self_improve._build_dispatch_agent_payload(request)
         self.assertIn("Improve prompt renderer", payload["message"])
 
+    def test_build_dispatch_payload_uses_configured_agent_id(self):
+        request = {
+            "id": "spawn-01",
+            "lane": "sandy-builder",
+            "spawn": {"task": "Do the thing"},
+        }
+
+        with tempfile.TemporaryDirectory() as td:
+            cfg_path = Path(td) / "orchestrator.json"
+            cfg_path.write_text(json.dumps({"dispatch": {"agentId": "sandy-chaos"}}), encoding="utf-8")
+
+            original = self_improve.ORCHESTRATOR_CONFIG_PATH
+            try:
+                self_improve.ORCHESTRATOR_CONFIG_PATH = cfg_path
+                payload = self_improve._build_dispatch_agent_payload(request)
+            finally:
+                self_improve.ORCHESTRATOR_CONFIG_PATH = original
+
+        self.assertEqual(payload["agentId"], "sandy-chaos")
+        self.assertTrue(payload["sessionKey"].startswith("agent:sandy-chaos:orchestrator-"))
+
 
 class SelfImproveValidationConfigTests(unittest.TestCase):
     def test_resolve_validation_runtime_uses_orchestrator_config(self):

@@ -64,6 +64,22 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
 
 
 class OrchestratorAutospawnDispatchTests(unittest.TestCase):
+    def test_build_dispatch_agent_call_uses_configured_agent_id(self):
+        req = {"id": "spawn-01", "lane": "sandy-builder", "spawn": {"runtime": "subagent", "task": "x"}}
+
+        with tempfile.TemporaryDirectory() as td:
+            cfg = Path(td) / "orchestrator.json"
+            cfg.write_text(json.dumps({"dispatch": {"agentId": "sandy-chaos"}}), encoding="utf-8")
+            original = orchestrator_autospawn.ORCH_CONFIG
+            try:
+                orchestrator_autospawn.ORCH_CONFIG = cfg
+                payload = orchestrator_autospawn._build_dispatch_agent_call(req)
+            finally:
+                orchestrator_autospawn.ORCH_CONFIG = original
+
+        self.assertEqual(payload["agentId"], "sandy-chaos")
+        self.assertTrue(payload["sessionKey"].startswith("agent:sandy-chaos:orchestrator-"))
+
     def test_dispatch_uses_agent_gateway_call(self):
         requests = [{"id": "spawn-01", "lane": "sandy-builder", "spawn": {"runtime": "subagent", "task": "x"}}]
 

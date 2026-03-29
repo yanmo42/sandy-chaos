@@ -61,7 +61,7 @@ v1 adds a coordinator prep step that generates explicit task contracts for OpenC
 ### Files
 
 - `config/agents.json` — lane definitions (planner/builder/verifier/reporter), model pinned to `openai-codex/gpt-5.3-codex`
-- `config/orchestrator.json` — selection policy, gates, output paths
+- `config/orchestrator.json` — selection policy, gates, output paths, and dispatch target agent
 - `scripts/automation_orchestrator.py` — builds task plan JSONL + cycle summary
 
 ### Run
@@ -157,6 +157,15 @@ Task prompt structure is also config-driven in `config/orchestrator.json` under:
 - `prompting.forbidden`
 
 `orchestrator_autospawn.py` renders subagent contract prompts from this schema, and `self_improve.py` can re-render from `prompt_context` during dispatch if needed.
+
+### Dispatch target source of truth
+
+Gateway agent dispatch now resolves its target from `config/orchestrator.json` under:
+
+- `dispatch.agentId`
+
+If unset, the scripts fall back to `OPENCLAW_AGENT_ID`, then the repo root name.
+This prevents unattended cycles from accidentally targeting the wrong local agent runtime.
 
 ## 10) Probabilistic 5-minute cadence (4-6 min window)
 
