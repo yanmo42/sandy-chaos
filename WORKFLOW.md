@@ -285,7 +285,41 @@ python3 scripts/init_research_cycle.py --slug <topic>
 
 This keeps speed high while preserving reproducibility and claim-tier integrity.
 
-## 13) Yggdrasil continuity hygiene
+## 13) Spine governance
+
+Reference: `spine/README.md`
+
+Use the spine when a piece of work creates or materially changes a meaningful concept, experiment track, or promotion decision.
+
+### Minimum expectation
+
+For non-trivial theory, simulation, continuity, or automation work:
+- identify the relevant **concept node(s)** if they already exist
+- create or update a concept node when a new durable idea is taking shape
+- record a **pressure event** when meaningful evaluation happens
+- record a **promotion event** when a concept becomes more durable, moves surfaces, or is explicitly redirected
+
+### Practical rule of thumb
+
+- small scratch edits do **not** need immediate spine updates
+- meaningful research/architecture outcomes **do**
+- if a branch ends with a real conclusion, it should usually produce both:
+  - a disposition
+  - and either a pressure record or promotion record
+
+### Quick commands
+
+```bash
+python3 scripts/spine_report.py
+python3 scripts/spine_validate.py
+```
+
+Current spine surfaces:
+- `spine/concepts/`
+- `spine/pressure/YYYY-MM-DD/`
+- `spine/promotions/ledger.jsonl`
+
+## 14) Yggdrasil continuity hygiene
 
 Reference: `docs/12_yggdrasil_continuity_architecture.md`
 

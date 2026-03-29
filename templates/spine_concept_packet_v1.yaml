@@ -1,0 +1,26 @@
+# Spine concept packet template (v1)
+# Keep YAML simple: flat keys + simple lists.
+
+id: SC-CONCEPT-XXXX
+name: <kebab-case-concept-name>
+summary: <one-sentence claim summary>
+lane: theory
+tags:
+  - <tag-1>
+claim_tier: speculative
+status: draft
+depends_on: []
+documented_in:
+  - <docs/path.md>
+implemented_in: []
+tested_by: []
+contradicts: []
+failure_conditions:
+  - <condition that would materially weaken or falsify>
+missing_assumptions:
+  - <explicit unstated dependency>
+next_test: <smallest meaningful pressure test>
+next_action: <immediate operator step>
+promotion_target: docs/archive
+owner_surface: sandy-chaos
+notes: <optional context>

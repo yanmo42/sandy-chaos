@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sandy-chaos.local/spine/concept.schema.json",
+  "title": "Sandy Chaos Concept Node",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "summary",
+    "lane",
+    "claim_tier",
+    "status",
+    "failure_conditions",
+    "next_action",
+    "promotion_target",
+    "owner_surface"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^SC-CONCEPT-[0-9]{4}$"},
+    "name": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "lane": {"type": "string", "enum": ["theory", "simulation", "formalization", "automation", "continuity", "interface", "neuro"]},
+    "tags": {"type": "array", "items": {"type": "string"}, "default": []},
+    "claim_tier": {"type": "string", "enum": ["defensible", "plausible", "speculative"]},
+    "status": {"type": "string", "enum": ["seed", "draft", "pressure-testing", "validated-partial", "canonical", "archived", "deprecated", "killed"]},
+    "depends_on": {"type": "array", "items": {"type": "string"}, "default": []},
+    "documented_in": {"type": "array", "items": {"type": "string"}, "default": []},
+    "implemented_in": {"type": "array", "items": {"type": "string"}, "default": []},
+    "tested_by": {"type": "array", "items": {"type": "string"}, "default": []},
+    "contradicts": {"type": "array", "items": {"type": "string"}, "default": []},
+    "failure_conditions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "missing_assumptions": {"type": "array", "items": {"type": "string"}, "default": []},
+    "next_test": {"type": "string", "minLength": 1},
+    "next_action": {"type": "string", "minLength": 1},
+    "promotion_target": {"type": "string", "enum": ["docs/canonical", "docs/archive", "code/core", "code/experiment", "tests", "workflow", "config", "memory-only", "public-site", "ygg-bridge", "ygg-native-candidate"]},
+    "owner_surface": {"type": "string", "enum": ["sandy-chaos", "shared-with-ygg", "ygg-candidate"]},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}

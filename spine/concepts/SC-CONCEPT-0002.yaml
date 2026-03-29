@@ -1,0 +1,29 @@
+id: SC-CONCEPT-0002
+name: cognitive-tempo-orchestration
+summary: Practical execution-support lane for external scaffolding, tempo shaping, and bounded intervention design around human/agent work cycles.
+lane: automation
+tags:
+  - tempo
+  - orchestration
+  - execution-support
+claim_tier: defensible
+status: canonical
+depends_on:
+  - SC-CONCEPT-0001
+documented_in:
+  - docs/14_cognitive_tempo_orchestration.md
+  - docs/07_agentic_automation_loop.md
+implemented_in:
+  - scripts/self_improve.py
+  - scripts/orchestrator_autospawn.py
+tested_by:
+  - tests/test_self_improve.py
+  - tests/test_orchestrator_autospawn.py
+contradicts: []
+failure_conditions:
+  - orchestration interventions fail to improve throughput, re-entry quality, or decision clarity over a simpler baseline loop
+  - cadence logic cannot be justified within the project's bounded-now and evidence discipline
+next_action: add explicit concept/disposition outputs to orchestration artifacts so this lane is governed by the same spine it helps operate
+promotion_target: workflow
+owner_surface: sandy-chaos
+notes: This lane is implementation-heavy and should stay grounded in measurable loop outcomes rather than abstraction drift.

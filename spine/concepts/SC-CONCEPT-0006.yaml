@@ -1,0 +1,28 @@
+id: SC-CONCEPT-0006
+name: symbolic-maps-and-narrative-invariants
+summary: Symbolic Maps act as the public/working artifact family while Narrative Invariants provide the tighter internal substrate for reusable interpretive structure.
+lane: interface
+tags:
+  - symbolic-maps
+  - narrative-invariants
+  - operator-extraction
+claim_tier: plausible
+status: validated-partial
+depends_on:
+  - SC-CONCEPT-0001
+documented_in:
+  - docs/README.md
+  - docs/symbolic-maps
+implemented_in:
+  - nfem_suite/intelligence/cognition/__init__.py
+  - scripts/frame_aware_corridor_sim.py
+tested_by: []
+contradicts: []
+failure_conditions:
+  - artifact family remains too loose to support consistent extraction, normalization, or validation
+  - public-facing symbolic maps cannot be connected back to inspectable internal invariants
+next_test: map three symbolic map artifacts into one invariant schema and verify round-trip extraction consistency
+next_action: formalize a small concept-to-artifact schema and tie it to one validator or loader beyond ad hoc notes
+promotion_target: docs/canonical
+owner_surface: sandy-chaos
+notes: This looks like an emerging organizing layer and may deserve its own tighter schema soon.
