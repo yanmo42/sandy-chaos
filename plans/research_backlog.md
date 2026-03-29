@@ -127,6 +127,6 @@ Build a repeatable pipeline that turns scientific literature into:
 
 ## Topological memory next 3 tasks
 
-1. [ ] Define the v0 node / edge / trace schema
-2. [ ] Assemble the 30-query benchmark set from real continuity questions
-3. [ ] Implement baseline scorers before building the topology-aware retriever
+1. [x] Define the v0 node / edge / trace schema
+2. [x] Assemble the 30-query benchmark set from real continuity questions
+3. [x] Implement baseline scorers before building the topology-aware retriever
