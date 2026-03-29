@@ -57,10 +57,12 @@ class EntropyEngine:
             # Get vertices
             pts = positions[simplex]
             # Area = 0.5 * |(xB - xA)(yC - yA) - (xC - xA)(yB - yA)|
-            # Using cross product for 2D vectors (z-component)
+            # Compute the 2D determinant directly instead of np.cross(v1, v2),
+            # which is deprecated for 2D vectors in NumPy 2.x.
             v1 = pts[1] - pts[0]
             v2 = pts[2] - pts[0]
-            area = 0.5 * np.abs(np.cross(v1, v2))
+            cross_z = v1[0] * v2[1] - v1[1] * v2[0]
+            area = 0.5 * np.abs(cross_z)
             areas.append(area)
             
         areas = np.array(areas)
