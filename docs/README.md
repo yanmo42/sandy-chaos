@@ -17,9 +17,10 @@ This documentation set is intentionally compressed into a small canonical path:
 11. **[11 Potential-Flow Contracts](11_geodesic_hydrology_contracts.md)**
 12. **[12 Yggdrasil Continuity Architecture](12_yggdrasil_continuity_architecture.md)**
 13. **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)**
-14. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-15. **[Prediction Protocol](prediction-protocol.md)**
-16. **[Paradox Registry](paradox-registry.md)**
+14. **[16 Temporal Predictive Processing via Potential-Flow Contracts](16_temporal_predictive_processing.md)**
+15. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+16. **[Prediction Protocol](prediction-protocol.md)**
+17. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -41,7 +42,7 @@ Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
 ### Research path (full)
 
-- Foundations → Protocol → Micro-Observer → Nested Temporal Domains → Neuro Roadmap → Cognitive Tempo Orchestration → Math Appendix
+- Foundations → Protocol → Micro-Observer → Nested Temporal Domains → Potential-Flow Contracts → Temporal Predictive Processing → Neuro Roadmap → Cognitive Tempo Orchestration → Math Appendix
 
 ### Philosophy-first path
 
@@ -57,6 +58,7 @@ The near-term roadmap emphasizes **agency as a computed physical observable**:
 - directional temporal-frame communication metrics,
 - clearer multiscale coupling language via adjacent nested temporal domains,
 - a practical external-scaffolding lane via cognitive tempo orchestration,
+- a bridge architecture for temporal predictive processing under potential-flow constraints,
 - strict claim-tier separation between defensible results and speculative interpretation.
 
 ## Documentation status policy

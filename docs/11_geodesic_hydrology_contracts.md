@@ -466,3 +466,7 @@ Human review gate required at each phase boundary.
 - `docs/theory-implementation-matrix.md` — traceability + decision ledger (`T-011`)
 
 This note is intended as a **speculative rigor-preserving expansion path**, not a bypass of existing constraints and not a canonical framework addition until validated.
+
+For the bridge architecture that applies this transport-and-constraint logic to predictive processing across temporal frames, see:
+
+- **[16 Temporal Predictive Processing via Potential-Flow Contracts](16_temporal_predictive_processing.md)**
