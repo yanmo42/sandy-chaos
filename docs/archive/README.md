@@ -16,9 +16,10 @@ Supporting references:
 
 Active provisional drafts may also land here when they are intentionally bounded and not yet ready for canonical promotion.
 
-Current note:
+Current notes:
 
 - `topological_memory_continuity_retrieval_v0.md` remains the bounded thesis source.
 - Promotion-gate outcome now lives at `../notes/topological_memory_v0_provisional_validation.md`.
+- `lux_and_nyx_force_gravity_shadow.md` preserves a bounded mythic systems grammar for force / curvature / shadow before any canonical promotion.
 
 If content from this archive is reused, prefer extracting it into the canonical docs in compressed form (claim → rationale → minimal formalism → falsification).
