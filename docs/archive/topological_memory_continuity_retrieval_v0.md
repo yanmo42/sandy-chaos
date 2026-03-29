@@ -126,6 +126,14 @@ Baseline runner surface:
 - `nfem_suite/intelligence/ygg/topological_memory.py`
 - current report sink: `memory/research/topological-memory-v0/baseline_report_v0.json`
 
+Topology retrieval now emits inspectable path evidence:
+- `path_nodes`
+- `path_edges`
+- `path_summary` (human-readable relation chain)
+
+Quick inspect example:
+- `python scripts/topological_memory_v0.py --inspect-query Q-001 --inspect-baseline topology`
+
 Embedding baseline is optional and currently reports unavailable when `sentence-transformers` is not installed.
 
 Score:

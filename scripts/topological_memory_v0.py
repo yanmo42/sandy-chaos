@@ -47,6 +47,21 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Disable optional embedding baseline",
     )
+    ap.add_argument(
+        "--inspect-query",
+        help="Query id to print ranked results for (e.g., Q-001)",
+    )
+    ap.add_argument(
+        "--inspect-baseline",
+        default="topology",
+        help="Baseline to inspect when --inspect-query is set (default: topology)",
+    )
+    ap.add_argument(
+        "--inspect-top-n",
+        type=int,
+        default=3,
+        help="How many ranked rows to print in inspect mode (default: 3)",
+    )
     return ap.parse_args()
 
 
@@ -75,6 +90,29 @@ def main() -> int:
         hit_rate = float(metrics.get("hit_rate", 0.0))
         mrr = float(metrics.get("mrr", 0.0))
         print(f"- {name}: hit@{report['top_k']}={hit_rate:.3f}, mrr={mrr:.3f}")
+
+    if args.inspect_query:
+        baseline_name = str(args.inspect_baseline)
+        baseline = report.get("baselines", {}).get(baseline_name)
+        if baseline is None:
+            print(f"\n[inspect] baseline '{baseline_name}' not found")
+        elif baseline.get("available") is False:
+            print(f"\n[inspect] baseline '{baseline_name}' unavailable: {baseline.get('reason', 'unknown reason')}")
+        else:
+            ranked = baseline.get("ranked_results", {}).get(str(args.inspect_query), [])
+            print(f"\n[inspect] query={args.inspect_query} baseline={baseline_name} rows={len(ranked)}")
+            if not ranked:
+                print("(no ranked rows)")
+            for idx, row in enumerate(ranked[: max(1, int(args.inspect_top_n))], start=1):
+                print(f"{idx}. {row.get('node_id')} score={float(row.get('score', 0.0)):.4f}")
+                print(f"   reason: {row.get('reason', '')}")
+                summary = row.get('path_summary', '')
+                if summary:
+                    print(f"   path:   {summary}")
+                elif row.get('path_nodes'):
+                    print(f"   path_nodes: {row.get('path_nodes')}")
+                if row.get('path_edges'):
+                    print(f"   path_edges: {row.get('path_edges')}")
 
     try:
         report_path = str(out_path.resolve().relative_to(ROOT))

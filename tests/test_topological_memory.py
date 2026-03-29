@@ -100,6 +100,12 @@ class TestTopologicalMemory(unittest.TestCase):
             self.assertGreaterEqual(keyword["hit_rate"], 0.0)
             self.assertLessEqual(keyword["hit_rate"], 1.0)
 
+            topology_rows = report["baselines"]["topology"]["ranked_results"]["Q1"]
+            self.assertTrue(topology_rows)
+            self.assertIn("path_summary", topology_rows[0])
+            self.assertIn("path_nodes", topology_rows[0])
+            self.assertIn("path_edges", topology_rows[0])
+
             embedding = report["baselines"]["embedding"]
             if embedding.get("available") is False:
                 self.assertIn("reason", embedding)

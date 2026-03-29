@@ -157,6 +157,7 @@ class RankedResult:
     reason: str
     path_nodes: list[str] = field(default_factory=list)
     path_edges: list[str] = field(default_factory=list)
+    path_summary: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -213,6 +214,9 @@ class GraphBundle:
     def neighbors(self, node_id: str) -> list[tuple[str, TopologyEdge]]:
         return list(self._adjacency.get(node_id, []))
 
+    def edge_by_id(self, edge_id: str) -> TopologyEdge | None:
+        return self._edge_by_id.get(edge_id)
+
     def trace_boost(self, node_id: str) -> float:
         return float(self._node_trace_weight.get(node_id, 0.0))
 
@@ -243,6 +247,41 @@ def _node_corpus(node: TopologyNode) -> str:
         node.summary,
         " ".join(node.tags),
     ])
+
+
+def _format_path_summary(
+    graph: GraphBundle,
+    *,
+    path_nodes: list[str],
+    path_edges: list[str],
+) -> str:
+    if not path_nodes:
+        return ""
+    if not path_edges:
+        return path_nodes[0]
+
+    segments: list[str] = [path_nodes[0]]
+    for idx, edge_id in enumerate(path_edges):
+        if idx + 1 >= len(path_nodes):
+            break
+        edge = graph.edge_by_id(edge_id)
+        left = path_nodes[idx]
+        right = path_nodes[idx + 1]
+
+        if edge is None:
+            segments.append(f" --[{edge_id}]--> {right}")
+            continue
+
+        if edge.source == left and edge.target == right:
+            arrow = "-->"
+        elif edge.source == right and edge.target == left:
+            arrow = "<--"
+        else:
+            arrow = "<->"
+
+        segments.append(f" --[{edge.relation}:{edge.id}] {arrow} {right}")
+
+    return "".join(segments)
 
 
 def load_graph_bundle(path: str | Path) -> GraphBundle:
@@ -479,6 +518,8 @@ def topology_aware_retrieval(
             + (f", anchor={anchor_id}" if anchor_id else "")
         )
 
+        path_summary = _format_path_summary(graph, path_nodes=path_nodes, path_edges=path_edges)
+
         ranked.append(
             RankedResult(
                 node_id=node_id,
@@ -486,6 +527,7 @@ def topology_aware_retrieval(
                 reason=reason,
                 path_nodes=path_nodes,
                 path_edges=path_edges,
+                path_summary=path_summary,
             )
         )
 
