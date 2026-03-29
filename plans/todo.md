@@ -317,5 +317,5 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Build a ~30-query benchmark from real continuity retrieval questions (`memory/research/topological-memory-v0/benchmark_queries_v0.json`, 30 queries)
 - [x] Add baseline retrieval scorers (keyword / recency / embedding if available) (`nfem_suite/intelligence/ygg/topological_memory.py`; embedding optional + auto-unavailable reporting)
 - [x] Add topology-aware retriever with inspectable path output (`topology_aware_retrieval` with `path_nodes`, `path_edges`, `path_summary`; inspect via `scripts/topological_memory_v0.py --inspect-query Q-001`)
-- [ ] Compare topology-aware retrieval against flat baselines
+- [x] Compare topology-aware retrieval against flat baselines (`memory/research/topological-memory-v0/comparison_report_v0.md`, `memory/research/topological-memory-v0/comparison_summary_v0.json`)
 - [ ] Only promote beyond archive if it beats at least one baseline with interpretable paths

@@ -118,7 +118,8 @@ For each query, compare:
 - embedding baseline (if available)
 - topological memory model
 
-Benchmark query set is now seeded at:
+Benchmark seed assets now include:
+- `memory/research/topological-memory-v0/graph_v0.json` (bounded graph fixture)
 - `memory/research/topological-memory-v0/benchmark_queries_v0.json` (30 continuity questions)
 
 Baseline runner surface:
@@ -135,6 +136,17 @@ Quick inspect example:
 - `python scripts/topological_memory_v0.py --inspect-query Q-001 --inspect-baseline topology`
 
 Embedding baseline is optional and currently reports unavailable when `sentence-transformers` is not installed.
+
+Task 5 comparison artifacts:
+- `memory/research/topological-memory-v0/comparison_report_v0.md`
+- `memory/research/topological-memory-v0/comparison_summary_v0.json`
+
+Current headline result (hit@3 / MRR):
+- keyword: `0.800 / 0.750`
+- recency: `0.567 / 0.467`
+- topology: `0.867 / 0.728`
+
+Interpretation: topology already beats recency clearly and improves hit-rate over keyword, but keyword remains slightly stronger on MRR in this first pass.
 
 Score:
 - retrieval accuracy
