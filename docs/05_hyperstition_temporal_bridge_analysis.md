@@ -67,7 +67,47 @@ $$
 N_{t+1}=\mathcal{G}(N_t,O_t,s_t,\xi_t)
 $$
 
-Hyperstition is therefore a **physical attractor/boundary mechanism**, not a backward-time force. It corresponds to the **Read-Write Coupling** model in **[03 Micro-Observer & Agency](03_micro_observer_agency.md)**: updates in observer state alter effective boundary terms, and those terms reshape downstream and upstream legibility through lawful forward dynamics.
+### Concrete toy specification of $\mathcal{G}$ (v1)
+
+To make this operational, we use a two-agent/two-narrative toy reduction where each agent carries a narrative-polarization scalar $m_t\in[-1,1]$.
+
+Mean-field update used in code:
+
+$$
+m_{t+1}=\tanh\!\left((a+k)m_t + b\left[(1-r)T + r\tanh\!\big(g(m_t+h\Delta)\big)\right]\right)
+$$
+
+Where:
+
+- $T$: exogenous truth signal,
+- $\Delta$: cross-temporal asymmetry bias (communication lead/lag proxy),
+- $a$: narrative inertia,
+- $k$: social coupling,
+- $b$: observation gain,
+- $r$: observer-coupling mix,
+- $g$: action sensitivity,
+- $h$: temporal-bias gain.
+
+Fixed points satisfy:
+
+$$
+m^*=f(m^*)
+$$
+
+Local stability is determined by:
+
+$$
+\left|f'(m^*)\right|<1
+$$
+
+This gives a direct way to classify self-fulfilling (stable attractor against weakly opposing truth) vs self-defeating (initially aligned narrative that flips under strong temporal bias) regimes.
+
+Reference implementation:
+
+- `nfem_suite/intelligence/cognition/hyperstition.py`
+- `tests/test_hyperstition_dynamics.py`
+
+Hyperstition is therefore modeled here as an **operational attractor/boundary mechanism**, not a backward-time force. It corresponds to the **Read-Write Coupling** model in **[03 Micro-Observer & Agency](03_micro_observer_agency.md)**: updates in observer state alter effective boundary terms, and those terms reshape downstream and upstream legibility through lawful forward dynamics.
 
 ---
 
@@ -195,13 +235,22 @@ $$
 
 The proposal is not “time runs backward at will,” but:
 
-- causal orientation may be **derived** from geometry + entropy flow,
-- rather than posited as a primitive global arrow independent of state-description.
+- causal orientation may sometimes be **modeled as emerging** from geometry + entropy flow,
+- rather than always being treated as a primitive global arrow independent of state-description.
 
 This remains a **plausible-but-unproven** interpretive bridge.
 
 ### Roadmap Integration
 This concept is scheduled for future implementation in the **EntropyEngine** (`nfem_suite/intelligence/entropy/shannon.py`). Current implementations calculate static entropy (kinetic, energetic, structural); the proposed extension will measure **entropy production rate** ($\dot{S}$) and **flow orientation** to test the geometric arrow hypothesis.
+
+### Related-work boundary
+This note should be read alongside, not in place of, existing literature lanes:
+
+- **Quantum measurement theory / instrument formalism:** the claim here is about measurement-policy conditioning, not a change to Born-rule statistics.
+- **Relativistic timing asymmetry:** the GR contribution is proper-time structure and asymmetric lead/lag budgets, not a solution to quantum gravity.
+- **Entropy-arrow literature** (e.g. Wissner-Gross, Verlinde, Penrose, Carroll): relevant as comparison space for the entropy/causality bridge, not as a synthesis already completed by this repo.
+
+The novelty claim, if any, is narrower: Sandy Chaos tries to place narrative-boundary variables, observer policy, and temporal asymmetry inside one forward-causal experimental language.
 
 ---
 
@@ -224,21 +273,24 @@ This concept is scheduled for future implementation in the **EntropyEngine** (`n
 4. Require causal safety checks alongside performance metrics.
 
 ### Concrete Implementation Specs
-To operationalize this, the `TemporalPacket` schema in `nfem_suite/simulation/communication/temporal_protocol.py` can be extended.
+To operationalize this experimentally, the `TemporalPacket` schema in `nfem_suite/simulation/communication/temporal_protocol.py` can be extended with optional audit metadata. These are **planned experiment-layer extensions**, not current baseline protocol requirements.
 
-**Required Fields:**
+**Proposed Optional Fields:**
 
 | Field | Type | Purpose |
 |---|---|---|
 | `narrative_context` | `str` / `dict` | Encodes the shared expectation/mythos active during the run. |
 | `boundary_tag` | `str` (categorical) | Label for the boundary-condition family used (e.g., `baseline`, `whirlpool_A`). |
 | `audit_trace` | `list` | Log of control/interpretation interventions during the transmission window. |
+| `validity_window` | structured metadata | Optional expiry/use-window constraints for packet interpretation. |
 
-**Updated Packet Schema:**
+**Proposed Experiment Schema:**
 
 $$
-P' = \{payload,\tau_{send},\sigma_{send},confidence,checksum,validity\_window,narrative\_context,boundary\_tag,audit\_trace\}
+P_{exp} = \{P_{min}, narrative\_context, boundary\_tag, audit\_trace, validity\_window\}
 $$
+
+The current protocol contract remains the minimal schema documented in **[02 Tempo Tracer Protocol](02_tempo_tracer_protocol.md)**.
 
 ---
 
@@ -246,9 +298,9 @@ $$
 
 ### Defensible now
 
-- Hyperstition can be modeled as forward-causal attractor/boundary coupling in continuous systems.
-- This is congruent with read-write observer effects and Tempo Tracer’s epistemic retro-influence model.
-- GR timing asymmetry + inference can generate lawful “future-like” forecasting advantage.
+- At toy-model level, hyperstition can be represented as forward-causal attractor/boundary coupling in continuous or mean-field systems.
+- This framing is congruent with read-write observer effects and Tempo Tracer’s epistemic retro-influence model, provided narrative terms are treated as policy/context variables rather than law-violating forces.
+- GR timing asymmetry + inference remains a lawful candidate explanation for “future-like” forecasting advantage.
 
 ### Plausible but unproven
 
