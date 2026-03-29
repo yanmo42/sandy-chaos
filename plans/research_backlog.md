@@ -97,12 +97,12 @@ Build a repeatable pipeline that turns scientific literature into:
 ### 3.3 Topological memory continuity retrieval (bounded)
 
 - [x] Land provisional ratification note in `docs/archive/topological_memory_continuity_retrieval_v0.md`
-- [ ] Freeze a v0 node / edge / trace schema for bounded ecosystem topology
-- [ ] Build a ~30-query continuity benchmark from real repo/session/checkpoint questions
-- [ ] Implement baseline retrievals: keyword, recency, and embedding (if available)
-- [ ] Implement topology-aware retrieval with inspectable path output
+- [x] Freeze a v0 node / edge / trace schema for bounded ecosystem topology (`schemas/topological_memory_graph_v0.schema.json`, `schemas/topological_memory_queries_v0.schema.json`)
+- [x] Build a ~30-query continuity benchmark from real repo/session/checkpoint questions (`memory/research/topological-memory-v0/benchmark_queries_v0.json`)
+- [x] Implement baseline retrievals: keyword, recency, and embedding (if available) (`nfem_suite/intelligence/ygg/topological_memory.py`; embedding baseline reports unavailable when backend is missing)
+- [x] Implement topology-aware retrieval with inspectable path output (`nfem_suite/intelligence/ygg/topological_memory.py`, inspect mode in `scripts/topological_memory_v0.py`)
 - [ ] Evaluate whether promotion/disposition metadata improves retrieval quality
-- [ ] Promote only if topology-aware retrieval beats at least one flat baseline with interpretable paths
+- [x] Promote only if topology-aware retrieval beats at least one flat baseline with interpretable paths (`memory/research/topological-memory-v0/promotion_gate_v0.md`, `docs/notes/topological_memory_v0_provisional_validation.md`)
 
 ---
 
@@ -127,6 +127,6 @@ Build a repeatable pipeline that turns scientific literature into:
 
 ## Topological memory next 3 tasks
 
-1. [ ] Define the v0 node / edge / trace schema
-2. [ ] Assemble the 30-query benchmark set from real continuity questions
-3. [ ] Implement baseline scorers before building the topology-aware retriever
+1. [x] Define the v0 node / edge / trace schema
+2. [x] Assemble the 30-query benchmark set from real continuity questions
+3. [x] Implement baseline scorers before building the topology-aware retriever

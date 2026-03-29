@@ -1,0 +1,160 @@
+{
+  "query_count": 30,
+  "top_k": 3,
+  "metrics": {
+    "embedding": {
+      "available": false,
+      "reason": "sentence-transformers unavailable: ModuleNotFoundError"
+    },
+    "keyword": {
+      "available": true,
+      "hit_rate": 0.8,
+      "mrr": 0.75
+    },
+    "recency": {
+      "available": true,
+      "hit_rate": 0.5666666666666667,
+      "mrr": 0.4666666666666667
+    },
+    "topology": {
+      "available": true,
+      "hit_rate": 0.8666666666666667,
+      "mrr": 0.7277777777777777
+    }
+  },
+  "pairwise": {
+    "topology_vs_keyword": {
+      "query_count": 30,
+      "rr_win": 4,
+      "rr_loss": 5,
+      "rr_tie": 21,
+      "hit_win": 3,
+      "hit_loss": 1,
+      "hit_tie": 26,
+      "topology_hit_baseline_miss": [
+        {
+          "id": "Q-011",
+          "question": "Where is the topology-aware retrieval scorer implementation located?",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE"
+          ]
+        },
+        {
+          "id": "Q-026",
+          "question": "Which artifact should anchor promotion decisions before moving topological-memory claims out of archive?",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ]
+        },
+        {
+          "id": "Q-028",
+          "question": "What implementation-and-test pair currently grounds the topology-aware retriever?",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ]
+        }
+      ],
+      "baseline_hit_topology_miss": [
+        {
+          "id": "Q-002",
+          "question": "Which TODO surface currently tracks the execution steps for topological memory?",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ]
+        }
+      ]
+    },
+    "topology_vs_recency": {
+      "query_count": 30,
+      "rr_win": 11,
+      "rr_loss": 5,
+      "rr_tie": 14,
+      "hit_win": 10,
+      "hit_loss": 1,
+      "hit_tie": 19,
+      "topology_hit_baseline_miss": [
+        {
+          "id": "Q-006",
+          "question": "Which document defines the canonical Ygg continuity architecture?",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH"
+          ]
+        },
+        {
+          "id": "Q-007",
+          "question": "What CLI surface provides status/checkpoint/promote for continuity operations?",
+          "expected_nodes": [
+            "N_SCRIPT_YGG"
+          ]
+        },
+        {
+          "id": "Q-008",
+          "question": "Where is the continuity checkpoint helper implementation for Ygg?",
+          "expected_nodes": [
+            "N_CODE_YGG_CONTINUITY"
+          ]
+        },
+        {
+          "id": "Q-015",
+          "question": "Where is the protocol for pre-registration and scoring of predictive claims?",
+          "expected_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL"
+          ]
+        },
+        {
+          "id": "Q-016",
+          "question": "Which doc catalogs paradox stress tests for informational and causal edge cases?",
+          "expected_nodes": [
+            "N_DOC_PARADOX_REGISTRY"
+          ]
+        },
+        {
+          "id": "Q-018",
+          "question": "What script checks claim-to-source mapping completeness in research syntheses?",
+          "expected_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ]
+        },
+        {
+          "id": "Q-019",
+          "question": "Which tests confirm the research verifier behavior?",
+          "expected_nodes": [
+            "N_TEST_RESEARCH_VERIFIER"
+          ]
+        },
+        {
+          "id": "Q-021",
+          "question": "What script builds lane-aware task contracts from TODO surfaces?",
+          "expected_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH"
+          ]
+        },
+        {
+          "id": "Q-022",
+          "question": "What script dispatches orchestrator task contracts through the gateway bridge?",
+          "expected_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN"
+          ]
+        },
+        {
+          "id": "Q-023",
+          "question": "What script drives daily/weekly cadence summaries for self-improvement loops?",
+          "expected_nodes": [
+            "N_SCRIPT_SELF_IMPROVE"
+          ]
+        }
+      ],
+      "baseline_hit_topology_miss": [
+        {
+          "id": "Q-002",
+          "question": "Which TODO surface currently tracks the execution steps for topological memory?",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ]
+        }
+      ]
+    }
+  },
+  "notes": []
+}

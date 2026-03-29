@@ -1,0 +1,3884 @@
+{
+  "query_count": 30,
+  "top_k": 3,
+  "baselines": {
+    "embedding": {
+      "available": false,
+      "reason": "sentence-transformers unavailable: ModuleNotFoundError",
+      "queries": [],
+      "ranked_results": {}
+    },
+    "keyword": {
+      "hit_rate": 0.8,
+      "mrr": 0.75,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_PLAN_TODO",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "top_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG",
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_TEST_RESEARCH_VERIFIER"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "top_nodes": [
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_SCRIPT_YGG",
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_SCRIPT_YGG"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_YGG",
+            "N_SCHEMA_QUERIES_V0",
+            "N_TEST_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "top_nodes": [
+            "N_TEST_YGG",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_TEST_YGG"
+          ],
+          "top_nodes": [
+            "N_TEST_YGG",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_SCRIPT_YGG",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SCRIPT_TM_BENCH",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_QUERIES_V0",
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "top_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL",
+            "N_TEST_TM_MODULE",
+            "N_DOC_PARADOX_REGISTRY"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_DOC_PARADOX_REGISTRY"
+          ],
+          "top_nodes": [
+            "N_DOC_PARADOX_REGISTRY",
+            "N_DOC_PREDICTION_PROTOCOL",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "top_nodes": [
+            "N_DOC_THEORY_MATRIX",
+            "N_DOC_PREDICTION_PROTOCOL",
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_TEST_RESEARCH_VERIFIER",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_TEST_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_TEST_RESEARCH_VERIFIER",
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_CODE_YGG_CONTINUITY",
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_SCRIPT_SELF_IMPROVE"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_SELF_IMPROVE",
+            "N_SCRIPT_TM_BENCH",
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_TEST_YGG",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_DOC_YGG_ARCH",
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [],
+        "Q-002": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.2545454545454545,
+            "reason": "keyword overlap=['for', 'memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.24866310160427807,
+            "reason": "keyword overlap=['memory', 'todo', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.17207792207792205,
+            "reason": "keyword overlap=['memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.30357142857142855,
+            "reason": "keyword overlap=['backlog', 'lane', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.19999999999999998,
+            "reason": "keyword overlap=['in', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.10416666666666666,
+            "reason": "keyword overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.43452380952380953,
+            "reason": "keyword overlap=['and', 'claim', 'concept', 'conditions', 'failure']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.09583333333333334,
+            "reason": "keyword overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.09423076923076924,
+            "reason": "keyword overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.6,
+            "reason": "keyword overlap=['before', 'benchmark', 'pressure', 'promotion', 'review', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['baselines', 'benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.4464285714285714,
+            "reason": "keyword overlap=['architecture', 'canonical', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.23295454545454547,
+            "reason": "keyword overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.22916666666666666,
+            "reason": "keyword overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.3494318181818182,
+            "reason": "keyword overlap=['cli', 'continuity', 'status/checkpoint/promote']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.22916666666666666,
+            "reason": "keyword overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.22596153846153846,
+            "reason": "keyword overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.41025641025641024,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'for', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.3125,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.3076923076923077,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.6118881118881119,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'for', 'helpers', 'test', 'write/load', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.44507575757575757,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'helpers', 'write/load', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.34965034965034963,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'helpers', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['benchmark', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.10416666666666666,
+            "reason": "keyword overlap=['benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.22083333333333333,
+            "reason": "keyword overlap=['retrieval', 'topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.11458333333333333,
+            "reason": "keyword overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.11160714285714285,
+            "reason": "keyword overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.6343749999999999,
+            "reason": "keyword overlap=['and', 'baselines', 'graph', 'loading', 'scoring', 'test', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.1954545454545455,
+            "reason": "keyword overlap=['graph', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['baselines', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.390909090909091,
+            "reason": "keyword overlap=['for', 'graph', 'node/edge/trace', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['for', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.18333333333333335,
+            "reason": "keyword overlap=['for', 'v0']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.38333333333333336,
+            "reason": "keyword overlap=['benchmark', 'for', 'query', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.1954545454545455,
+            "reason": "keyword overlap=['for', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['benchmark', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.6022727272727273,
+            "reason": "keyword overlap=['and', 'claims', 'for', 'pre-registration', 'predictive', 'protocol', 'scoring']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.25142045454545453,
+            "reason": "keyword overlap=['and', 'for', 'scoring']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PARADOX_REGISTRY",
+            "score": 0.16969696969696968,
+            "reason": "keyword overlap=['and', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_DOC_PARADOX_REGISTRY",
+            "score": 0.6333333333333333,
+            "reason": "keyword overlap=['and', 'cases', 'causal', 'doc', 'for', 'informational', 'paradox', 'stress']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.24107142857142858,
+            "reason": "keyword overlap=['and', 'doc', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.234375,
+            "reason": "keyword overlap=['and', 'for', 'tests']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.24369747899159663,
+            "reason": "keyword overlap=['evidence', 'ledger']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.125,
+            "reason": "keyword overlap=['evidence']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.1238095238095238,
+            "reason": "keyword overlap=['evidence']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.7000000000000001,
+            "reason": "keyword overlap=['checks', 'claim-to-source', 'completeness', 'in', 'mapping', 'research', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['mapping', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.3839285714285714,
+            "reason": "keyword overlap=['research', 'tests', 'verifier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.2476190476190476,
+            "reason": "keyword overlap=['research', 'verifier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.125,
+            "reason": "keyword overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.5499999999999999,
+            "reason": "keyword overlap=['and', 'automation', 'continuity', 'hygiene', 'protocol', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.18571428571428572,
+            "reason": "keyword overlap=['and', 'protocol']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.7999999999999999,
+            "reason": "keyword overlap=['builds', 'contracts', 'from', 'lane-aware', 'script', 'surfaces', 'task', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.2916666666666667,
+            "reason": "keyword overlap=['contracts', 'script', 'task']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.7111111111111112,
+            "reason": "keyword overlap=['bridge', 'contracts', 'dispatches', 'gateway', 'orchestrator', 'script', 'task', 'through']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.3666666666666667,
+            "reason": "keyword overlap=['contracts', 'orchestrator', 'script', 'task']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.09772727272727275,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_SCRIPT_SELF_IMPROVE",
+            "score": 0.5,
+            "reason": "keyword overlap=['cadence', 'daily/weekly', 'for', 'script', 'summaries']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['for', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.3389423076923077,
+            "reason": "keyword overlap=['checkpoints', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.3389423076923077,
+            "reason": "keyword overlap=['continuity', 'for', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.23295454545454547,
+            "reason": "keyword overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.07692307692307693,
+            "reason": "keyword overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.14871794871794872,
+            "reason": "keyword overlap=['before', 'promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.07692307692307693,
+            "reason": "keyword overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.07554945054945056,
+            "reason": "keyword overlap=['claims']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.24107142857142858,
+            "reason": "keyword overlap=['and', 'governance', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.16666666666666666,
+            "reason": "keyword overlap=['and', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.16346153846153846,
+            "reason": "keyword overlap=['written', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.11041666666666666,
+            "reason": "keyword overlap=['topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.28095238095238095,
+            "reason": "keyword overlap=['and', 'continuity', 'operational', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.21428571428571427,
+            "reason": "keyword overlap=['and', 'continuity', 'governance']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.1488095238095238,
+            "reason": "keyword overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.2545454545454545,
+            "reason": "keyword overlap=['before', 'benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.178030303030303,
+            "reason": "keyword overlap=['benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.09090909090909091,
+            "reason": "keyword overlap=['schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    },
+    "recency": {
+      "hit_rate": 0.5666666666666667,
+      "mrr": 0.4666666666666667,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_PLAN_TODO",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "top_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG",
+            "N_WORKFLOW",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "top_nodes": [
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_TEST_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_SCRIPT_YGG"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT",
+            "N_WORKFLOW"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_TEST_YGG"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_TEST_YGG",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_CODE_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_CODE_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_QUERIES_V0",
+            "N_TEST_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_WORKFLOW",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_DOC_PARADOX_REGISTRY"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_DOC_TOPO_DRAFT",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "top_nodes": [
+            "N_DOC_THEORY_MATRIX",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_WORKFLOW",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_TEST_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_WORKFLOW",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_SPINE_CONCEPT_TM",
+            "N_PLAN_TODO"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_PLAN_TODO",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_SCRIPT_SELF_IMPROVE"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_DOC_TOPO_DRAFT",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_SCHEMA_QUERIES_V0",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.7999742641145247,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-002": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8536189626683435,
+            "reason": "recency=0.999, lexical_overlap=['for', 'memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.8480857472911518,
+            "reason": "recency=0.992, lexical_overlap=['memory', 'todo', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8363636363636364,
+            "reason": "recency=1.000, lexical_overlap=['memory', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.8602326952978393,
+            "reason": "recency=0.992, lexical_overlap=['backlog', 'lane', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8193912748199382,
+            "reason": "recency=0.996, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.899253659321216,
+            "reason": "recency=0.999, lexical_overlap=['and', 'claim', 'concept', 'conditions', 'failure']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.9270023055064072,
+            "reason": "recency=0.992, lexical_overlap=['before', 'benchmark', 'pressure', 'promotion', 'review', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8444444444444444,
+            "reason": "recency=1.000, lexical_overlap=['baselines', 'benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8444187085589691,
+            "reason": "recency=1.000, lexical_overlap=['baselines', 'benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8473749396815184,
+            "reason": "recency=0.997, lexical_overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8249485282290495,
+            "reason": "recency=1.000, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.8242536593212161,
+            "reason": "recency=0.999, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8499485282290495,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.849073508122889,
+            "reason": "recency=0.999, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.847169052597716,
+            "reason": "recency=0.996, lexical_overlap=['continuity', 'operations']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.864041606348185,
+            "reason": "recency=0.997, lexical_overlap=['checkpoint', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8443929726734939,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8435179525673333,
+            "reason": "recency=0.999, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8701022124087912,
+            "reason": "recency=0.997, lexical_overlap=['checkpoint', 'continuity', 'helpers', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.850528316785354,
+            "reason": "recency=0.904, lexical_overlap=['checkpoint', 'continuity', 'for', 'helpers', 'test', 'write/load', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8363636363636364,
+            "reason": "recency=1.000, lexical_overlap=['for', 'test']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8444187085589691,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8221707504512717,
+            "reason": "recency=1.000, lexical_overlap=['benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.849073508122889,
+            "reason": "recency=0.999, lexical_overlap=['retrieval', 'topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8249742641145247,
+            "reason": "recency=1.000, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.9400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'baselines', 'graph', 'loading', 'scoring', 'test', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8399742641145247,
+            "reason": "recency=1.000, lexical_overlap=['baselines', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.8799485282290496,
+            "reason": "recency=1.000, lexical_overlap=['for', 'graph', 'node/edge/trace', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['node/edge/trace', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['for', 'graph']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8799485282290496,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'for', 'query', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8399742641145247,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8545454545454546,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for', 'scoring']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8335326889613524,
+            "reason": "recency=0.996, lexical_overlap=['and', 'protocol']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8300840803076609,
+            "reason": "recency=0.992, lexical_overlap=['and', 'claims']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8500000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for', 'tests']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8324068414562222,
+            "reason": "recency=0.999, lexical_overlap=['doc', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8270537772773578,
+            "reason": "recency=0.992, lexical_overlap=['and', 'doc']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8508633010868817,
+            "reason": "recency=0.992, lexical_overlap=['evidence', 'ledger']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['evidence']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8221964863367469,
+            "reason": "recency=1.000, lexical_overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8193912748199382,
+            "reason": "recency=0.996, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8159426661662468,
+            "reason": "recency=0.992, lexical_overlap=['mapping']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['tests']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8257404811691446,
+            "reason": "recency=0.996, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.8221374572026012,
+            "reason": "recency=0.992, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.917169052597716,
+            "reason": "recency=0.996, lexical_overlap=['and', 'automation', 'continuity', 'hygiene', 'protocol', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.8392536593212161,
+            "reason": "recency=0.999, lexical_overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.8335402927456973,
+            "reason": "recency=0.992, lexical_overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8221964863367469,
+            "reason": "recency=1.000, lexical_overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.8157625149679195,
+            "reason": "recency=0.992, lexical_overlap=['todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8199742641145247,
+            "reason": "recency=1.000, lexical_overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8444187085589691,
+            "reason": "recency=1.000, lexical_overlap=['for', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.8221707504512717,
+            "reason": "recency=1.000, lexical_overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8723749396815184,
+            "reason": "recency=0.997, lexical_overlap=['checkpoints', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8499485282290495,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.849073508122889,
+            "reason": "recency=0.999, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8127595550661337,
+            "reason": "recency=0.997, lexical_overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.8244382029423046,
+            "reason": "recency=0.992, lexical_overlap=['before', 'promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8144581235075044,
+            "reason": "recency=0.999, lexical_overlap=['archive']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8127595550661337,
+            "reason": "recency=0.997, lexical_overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8333333333333334,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8307082730148517,
+            "reason": "recency=0.997, lexical_overlap=['written', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8270537772773578,
+            "reason": "recency=0.992, lexical_overlap=['and', 'governance']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8240735081228889,
+            "reason": "recency=0.999, lexical_overlap=['topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8543119097405731,
+            "reason": "recency=0.996, lexical_overlap=['and', 'continuity', 'operational', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8285199568004781,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.8482144267185284,
+            "reason": "recency=0.992, lexical_overlap=['before', 'benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8363121645926859,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8181818181818182,
+            "reason": "recency=1.000, lexical_overlap=['schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    },
+    "topology": {
+      "hit_rate": 0.8666666666666667,
+      "mrr": 0.7277777777777777,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_SPINE_CONCEPT_TM",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "top_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG",
+            "N_DOC_TOPO_DRAFT",
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "top_nodes": [
+            "N_SPINE_CONCEPT_TM",
+            "N_DOC_TOPO_DRAFT",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_DOC_TOPO_DRAFT",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_YGG",
+            "N_DOC_YGG_ARCH",
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_SCRIPT_YGG"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_YGG",
+            "N_CODE_YGG_CONTINUITY",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "top_nodes": [
+            "N_CODE_YGG_CONTINUITY",
+            "N_TEST_YGG",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_TEST_YGG"
+          ],
+          "top_nodes": [
+            "N_CODE_YGG_CONTINUITY",
+            "N_TEST_YGG",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_CODE_TM_MODULE",
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_DOC_TOPO_DRAFT",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT",
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "top_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL",
+            "N_DOC_TOPO_DRAFT",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_DOC_PARADOX_REGISTRY"
+          ],
+          "top_nodes": [
+            "N_DOC_PARADOX_REGISTRY",
+            "N_DOC_THEORY_MATRIX",
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "top_nodes": [
+            "N_DOC_THEORY_MATRIX",
+            "N_DOC_TOPO_DRAFT",
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_TEST_RESEARCH_VERIFIER",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_TEST_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_TEST_RESEARCH_VERIFIER",
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_CODE_YGG_CONTINUITY",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_WORKFLOW",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_WORKFLOW",
+            "N_SCRIPT_AUTOMATION_ORCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_SCRIPT_SELF_IMPROVE"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_SELF_IMPROVE",
+            "N_DOC_TOPO_DRAFT",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_YGG",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_CODE_YGG_CONTINUITY",
+            "N_SCRIPT_YGG",
+            "N_DOC_YGG_ARCH"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_CODE_YGG_CONTINUITY",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 1.204839808589352,
+            "reason": "topology=1.952, lexical=0.000, trace=0.875, anchor=N_CODE_TM_MODULE",
+            "path_nodes": [
+              "N_CODE_TM_MODULE"
+            ],
+            "path_edges": [],
+            "path_summary": "N_CODE_TM_MODULE"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 1.0606725622433806,
+            "reason": "topology=1.670, lexical=0.000, trace=0.946, anchor=N_CODE_TM_MODULE",
+            "path_nodes": [
+              "N_CODE_TM_MODULE",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E008"
+            ],
+            "path_summary": "N_CODE_TM_MODULE --[implemented_in:E008] <-- N_SPINE_CONCEPT_TM"
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 1.0523818452629887,
+            "reason": "topology=1.791, lexical=0.000, trace=0.450, anchor=N_CODE_TM_MODULE",
+            "path_nodes": [
+              "N_CODE_TM_MODULE",
+              "N_SCRIPT_TM_BENCH"
+            ],
+            "path_edges": [
+              "E006"
+            ],
+            "path_summary": "N_CODE_TM_MODULE --[depends_on:E006] <-- N_SCRIPT_TM_BENCH"
+          }
+        ],
+        "Q-002": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.5551226027221285,
+            "reason": "topology=0.497, lexical=0.255, trace=1.370, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.44076629297578057,
+            "reason": "topology=0.456, lexical=0.160, trace=0.946, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E001"
+            ],
+            "path_summary": "N_DOC_TOPO_DRAFT --[documented_in:E001] <-- N_SPINE_CONCEPT_TM"
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.3620756035141329,
+            "reason": "topology=0.328, lexical=0.168, trace=0.875, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT",
+              "N_SPINE_CONCEPT_TM",
+              "N_CODE_TM_MODULE"
+            ],
+            "path_edges": [
+              "E001",
+              "E008"
+            ],
+            "path_summary": "N_DOC_TOPO_DRAFT --[documented_in:E001] <-- N_SPINE_CONCEPT_TM --[implemented_in:E008] --> N_CODE_TM_MODULE"
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.314069983201163,
+            "reason": "topology=0.304, lexical=0.304, trace=0.374, anchor=N_PLAN_RESEARCH_BACKLOG",
+            "path_nodes": [
+              "N_PLAN_RESEARCH_BACKLOG"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PLAN_RESEARCH_BACKLOG"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.3016396386273998,
+            "reason": "topology=0.175, lexical=0.000, trace=1.370, anchor=N_PLAN_RESEARCH_BACKLOG",
+            "path_nodes": [
+              "N_PLAN_RESEARCH_BACKLOG",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E025"
+            ],
+            "path_summary": "N_PLAN_RESEARCH_BACKLOG --[depends_on:E025] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.2501551012263535,
+            "reason": "topology=0.197, lexical=0.000, trace=0.946, anchor=N_PLAN_RESEARCH_BACKLOG",
+            "path_nodes": [
+              "N_PLAN_RESEARCH_BACKLOG",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E002"
+            ],
+            "path_summary": "N_PLAN_RESEARCH_BACKLOG --[mentioned_in:E002] <-- N_SPINE_CONCEPT_TM"
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.5113074821787345,
+            "reason": "topology=0.435, lexical=0.435, trace=0.946, anchor=N_SPINE_CONCEPT_TM",
+            "path_nodes": [
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SPINE_CONCEPT_TM"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.3775396386273998,
+            "reason": "topology=0.313, lexical=0.000, trace=1.370, anchor=N_SPINE_CONCEPT_TM",
+            "path_nodes": [
+              "N_SPINE_CONCEPT_TM",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E001"
+            ],
+            "path_summary": "N_SPINE_CONCEPT_TM --[documented_in:E001] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.33050892857142855,
+            "reason": "topology=0.313, lexical=0.091, trace=0.875, anchor=N_SPINE_CONCEPT_TM",
+            "path_nodes": [
+              "N_SPINE_CONCEPT_TM",
+              "N_CODE_TM_MODULE"
+            ],
+            "path_edges": [
+              "E008"
+            ],
+            "path_summary": "N_SPINE_CONCEPT_TM --[implemented_in:E008] --> N_CODE_TM_MODULE"
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.6087525,
+            "reason": "topology=0.780, lexical=0.600, trace=0.000, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.5536182100559712,
+            "reason": "topology=0.633, lexical=0.000, trace=1.370, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E004"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[mentioned_in:E004] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.5013462014957704,
+            "reason": "topology=0.580, lexical=0.208, trace=0.800, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_DOC_TOPO_DRAFT",
+              "N_SCHEMA_QUERIES_V0"
+            ],
+            "path_edges": [
+              "E004",
+              "E014"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[mentioned_in:E004] --> N_DOC_TOPO_DRAFT --[depends_on:E014] --> N_SCHEMA_QUERIES_V0"
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.5393098648342463,
+            "reason": "topology=0.671, lexical=0.233, trace=0.669, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH",
+              "N_SCRIPT_YGG"
+            ],
+            "path_edges": [
+              "E018"
+            ],
+            "path_summary": "N_DOC_YGG_ARCH --[implemented_in:E018] --> N_SCRIPT_YGG"
+          },
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.5134157857142857,
+            "reason": "topology=0.690, lexical=0.446, trace=0.000, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_YGG_ARCH"
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.4955151678645493,
+            "reason": "topology=0.594, lexical=0.229, trace=0.669, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH",
+              "N_SCRIPT_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E018",
+              "E015"
+            ],
+            "path_summary": "N_DOC_YGG_ARCH --[implemented_in:E018] --> N_SCRIPT_YGG --[depends_on:E015] --> N_CODE_YGG_CONTINUITY"
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.4617238433557249,
+            "reason": "topology=0.467, lexical=0.349, trace=0.669, anchor=N_SCRIPT_YGG",
+            "path_nodes": [
+              "N_SCRIPT_YGG"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_YGG"
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.36251141328579484,
+            "reason": "topology=0.414, lexical=0.115, trace=0.669, anchor=N_SCRIPT_YGG",
+            "path_nodes": [
+              "N_SCRIPT_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E015"
+            ],
+            "path_summary": "N_SCRIPT_YGG --[depends_on:E015] --> N_CODE_YGG_CONTINUITY"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.3443182100559712,
+            "reason": "topology=0.132, lexical=0.221, trace=1.370, anchor=N_SCHEMA_QUERIES_V0",
+            "path_nodes": [
+              "N_SCHEMA_QUERIES_V0",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E014"
+            ],
+            "path_summary": "N_SCHEMA_QUERIES_V0 --[depends_on:E014] <-- N_DOC_TOPO_DRAFT"
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.6117099517473332,
+            "reason": "topology=0.759, lexical=0.312, trace=0.669, anchor=N_TEST_YGG",
+            "path_nodes": [
+              "N_TEST_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E016"
+            ],
+            "path_summary": "N_TEST_YGG --[tested_by:E016] <-- N_CODE_YGG_CONTINUITY"
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.5324747425641025,
+            "reason": "topology=0.744, lexical=0.410, trace=0.000, anchor=N_TEST_YGG",
+            "path_nodes": [
+              "N_TEST_YGG"
+            ],
+            "path_edges": [],
+            "path_summary": "N_TEST_YGG"
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.5203931615375431,
+            "reason": "topology=0.648, lexical=0.212, trace=0.669, anchor=N_CODE_YGG_CONTINUITY",
+            "path_nodes": [
+              "N_CODE_YGG_CONTINUITY",
+              "N_SCRIPT_YGG"
+            ],
+            "path_edges": [
+              "E015"
+            ],
+            "path_summary": "N_CODE_YGG_CONTINUITY --[depends_on:E015] <-- N_SCRIPT_YGG"
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.8156104226098041,
+            "reason": "topology=1.058, lexical=0.445, trace=0.669, anchor=N_TEST_YGG",
+            "path_nodes": [
+              "N_TEST_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E016"
+            ],
+            "path_summary": "N_TEST_YGG --[tested_by:E016] <-- N_CODE_YGG_CONTINUITY"
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.7645444335664335,
+            "reason": "topology=1.056, lexical=0.612, trace=0.000, anchor=N_TEST_YGG",
+            "path_nodes": [
+              "N_TEST_YGG"
+            ],
+            "path_edges": [],
+            "path_summary": "N_TEST_YGG"
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.6370760986004801,
+            "reason": "topology=0.877, lexical=0.182, trace=0.669, anchor=N_CODE_YGG_CONTINUITY",
+            "path_nodes": [
+              "N_CODE_YGG_CONTINUITY",
+              "N_SCRIPT_YGG"
+            ],
+            "path_edges": [
+              "E015"
+            ],
+            "path_summary": "N_CODE_YGG_CONTINUITY --[depends_on:E015] <-- N_SCRIPT_YGG"
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.3248982100559712,
+            "reason": "topology=0.163, lexical=0.100, trace=1.370, anchor=N_SCRIPT_TM_BENCH",
+            "path_nodes": [
+              "N_SCRIPT_TM_BENCH",
+              "N_SPINE_CONCEPT_TM",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E009",
+              "E001"
+            ],
+            "path_summary": "N_SCRIPT_TM_BENCH --[implemented_in:E009] <-- N_SPINE_CONCEPT_TM --[documented_in:E001] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.2827898148291037,
+            "reason": "topology=0.239, lexical=0.104, trace=0.800, anchor=N_SCRIPT_TM_BENCH",
+            "path_nodes": [
+              "N_SCRIPT_TM_BENCH",
+              "N_SCHEMA_QUERIES_V0"
+            ],
+            "path_edges": [
+              "E012"
+            ],
+            "path_summary": "N_SCRIPT_TM_BENCH --[depends_on:E012] --> N_SCHEMA_QUERIES_V0"
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.28170833333333334,
+            "reason": "topology=0.276, lexical=0.208, trace=0.450, anchor=N_SCRIPT_TM_BENCH",
+            "path_nodes": [
+              "N_SCRIPT_TM_BENCH"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_TM_BENCH"
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.4595701862464474,
+            "reason": "topology=0.342, lexical=0.221, trace=1.370, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.31229527979778204,
+            "reason": "topology=0.310, lexical=0.000, trace=0.946, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E001"
+            ],
+            "path_summary": "N_DOC_TOPO_DRAFT --[documented_in:E001] <-- N_SPINE_CONCEPT_TM"
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.3010407857142857,
+            "reason": "topology=0.249, lexical=0.109, trace=0.875, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT",
+              "N_SPINE_CONCEPT_TM",
+              "N_CODE_TM_MODULE"
+            ],
+            "path_edges": [
+              "E001",
+              "E008"
+            ],
+            "path_summary": "N_DOC_TOPO_DRAFT --[documented_in:E001] <-- N_SPINE_CONCEPT_TM --[implemented_in:E008] --> N_CODE_TM_MODULE"
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.6937284939999999,
+            "reason": "topology=0.799, lexical=0.634, trace=0.425, anchor=N_TEST_TM_MODULE",
+            "path_nodes": [
+              "N_TEST_TM_MODULE"
+            ],
+            "path_edges": [],
+            "path_summary": "N_TEST_TM_MODULE"
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.5628927,
+            "reason": "topology=0.686, lexical=0.181, trace=0.875, anchor=N_TEST_TM_MODULE",
+            "path_nodes": [
+              "N_TEST_TM_MODULE",
+              "N_CODE_TM_MODULE"
+            ],
+            "path_edges": [
+              "E007"
+            ],
+            "path_summary": "N_TEST_TM_MODULE --[tested_by:E007] <-- N_CODE_TM_MODULE"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.5525094162263535,
+            "reason": "topology=0.652, lexical=0.174, trace=0.946, anchor=N_TEST_TM_MODULE",
+            "path_nodes": [
+              "N_TEST_TM_MODULE",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E010"
+            ],
+            "path_summary": "N_TEST_TM_MODULE --[tested_by:E010] <-- N_SPINE_CONCEPT_TM"
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.5546157554351644,
+            "reason": "topology=0.577, lexical=0.391, trace=0.800, anchor=N_SCHEMA_GRAPH_V0",
+            "path_nodes": [
+              "N_SCHEMA_GRAPH_V0"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCHEMA_GRAPH_V0"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.5458615433893046,
+            "reason": "topology=0.519, lexical=0.183, trace=1.370, anchor=N_SCHEMA_GRAPH_V0",
+            "path_nodes": [
+              "N_SCHEMA_GRAPH_V0",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E013"
+            ],
+            "path_summary": "N_SCHEMA_GRAPH_V0 --[depends_on:E013] <-- N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.4312741748291038,
+            "reason": "topology=0.461, lexical=0.192, trace=0.800, anchor=N_SCHEMA_GRAPH_V0",
+            "path_nodes": [
+              "N_SCHEMA_GRAPH_V0",
+              "N_SCRIPT_TM_BENCH",
+              "N_SCHEMA_QUERIES_V0"
+            ],
+            "path_edges": [
+              "E011",
+              "E012"
+            ],
+            "path_summary": "N_SCHEMA_GRAPH_V0 --[depends_on:E011] <-- N_SCRIPT_TM_BENCH --[depends_on:E012] --> N_SCHEMA_QUERIES_V0"
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.5592811614957705,
+            "reason": "topology=0.590, lexical=0.383, trace=0.800, anchor=N_SCHEMA_QUERIES_V0",
+            "path_nodes": [
+              "N_SCHEMA_QUERIES_V0"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCHEMA_QUERIES_V0"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.49574381005597123,
+            "reason": "topology=0.428, lexical=0.183, trace=1.370, anchor=N_SCHEMA_QUERIES_V0",
+            "path_nodes": [
+              "N_SCHEMA_QUERIES_V0",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E014"
+            ],
+            "path_summary": "N_SCHEMA_QUERIES_V0 --[depends_on:E014] <-- N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.4429742717988008,
+            "reason": "topology=0.481, lexical=0.195, trace=0.800, anchor=N_SCHEMA_QUERIES_V0",
+            "path_nodes": [
+              "N_SCHEMA_QUERIES_V0",
+              "N_SCRIPT_TM_BENCH",
+              "N_SCHEMA_GRAPH_V0"
+            ],
+            "path_edges": [
+              "E012",
+              "E011"
+            ],
+            "path_summary": "N_SCHEMA_QUERIES_V0 --[depends_on:E012] <-- N_SCRIPT_TM_BENCH --[depends_on:E011] --> N_SCHEMA_GRAPH_V0"
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.5428975781818182,
+            "reason": "topology=0.659, lexical=0.602, trace=0.000, anchor=N_DOC_PREDICTION_PROTOCOL",
+            "path_nodes": [
+              "N_DOC_PREDICTION_PROTOCOL"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_PREDICTION_PROTOCOL"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.29902350551051665,
+            "reason": "topology=0.124, lexical=0.085, trace=1.370, anchor=N_TEST_TM_MODULE",
+            "path_nodes": [
+              "N_TEST_TM_MODULE",
+              "N_SPINE_CONCEPT_TM",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E010",
+              "E001"
+            ],
+            "path_summary": "N_TEST_TM_MODULE --[tested_by:E010] <-- N_SPINE_CONCEPT_TM --[documented_in:E001] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.2942926203208556,
+            "reason": "topology=0.445, lexical=0.166, trace=0.000, anchor=N_DOC_PREDICTION_PROTOCOL",
+            "path_nodes": [
+              "N_DOC_PREDICTION_PROTOCOL",
+              "N_DOC_THEORY_MATRIX"
+            ],
+            "path_edges": [
+              "E020"
+            ],
+            "path_summary": "N_DOC_PREDICTION_PROTOCOL --[depends_on:E020] <-- N_DOC_THEORY_MATRIX"
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_DOC_PARADOX_REGISTRY",
+            "score": 0.5823232761904762,
+            "reason": "topology=0.713, lexical=0.633, trace=0.000, anchor=N_DOC_PARADOX_REGISTRY",
+            "path_nodes": [
+              "N_DOC_PARADOX_REGISTRY"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_PARADOX_REGISTRY"
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.3233349579831933,
+            "reason": "topology=0.504, lexical=0.154, trace=0.000, anchor=N_DOC_PARADOX_REGISTRY",
+            "path_nodes": [
+              "N_DOC_PARADOX_REGISTRY",
+              "N_DOC_THEORY_MATRIX"
+            ],
+            "path_edges": [
+              "E021"
+            ],
+            "path_summary": "N_DOC_PARADOX_REGISTRY --[depends_on:E021] <-- N_DOC_THEORY_MATRIX"
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.3204793542857143,
+            "reason": "topology=0.451, lexical=0.241, trace=0.000, anchor=N_DOC_PARADOX_REGISTRY",
+            "path_nodes": [
+              "N_DOC_PARADOX_REGISTRY",
+              "N_DOC_THEORY_MATRIX",
+              "N_DOC_PREDICTION_PROTOCOL"
+            ],
+            "path_edges": [
+              "E021",
+              "E020"
+            ],
+            "path_summary": "N_DOC_PARADOX_REGISTRY --[depends_on:E021] <-- N_DOC_THEORY_MATRIX --[depends_on:E020] --> N_DOC_PREDICTION_PROTOCOL"
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.24674285714285712,
+            "reason": "topology=0.316, lexical=0.244, trace=0.000, anchor=N_DOC_THEORY_MATRIX",
+            "path_nodes": [
+              "N_DOC_THEORY_MATRIX"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_THEORY_MATRIX"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.2054682100559712,
+            "reason": "topology=0.000, lexical=0.000, trace=1.370",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.18345336134453785,
+            "reason": "topology=0.265, lexical=0.125, trace=0.000, anchor=N_DOC_THEORY_MATRIX",
+            "path_nodes": [
+              "N_DOC_THEORY_MATRIX",
+              "N_DOC_PREDICTION_PROTOCOL"
+            ],
+            "path_edges": [
+              "E020"
+            ],
+            "path_summary": "N_DOC_THEORY_MATRIX --[depends_on:E020] --> N_DOC_PREDICTION_PROTOCOL"
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.6775000000000001,
+            "reason": "topology=0.850, lexical=0.700, trace=0.000, anchor=N_SCRIPT_RESEARCH_VERIFIER",
+            "path_nodes": [
+              "N_SCRIPT_RESEARCH_VERIFIER"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_RESEARCH_VERIFIER"
+          },
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.4542833333333333,
+            "reason": "topology=0.712, lexical=0.208, trace=0.000, anchor=N_SCRIPT_RESEARCH_VERIFIER",
+            "path_nodes": [
+              "N_SCRIPT_RESEARCH_VERIFIER",
+              "N_TEST_RESEARCH_VERIFIER"
+            ],
+            "path_edges": [
+              "E019"
+            ],
+            "path_summary": "N_SCRIPT_RESEARCH_VERIFIER --[tested_by:E019] --> N_TEST_RESEARCH_VERIFIER"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.2054682100559712,
+            "reason": "topology=0.000, lexical=0.000, trace=1.370",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.42439642857142856,
+            "reason": "topology=0.562, lexical=0.384, trace=0.000, anchor=N_TEST_RESEARCH_VERIFIER",
+            "path_nodes": [
+              "N_TEST_RESEARCH_VERIFIER"
+            ],
+            "path_edges": [],
+            "path_summary": "N_TEST_RESEARCH_VERIFIER"
+          },
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.36251190476190476,
+            "reason": "topology=0.524, lexical=0.248, trace=0.000, anchor=N_TEST_RESEARCH_VERIFIER",
+            "path_nodes": [
+              "N_TEST_RESEARCH_VERIFIER",
+              "N_SCRIPT_RESEARCH_VERIFIER"
+            ],
+            "path_edges": [
+              "E019"
+            ],
+            "path_summary": "N_TEST_RESEARCH_VERIFIER --[tested_by:E019] <-- N_SCRIPT_RESEARCH_VERIFIER"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.2450682100559712,
+            "reason": "topology=0.072, lexical=0.000, trace=1.370, anchor=N_PLAN_RESEARCH_BACKLOG",
+            "path_nodes": [
+              "N_PLAN_RESEARCH_BACKLOG",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E025"
+            ],
+            "path_summary": "N_PLAN_RESEARCH_BACKLOG --[depends_on:E025] --> N_DOC_TOPO_DRAFT"
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.5824321703652813,
+            "reason": "topology=0.596, lexical=0.550, trace=0.599, anchor=N_WORKFLOW",
+            "path_nodes": [
+              "N_WORKFLOW"
+            ],
+            "path_edges": [],
+            "path_summary": "N_WORKFLOW"
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.3351758547216922,
+            "reason": "topology=0.323, lexical=0.192, trace=0.669, anchor=N_WORKFLOW",
+            "path_nodes": [
+              "N_WORKFLOW",
+              "N_DOC_YGG_ARCH",
+              "N_SCRIPT_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E028",
+              "E018",
+              "E015"
+            ],
+            "path_summary": "N_WORKFLOW --[mentioned_in:E028] <-- N_DOC_YGG_ARCH --[implemented_in:E018] --> N_SCRIPT_YGG --[depends_on:E015] --> N_CODE_YGG_CONTINUITY"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.3113762100559712,
+            "reason": "topology=0.143, lexical=0.092, trace=1.370, anchor=N_WORKFLOW",
+            "path_nodes": [
+              "N_WORKFLOW",
+              "N_SPINE_CONCEPT_TM",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E027",
+              "E001"
+            ],
+            "path_summary": "N_WORKFLOW --[promotes_to:E027] <-- N_SPINE_CONCEPT_TM --[documented_in:E001] --> N_DOC_TOPO_DRAFT"
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.751881236,
+            "reason": "topology=0.931, lexical=0.800, trace=0.000, anchor=N_SCRIPT_AUTOMATION_ORCH",
+            "path_nodes": [
+              "N_SCRIPT_AUTOMATION_ORCH"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_AUTOMATION_ORCH"
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.4765817383652812,
+            "reason": "topology=0.703, lexical=0.000, trace=0.599, anchor=N_SCRIPT_AUTOMATION_ORCH",
+            "path_nodes": [
+              "N_SCRIPT_AUTOMATION_ORCH",
+              "N_WORKFLOW"
+            ],
+            "path_edges": [
+              "E022"
+            ],
+            "path_summary": "N_SCRIPT_AUTOMATION_ORCH --[mentioned_in:E022] <-- N_WORKFLOW"
+          },
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.4245141626666667,
+            "reason": "topology=0.613, lexical=0.292, trace=0.000, anchor=N_SCRIPT_AUTOMATION_ORCH",
+            "path_nodes": [
+              "N_SCRIPT_AUTOMATION_ORCH",
+              "N_WORKFLOW",
+              "N_SCRIPT_ORCH_AUTOSPAWN"
+            ],
+            "path_edges": [
+              "E022",
+              "E023"
+            ],
+            "path_summary": "N_SCRIPT_AUTOMATION_ORCH --[mentioned_in:E022] <-- N_WORKFLOW --[mentioned_in:E023] --> N_SCRIPT_ORCH_AUTOSPAWN"
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.6908486240444446,
+            "reason": "topology=0.868, lexical=0.711, trace=0.000, anchor=N_SCRIPT_ORCH_AUTOSPAWN",
+            "path_nodes": [
+              "N_SCRIPT_ORCH_AUTOSPAWN"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_ORCH_AUTOSPAWN"
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.4703920383652814,
+            "reason": "topology=0.692, lexical=0.000, trace=0.599, anchor=N_SCRIPT_ORCH_AUTOSPAWN",
+            "path_nodes": [
+              "N_SCRIPT_ORCH_AUTOSPAWN",
+              "N_WORKFLOW"
+            ],
+            "path_edges": [
+              "E023"
+            ],
+            "path_summary": "N_SCRIPT_ORCH_AUTOSPAWN --[mentioned_in:E023] <-- N_WORKFLOW"
+          },
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.46902612626666673,
+            "reason": "topology=0.653, lexical=0.367, trace=0.000, anchor=N_SCRIPT_ORCH_AUTOSPAWN",
+            "path_nodes": [
+              "N_SCRIPT_ORCH_AUTOSPAWN",
+              "N_WORKFLOW",
+              "N_SCRIPT_AUTOMATION_ORCH"
+            ],
+            "path_edges": [
+              "E023",
+              "E022"
+            ],
+            "path_summary": "N_SCRIPT_ORCH_AUTOSPAWN --[mentioned_in:E023] <-- N_WORKFLOW --[mentioned_in:E022] --> N_SCRIPT_AUTOMATION_ORCH"
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_SCRIPT_SELF_IMPROVE",
+            "score": 0.44226758,
+            "reason": "topology=0.531, lexical=0.500, trace=0.000, anchor=N_SCRIPT_SELF_IMPROVE",
+            "path_nodes": [
+              "N_SCRIPT_SELF_IMPROVE"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_SELF_IMPROVE"
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.3691215700559712,
+            "reason": "topology=0.243, lexical=0.100, trace=1.370, anchor=N_SCRIPT_TM_BENCH",
+            "path_nodes": [
+              "N_SCRIPT_TM_BENCH",
+              "N_SPINE_CONCEPT_TM",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E009",
+              "E001"
+            ],
+            "path_summary": "N_SCRIPT_TM_BENCH --[implemented_in:E009] <-- N_SPINE_CONCEPT_TM --[documented_in:E001] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.3238255253333333,
+            "reason": "topology=0.352, lexical=0.208, trace=0.450, anchor=N_SCRIPT_SELF_IMPROVE",
+            "path_nodes": [
+              "N_SCRIPT_SELF_IMPROVE",
+              "N_WORKFLOW",
+              "N_SPINE_CONCEPT_TM",
+              "N_SCRIPT_TM_BENCH"
+            ],
+            "path_edges": [
+              "E024",
+              "E027",
+              "E009"
+            ],
+            "path_summary": "N_SCRIPT_SELF_IMPROVE --[mentioned_in:E024] <-- N_WORKFLOW --[promotes_to:E027] <-- N_SPINE_CONCEPT_TM --[implemented_in:E009] --> N_SCRIPT_TM_BENCH"
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.5224413346144661,
+            "reason": "topology=0.640, lexical=0.233, trace=0.669, anchor=N_STATE_YGG_CHECKPOINTS",
+            "path_nodes": [
+              "N_STATE_YGG_CHECKPOINTS",
+              "N_SCRIPT_YGG"
+            ],
+            "path_edges": [
+              "E017"
+            ],
+            "path_summary": "N_STATE_YGG_CHECKPOINTS --[checkpointed_by:E017] <-- N_SCRIPT_YGG"
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.48730906713194855,
+            "reason": "topology=0.579, lexical=0.229, trace=0.669, anchor=N_TEST_YGG",
+            "path_nodes": [
+              "N_TEST_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E016"
+            ],
+            "path_summary": "N_TEST_YGG --[tested_by:E016] <-- N_CODE_YGG_CONTINUITY"
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.4418396953846153,
+            "reason": "topology=0.618, lexical=0.339, trace=0.000, anchor=N_STATE_YGG_CHECKPOINTS",
+            "path_nodes": [
+              "N_STATE_YGG_CHECKPOINTS"
+            ],
+            "path_edges": [],
+            "path_summary": "N_STATE_YGG_CHECKPOINTS"
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.2054682100559712,
+            "reason": "topology=0.000, lexical=0.000, trace=1.370",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.14196224408349634,
+            "reason": "topology=0.000, lexical=0.000, trace=0.946",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.13125,
+            "reason": "topology=0.000, lexical=0.000, trace=0.875",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.2837235946713558,
+            "reason": "topology=0.102, lexical=0.074, trace=1.370, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E004"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[mentioned_in:E004] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.19790993639118865,
+            "reason": "topology=0.102, lexical=0.000, trace=0.946, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E005"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[depends_on:E005] --> N_SPINE_CONCEPT_TM"
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.17153233846153845,
+            "reason": "topology=0.073, lexical=0.000, trace=0.875, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_SPINE_CONCEPT_TM",
+              "N_CODE_TM_MODULE"
+            ],
+            "path_edges": [
+              "E005",
+              "E008"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[depends_on:E005] --> N_SPINE_CONCEPT_TM --[implemented_in:E008] --> N_CODE_TM_MODULE"
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.3446472997326812,
+            "reason": "topology=0.353, lexical=0.167, trace=0.669, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH",
+              "N_SCRIPT_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E018",
+              "E015"
+            ],
+            "path_summary": "N_DOC_YGG_ARCH --[implemented_in:E018] --> N_SCRIPT_YGG --[depends_on:E015] --> N_CODE_YGG_CONTINUITY"
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.334487699499581,
+            "reason": "topology=0.379, lexical=0.085, trace=0.669, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH",
+              "N_SCRIPT_YGG"
+            ],
+            "path_edges": [
+              "E018"
+            ],
+            "path_summary": "N_DOC_YGG_ARCH --[implemented_in:E018] --> N_SCRIPT_YGG"
+          },
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.2829371835164835,
+            "reason": "topology=0.383, lexical=0.241, trace=0.000, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_YGG_ARCH"
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.29932237672263784,
+            "reason": "topology=0.110, lexical=0.110, trace=1.370, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.18568724408349635,
+            "reason": "topology=0.080, lexical=0.000, trace=0.946, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E001"
+            ],
+            "path_summary": "N_DOC_TOPO_DRAFT --[documented_in:E001] <-- N_SPINE_CONCEPT_TM"
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.16273200000000002,
+            "reason": "topology=0.057, lexical=0.000, trace=0.875, anchor=N_DOC_TOPO_DRAFT",
+            "path_nodes": [
+              "N_DOC_TOPO_DRAFT",
+              "N_SPINE_CONCEPT_TM",
+              "N_CODE_TM_MODULE"
+            ],
+            "path_edges": [
+              "E001",
+              "E008"
+            ],
+            "path_summary": "N_DOC_TOPO_DRAFT --[documented_in:E001] <-- N_SPINE_CONCEPT_TM --[implemented_in:E008] --> N_CODE_TM_MODULE"
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.41177583360337655,
+            "reason": "topology=0.432, lexical=0.281, trace=0.599, anchor=N_WORKFLOW",
+            "path_nodes": [
+              "N_WORKFLOW"
+            ],
+            "path_edges": [],
+            "path_summary": "N_WORKFLOW"
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.3154695712931208,
+            "reason": "topology=0.310, lexical=0.149, trace=0.669, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH",
+              "N_SCRIPT_YGG",
+              "N_CODE_YGG_CONTINUITY"
+            ],
+            "path_edges": [
+              "E018",
+              "E015"
+            ],
+            "path_summary": "N_DOC_YGG_ARCH --[implemented_in:E018] --> N_SCRIPT_YGG --[depends_on:E015] --> N_CODE_YGG_CONTINUITY"
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.3052944258732073,
+            "reason": "topology=0.331, lexical=0.076, trace=0.669, anchor=N_DOC_YGG_ARCH",
+            "path_nodes": [
+              "N_DOC_YGG_ARCH",
+              "N_SCRIPT_YGG"
+            ],
+            "path_edges": [
+              "E018"
+            ],
+            "path_summary": "N_DOC_YGG_ARCH --[implemented_in:E018] --> N_SCRIPT_YGG"
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.3864282100559712,
+            "reason": "topology=0.329, lexical=0.000, trace=1.370, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_DOC_TOPO_DRAFT"
+            ],
+            "path_edges": [
+              "E004"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[mentioned_in:E004] --> N_DOC_TOPO_DRAFT"
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.3474768657381946,
+            "reason": "topology=0.316, lexical=0.178, trace=0.800, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_DOC_TOPO_DRAFT",
+              "N_SCHEMA_QUERIES_V0"
+            ],
+            "path_edges": [
+              "E004",
+              "E014"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[mentioned_in:E004] --> N_DOC_TOPO_DRAFT --[depends_on:E014] --> N_SCHEMA_QUERIES_V0"
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.3032836440834963,
+            "reason": "topology=0.293, lexical=0.000, trace=0.946, anchor=N_SPINE_PRESSURE_TM_20260328_03",
+            "path_nodes": [
+              "N_SPINE_PRESSURE_TM_20260328_03",
+              "N_SPINE_CONCEPT_TM"
+            ],
+            "path_edges": [
+              "E005"
+            ],
+            "path_summary": "N_SPINE_PRESSURE_TM_20260328_03 --[depends_on:E005] --> N_SPINE_CONCEPT_TM"
+          }
+        ]
+      }
+    }
+  },
+  "embedding_backend": {
+    "available": false,
+    "backend": "sentence-transformers",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "reason": "sentence-transformers unavailable: ModuleNotFoundError"
+  }
+}

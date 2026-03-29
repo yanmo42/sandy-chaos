@@ -1,0 +1,53 @@
+{
+  "schema_version": "topological-memory-v0",
+  "generated_at": "2026-03-28T20:15:00Z",
+  "notes": "Minimal seed example for v0 schema consumers.",
+  "nodes": [
+    {
+      "id": "doc.topo.v0",
+      "kind": "doc",
+      "surface": "sandy-chaos",
+      "title": "Topological Memory for Continuity Retrieval (v0)",
+      "path": "docs/archive/topological_memory_continuity_retrieval_v0.md",
+      "summary": "Bounded thesis for topology-aware continuity retrieval.",
+      "tags": ["topological-memory", "continuity", "research-draft"],
+      "created_at": "2026-03-27T21:40:00Z",
+      "updated_at": "2026-03-28T00:10:00Z"
+    },
+    {
+      "id": "plan.todo.topo",
+      "kind": "plan",
+      "surface": "sandy-chaos",
+      "title": "Topological Memory Continuity Retrieval",
+      "path": "plans/todo.md",
+      "summary": "Execution queue for schema, benchmark, baselines, and retriever.",
+      "tags": ["topological-memory", "planning"],
+      "created_at": "2026-03-27T21:43:00Z",
+      "updated_at": "2026-03-28T00:10:00Z"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge.todo.mentions.topo",
+      "source": "plan.todo.topo",
+      "target": "doc.topo.v0",
+      "relation": "mentioned_in",
+      "weight": 0.8
+    }
+  ],
+  "traces": [
+    {
+      "id": "trace.checkpoint.topo.1",
+      "subject_type": "node",
+      "subject_id": "doc.topo.v0",
+      "event_type": "checkpoint",
+      "timestamp": "2026-03-28T00:11:00Z",
+      "weight": 0.9,
+      "source_surface": "ygg",
+      "disposition": "TODO_PROMOTE",
+      "confidence_tier": "defensible",
+      "half_life_hours": 168,
+      "note": "Ratification checkpoint logged in Ygg state."
+    }
+  ]
+}

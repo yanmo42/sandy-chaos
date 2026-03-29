@@ -1,0 +1,2306 @@
+{
+  "query_count": 30,
+  "top_k": 3,
+  "baselines": {
+    "keyword": {
+      "hit_rate": 0.8,
+      "mrr": 0.75,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_PLAN_TODO",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "top_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG",
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_TEST_RESEARCH_VERIFIER"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "top_nodes": [
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_SCRIPT_YGG",
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_SCRIPT_YGG"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_YGG",
+            "N_SCHEMA_QUERIES_V0",
+            "N_TEST_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "top_nodes": [
+            "N_TEST_YGG",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_TEST_YGG"
+          ],
+          "top_nodes": [
+            "N_TEST_YGG",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_SCRIPT_YGG",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_SCRIPT_TM_BENCH",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_QUERIES_V0",
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "top_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL",
+            "N_TEST_TM_MODULE",
+            "N_DOC_PARADOX_REGISTRY"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_DOC_PARADOX_REGISTRY"
+          ],
+          "top_nodes": [
+            "N_DOC_PARADOX_REGISTRY",
+            "N_DOC_PREDICTION_PROTOCOL",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "top_nodes": [
+            "N_DOC_THEORY_MATRIX",
+            "N_DOC_PREDICTION_PROTOCOL",
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_TEST_RESEARCH_VERIFIER",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_TEST_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_TEST_RESEARCH_VERIFIER",
+            "N_SCRIPT_RESEARCH_VERIFIER",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_CODE_YGG_CONTINUITY",
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_SCRIPT_SELF_IMPROVE"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_SELF_IMPROVE",
+            "N_SCRIPT_TM_BENCH",
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_TEST_YGG",
+            "N_SCRIPT_YGG"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_CODE_YGG_CONTINUITY",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_DOC_YGG_ARCH",
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [],
+        "Q-002": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.2545454545454545,
+            "reason": "keyword overlap=['for', 'memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.24866310160427807,
+            "reason": "keyword overlap=['memory', 'todo', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.17207792207792205,
+            "reason": "keyword overlap=['memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.30357142857142855,
+            "reason": "keyword overlap=['backlog', 'lane', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.19999999999999998,
+            "reason": "keyword overlap=['in', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.10416666666666666,
+            "reason": "keyword overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.43452380952380953,
+            "reason": "keyword overlap=['and', 'claim', 'concept', 'conditions', 'failure']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.09583333333333334,
+            "reason": "keyword overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.09423076923076924,
+            "reason": "keyword overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.6,
+            "reason": "keyword overlap=['before', 'benchmark', 'pressure', 'promotion', 'review', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['baselines', 'benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.4464285714285714,
+            "reason": "keyword overlap=['architecture', 'canonical', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.23295454545454547,
+            "reason": "keyword overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.22916666666666666,
+            "reason": "keyword overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.3494318181818182,
+            "reason": "keyword overlap=['cli', 'continuity', 'status/checkpoint/promote']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.22916666666666666,
+            "reason": "keyword overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.22596153846153846,
+            "reason": "keyword overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.41025641025641024,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'for', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.3125,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.3076923076923077,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.6118881118881119,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'for', 'helpers', 'test', 'write/load', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.44507575757575757,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'helpers', 'write/load', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.34965034965034963,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'helpers', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['benchmark', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.10416666666666666,
+            "reason": "keyword overlap=['benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.22083333333333333,
+            "reason": "keyword overlap=['retrieval', 'topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.11458333333333333,
+            "reason": "keyword overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.11160714285714285,
+            "reason": "keyword overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.6343749999999999,
+            "reason": "keyword overlap=['and', 'baselines', 'graph', 'loading', 'scoring', 'test', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.1954545454545455,
+            "reason": "keyword overlap=['graph', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['baselines', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.390909090909091,
+            "reason": "keyword overlap=['for', 'graph', 'node/edge/trace', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['for', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.18333333333333335,
+            "reason": "keyword overlap=['for', 'v0']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.38333333333333336,
+            "reason": "keyword overlap=['benchmark', 'for', 'query', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.1954545454545455,
+            "reason": "keyword overlap=['for', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['benchmark', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.6022727272727273,
+            "reason": "keyword overlap=['and', 'claims', 'for', 'pre-registration', 'predictive', 'protocol', 'scoring']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.25142045454545453,
+            "reason": "keyword overlap=['and', 'for', 'scoring']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PARADOX_REGISTRY",
+            "score": 0.16969696969696968,
+            "reason": "keyword overlap=['and', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_DOC_PARADOX_REGISTRY",
+            "score": 0.6333333333333333,
+            "reason": "keyword overlap=['and', 'cases', 'causal', 'doc', 'for', 'informational', 'paradox', 'stress']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.24107142857142858,
+            "reason": "keyword overlap=['and', 'doc', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.234375,
+            "reason": "keyword overlap=['and', 'for', 'tests']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.24369747899159663,
+            "reason": "keyword overlap=['evidence', 'ledger']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.125,
+            "reason": "keyword overlap=['evidence']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.1238095238095238,
+            "reason": "keyword overlap=['evidence']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.7000000000000001,
+            "reason": "keyword overlap=['checks', 'claim-to-source', 'completeness', 'in', 'mapping', 'research', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['mapping', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_TEST_RESEARCH_VERIFIER",
+            "score": 0.3839285714285714,
+            "reason": "keyword overlap=['research', 'tests', 'verifier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_RESEARCH_VERIFIER",
+            "score": 0.2476190476190476,
+            "reason": "keyword overlap=['research', 'verifier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.125,
+            "reason": "keyword overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.5499999999999999,
+            "reason": "keyword overlap=['and', 'automation', 'continuity', 'hygiene', 'protocol', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.19166666666666668,
+            "reason": "keyword overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.18571428571428572,
+            "reason": "keyword overlap=['and', 'protocol']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.7999999999999999,
+            "reason": "keyword overlap=['builds', 'contracts', 'from', 'lane-aware', 'script', 'surfaces', 'task', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.2916666666666667,
+            "reason": "keyword overlap=['contracts', 'script', 'task']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.7111111111111112,
+            "reason": "keyword overlap=['bridge', 'contracts', 'dispatches', 'gateway', 'orchestrator', 'script', 'task', 'through']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.3666666666666667,
+            "reason": "keyword overlap=['contracts', 'orchestrator', 'script', 'task']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.09772727272727275,
+            "reason": "keyword overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_SCRIPT_SELF_IMPROVE",
+            "score": 0.5,
+            "reason": "keyword overlap=['cadence', 'daily/weekly', 'for', 'script', 'summaries']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['for', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.3389423076923077,
+            "reason": "keyword overlap=['checkpoints', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.3389423076923077,
+            "reason": "keyword overlap=['continuity', 'for', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_YGG",
+            "score": 0.23295454545454547,
+            "reason": "keyword overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.07692307692307693,
+            "reason": "keyword overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.14871794871794872,
+            "reason": "keyword overlap=['before', 'promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.07692307692307693,
+            "reason": "keyword overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_PREDICTION_PROTOCOL",
+            "score": 0.07554945054945056,
+            "reason": "keyword overlap=['claims']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.24107142857142858,
+            "reason": "keyword overlap=['and', 'governance', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.16666666666666666,
+            "reason": "keyword overlap=['and', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.16346153846153846,
+            "reason": "keyword overlap=['written', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.11041666666666666,
+            "reason": "keyword overlap=['topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.28095238095238095,
+            "reason": "keyword overlap=['and', 'continuity', 'operational', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_YGG_ARCH",
+            "score": 0.21428571428571427,
+            "reason": "keyword overlap=['and', 'continuity', 'governance']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_YGG_CONTINUITY",
+            "score": 0.1488095238095238,
+            "reason": "keyword overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.2545454545454545,
+            "reason": "keyword overlap=['before', 'benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.178030303030303,
+            "reason": "keyword overlap=['benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.09090909090909091,
+            "reason": "keyword overlap=['schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    },
+    "recency": {
+      "hit_rate": 0.5666666666666667,
+      "mrr": 0.4666666666666667,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_PLAN_TODO",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "top_nodes": [
+            "N_PLAN_RESEARCH_BACKLOG",
+            "N_WORKFLOW",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "top_nodes": [
+            "N_SPINE_CONCEPT_TM",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_TEST_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_SCHEMA_QUERIES_V0",
+            "N_SPINE_CONCEPT_TM"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_SCRIPT_YGG"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT",
+            "N_WORKFLOW"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_CODE_YGG_CONTINUITY"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_TEST_YGG"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_TEST_YGG",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_CODE_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_CODE_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SCHEMA_QUERIES_V0",
+            "N_TEST_TM_MODULE",
+            "N_SCRIPT_TM_BENCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_DOC_PREDICTION_PROTOCOL"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_WORKFLOW",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_DOC_PARADOX_REGISTRY"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_DOC_TOPO_DRAFT",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "top_nodes": [
+            "N_DOC_THEORY_MATRIX",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_SCRIPT_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_WORKFLOW",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_TEST_RESEARCH_VERIFIER"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_WORKFLOW",
+            "N_PLAN_RESEARCH_BACKLOG"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_SPINE_CONCEPT_TM",
+            "N_PLAN_TODO"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_PLAN_TODO",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_SCRIPT_SELF_IMPROVE"
+          ],
+          "top_nodes": [
+            "N_SCRIPT_TM_BENCH",
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_GRAPH_V0"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_SCHEMA_QUERIES_V0",
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PLAN_TODO"
+          ],
+          "top_nodes": [
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_DOC_TOPO_DRAFT",
+            "N_STATE_YGG_CHECKPOINTS"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_DOC_TOPO_DRAFT"
+          ],
+          "top_nodes": [
+            "N_TEST_TM_MODULE",
+            "N_STATE_YGG_CHECKPOINTS",
+            "N_DOC_THEORY_MATRIX"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "top_nodes": [
+            "N_DOC_TOPO_DRAFT",
+            "N_CODE_TM_MODULE",
+            "N_TEST_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_DOC_YGG_ARCH",
+            "N_WORKFLOW"
+          ],
+          "top_nodes": [
+            "N_WORKFLOW",
+            "N_TEST_TM_MODULE",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_SCHEMA_GRAPH_V0",
+            "N_SCHEMA_QUERIES_V0"
+          ],
+          "top_nodes": [
+            "N_SPINE_PRESSURE_TM_20260328_03",
+            "N_SCHEMA_QUERIES_V0",
+            "N_CODE_TM_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.7999742641145247,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-002": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8536189626683435,
+            "reason": "recency=0.999, lexical_overlap=['for', 'memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.8480857472911518,
+            "reason": "recency=0.992, lexical_overlap=['memory', 'todo', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8363636363636364,
+            "reason": "recency=1.000, lexical_overlap=['memory', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.8602326952978393,
+            "reason": "recency=0.992, lexical_overlap=['backlog', 'lane', 'research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8193912748199382,
+            "reason": "recency=0.996, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.899253659321216,
+            "reason": "recency=0.999, lexical_overlap=['and', 'claim', 'concept', 'conditions', 'failure']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.9270023055064072,
+            "reason": "recency=0.992, lexical_overlap=['before', 'benchmark', 'pressure', 'promotion', 'review', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8444444444444444,
+            "reason": "recency=1.000, lexical_overlap=['baselines', 'benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8444187085589691,
+            "reason": "recency=1.000, lexical_overlap=['baselines', 'benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8473749396815184,
+            "reason": "recency=0.997, lexical_overlap=['continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8249485282290495,
+            "reason": "recency=1.000, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.8242536593212161,
+            "reason": "recency=0.999, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8499485282290495,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.849073508122889,
+            "reason": "recency=0.999, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.847169052597716,
+            "reason": "recency=0.996, lexical_overlap=['continuity', 'operations']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.864041606348185,
+            "reason": "recency=0.997, lexical_overlap=['checkpoint', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8443929726734939,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8435179525673333,
+            "reason": "recency=0.999, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8701022124087912,
+            "reason": "recency=0.997, lexical_overlap=['checkpoint', 'continuity', 'helpers', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_YGG",
+            "score": 0.850528316785354,
+            "reason": "recency=0.904, lexical_overlap=['checkpoint', 'continuity', 'for', 'helpers', 'test', 'write/load', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8363636363636364,
+            "reason": "recency=1.000, lexical_overlap=['for', 'test']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8444187085589691,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8221707504512717,
+            "reason": "recency=1.000, lexical_overlap=['benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.849073508122889,
+            "reason": "recency=0.999, lexical_overlap=['retrieval', 'topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8249742641145247,
+            "reason": "recency=1.000, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.9400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'baselines', 'graph', 'loading', 'scoring', 'test', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8399742641145247,
+            "reason": "recency=1.000, lexical_overlap=['baselines', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.8799485282290496,
+            "reason": "recency=1.000, lexical_overlap=['for', 'graph', 'node/edge/trace', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['node/edge/trace', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['for', 'graph']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8799485282290496,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'for', 'query', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8399742641145247,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8545454545454546,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for', 'scoring']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8335326889613524,
+            "reason": "recency=0.996, lexical_overlap=['and', 'protocol']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8300840803076609,
+            "reason": "recency=0.992, lexical_overlap=['and', 'claims']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8500000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for', 'tests']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8324068414562222,
+            "reason": "recency=0.999, lexical_overlap=['doc', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8270537772773578,
+            "reason": "recency=0.992, lexical_overlap=['and', 'doc']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8508633010868817,
+            "reason": "recency=0.992, lexical_overlap=['evidence', 'ledger']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['evidence']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8221964863367469,
+            "reason": "recency=1.000, lexical_overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8193912748199382,
+            "reason": "recency=0.996, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8159426661662468,
+            "reason": "recency=0.992, lexical_overlap=['mapping']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['tests']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8257404811691446,
+            "reason": "recency=0.996, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_RESEARCH_BACKLOG",
+            "score": 0.8221374572026012,
+            "reason": "recency=0.992, lexical_overlap=['research']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.917169052597716,
+            "reason": "recency=0.996, lexical_overlap=['and', 'automation', 'continuity', 'hygiene', 'protocol', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SPINE_CONCEPT_TM",
+            "score": 0.8392536593212161,
+            "reason": "recency=0.999, lexical_overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.8335402927456973,
+            "reason": "recency=0.992, lexical_overlap=['and', 'continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8221964863367469,
+            "reason": "recency=1.000, lexical_overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.8157625149679195,
+            "reason": "recency=0.992, lexical_overlap=['todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8199742641145247,
+            "reason": "recency=1.000, lexical_overlap=['script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_SCRIPT_TM_BENCH",
+            "score": 0.8444187085589691,
+            "reason": "recency=1.000, lexical_overlap=['for', 'script']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_GRAPH_V0",
+            "score": 0.8221707504512717,
+            "reason": "recency=1.000, lexical_overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8723749396815184,
+            "reason": "recency=0.997, lexical_overlap=['checkpoints', 'continuity', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8499485282290495,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.849073508122889,
+            "reason": "recency=0.999, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8127595550661337,
+            "reason": "recency=0.997, lexical_overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.8244382029423046,
+            "reason": "recency=0.992, lexical_overlap=['before', 'promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8144581235075044,
+            "reason": "recency=0.999, lexical_overlap=['archive']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8127595550661337,
+            "reason": "recency=0.997, lexical_overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8333333333333334,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_STATE_YGG_CHECKPOINTS",
+            "score": 0.8307082730148517,
+            "reason": "recency=0.997, lexical_overlap=['written', 'ygg']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_DOC_THEORY_MATRIX",
+            "score": 0.8270537772773578,
+            "reason": "recency=0.992, lexical_overlap=['and', 'governance']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_DOC_TOPO_DRAFT",
+            "score": 0.8240735081228889,
+            "reason": "recency=0.999, lexical_overlap=['topology-aware']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_WORKFLOW",
+            "score": 0.8543119097405731,
+            "reason": "recency=0.996, lexical_overlap=['and', 'continuity', 'operational', 'workflow']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TEST_TM_MODULE",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['and', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8285199568004781,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_SPINE_PRESSURE_TM_20260328_03",
+            "score": 0.8482144267185284,
+            "reason": "recency=0.992, lexical_overlap=['before', 'benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCHEMA_QUERIES_V0",
+            "score": 0.8363121645926859,
+            "reason": "recency=1.000, lexical_overlap=['benchmark', 'schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CODE_TM_MODULE",
+            "score": 0.8181818181818182,
+            "reason": "recency=1.000, lexical_overlap=['schema']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    }
+  },
+  "embedding_backend": {
+    "available": false
+  }
+}

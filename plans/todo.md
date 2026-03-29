@@ -313,9 +313,9 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 ## Topological Memory Continuity Retrieval (2026-03)
 
 - [x] Ratify bounded research draft in `docs/archive/topological_memory_continuity_retrieval_v0.md`
-- [ ] Define v0 node / edge / trace schema for bounded ecosystem topology
-- [ ] Build a ~30-query benchmark from real continuity retrieval questions
-- [ ] Add baseline retrieval scorers (keyword / recency / embedding if available)
-- [ ] Add topology-aware retriever with inspectable path output
-- [ ] Compare topology-aware retrieval against flat baselines
-- [ ] Only promote beyond archive if it beats at least one baseline with interpretable paths
+- [x] Define v0 node / edge / trace schema for bounded ecosystem topology (`schemas/topological_memory_graph_v0.schema.json`, `schemas/topological_memory_queries_v0.schema.json`)
+- [x] Build a ~30-query benchmark from real continuity retrieval questions (`memory/research/topological-memory-v0/benchmark_queries_v0.json`, 30 queries)
+- [x] Add baseline retrieval scorers (keyword / recency / embedding if available) (`nfem_suite/intelligence/ygg/topological_memory.py`; embedding optional + auto-unavailable reporting)
+- [x] Add topology-aware retriever with inspectable path output (`topology_aware_retrieval` with `path_nodes`, `path_edges`, `path_summary`; inspect via `scripts/topological_memory_v0.py --inspect-query Q-001`)
+- [x] Compare topology-aware retrieval against flat baselines (`memory/research/topological-memory-v0/comparison_report_v0.md`, `memory/research/topological-memory-v0/comparison_summary_v0.json`)
+- [x] Only promote beyond archive if it beats at least one baseline with interpretable paths (`memory/research/topological-memory-v0/promotion_gate_v0.md`, `docs/notes/topological_memory_v0_provisional_validation.md`)

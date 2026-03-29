@@ -1,0 +1,26 @@
+{
+  "schema_version": "topological-memory-queries-v0",
+  "generated_at": "2026-03-28T20:15:00Z",
+  "notes": "Seed benchmark examples for v0.",
+  "queries": [
+    {
+      "id": "Q-001",
+      "question": "Where is the bounded topological-memory thesis currently defined?",
+      "category": "origin_trace",
+      "difficulty": "easy",
+      "time_horizon": "slow",
+      "expected_nodes": ["doc.topo.v0"],
+      "notes": "Should rank the archive draft above peripheral mentions."
+    },
+    {
+      "id": "Q-002",
+      "question": "What should be resumed next for the topological-memory lane?",
+      "category": "resume_next",
+      "difficulty": "medium",
+      "time_horizon": "meso",
+      "expected_nodes": ["plan.todo.topo"],
+      "expected_any_nodes": ["doc.topo.v0"],
+      "notes": "Preference is planning queue, with thesis doc acceptable as supporting hit."
+    }
+  ]
+}

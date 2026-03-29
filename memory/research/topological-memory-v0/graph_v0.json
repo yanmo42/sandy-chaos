@@ -1,0 +1,289 @@
+{
+  "schema_version": "topological-memory-v0",
+  "generated_at": "2026-03-28T14:40:00-04:00",
+  "notes": "Seed graph for bounded Topological Memory v0 benchmarking.",
+  "nodes": [
+    {
+      "id": "N_DOC_TOPO_DRAFT",
+      "kind": "doc",
+      "title": "Topological Memory for Continuity Retrieval (v0)",
+      "path": "docs/archive/topological_memory_continuity_retrieval_v0.md",
+      "summary": "Benchmark-first framing for topology-aware continuity retrieval.",
+      "tags": ["topology", "memory", "continuity", "archive"],
+      "created_at": "2026-03-27T00:00:00-04:00",
+      "updated_at": "2026-03-28T14:05:00-04:00"
+    },
+    {
+      "id": "N_PLAN_TODO",
+      "kind": "plan",
+      "title": "Sandy Chaos TODO",
+      "path": "plans/todo.md",
+      "summary": "Master implementation checklist including continuity and topological memory tasks.",
+      "tags": ["todo", "continuity", "roadmap"],
+      "created_at": "2026-03-01T00:00:00-05:00",
+      "updated_at": "2026-03-28T10:30:00-04:00"
+    },
+    {
+      "id": "N_PLAN_RESEARCH_BACKLOG",
+      "kind": "plan",
+      "title": "Research Backlog",
+      "path": "plans/research_backlog.md",
+      "summary": "Literature-integrated backlog including topological memory continuity retrieval lane.",
+      "tags": ["research", "backlog", "topology"],
+      "created_at": "2026-03-09T12:00:00-04:00",
+      "updated_at": "2026-03-28T10:31:00-04:00"
+    },
+    {
+      "id": "N_SPINE_CONCEPT_TM",
+      "kind": "spine-concept",
+      "title": "SC-CONCEPT-0004 topological-memory-continuity-retrieval",
+      "path": "spine/concepts/SC-CONCEPT-0004.yaml",
+      "summary": "Concept node tracking topological memory claim tier, failure conditions, and next action.",
+      "tags": ["spine", "concept", "continuity", "topology"],
+      "created_at": "2026-03-28T10:20:00-04:00",
+      "updated_at": "2026-03-28T14:12:00-04:00"
+    },
+    {
+      "id": "N_SPINE_PRESSURE_TM_20260328_03",
+      "kind": "spine-pressure",
+      "title": "SC-PRESSURE-20260328-03",
+      "path": "spine/pressure/2026-03-28/SC-PRESSURE-20260328-03.yaml",
+      "summary": "Pressure review requiring schema + benchmark + baseline before promotion.",
+      "tags": ["spine", "pressure", "needs-falsification"],
+      "created_at": "2026-03-28T10:35:00-04:00",
+      "updated_at": "2026-03-28T10:35:00-04:00"
+    },
+    {
+      "id": "N_DOC_YGG_ARCH",
+      "kind": "doc",
+      "title": "Yggdrasil Continuity Architecture",
+      "path": "docs/12_yggdrasil_continuity_architecture.md",
+      "summary": "Canonical continuity governance architecture and branch disposition model.",
+      "tags": ["ygg", "continuity", "architecture"],
+      "created_at": "2026-03-19T00:00:00-04:00",
+      "updated_at": "2026-03-19T12:00:00-04:00"
+    },
+    {
+      "id": "N_SCRIPT_YGG",
+      "kind": "script",
+      "title": "ygg.py CLI",
+      "path": "scripts/ygg.py",
+      "summary": "Minimal continuity CLI with status/checkpoint/promote commands.",
+      "tags": ["ygg", "cli", "continuity"],
+      "created_at": "2026-03-26T12:59:00-04:00",
+      "updated_at": "2026-03-26T12:59:00-04:00"
+    },
+    {
+      "id": "N_CODE_YGG_CONTINUITY",
+      "kind": "code",
+      "title": "Ygg continuity helpers",
+      "path": "nfem_suite/intelligence/ygg/continuity.py",
+      "summary": "Checkpoint write/load helpers and disposition contract.",
+      "tags": ["ygg", "continuity", "checkpoint"],
+      "created_at": "2026-03-26T12:58:00-04:00",
+      "updated_at": "2026-03-26T12:58:00-04:00"
+    },
+    {
+      "id": "N_TEST_YGG",
+      "kind": "test",
+      "title": "test_ygg.py",
+      "path": "tests/test_ygg.py",
+      "summary": "Checks checkpoint write/load flow for Ygg continuity helpers.",
+      "tags": ["test", "ygg", "continuity"],
+      "created_at": "2026-03-26T12:59:00-04:00",
+      "updated_at": "2026-03-26T12:59:00-04:00"
+    },
+    {
+      "id": "N_SCRIPT_TM_BENCH",
+      "kind": "script",
+      "title": "topological_memory_v0.py",
+      "path": "scripts/topological_memory_v0.py",
+      "summary": "Benchmark runner for keyword/recency/topology retrieval baselines.",
+      "tags": ["topology", "benchmark", "retrieval", "script"],
+      "created_at": "2026-03-28T14:40:00-04:00",
+      "updated_at": "2026-03-28T14:40:00-04:00"
+    },
+    {
+      "id": "N_CODE_TM_MODULE",
+      "kind": "code",
+      "title": "topological_memory.py",
+      "path": "nfem_suite/intelligence/ygg/topological_memory.py",
+      "summary": "Node/edge/trace schema surface and retrieval scorers with path evidence.",
+      "tags": ["topology", "memory", "retrieval", "code"],
+      "created_at": "2026-03-28T14:36:00-04:00",
+      "updated_at": "2026-03-28T14:41:00-04:00"
+    },
+    {
+      "id": "N_TEST_TM_MODULE",
+      "kind": "test",
+      "title": "test_topological_memory_v0.py",
+      "path": "tests/test_topological_memory_v0.py",
+      "summary": "Validation tests for graph loading, baselines, topology scoring, and benchmark eval.",
+      "tags": ["test", "topology", "benchmark"],
+      "created_at": "2026-03-28T14:41:00-04:00",
+      "updated_at": "2026-03-28T14:41:00-04:00"
+    },
+    {
+      "id": "N_SCHEMA_GRAPH_V0",
+      "kind": "state",
+      "title": "topological_memory_graph_v0 schema",
+      "path": "schemas/topological_memory_graph_v0.schema.json",
+      "summary": "JSON schema for node/edge/trace graph payloads.",
+      "tags": ["schema", "topology", "graph"],
+      "created_at": "2026-03-28T14:39:00-04:00",
+      "updated_at": "2026-03-28T14:39:00-04:00"
+    },
+    {
+      "id": "N_SCHEMA_QUERIES_V0",
+      "kind": "state",
+      "title": "topological_memory_queries_v0 schema",
+      "path": "schemas/topological_memory_queries_v0.schema.json",
+      "summary": "JSON schema for continuity benchmark query sets.",
+      "tags": ["schema", "benchmark", "queries"],
+      "created_at": "2026-03-28T14:39:00-04:00",
+      "updated_at": "2026-03-28T14:39:00-04:00"
+    },
+    {
+      "id": "N_DOC_PREDICTION_PROTOCOL",
+      "kind": "doc",
+      "title": "Prediction Protocol",
+      "path": "docs/prediction-protocol.md",
+      "summary": "Pre-registration and scoring rules for predictive claims.",
+      "tags": ["prediction", "protocol", "evidence"],
+      "created_at": "2026-03-11T00:00:00-04:00",
+      "updated_at": "2026-03-11T00:00:00-04:00"
+    },
+    {
+      "id": "N_DOC_PARADOX_REGISTRY",
+      "kind": "doc",
+      "title": "Paradox Registry",
+      "path": "docs/paradox-registry.md",
+      "summary": "Stress test catalog for informational and causal paradox cases.",
+      "tags": ["paradox", "registry", "validation"],
+      "created_at": "2026-03-11T00:00:00-04:00",
+      "updated_at": "2026-03-11T00:00:00-04:00"
+    },
+    {
+      "id": "N_DOC_THEORY_MATRIX",
+      "kind": "doc",
+      "title": "Theory Implementation Matrix",
+      "path": "docs/theory-implementation-matrix.md",
+      "summary": "Ledger mapping theoretical claims to implementation and validation evidence.",
+      "tags": ["matrix", "traceability", "governance"],
+      "created_at": "2026-03-28T10:37:00-04:00",
+      "updated_at": "2026-03-28T10:37:00-04:00"
+    },
+    {
+      "id": "N_SCRIPT_RESEARCH_VERIFIER",
+      "kind": "script",
+      "title": "research_verifier.py",
+      "path": "scripts/research_verifier.py",
+      "summary": "Checks claim-to-source mapping completeness in synthesis outputs.",
+      "tags": ["research", "verifier", "evidence"],
+      "created_at": "2026-03-06T23:36:00-05:00",
+      "updated_at": "2026-03-06T23:36:00-05:00"
+    },
+    {
+      "id": "N_TEST_RESEARCH_VERIFIER",
+      "kind": "test",
+      "title": "test_research_verifier.py",
+      "path": "tests/test_research_verifier.py",
+      "summary": "Unit tests for claim-source mapping verifier.",
+      "tags": ["test", "research", "verifier"],
+      "created_at": "2026-03-06T23:36:00-05:00",
+      "updated_at": "2026-03-06T23:36:00-05:00"
+    },
+    {
+      "id": "N_WORKFLOW",
+      "kind": "workflow",
+      "title": "Sandy Chaos Workflow",
+      "path": "WORKFLOW.md",
+      "summary": "Operational runbook including automation, research protocol, and continuity hygiene.",
+      "tags": ["workflow", "operations", "continuity"],
+      "created_at": "2026-03-06T23:36:00-05:00",
+      "updated_at": "2026-03-28T12:51:00-04:00"
+    },
+    {
+      "id": "N_SCRIPT_AUTOMATION_ORCH",
+      "kind": "script",
+      "title": "automation_orchestrator.py",
+      "path": "scripts/automation_orchestrator.py",
+      "summary": "Builds lane-aware task contracts from TODO surfaces.",
+      "tags": ["orchestrator", "automation", "planner"],
+      "created_at": "2026-03-06T23:36:00-05:00",
+      "updated_at": "2026-03-06T23:36:00-05:00"
+    },
+    {
+      "id": "N_SCRIPT_ORCH_AUTOSPAWN",
+      "kind": "script",
+      "title": "orchestrator_autospawn.py",
+      "path": "scripts/orchestrator_autospawn.py",
+      "summary": "Renders and dispatches orchestrator task contracts through OpenClaw gateway agent bridge.",
+      "tags": ["orchestrator", "dispatch", "automation"],
+      "created_at": "2026-03-06T23:36:00-05:00",
+      "updated_at": "2026-03-12T00:16:00-04:00"
+    },
+    {
+      "id": "N_SCRIPT_SELF_IMPROVE",
+      "kind": "script",
+      "title": "self_improve.py",
+      "path": "scripts/self_improve.py",
+      "summary": "Cadence runner for daily/weekly automation summaries and optional dispatch.",
+      "tags": ["automation", "cadence", "digest"],
+      "created_at": "2026-03-06T23:36:00-05:00",
+      "updated_at": "2026-03-12T00:16:00-04:00"
+    },
+    {
+      "id": "N_STATE_YGG_CHECKPOINTS",
+      "kind": "state",
+      "title": "Ygg checkpoints directory",
+      "path": "state/ygg/checkpoints",
+      "summary": "Checkpoint artifact sink written by ygg continuity helpers.",
+      "tags": ["state", "ygg", "checkpoint"],
+      "created_at": "2026-03-26T12:59:00-04:00",
+      "updated_at": "2026-03-28T12:59:00-04:00"
+    }
+  ],
+  "edges": [
+    { "id": "E001", "source": "N_SPINE_CONCEPT_TM", "target": "N_DOC_TOPO_DRAFT", "relation": "documented_in", "weight": 1.0 },
+    { "id": "E002", "source": "N_SPINE_CONCEPT_TM", "target": "N_PLAN_RESEARCH_BACKLOG", "relation": "mentioned_in", "weight": 0.9 },
+    { "id": "E003", "source": "N_SPINE_CONCEPT_TM", "target": "N_PLAN_TODO", "relation": "mentioned_in", "weight": 0.9 },
+    { "id": "E004", "source": "N_SPINE_PRESSURE_TM_20260328_03", "target": "N_DOC_TOPO_DRAFT", "relation": "mentioned_in", "weight": 0.95 },
+    { "id": "E005", "source": "N_SPINE_PRESSURE_TM_20260328_03", "target": "N_SPINE_CONCEPT_TM", "relation": "depends_on", "weight": 0.95 },
+    { "id": "E006", "source": "N_SCRIPT_TM_BENCH", "target": "N_CODE_TM_MODULE", "relation": "depends_on", "weight": 1.0 },
+    { "id": "E007", "source": "N_CODE_TM_MODULE", "target": "N_TEST_TM_MODULE", "relation": "tested_by", "weight": 1.0 },
+    { "id": "E008", "source": "N_SPINE_CONCEPT_TM", "target": "N_CODE_TM_MODULE", "relation": "implemented_in", "weight": 1.0 },
+    { "id": "E009", "source": "N_SPINE_CONCEPT_TM", "target": "N_SCRIPT_TM_BENCH", "relation": "implemented_in", "weight": 0.95 },
+    { "id": "E010", "source": "N_SPINE_CONCEPT_TM", "target": "N_TEST_TM_MODULE", "relation": "tested_by", "weight": 0.95 },
+    { "id": "E011", "source": "N_SCRIPT_TM_BENCH", "target": "N_SCHEMA_GRAPH_V0", "relation": "depends_on", "weight": 0.9 },
+    { "id": "E012", "source": "N_SCRIPT_TM_BENCH", "target": "N_SCHEMA_QUERIES_V0", "relation": "depends_on", "weight": 0.9 },
+    { "id": "E013", "source": "N_DOC_TOPO_DRAFT", "target": "N_SCHEMA_GRAPH_V0", "relation": "depends_on", "weight": 0.8 },
+    { "id": "E014", "source": "N_DOC_TOPO_DRAFT", "target": "N_SCHEMA_QUERIES_V0", "relation": "depends_on", "weight": 0.8 },
+    { "id": "E015", "source": "N_SCRIPT_YGG", "target": "N_CODE_YGG_CONTINUITY", "relation": "depends_on", "weight": 1.0 },
+    { "id": "E016", "source": "N_CODE_YGG_CONTINUITY", "target": "N_TEST_YGG", "relation": "tested_by", "weight": 1.0 },
+    { "id": "E017", "source": "N_SCRIPT_YGG", "target": "N_STATE_YGG_CHECKPOINTS", "relation": "checkpointed_by", "weight": 0.95 },
+    { "id": "E018", "source": "N_DOC_YGG_ARCH", "target": "N_SCRIPT_YGG", "relation": "implemented_in", "weight": 0.85 },
+    { "id": "E019", "source": "N_SCRIPT_RESEARCH_VERIFIER", "target": "N_TEST_RESEARCH_VERIFIER", "relation": "tested_by", "weight": 1.0 },
+    { "id": "E020", "source": "N_DOC_THEORY_MATRIX", "target": "N_DOC_PREDICTION_PROTOCOL", "relation": "depends_on", "weight": 0.8 },
+    { "id": "E021", "source": "N_DOC_THEORY_MATRIX", "target": "N_DOC_PARADOX_REGISTRY", "relation": "depends_on", "weight": 0.8 },
+    { "id": "E022", "source": "N_WORKFLOW", "target": "N_SCRIPT_AUTOMATION_ORCH", "relation": "mentioned_in", "weight": 0.85 },
+    { "id": "E023", "source": "N_WORKFLOW", "target": "N_SCRIPT_ORCH_AUTOSPAWN", "relation": "mentioned_in", "weight": 0.85 },
+    { "id": "E024", "source": "N_WORKFLOW", "target": "N_SCRIPT_SELF_IMPROVE", "relation": "mentioned_in", "weight": 0.85 },
+    { "id": "E025", "source": "N_PLAN_RESEARCH_BACKLOG", "target": "N_DOC_TOPO_DRAFT", "relation": "depends_on", "weight": 0.8 },
+    { "id": "E026", "source": "N_PLAN_TODO", "target": "N_DOC_TOPO_DRAFT", "relation": "depends_on", "weight": 0.8 },
+    { "id": "E027", "source": "N_SPINE_CONCEPT_TM", "target": "N_WORKFLOW", "relation": "promotes_to", "weight": 0.5 },
+    { "id": "E028", "source": "N_DOC_YGG_ARCH", "target": "N_WORKFLOW", "relation": "mentioned_in", "weight": 0.75 }
+  ],
+  "traces": [
+    { "id": "T001", "subject_type": "node", "subject_id": "N_DOC_TOPO_DRAFT", "event_type": "review", "timestamp": "2026-03-28T10:35:00-04:00", "weight": 1.0, "note": "Pressure review requested benchmark-first implementation." },
+    { "id": "T002", "subject_type": "node", "subject_id": "N_SPINE_CONCEPT_TM", "event_type": "pressure", "timestamp": "2026-03-28T10:35:00-04:00", "weight": 0.95, "note": "Concept remained draft pending falsification work." },
+    { "id": "T003", "subject_type": "edge", "subject_id": "E006", "event_type": "edit", "timestamp": "2026-03-28T14:41:00-04:00", "weight": 0.9, "note": "Benchmark runner wired to module." },
+    { "id": "T004", "subject_type": "edge", "subject_id": "E007", "event_type": "test", "timestamp": "2026-03-28T14:42:00-04:00", "weight": 0.85, "note": "Topological memory tests added." },
+    { "id": "T005", "subject_type": "node", "subject_id": "N_SCHEMA_GRAPH_V0", "event_type": "edit", "timestamp": "2026-03-28T14:39:00-04:00", "weight": 0.8, "note": "Graph schema frozen." },
+    { "id": "T006", "subject_type": "node", "subject_id": "N_SCHEMA_QUERIES_V0", "event_type": "edit", "timestamp": "2026-03-28T14:39:00-04:00", "weight": 0.8, "note": "Query schema frozen." },
+    { "id": "T007", "subject_type": "node", "subject_id": "N_SCRIPT_YGG", "event_type": "checkpoint", "timestamp": "2026-03-26T13:00:00-04:00", "weight": 0.7, "note": "Continuity command surface landed." },
+    { "id": "T008", "subject_type": "node", "subject_id": "N_CODE_YGG_CONTINUITY", "event_type": "checkpoint", "timestamp": "2026-03-26T13:00:00-04:00", "weight": 0.7, "note": "Checkpoint helper module landed." },
+    { "id": "T009", "subject_type": "node", "subject_id": "N_WORKFLOW", "event_type": "edit", "timestamp": "2026-03-28T12:51:00-04:00", "weight": 0.6, "note": "Workflow references continuity hygiene and research protocol." },
+    { "id": "T010", "subject_type": "edge", "subject_id": "E025", "event_type": "todo", "timestamp": "2026-03-28T10:31:00-04:00", "weight": 0.75, "note": "Research backlog links topological memory draft." }
+  ]
+}

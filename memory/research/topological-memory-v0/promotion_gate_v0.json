@@ -1,0 +1,42 @@
+{
+  "gate": "topological-memory-v0-promotion",
+  "date": "2026-03-28",
+  "status": "pass-provisional",
+  "criteria": {
+    "mustBeatAtLeastOneFlatBaseline": true,
+    "mustHaveInterpretablePaths": true,
+    "mustRemainBounded": true
+  },
+  "inputs": {
+    "graph": "memory/research/topological-memory-v0/graph_v0.json",
+    "queries": "memory/research/topological-memory-v0/benchmark_queries_v0.json",
+    "baselineReport": "memory/research/topological-memory-v0/baseline_report_v0.json",
+    "comparisonSummary": "memory/research/topological-memory-v0/comparison_summary_v0.json"
+  },
+  "metrics": {
+    "keyword": { "hit_at_3": 0.8, "mrr": 0.75 },
+    "recency": { "hit_at_3": 0.5666666666666667, "mrr": 0.4666666666666667 },
+    "topology": { "hit_at_3": 0.8666666666666667, "mrr": 0.7277777777777777 },
+    "embedding": {
+      "available": false,
+      "reason": "sentence-transformers unavailable: ModuleNotFoundError"
+    }
+  },
+  "interpretability": {
+    "fields": ["path_nodes", "path_edges", "path_summary"],
+    "inspectCommand": "python scripts/topological_memory_v0.py --inspect-query Q-001 --inspect-baseline topology"
+  },
+  "reproducibility": {
+    "traceDecayReference": "graph.generated_at",
+    "note": "Trace scoring is pinned to fixture time for stable reruns."
+  },
+  "promotion": {
+    "target": "docs/notes/topological_memory_v0_provisional_validation.md",
+    "level": "provisional-beyond-archive"
+  },
+  "demotionConditions": [
+    "topology fails to beat at least one flat baseline on rerun",
+    "path outputs become non-interpretable or removed",
+    "frozen-artifact reproducibility fails"
+  ]
+}
