@@ -42,6 +42,28 @@ In this framing:
 - Ygg commissions, receives returns, adjudicates, and controls promotion.
 - Durable repo/docs/workflow surfaces should only change through explicit promotion paths.
 
+## Amoeba execution surface
+Amoeba is the **pre-promotional exploratory membrane** in the execution stack.
+It is not just a vibe label and not a canonical promotion surface.
+Its job is to absorb weak signals, unfinished tensions, weird mechanism sketches, raw captures, and intermediate residues **before** they are compressed into durable routing or canon.
+
+Within this framing:
+- `morph-00-gradients` = tensions, attractors, unfinished potentials
+- `morph-10-flow-computer` = mechanism design, theory shaping, and execution-shaping operator sketches
+- `morph-20-metabolism` = transformation work over raw inputs, fragments, and captures
+- `morph-30-traces` = residues that may later become retrievable continuity structure
+
+Amoeba should preserve generativity while still exposing explicit disposition.
+It exists so exploratory motion does not collapse into either random sludge or premature governance.
+
+### Amoeba disposition semantics
+- **DROP_LOCAL** = let the local exploratory result dissolve
+- **LOG_ONLY** = keep as trace, no escalation
+- **TODO_PROMOTE** = candidate for task-stack promotion
+- **DOC_PROMOTE** = candidate for repo/docs formalization
+- **POLICY_PROMOTE** = candidate governance invariant or workflow rule
+- **ESCALATE** = route upward for adjudication
+
 ## Core research question
 Does topology-aware continuity retrieval outperform simpler baselines in the current ecosystem?
 
@@ -101,6 +123,24 @@ Score:
 - usefulness
 - path interpretability
 - promotion/routing quality
+
+## V0 schema freeze (2026-03-28)
+Task #1 is now frozen as explicit machine contracts:
+
+- Graph contract: `schemas/topological_memory_graph_v0.schema.json`
+- Benchmark query contract: `schemas/topological_memory_queries_v0.schema.json`
+- Seed examples:
+  - `templates/topological_memory_graph_v0.example.json`
+  - `templates/topological_memory_queries_v0.example.json`
+
+### Freeze boundaries
+- **Schema version strings are fixed** for v0 (`topological-memory-v0`, `topological-memory-queries-v0`).
+- **Node/edge/trace objects are closed** (`additionalProperties: false`) to avoid silent drift.
+- **Trace disposition vocabulary is explicit** (`DROP_LOCAL`, `LOG_ONLY`, `TODO_PROMOTE`, `DOC_PROMOTE`, `POLICY_PROMOTE`, `ESCALATE`).
+- **Time fields use ISO date-time strings** for deterministic replay and evaluation windows.
+- **Weights are normalized to `(0, 1]`** for simple baseline comparability.
+
+Any semantic expansion beyond these contracts should be treated as a v1 proposal, not a silent v0 mutation.
 
 ## Research discipline
 - model first, mechanism second, metaphor last

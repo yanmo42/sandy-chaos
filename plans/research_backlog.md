@@ -97,7 +97,7 @@ Build a repeatable pipeline that turns scientific literature into:
 ### 3.3 Topological memory continuity retrieval (bounded)
 
 - [x] Land provisional ratification note in `docs/archive/topological_memory_continuity_retrieval_v0.md`
-- [ ] Freeze a v0 node / edge / trace schema for bounded ecosystem topology
+- [x] Freeze a v0 node / edge / trace schema for bounded ecosystem topology (`schemas/topological_memory_graph_v0.schema.json`, `schemas/topological_memory_queries_v0.schema.json`)
 - [ ] Build a ~30-query continuity benchmark from real repo/session/checkpoint questions
 - [ ] Implement baseline retrievals: keyword, recency, and embedding (if available)
 - [ ] Implement topology-aware retrieval with inspectable path output

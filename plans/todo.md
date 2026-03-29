@@ -313,7 +313,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 ## Topological Memory Continuity Retrieval (2026-03)
 
 - [x] Ratify bounded research draft in `docs/archive/topological_memory_continuity_retrieval_v0.md`
-- [ ] Define v0 node / edge / trace schema for bounded ecosystem topology
+- [x] Define v0 node / edge / trace schema for bounded ecosystem topology (`schemas/topological_memory_graph_v0.schema.json`, `schemas/topological_memory_queries_v0.schema.json`)
 - [ ] Build a ~30-query benchmark from real continuity retrieval questions
 - [ ] Add baseline retrieval scorers (keyword / recency / embedding if available)
 - [ ] Add topology-aware retriever with inspectable path output
