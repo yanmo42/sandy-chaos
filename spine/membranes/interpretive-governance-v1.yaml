@@ -1,0 +1,30 @@
+membrane_id: interpretive-governance-v1
+between_layers:
+  - interpretive
+  - governance
+purpose: Bind interpretive/operator grammars to explicit governance handling so symbolic framing can inform decisions without silently becoming policy.
+allowed_flows:
+  - typed interaction contracts into governance review pathways
+  - declared operator grammars informing archive, hold, or promotion-candidate routing
+  - governance feedback narrowing which interpretive transforms are allowed on consequential surfaces
+forbidden_flows:
+  - symbolic or aesthetic framing treated as governance authority on its own
+  - interpretive artifacts promoting themselves to canonical policy without pressure review
+  - silent withholding or gating without emitted trace or refusal artifacts
+required_evidence:
+  - explicit claim tier for interpretive contract artifacts
+  - declared failure conditions for any governance-relevant transform
+  - inspectable trace of which Nyx operations were applied
+authority_limits:
+  - interpretive layers may propose shaping grammars but may not self-authorize canonical policy
+  - governance may accept, reject, or constrain interpretive grammars only through declared artifacts
+  - no consequential gate should rely on symbolic language alone without operational criteria
+artifacts_emitted:
+  - interaction contract records
+  - governance review notes for high-risk routing decisions
+  - refusal or hold artifacts when visibility is intentionally constrained
+failure_mode: symbolic governance theater or opaque discretionary gating
+governed_by:
+  - docs/archive/lux_nyx_interaction_contract_v0.md
+  - docs/17_endosymbiosis_and_host_assimilation.md
+notes: v1 is intentionally narrow; future versions may add explicit promotion thresholds and trace-completeness requirements for high-consequence interaction surfaces.

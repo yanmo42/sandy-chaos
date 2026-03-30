@@ -1,0 +1,58 @@
+subsystem_id: SC-SUBSYSTEM-0003
+name: lux-nyx-interaction-v0
+status: advisory
+authority_class: advisory
+host_layer: interpretive
+repo_lane: theory
+host_function: typed shaping of arriving inputs into bounded trace-bearing artifacts
+biological_role_metaphor: sensory gating and contour formation
+purpose: Provide an explicit interaction grammar for classifying Lux inputs, applying bounded Nyx transforms, and emitting shadow artifacts with traceable consequences.
+non_goals:
+  - replace canonical governance review
+  - authorize runtime behavior on symbolic framing alone
+  - treat style or obscurity as evidence of correctness
+inputs:
+  - typed interaction requests
+  - next-action prompts
+  - symbolic or naming inputs
+  - claim-bearing or promotion-seeking drafts
+outputs:
+  - bounded interaction contract records
+  - shadow artifact recommendations
+  - hold, route, or refusal traces
+upstream_dependencies:
+  - docs/archive/lux_and_nyx_force_gravity_shadow.md
+  - docs/archive/lux_nyx_interaction_contract_v0.md
+  - nfem_suite/intelligence/narrative_invariants/lux_nyx_contract.py
+downstream_consumers:
+  - suggestion-shaping experiments
+  - archive and promotion routing review
+  - future interaction trace tooling
+governed_by:
+  - interpretive-governance-v1
+  - docs/archive/lux_nyx_interaction_contract_v0.md
+claim_classes_supported:
+  - C
+  - E
+evidence_classes_produced:
+  - interaction trace evidence
+  - routing rationale artifacts
+  - bounded suggestion-shaping records
+promotion_relevance: could become a load-bearing interaction layer if pilot metrics show better routing, traceability, and suggestion quality
+workflow_participation: partial
+interface_clarity: medium
+evidence_maturity: weak
+bounded_influence: explicit
+removal_impact: degrades
+failure_if_removed: Sandy Chaos loses a compact typed grammar for shaping symbolic and decision-facing inputs, forcing future interaction work back into ad hoc prompts and untyped routing
+main_risks:
+  - aesthetic inflation without measurable benefit
+  - opaque gating disguised as sophistication
+  - premature canonical promotion before pilot evidence exists
+membrane_contracts:
+  - interpretive-governance-v1
+source_docs:
+  - docs/archive/lux_and_nyx_force_gravity_shadow.md
+  - docs/archive/lux_nyx_interaction_contract_v0.md
+  - plans/lux-nyx-interaction-buildout-v0.md
+notes: Keep advisory until a narrow pilot surface shows measurable value and emitted traces remain inspectable under pressure.

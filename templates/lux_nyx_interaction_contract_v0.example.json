@@ -1,0 +1,53 @@
+[
+  {
+    "input_type": "prompt",
+    "input_description": "user asks for the next concrete step on an already-bounded task",
+    "salience": "high",
+    "ambiguity": "low",
+    "risk": "low",
+    "evidence_tier": "defensible",
+    "urgency": "medium",
+    "privacy_level": "internal",
+    "allowed_nyx_ops": ["compress", "trace"],
+    "shadow_artifact_type": "glint",
+    "shadow_artifact_summary": "ranked next-step suggestion with one-sentence rationale",
+    "promotion_condition": "suggestion accepted or lightly edited across repeated interactions",
+    "failure_condition": "suggestions repeatedly increase correction burden or latency",
+    "trace_requirements": ["input classification", "chosen nyx ops", "final suggestion summary"],
+    "notes": "best first pilot surface"
+  },
+  {
+    "input_type": "symbolic-input",
+    "input_description": "new mythic or naming material with possible architecture relevance but weak evidence maturity",
+    "salience": "high",
+    "ambiguity": "high",
+    "risk": "medium",
+    "evidence_tier": "plausible",
+    "urgency": "low",
+    "privacy_level": "internal",
+    "allowed_nyx_ops": ["compress", "tier", "trace", "split"],
+    "shadow_artifact_type": "draft",
+    "shadow_artifact_summary": "bounded archive note plus open questions for later pressure-testing",
+    "promotion_condition": "concept proves useful on a real routing or interface surface",
+    "failure_condition": "material remains purely aesthetic and cannot improve decisions",
+    "trace_requirements": ["claim tier", "open questions", "archive destination"],
+    "notes": "preserve without over-promoting"
+  },
+  {
+    "input_type": "claim",
+    "input_description": "proposal to promote a draft into canonical or public-facing status",
+    "salience": "high",
+    "ambiguity": "medium",
+    "risk": "high",
+    "evidence_tier": "plausible",
+    "urgency": "medium",
+    "privacy_level": "internal",
+    "allowed_nyx_ops": ["gate", "weight", "tier", "trace"],
+    "shadow_artifact_type": "audit-trace",
+    "shadow_artifact_summary": "promotion hold or candidate record with explicit reasons",
+    "promotion_condition": "declared evidence threshold and falsification framing are satisfied",
+    "failure_condition": "symbolic appeal substitutes for operational proof",
+    "trace_requirements": ["evidence references", "risk assessment", "promotion decision rationale"],
+    "notes": "high-consequence surfaces must never skip trace emission"
+  }
+]
