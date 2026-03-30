@@ -304,7 +304,8 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 
 - [x] Add explicit disposition field to orchestrator artifacts and summaries
 - [x] Add branch outcome classes to research task contracts and daily/weekly digests
-- [ ] Add a lightweight context-carry / resume artifact helper for cross-session continuation
+- [x] Add a lightweight context-carry / resume artifact helper for cross-session continuation (`scripts/ygg.py resume`, `nfem_suite/intelligence/ygg/continuity.py`)
+- [ ] Add lightweight dispatch-log schema/invariant validator for orchestrator membrane evidence fields
 - [x] Add validation that non-trivial automation runs cannot end without a disposition
 - [x] Define canonical promotion targets more explicitly in automation outputs (`todo`, `docs`, `workflow`, `foundations`, `tests/config`, `log-only`)
 - [ ] Map fast / meso / slow loops onto edge / bridge / spine cadence in automation docs where still implicit

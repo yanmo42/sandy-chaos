@@ -1,6 +1,13 @@
 """Ygg continuity helpers."""
 
-from .continuity import ContinuityCheckpoint, load_latest_checkpoint, write_checkpoint
+from .continuity import (
+    ContinuityCheckpoint,
+    ContinuityResumeArtifact,
+    load_latest_checkpoint,
+    load_latest_resume_artifact,
+    write_checkpoint,
+    write_resume_artifact,
+)
 from .topological_memory import (
     BenchmarkQuery,
     GraphBundle,
@@ -20,8 +27,11 @@ from .topological_memory import (
 
 __all__ = [
     "ContinuityCheckpoint",
+    "ContinuityResumeArtifact",
     "load_latest_checkpoint",
+    "load_latest_resume_artifact",
     "write_checkpoint",
+    "write_resume_artifact",
     "TopologyNode",
     "TopologyEdge",
     "TopologyTrace",

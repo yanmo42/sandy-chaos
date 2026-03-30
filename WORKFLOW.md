@@ -150,6 +150,12 @@ python -m cosmic_comm.main
 - Include validation note in commit message/body when relevant
 - Prefer reversible changes over large rewrites
 
+When local work mixes multiple concepts or lanes:
+- preserve the mixed state first on a `wip/<date>-...` safety branch
+- split by topic before opening PRs
+- keep generated runtime artifacts and scratch `memory/` notes out of merge branches unless they are intentionally durable
+- after a PR queue lands on GitHub `main`, reset local `main` to `origin/main` before pruning merged topic branches
+
 Example commit flow:
 
 ```bash
@@ -348,6 +354,7 @@ When work branches across sessions, tools, or cadences, use these rules:
    - next step
    - blocking unknown
    - intended destination of the result
+   - for repeatable handoffs, prefer `python3 scripts/ygg.py resume ...` so the context carry is durable and machine-readable
 
 5. **Promote conservatively toward the spine**
    - use `plans/todo.md` for tactical work
