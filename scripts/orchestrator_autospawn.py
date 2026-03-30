@@ -22,6 +22,7 @@ try:
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
     )
+    from scripts.dispatch_log_validator import validate_dispatch_log_entry
 except ModuleNotFoundError:
     import sys
 
@@ -31,6 +32,7 @@ except ModuleNotFoundError:
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
     )
+    from scripts.dispatch_log_validator import validate_dispatch_log_entry
 
 ROOT = Path(__file__).resolve().parents[1]
 ORCH_CONFIG = ROOT / "config" / "orchestrator.json"
@@ -314,6 +316,9 @@ def to_spawn_request(task: dict, idx: int, prompting: dict | None = None) -> dic
 
 
 def append_dispatch_log(entry: dict) -> None:
+    errors = validate_dispatch_log_entry(entry)
+    if errors:
+        raise ValueError("; ".join(errors))
     DISPATCH_LOG.parent.mkdir(parents=True, exist_ok=True)
     with DISPATCH_LOG.open("a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")

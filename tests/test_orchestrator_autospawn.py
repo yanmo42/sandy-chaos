@@ -113,6 +113,53 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
             "spine/membranes/memory-dispatch-v1.yaml",
         )
 
+    def test_append_dispatch_log_rejects_inconsistent_memory_fields(self):
+        entry = {
+            "ts": "2026-03-30T12:00:00",
+            "event": "spawn_dispatched",
+            "id": "spawn-01",
+            "ok": True,
+            "control_mode": "control-affecting",
+            "governance_policy_ref": "spine/membranes/governance-runtime-v1.yaml",
+            "continuity_relevant": False,
+            "memory_consulted": False,
+            "memory_artifact_ids": ["memory/2026-03-29.md#L1"],
+        }
+
+        with self.assertRaisesRegex(ValueError, "memory_consulted=false"):
+            orchestrator_autospawn.append_dispatch_log(entry)
+
+    def test_append_dispatch_log_rejects_control_without_governance_ref(self):
+        entry = {
+            "ts": "2026-03-30T12:00:00",
+            "event": "spawn_dispatched",
+            "id": "spawn-01",
+            "ok": True,
+            "control_mode": "control-affecting",
+            "continuity_relevant": False,
+            "memory_consulted": False,
+            "memory_artifact_ids": [],
+        }
+
+        with self.assertRaisesRegex(ValueError, "governance_policy_ref"):
+            orchestrator_autospawn.append_dispatch_log(entry)
+
+    def test_append_dispatch_log_rejects_memory_policy_ref_when_not_relevant(self):
+        entry = {
+            "ts": "2026-03-30T12:00:00",
+            "event": "spawn_dispatched",
+            "id": "spawn-01",
+            "ok": True,
+            "control_mode": "descriptive",
+            "continuity_relevant": False,
+            "memory_consulted": False,
+            "memory_artifact_ids": [],
+            "memory_policy_ref": "spine/membranes/memory-dispatch-v1.yaml",
+        }
+
+        with self.assertRaisesRegex(ValueError, "memory_policy_ref may only appear"):
+            orchestrator_autospawn.append_dispatch_log(entry)
+
     def test_resolve_prompting_runtime_reads_config(self):
         with tempfile.TemporaryDirectory() as td:
             cfg = Path(td) / "orchestrator.json"

@@ -90,6 +90,7 @@ try:
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
     )
+    from scripts.dispatch_log_validator import validate_dispatch_log_entry
 except ModuleNotFoundError:
     import sys
 
@@ -99,6 +100,7 @@ except ModuleNotFoundError:
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
     )
+    from scripts.dispatch_log_validator import validate_dispatch_log_entry
 
 
 def now_dt() -> datetime:
@@ -953,9 +955,12 @@ def load_orchestrator_snapshot() -> dict:
             events = []
             for ln in lines[-80:]:
                 try:
-                    events.append(json.loads(ln))
+                    event = json.loads(ln)
                 except Exception:
                     continue
+                if validate_dispatch_log_entry(event):
+                    continue
+                events.append(event)
             disp = [e for e in events if e.get("event") == "spawn_dispatched"]
             dispatched = len(disp)
             latest_runs = [str(e.get("runId", "")) for e in disp[-5:] if e.get("runId")]

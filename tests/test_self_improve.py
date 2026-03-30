@@ -170,6 +170,63 @@ class SelfImproveDispatchTests(unittest.TestCase):
             finally:
                 self_improve.ORCH_REQ_PATH = original_req_path
 
+    def test_load_orchestrator_snapshot_skips_invalid_dispatch_membrane_rows(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+            dispatch_log = memory / "orchestrator_dispatch_log.jsonl"
+            dispatch_log.write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "ts": "2026-03-30T12:00:00",
+                                "event": "spawn_dispatched",
+                                "id": "spawn-01",
+                                "ok": True,
+                                "runId": "r1",
+                                "control_mode": "control-affecting",
+                                "governance_policy_ref": "spine/membranes/governance-runtime-v1.yaml",
+                                "continuity_relevant": True,
+                                "memory_consulted": True,
+                                "memory_artifact_ids": ["memory/2026-03-29.md#L1"],
+                                "memory_policy_ref": "spine/membranes/memory-dispatch-v1.yaml",
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "ts": "2026-03-30T12:01:00",
+                                "event": "spawn_dispatched",
+                                "id": "spawn-02",
+                                "ok": True,
+                                "runId": "r2",
+                                "control_mode": "control-affecting",
+                                "continuity_relevant": False,
+                                "memory_consulted": False,
+                                "memory_artifact_ids": ["memory/2026-03-29.md#L2"],
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            original = self_improve.ORCH_DISPATCH_LOG
+            try:
+                self_improve.ORCH_DISPATCH_LOG = dispatch_log
+                snapshot = self_improve.load_orchestrator_snapshot()
+            finally:
+                self_improve.ORCH_DISPATCH_LOG = original
+
+            self.assertEqual(snapshot["dispatched_count"], 1)
+            self.assertEqual(snapshot["latest_run_ids"], ["r1"])
+            self.assertEqual(snapshot["membrane"]["control_affecting"], 1)
+            self.assertEqual(snapshot["membrane"]["continuity_relevant"], 1)
+            self.assertEqual(snapshot["membrane"]["memory_consulted"], 1)
+            self.assertEqual(snapshot["membrane"]["memory_artifact_refs"], 1)
+
 
 class SelfImprovePromptingConfigTests(unittest.TestCase):
     def test_resolve_prompting_runtime_uses_orchestrator_config(self):
