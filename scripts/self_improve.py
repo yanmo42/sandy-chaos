@@ -84,6 +84,22 @@ DEFAULT_PROMPTING = {
 }
 DEFAULT_DISPATCH_AGENT_ID = ROOT.name
 
+try:
+    from nfem_suite.intelligence.ygg.continuity import (
+        ALLOWED_BRANCH_OUTCOME_CLASSES,
+        ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_TARGETS,
+    )
+except ModuleNotFoundError:
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from nfem_suite.intelligence.ygg.continuity import (
+        ALLOWED_BRANCH_OUTCOME_CLASSES,
+        ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_TARGETS,
+    )
+
 
 def now_dt() -> datetime:
     return datetime.now()
@@ -244,9 +260,23 @@ def render_contract_prompt(contract: dict, prompting: dict | None = None) -> str
     }
 
     try:
-        return str(cfg.get("template", DEFAULT_PROMPT_TEMPLATE)).format(**fields).strip()
+        rendered = str(cfg.get("template", DEFAULT_PROMPT_TEMPLATE)).format(**fields).strip()
     except Exception:
-        return DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
+        rendered = DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
+
+    outcome_class = str(contract.get("branch_outcome_class", "")).strip()
+    disposition = str(contract.get("disposition", "")).strip()
+    promotion_target = str(contract.get("promotion_target", "")).strip()
+
+    if outcome_class or disposition or promotion_target:
+        rendered += (
+            "\n\nContinuity contract:\n"
+            f"- Branch outcome class: {outcome_class or '(missing)'}\n"
+            f"- Disposition: {disposition or '(missing)'}\n"
+            f"- Promotion target: {promotion_target or '(missing)'}\n"
+            "- End your completion note by restating all three explicitly."
+        )
+    return rendered
 
 
 def _normalize_validation_policy(raw: dict | None) -> dict:
@@ -495,6 +525,10 @@ def render_digest_template(template_path: Path, replacements: dict[str, str]) ->
 def build_cadence_notification(created: list[str]) -> str:
     sections: list[str] = []
     created_names = [Path(p).name for p in created]
+    orch = load_orchestrator_snapshot()
+    outcome_class_text = _format_counter_map(orch.get("branch_outcome_classes", {}) or {})
+    disposition_text = _format_counter_map(orch.get("dispositions", {}) or {})
+    promotion_target_text = _format_counter_map(orch.get("promotion_targets", {}) or {})
 
     daily_file = next((n for n in created_names if n.endswith("-meso-review.md")), "none")
     weekly_file = next((n for n in created_names if n.endswith("-slow-distill.md")), "none")
@@ -506,6 +540,9 @@ def build_cadence_notification(created: list[str]) -> str:
                 {
                     "date": today_str(),
                     "artifact": daily_file,
+                    "branch_outcome_classes": outcome_class_text,
+                    "dispositions": disposition_text,
+                    "promotion_targets": promotion_target_text,
                 },
             )
         )
@@ -518,6 +555,9 @@ def build_cadence_notification(created: list[str]) -> str:
                 {
                     "week_label": f"{year}-W{week:02d}",
                     "artifact": weekly_file,
+                    "branch_outcome_classes": outcome_class_text,
+                    "dispositions": disposition_text,
+                    "promotion_targets": promotion_target_text,
                 },
             )
         )
@@ -869,6 +909,9 @@ def load_orchestrator_snapshot() -> dict:
     dispatched = 0
     latest_runs: list[str] = []
     capability_lanes: dict[str, int] = {}
+    dispositions: dict[str, int] = {}
+    promotion_targets: dict[str, int] = {}
+    outcome_classes: dict[str, int] = {}
     membrane = {
         "control_affecting": 0,
         "descriptive": 0,
@@ -888,6 +931,12 @@ def load_orchestrator_snapshot() -> dict:
                     continue
                 cap = str(row.get("capability_lane", "unspecified")).strip() or "unspecified"
                 capability_lanes[cap] = int(capability_lanes.get(cap, 0)) + 1
+                disposition = str(row.get("disposition", "unspecified")).strip() or "unspecified"
+                dispositions[disposition] = int(dispositions.get(disposition, 0)) + 1
+                promotion = str(row.get("promotion_target", "unspecified")).strip() or "unspecified"
+                promotion_targets[promotion] = int(promotion_targets.get(promotion, 0)) + 1
+                outcome = str(row.get("branch_outcome_class", "unspecified")).strip() or "unspecified"
+                outcome_classes[outcome] = int(outcome_classes.get(outcome, 0)) + 1
         except Exception:
             plan_count = 0
 
@@ -930,6 +979,9 @@ def load_orchestrator_snapshot() -> dict:
         "dispatched_count": dispatched,
         "latest_run_ids": latest_runs,
         "capability_lanes": capability_lanes,
+        "dispositions": dispositions,
+        "promotion_targets": promotion_targets,
+        "branch_outcome_classes": outcome_classes,
         "membrane": membrane,
     }
 
@@ -961,6 +1013,31 @@ def format_validation_outcomes(outcomes: list[dict]) -> str:
         else:
             lines.append(f"- {verdict}{suffix}: `{cmd}`")
     return "\n".join(lines)
+
+
+def _format_counter_map(counter: dict[str, int]) -> str:
+    if not counter:
+        return "none"
+    return ", ".join(f"{k}={v}" for k, v in sorted(counter.items()))
+
+
+def validate_continuity_contract(contract: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(contract, dict):
+        return ["invalid continuity contract payload"]
+
+    disposition = contract.get("disposition")
+    promotion_target = contract.get("promotion_target")
+    outcome_class = contract.get("branch_outcome_class")
+
+    if disposition not in ALLOWED_DISPOSITIONS:
+        errors.append(f"invalid or missing disposition '{disposition}'")
+    if promotion_target not in ALLOWED_PROMOTION_TARGETS:
+        errors.append(f"invalid or missing promotion_target '{promotion_target}'")
+    if outcome_class not in ALLOWED_BRANCH_OUTCOME_CLASSES:
+        errors.append(f"invalid or missing branch_outcome_class '{outcome_class}'")
+
+    return errors
 
 
 def _extract_unittest_ran_count(output_text: str) -> int | None:
@@ -1163,6 +1240,9 @@ def compose_fullpass_message(
     run_text = ", ".join(orch.get("latest_run_ids", [])) if orch.get("latest_run_ids") else "none"
     plan_lanes = orch.get("capability_lanes", {}) or {}
     plan_lane_text = ", ".join([f"{k}={v}" for k, v in sorted(plan_lanes.items())]) if plan_lanes else "none"
+    disposition_text = _format_counter_map(orch.get("dispositions", {}) or {})
+    promotion_target_text = _format_counter_map(orch.get("promotion_targets", {}) or {})
+    outcome_class_text = _format_counter_map(orch.get("branch_outcome_classes", {}) or {})
     membrane = orch.get("membrane", {}) if isinstance(orch.get("membrane", {}), dict) else {}
     membrane_text = (
         f"control-affecting={int(membrane.get('control_affecting', 0))}, "
@@ -1195,6 +1275,9 @@ def compose_fullpass_message(
         f"Execution workflow status:\n"
         f"- orchestrator tasks planned: {orch.get('plan_count', 0)}\n"
         f"- capability lanes in plan: {plan_lane_text}\n"
+        f"- branch outcome classes in plan: {outcome_class_text}\n"
+        f"- dispositions in plan: {disposition_text}\n"
+        f"- promotion targets in plan: {promotion_target_text}\n"
         f"- spawn requests prepared: {orch.get('request_count', 0)}\n"
         f"- recent dispatch events logged: {orch.get('dispatched_count', 0)}\n"
         f"- dispatch membrane evidence: {membrane_text}\n"
@@ -1396,6 +1479,13 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
 
     for r in requests:
         out["attempted"] += 1
+        prompt_context = r.get("prompt_context", {}) if isinstance(r, dict) else {}
+        if isinstance(prompt_context, dict) and prompt_context:
+            continuity_errors = validate_continuity_contract(prompt_context)
+            if continuity_errors:
+                out["errors"].append(f"{r.get('id', 'unknown')}: {'; '.join(continuity_errors)}")
+                continue
+
         payload = _build_dispatch_agent_payload(r)
         if not payload["message"]:
             out["errors"].append(f"{r.get('id', 'unknown')}: empty spawn task message")

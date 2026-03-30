@@ -135,6 +135,41 @@ class SelfImproveDispatchTests(unittest.TestCase):
             finally:
                 self_improve.ORCH_REQ_PATH = original_req_path
 
+    def test_dispatch_rejects_invalid_continuity_prompt_context(self):
+        with tempfile.TemporaryDirectory() as td:
+            req_path = Path(td) / "orchestrator_spawn_requests.json"
+            req_path.write_text(
+                json.dumps(
+                    {
+                        "requests": [
+                            {
+                                "id": "spawn-01",
+                                "lane": "sandy-builder",
+                                "prompt_context": {"goal": "x"},
+                                "spawn": {"runtime": "subagent", "task": "x"},
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            original_req_path = self_improve.ORCH_REQ_PATH
+            try:
+                self_improve.ORCH_REQ_PATH = req_path
+                with patch.object(self_improve, "resolve_openclaw_command", return_value=(["openclaw"], ["openclaw"])), \
+                     patch("scripts.self_improve.subprocess.run") as mock_run:
+                    out = self_improve.dispatch_spawn_requests(dry_run=False, max_dispatch=1)
+
+                self.assertEqual(out["attempted"], 1)
+                self.assertEqual(out["dispatched"], 0)
+                self.assertTrue(any("branch_outcome_class" in e for e in out["errors"]))
+                self.assertTrue(any("disposition" in e for e in out["errors"]))
+                self.assertTrue(any("promotion_target" in e for e in out["errors"]))
+                mock_run.assert_not_called()
+            finally:
+                self_improve.ORCH_REQ_PATH = original_req_path
+
 
 class SelfImprovePromptingConfigTests(unittest.TestCase):
     def test_resolve_prompting_runtime_uses_orchestrator_config(self):
@@ -246,6 +281,13 @@ class SelfImproveValidationConfigTests(unittest.TestCase):
         self.assertEqual(len(outcomes), 1)
         self.assertFalse(outcomes[0]["ok"])
         self.assertIn("policy_violation", outcomes[0])
+
+    def test_validate_continuity_contract_requires_all_fields(self):
+        errors = self_improve.validate_continuity_contract({"goal": "x"})
+
+        self.assertTrue(any("branch_outcome_class" in e for e in errors))
+        self.assertTrue(any("disposition" in e for e in errors))
+        self.assertTrue(any("promotion_target" in e for e in errors))
 
 
 if __name__ == "__main__":

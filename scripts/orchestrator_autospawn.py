@@ -16,6 +16,22 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
+try:
+    from nfem_suite.intelligence.ygg.continuity import (
+        ALLOWED_BRANCH_OUTCOME_CLASSES,
+        ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_TARGETS,
+    )
+except ModuleNotFoundError:
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from nfem_suite.intelligence.ygg.continuity import (
+        ALLOWED_BRANCH_OUTCOME_CLASSES,
+        ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_TARGETS,
+    )
+
 ROOT = Path(__file__).resolve().parents[1]
 ORCH_CONFIG = ROOT / "config" / "orchestrator.json"
 DEFAULT_PLAN = ROOT / "memory" / "orchestrator_task_plan.jsonl"
@@ -109,6 +125,20 @@ def _extract_dispatch_membrane_evidence(req: dict) -> dict:
     if continuity_relevant or memory_consulted:
         evidence["memory_policy_ref"] = MEMORY_POLICY_REF
     return evidence
+
+
+def validate_continuity_contract(contract: dict) -> list[str]:
+    errors: list[str] = []
+    disposition = contract.get("disposition")
+    promotion_target = contract.get("promotion_target")
+    outcome_class = contract.get("branch_outcome_class")
+    if disposition not in ALLOWED_DISPOSITIONS:
+        errors.append(f"invalid or missing disposition '{disposition}'")
+    if promotion_target not in ALLOWED_PROMOTION_TARGETS:
+        errors.append(f"invalid or missing promotion_target '{promotion_target}'")
+    if outcome_class not in ALLOWED_BRANCH_OUTCOME_CLASSES:
+        errors.append(f"invalid or missing branch_outcome_class '{outcome_class}'")
+    return errors
 
 
 def now_iso() -> str:
@@ -214,6 +244,16 @@ def render_contract_prompt(task: dict, prompting: dict | None = None) -> str:
         rendered = DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
 
     continuity_artifacts = _as_string_list(task.get("memory_artifact_ids"))
+    disposition = str(task.get("disposition", "")).strip()
+    promotion_target = str(task.get("promotion_target", "")).strip()
+    outcome_class = str(task.get("branch_outcome_class", "")).strip()
+    rendered += (
+        "\n\nContinuity contract:\n"
+        f"- Branch outcome class: {outcome_class or '(missing)'}\n"
+        f"- Disposition: {disposition or '(missing)'}\n"
+        f"- Promotion target: {promotion_target or '(missing)'}\n"
+        "- End your completion note by restating all three explicitly."
+    )
     if continuity_artifacts:
         rendered += "\n\nContinuity evidence artifacts:\n" + _render_bullets(continuity_artifacts)
     return rendered
@@ -236,12 +276,19 @@ def resolve_default_validation_command() -> str:
 
 
 def to_spawn_request(task: dict, idx: int, prompting: dict | None = None) -> dict:
+    contract_errors = validate_continuity_contract(task)
+    if contract_errors:
+        raise ValueError("; ".join(contract_errors))
+
     lane = str(task.get("lane", "sandy-builder")).strip() or "sandy-builder"
     contract = {
         "lane": lane,
         "capability_lane": task.get("capability_lane", "unspecified"),
         "goal": task.get("goal", "(missing goal)"),
         "section": task.get("section", "(unknown section)"),
+        "branch_outcome_class": task.get("branch_outcome_class", ""),
+        "disposition": task.get("disposition", ""),
+        "promotion_target": task.get("promotion_target", ""),
         "constraints": task.get("constraints", []),
         "definition_of_done": task.get("definition_of_done", []),
         "memory_artifact_ids": task.get("memory_artifact_ids", []),
@@ -349,6 +396,11 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
 
     for req in requests:
         out["attempted"] += 1
+        contract_errors = validate_continuity_contract(req.get("prompt_context", {}))
+        if contract_errors:
+            out["errors"].append(f"{req.get('id', 'unknown')}: {'; '.join(contract_errors)}")
+            continue
+
         payload = _build_dispatch_agent_call(req)
         membrane_evidence = _extract_dispatch_membrane_evidence(req)
 
@@ -475,6 +527,16 @@ def main() -> int:
 
     tasks = load_jsonl(plan_path)
     selected = tasks[: max(0, args.limit)]
+
+    contract_errors: list[str] = []
+    for idx, task in enumerate(selected, start=1):
+        for err in validate_continuity_contract(task):
+            contract_errors.append(f"task {idx}: {err}")
+    if contract_errors:
+        print("Invalid orchestrator task contracts:")
+        for err in contract_errors:
+            print(f"- {err}")
+        return 1
 
     prompting = resolve_prompting_runtime()
     requests = [to_spawn_request(task, i + 1, prompting=prompting) for i, task in enumerate(selected)]

@@ -22,6 +22,22 @@ from datetime import datetime
 from pathlib import Path
 from typing import List
 
+try:
+    from nfem_suite.intelligence.ygg.continuity import (
+        ALLOWED_BRANCH_OUTCOME_CLASSES,
+        ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_TARGETS,
+    )
+except ModuleNotFoundError:
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from nfem_suite.intelligence.ygg.continuity import (
+        ALLOWED_BRANCH_OUTCOME_CLASSES,
+        ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_TARGETS,
+    )
+
 ROOT = Path(__file__).resolve().parents[1]
 
 CONTINUITY_CORE_ARTIFACTS = [
@@ -161,6 +177,49 @@ def continuity_artifact_ids_for_item(item: TodoItem, root: Path = ROOT) -> list[
     return deduped
 
 
+def infer_disposition_and_promotion_target(item: TodoItem) -> tuple[str, str]:
+    text = f"{item.section} {item.text}".lower()
+
+    if "workflow" in text:
+        return "POLICY_PROMOTE", "workflow"
+    if "foundations" in text:
+        return "POLICY_PROMOTE", "foundations"
+    if any(k in text for k in ["docs", "document", "claim tier"]):
+        return "DOC_PROMOTE", "docs"
+    if any(k in text for k in ["memory", "continuity", "retrieval", "topological"]):
+        return "POLICY_PROMOTE", "tests/config"
+    if any(k in text for k in ["test", "config", "validation", "orchestrator", "artifact", "summary", "automation"]):
+        return "POLICY_PROMOTE", "tests/config"
+    if any(k in text for k in ["todo", "next action", "backlog"]):
+        return "TODO_PROMOTE", "todo"
+    return "LOG_ONLY", "log-only"
+
+
+def infer_branch_outcome_class(disposition: str) -> str:
+    if disposition in {"DROP_LOCAL", "LOG_ONLY"}:
+        return "local"
+    if disposition in {"TODO_PROMOTE", "DOC_PROMOTE"}:
+        return "promotable"
+    if disposition == "POLICY_PROMOTE":
+        return "policy-relevant"
+    return "blocked"
+
+
+def validate_task_contracts(tasks: list[dict]) -> list[str]:
+    errors: list[str] = []
+    for idx, task in enumerate(tasks, start=1):
+        disposition = task.get("disposition")
+        promotion_target = task.get("promotion_target")
+        outcome_class = task.get("branch_outcome_class")
+        if disposition not in ALLOWED_DISPOSITIONS:
+            errors.append(f"task {idx}: invalid or missing disposition '{disposition}'")
+        if promotion_target not in ALLOWED_PROMOTION_TARGETS:
+            errors.append(f"task {idx}: invalid or missing promotion_target '{promotion_target}'")
+        if outcome_class not in ALLOWED_BRANCH_OUTCOME_CLASSES:
+            errors.append(f"task {idx}: invalid or missing branch_outcome_class '{outcome_class}'")
+    return errors
+
+
 
 def task_contract(item: TodoItem, cfg: dict) -> dict:
     lane = "sandy-builder"
@@ -170,6 +229,8 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
         lane = "sandy-verifier"
 
     capability_lane = capability_lane_for_item(item)
+    disposition, promotion_target = infer_disposition_and_promotion_target(item)
+    outcome_class = infer_branch_outcome_class(disposition)
 
     validation = resolve_validation_command(cfg, lane=lane)
 
@@ -178,6 +239,9 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
         "capability_lane": capability_lane,
         "goal": item.text,
         "section": item.section,
+        "disposition": disposition,
+        "promotion_target": promotion_target,
+        "branch_outcome_class": outcome_class,
         "constraints": [
             "Use openai-codex/gpt-5.3-codex",
             "Keep strict causality; no retrocausal claims",
@@ -220,7 +284,11 @@ def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], pl
     if selected:
         for i, it in enumerate(selected, 1):
             cap = capability_lane_for_item(it)
-            lines.append(f"{i}. [{it.state}] {it.text} ({it.section}) · lane={cap}")
+            disposition, promotion_target = infer_disposition_and_promotion_target(it)
+            outcome_class = infer_branch_outcome_class(disposition)
+            lines.append(
+                f"{i}. [{it.state}] {it.text} ({it.section}) · lane={cap} · disposition={disposition} · target={promotion_target} · outcome={outcome_class}"
+            )
     else:
         lines.append("- none")
 
@@ -250,6 +318,12 @@ def main() -> int:
         limit=int(cfg.get("maxTasksPerCycle", 3)),
     )
     tasks = [task_contract(it, cfg=cfg) for it in selected]
+    task_errors = validate_task_contracts(tasks)
+    if task_errors:
+        print("Invalid orchestrator task contracts:")
+        for err in task_errors:
+            print(f"- {err}")
+        return 1
 
     out_plan = repo / cfg["output"]["taskPlanJsonl"]
     out_summary = repo / cfg["output"]["cycleSummary"]

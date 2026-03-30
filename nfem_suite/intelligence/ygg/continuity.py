@@ -23,6 +23,22 @@ ALLOWED_DISPOSITIONS = {
     "ESCALATE",
 }
 
+ALLOWED_PROMOTION_TARGETS = {
+    "todo",
+    "docs",
+    "workflow",
+    "foundations",
+    "tests/config",
+    "log-only",
+}
+
+ALLOWED_BRANCH_OUTCOME_CLASSES = {
+    "local",
+    "promotable",
+    "policy-relevant",
+    "blocked",
+}
+
 
 @dataclass(frozen=True)
 class ContinuityCheckpoint:
@@ -66,6 +82,8 @@ def write_checkpoint(
 ) -> Path:
     if disposition not in ALLOWED_DISPOSITIONS:
         raise ValueError(f"Invalid disposition: {disposition}")
+    if promotion_target and promotion_target not in ALLOWED_PROMOTION_TARGETS:
+        raise ValueError(f"Invalid promotion_target: {promotion_target}")
     if not lane.strip():
         raise ValueError("lane must be non-empty")
     if not summary.strip():

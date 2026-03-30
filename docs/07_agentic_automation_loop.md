@@ -80,6 +80,8 @@ Outputs:
 1. Coordinator script selects top open/partial TODO tasks.
 2. For each selected item, it emits a bounded task contract:
    - goal
+   - disposition
+   - promotion target
    - constraints
    - definition of done
    - validation command
@@ -231,6 +233,7 @@ Every `[SANDY-FULLPASS]` update should include:
 - concrete files changed,
 - validation commands run + outcomes,
 - TODO delta vs previous snapshot,
+- branch outcome classes + dispositions + promotion targets observed in the current orchestrator plan,
 - next best action (single highest-leverage task).
 
 This keeps the automation loop tied to real Sandy Chaos progress instead of generic background churn.
@@ -254,6 +257,7 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 ### Core artifacts
 
 - `memory/orchestrator_task_plan.jsonl` (continuity tasks may carry `memory_artifact_ids` so downstream dispatch/runtime evidence cites concrete retrieval and governance artifacts)
+- task-plan entries now also carry explicit `disposition` + `promotion_target` fields so non-trivial continuity work cannot end silently
 - `memory/orchestrator_spawn_requests.json`
 - `memory/orchestrator_dispatch_log.jsonl` (includes `control_mode`, `governance_policy_ref`, `continuity_relevant`, `memory_consulted`, `memory_artifact_ids`, and when applicable `memory_policy_ref` per dispatch event)
 - `memory/orchestrator_cycle_summary.md`

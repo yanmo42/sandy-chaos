@@ -2,5 +2,8 @@
 
 - Status: weekly cadence artifact prepared
 - Artifact: `memory/{{artifact}}`
+- Branch outcome classes (latest plan): {{branch_outcome_classes}}
+- Dispositions (latest plan): {{dispositions}}
+- Promotion targets (latest plan): {{promotion_targets}}
 - Causality guardrail: weekly synthesis is based on observed logs only (no retrocausal claims)
 - Suggested next step: complete the slow-distill policy review this week

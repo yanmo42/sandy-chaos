@@ -35,6 +35,9 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
         task = {
             "lane": "sandy-builder",
             "capability_lane": "continuity",
+            "branch_outcome_class": "policy-relevant",
+            "disposition": "POLICY_PROMOTE",
+            "promotion_target": "tests/config",
             "memory_artifact_ids": ["memory/research/topological-memory-v0/comparison_summary_v0.json"],
             "goal": "Implement minimal config renderer",
             "section": "Ops",
@@ -51,13 +54,28 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
             req["prompt_context"].get("memory_artifact_ids"),
             ["memory/research/topological-memory-v0/comparison_summary_v0.json"],
         )
+        self.assertEqual(req["prompt_context"].get("disposition"), "POLICY_PROMOTE")
+        self.assertEqual(req["prompt_context"].get("promotion_target"), "tests/config")
+        self.assertEqual(req["prompt_context"].get("branch_outcome_class"), "policy-relevant")
         self.assertTrue(req.get("spawn", {}).get("task", "").strip())
+        self.assertIn("Continuity contract:", req["spawn"]["task"])
+        self.assertIn("Branch outcome class: policy-relevant", req["spawn"]["task"])
+        self.assertIn("Disposition: POLICY_PROMOTE", req["spawn"]["task"])
+        self.assertIn("Promotion target: tests/config", req["spawn"]["task"])
         self.assertIn("Continuity evidence artifacts:", req["spawn"]["task"])
+
+    def test_validate_continuity_contract_requires_disposition_and_target(self):
+        errors = orchestrator_autospawn.validate_continuity_contract({"goal": "x"})
+
+        self.assertTrue(any("disposition" in err for err in errors))
+        self.assertTrue(any("promotion_target" in err for err in errors))
+        self.assertTrue(any("branch_outcome_class" in err for err in errors))
 
     def test_extract_dispatch_membrane_evidence_detects_continuity(self):
         req = {
             "id": "spawn-01",
             "prompt_context": {
+                "branch_outcome_class": "policy-relevant",
                 "capability_lane": "continuity",
                 "memory_artifact_ids": ["memory/2026-03-29.md#L1-L12"],
             },
@@ -135,7 +153,10 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
                 "id": "spawn-01",
                 "lane": "sandy-builder",
                 "prompt_context": {
+                    "branch_outcome_class": "policy-relevant",
                     "capability_lane": "continuity",
+                    "disposition": "POLICY_PROMOTE",
+                    "promotion_target": "tests/config",
                     "memory_artifact_ids": ["memory/2026-03-29.md#L10-L16"],
                 },
                 "spawn": {"runtime": "subagent", "task": "x"},
@@ -175,7 +196,15 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             )
 
     def test_dispatch_dry_run_marks_dispatched_without_subprocess(self):
-        requests = [{"id": "spawn-01", "spawn": {"runtime": "subagent", "task": "x"}}]
+        requests = [{
+            "id": "spawn-01",
+            "prompt_context": {
+                "branch_outcome_class": "local",
+                "disposition": "LOG_ONLY",
+                "promotion_target": "log-only",
+            },
+            "spawn": {"runtime": "subagent", "task": "x"},
+        }]
 
         with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
              patch.object(orchestrator_autospawn, "append_dispatch_log") as mock_log, \
@@ -201,6 +230,19 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
                 "spine/membranes/governance-runtime-v1.yaml",
             )
             self.assertNotIn("memory_policy_ref", log_payload)
+
+    def test_dispatch_rejects_missing_disposition_and_target(self):
+        requests = [{"id": "spawn-01", "prompt_context": {}, "spawn": {"runtime": "subagent", "task": "x"}}]
+
+        with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
+             patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
+            out = orchestrator_autospawn.dispatch_spawn_requests(requests, dry_run=False)
+
+            self.assertEqual(out["attempted"], 1)
+            self.assertEqual(out["dispatched"], 0)
+            self.assertTrue(any("disposition" in err for err in out["errors"]))
+            self.assertTrue(any("promotion_target" in err for err in out["errors"]))
+            mock_run.assert_not_called()
 
 
 if __name__ == "__main__":

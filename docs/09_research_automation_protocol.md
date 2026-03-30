@@ -32,6 +32,13 @@ Use AI agents for parallelization and synthesis; keep humans in control of:
 - `memory/research/<date>-synthesis.md` — dual synthesis + confidence
 - `memory/research/<date>-falsification.md` — explicit disproof conditions
 
+Every cycle should also end with an explicit continuity contract in the research task artifact:
+
+- `branch_outcome_class` (`local` | `promotable` | `policy-relevant` | `blocked`)
+- `disposition` (`DROP_LOCAL` | `LOG_ONLY` | `TODO_PROMOTE` | `DOC_PROMOTE` | `POLICY_PROMOTE` | `ESCALATE`)
+- `promotion_target` (`todo` | `docs` | `workflow` | `foundations` | `tests/config` | `log-only`)
+- `next_action` (single concrete line)
+
 (Directory path can be adjusted; structure is the important part.)
 
 ## 5) Minimal schema (evidence rows)
@@ -101,3 +108,4 @@ This protocol is intentionally lightweight so it can run daily.
 - When active, it writes or refreshes exactly one summary artifact per cycle prefix:
   - `memory/research/<date-or-date-slug>-cycle-summary.md`
 - The summary is descriptive only (strictly forward-causal) and includes evidence row count, unique source count, and synthesis claim-bullet count.
+- Full-pass and cadence digests should also surface the latest continuity contract distributions (branch outcome classes, dispositions, promotion targets) from orchestrator artifacts.
