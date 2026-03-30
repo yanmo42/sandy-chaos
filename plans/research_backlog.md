@@ -55,6 +55,17 @@ Build a repeatable pipeline that turns scientific literature into:
 - [ ] Assign each hypothesis a measurable fail condition and threshold
 - [ ] Emit implementation-ready experiment cards for simulation/tests
 
+### 1.4 Reality-anchor + retrodiction track (Blueprint §15 alignment)
+
+- [ ] Add anchor ladder artifact schema (`memory/research/<cycle-id>-anchors.csv`) with channel latency/fidelity/provenance/risk/persistence fields
+- [ ] Add `Q_now` provisional artifact (`memory/research/<cycle-id>-qnow.json`) with component scores (latency/provenance/noise/calibration/coverage)
+- [ ] Require backaction regime tag (`passive` | `weak-coupled` | `strong-coupled` | `control-dominant`) in each anchor/reconstruction query
+- [ ] Add retrodictive benchmark task artifact (`memory/research/<cycle-id>-retrodiction_tasks.json`) with null model, metrics, abstention rule, and failure condition
+- [ ] Run first bounded retrodiction pilot on internet/log traces with explicit uncertainty reporting
+- [ ] Add abstention-rate + uncertainty-calibration stats to cycle summaries for retrodiction runs
+- [ ] Add at least one controlled low-evidence condition to verify calibrated abstention behavior
+- [ ] Compare sparse-kernel reconstruction against full-trace baseline to estimate causal-kernel minimum
+
 ---
 
 ## Phase 2 — Verification + contradiction handling

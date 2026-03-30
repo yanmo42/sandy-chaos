@@ -9,6 +9,10 @@
 > - `docs/02_tempo_tracer_protocol.md`
 > - `docs/03_micro_observer_agency.md`
 > - `docs/11_geodesic_hydrology_contracts.md`
+> - `docs/12_yggdrasil_continuity_architecture.md`
+> - `docs/13_nested_temporal_domains.md`
+> - `docs/14_cognitive_tempo_orchestration.md`
+> - `docs/16_temporal_predictive_processing.md`
 
 ---
 
@@ -433,6 +437,20 @@ That means:
 7. define bounded retrodictive benchmark tasks in domains with recoverable traces,
 8. keep speculative frontier docs visibly quarantined,
 9. continue aligning code/tests with the strongest defensible layer.
+
+### 13.1 Roadmap ownership map (lean control surface)
+
+| Item | Owner doc/protocol | Evidence artifact(s) | Gate status |
+| --- | --- | --- | --- |
+| 1. Shared formal layer across `02/03/11` | `docs/02_tempo_tracer_protocol.md`, `docs/03_micro_observer_agency.md`, `docs/11_geodesic_hydrology_contracts.md` | cross-doc equation alignment notes + targeted simulation/test references | active |
+| 2. Fast/meso/slow layering + adjacency rules | `docs/13_nested_temporal_domains.md`, `docs/14_cognitive_tempo_orchestration.md`, `docs/12_yggdrasil_continuity_architecture.md` | neighbor-coupling benchmarks + lane mapping notes | partial |
+| 3. Null vs coupled transport benchmarks | `docs/02_tempo_tracer_protocol.md`, `docs/theory-implementation-matrix.md` (`T-002`, `T-013`) | asymmetry benchmark outputs + null/coupled comparison reports | partial |
+| 4. Flat vs geometry-weighted benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/16_temporal_predictive_processing.md` | comparative runs with equal budget and declared metrics | planned |
+| 5. Endpoint-only vs path-functional benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/prediction-protocol.md` | path vs endpoint scorecards + falsification notes | planned |
+| 6. Present-world sensory anchors + provenance/fidelity accounting | `docs/09_research_automation_protocol.md` (anchor+retrodiction section), `docs/02_tempo_tracer_protocol.md` | anchor ladder rows + channel provenance fields per cycle | planned |
+| 7. Bounded retrodictive benchmark tasks | `docs/09_research_automation_protocol.md`, `docs/theory-implementation-matrix.md` (`T-013`) | retrodictive task cards + reconstruction reports + abstention stats | planned |
+| 8. Keep speculative frontier quarantined | `FOUNDATIONS.md`, `docs/README.md`, `docs/assumptions_register.md` | claim-tier labels + promotion/audit notes | active |
+| 9. Align code/tests to strongest defensible layer | `docs/theory-implementation-matrix.md`, `docs/07_agentic_automation_loop.md`, `WORKFLOW.md` | validator/test outputs + cycle summaries with explicit dispositions | partial |
 
 In short:
 

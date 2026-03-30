@@ -20,9 +20,10 @@ This documentation set is intentionally compressed into a small canonical path:
 14. **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)**
 15. **[15 Gravitational Centers and Energistics](15_gravitational_centers_and_energistics.md)**
 16. **[16 Temporal Predictive Processing via Potential-Flow Contracts](16_temporal_predictive_processing.md)**
-17. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-18. **[Prediction Protocol](prediction-protocol.md)**
-19. **[Paradox Registry](paradox-registry.md)**
+17. **[17 Endosymbiosis and Host Assimilation](17_endosymbiosis_and_host_assimilation.md)**
+18. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+19. **[Prediction Protocol](prediction-protocol.md)**
+20. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 

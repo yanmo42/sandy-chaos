@@ -109,3 +109,71 @@ This protocol is intentionally lightweight so it can run daily.
   - `memory/research/<date-or-date-slug>-cycle-summary.md`
 - The summary is descriptive only (strictly forward-causal) and includes evidence row count, unique source count, and synthesis claim-bullet count.
 - Full-pass and cadence digests should also surface the latest continuity contract distributions (branch outcome classes, dispositions, promotion targets) from orchestrator artifacts.
+
+## 12) Anchor + retrodiction mini-protocol (v0, strict + compact)
+
+Use this extension when a cycle claims present-world anchoring, bounded-now quality, or retrodictive reconstruction.
+
+### 12.1 Required anchor ladder row (per active channel)
+
+Each cycle should add one row per anchor channel in `memory/research/<date>-anchors.csv` with:
+
+- `anchor_id`
+- `channel_type` (`internet-log` | `telemetry` | `camera-audio` | `multimodal` | `other`)
+- `latency_ms_p50`
+- `latency_ms_p95`
+- `fidelity_score` (0-1)
+- `provenance_level` (`weak` | `medium` | `strong`)
+- `adversarial_risk` (`low` | `med` | `high`)
+- `trace_persistence` (`ephemeral` | `short` | `durable`)
+
+### 12.2 `Q_now` provisional metric fields
+
+For each cycle that uses anchors, report:
+
+- `q_now_score` (0-1)
+- `q_now_latency_component` (0-1)
+- `q_now_provenance_component` (0-1)
+- `q_now_noise_component` (0-1)
+- `q_now_calibration_component` (0-1)
+- `q_now_coverage_component` (0-1)
+
+Write these into `memory/research/<date>-qnow.json`.
+
+### 12.3 Backaction regime tags
+
+Every anchor/reconstruction cycle must declare one tag:
+
+- `passive` (backaction negligible)
+- `weak-coupled`
+- `strong-coupled`
+- `control-dominant` (measurement policy likely shapes trajectory)
+
+Store tag + rationale in `memory/research/<date>-query.md`.
+
+### 12.4 Retrodictive benchmark task template
+
+Each retrodictive task should include:
+
+- `task_id`
+- `domain`
+- `target_event_window`
+- `available_trace_set`
+- `null_model`
+- `reconstruction_method`
+- `success_metrics` (at least one calibration metric + one accuracy metric)
+- `abstention_rule`
+- `failure_condition`
+
+Store tasks in `memory/research/<date>-retrodiction_tasks.json`.
+
+### 12.5 Abstention + uncertainty gates (hard requirements)
+
+For any retrodictive claim beyond descriptive logging:
+
+1. report uncertainty (confidence interval or calibrated uncertainty band),
+2. apply the declared abstention rule,
+3. mark outputs as `ABSTAIN` when evidence quality is below threshold,
+4. do not promote `ABSTAIN` results into policy-bearing surfaces.
+
+If any gate is missing, cycle status is `REVIEW` (not `PASS`).
