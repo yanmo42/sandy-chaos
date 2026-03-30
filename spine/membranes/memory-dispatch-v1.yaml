@@ -1,0 +1,29 @@
+membrane_id: memory-dispatch-v1
+between_layers:
+  - memory
+  - circulatory
+purpose: Let dispatch consume continuity artifacts without granting memory autonomous execution authority.
+allowed_flows:
+  - context slices
+  - continuity summaries
+  - retrieval paths with references
+forbidden_flows:
+  - memory-only autonomous execution triggers
+  - unreferenced recall artifacts influencing dispatch
+  - promotion decisions made directly by dispatch logs
+required_evidence:
+  - inspectable source artifact path
+  - request provenance (who/what asked for memory)
+  - referenced artifact ids in dispatch decisions
+authority_limits:
+  - memory may inform dispatch selection and prioritization
+  - memory may not directly execute runtime actions
+  - dispatch may ignore memory outputs when confidence is low or stale
+artifacts_emitted:
+  - memory consultation record in dispatch logs
+  - referenced continuity artifact ids per decision
+failure_mode: memory-oracle creep or amnesia-plumbing
+governed_by:
+  - FOUNDATIONS.md markers N1 N2 N3 C1
+  - docs/17_endosymbiosis_and_host_assimilation.md section 13
+notes: v1 focuses on evidence-carrying reads only; write-back pathways should be specified in a future memory-dispatch-v2 contract.

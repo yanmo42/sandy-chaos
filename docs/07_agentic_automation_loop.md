@@ -207,11 +207,13 @@ To keep autonomy aligned with Sandy Chaos goals, each cycle should score itself 
 
 1. **Theory lane** (`docs/`)
    - Improves formal clarity, claim-tier discipline, falsification criteria.
-2. **Simulation lane** (`nfem_suite/`)
+2. **Continuity lane** (`memory/`, retrieval tooling, continuity infrastructure)
+   - Improves inspectable recall, retrieval provenance, and continuity-aware automation.
+3. **Simulation lane** (`nfem_suite/`)
    - Improves causal-observer coupling implementation and metrics.
-3. **Validation lane** (`tests/`)
+4. **Validation lane** (`tests/`)
    - Adds/updates tests proving forward-causal behavior and asymmetry claims.
-4. **Ops lane** (`scripts/`, `ops/`, `config/`)
+5. **Ops lane** (`scripts/`, `ops/`, `config/`)
    - Improves orchestration reliability, scheduling, and digest quality.
 
 ### B) Cycle acceptance gates
@@ -251,9 +253,9 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 
 ### Core artifacts
 
-- `memory/orchestrator_task_plan.jsonl`
+- `memory/orchestrator_task_plan.jsonl` (continuity tasks may carry `memory_artifact_ids` so downstream dispatch/runtime evidence cites concrete retrieval and governance artifacts)
 - `memory/orchestrator_spawn_requests.json`
-- `memory/orchestrator_dispatch_log.jsonl`
+- `memory/orchestrator_dispatch_log.jsonl` (includes `control_mode`, `governance_policy_ref`, `continuity_relevant`, `memory_consulted`, `memory_artifact_ids`, and when applicable `memory_policy_ref` per dispatch event)
 - `memory/orchestrator_cycle_summary.md`
 - `memory/self_improve_state.json`
 - `memory/notification_outbox.md` (append-only markdown outbox grouped by `## YYYY-MM-DD` with timestamped `### [YYYY-MM-DD HH:MM]` entries)

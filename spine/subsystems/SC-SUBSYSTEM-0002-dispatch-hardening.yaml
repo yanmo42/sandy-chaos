@@ -1,0 +1,60 @@
+subsystem_id: SC-SUBSYSTEM-0002
+name: dispatch-hardening
+status: infrastructural
+authority_class: infrastructural
+host_layer: circulatory
+repo_lane: ops
+host_function: reliable, bounded runtime dispatch for automation cycles
+biological_role_metaphor: circulatory autonomic regulation
+purpose: Provide stable orchestration and dispatch behavior so planned tasks can execute with predictable semantics and traceable outcomes.
+non_goals:
+  - define canonical concept legitimacy on its own
+  - override governance decisions without declared pathways
+  - treat all queued work as equal priority
+inputs:
+  - orchestrator task plans
+  - scheduler triggers
+  - dispatch configuration
+  - runtime context and guardrails
+outputs:
+  - dispatch execution attempts
+  - dispatch logs and status artifacts
+  - bounded failure records for retries/review
+upstream_dependencies:
+  - scripts/automation_orchestrator.py
+  - scripts/orchestrator_autospawn.py
+  - config/orchestrator.json
+  - scheduler cadence and runtime availability
+downstream_consumers:
+  - automation execution lanes
+  - reporting/digest generation
+  - governance review of runtime evidence
+governed_by:
+  - operational constraints in docs/07_agentic_automation_loop.md
+  - config-driven validation policy
+  - runtime safety and guardrails
+claim_classes_supported:
+  - C
+  - E
+evidence_classes_produced:
+  - dispatch log evidence
+  - task completion and failure evidence
+  - cycle throughput evidence
+promotion_relevance: establishes metabolic reliability needed for any canonical concept-to-runtime pathway
+workflow_participation: standard
+interface_clarity: medium
+evidence_maturity: mixed
+bounded_influence: explicit
+removal_impact: breaks
+failure_if_removed: automation loop loses dependable execution semantics and reverts to manual or inconsistent dispatch behavior
+main_risks:
+  - operational centrality without enough conceptual articulation
+  - silent coupling drift between planner outputs and dispatch behavior
+  - over-prioritizing throughput over evidence quality
+membrane_contracts:
+  - memory-dispatch-v1
+  - governance-runtime-v1
+source_docs:
+  - docs/07_agentic_automation_loop.md
+  - docs/17_endosymbiosis_and_host_assimilation.md
+notes: Candidate for canonical status once governance-runtime coupling is explicit and verified across routine cycles.

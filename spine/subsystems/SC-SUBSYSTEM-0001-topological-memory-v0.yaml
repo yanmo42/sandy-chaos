@@ -1,0 +1,57 @@
+subsystem_id: SC-SUBSYSTEM-0001
+name: topological-memory-v0
+status: infrastructural
+authority_class: infrastructural
+host_layer: memory
+repo_lane: continuity
+host_function: continuity retrieval with inspectable paths
+biological_role_metaphor: memory organelle candidate
+purpose: Provide path-structured retrieval artifacts that improve continuity recall and traceability over flat retrieval.
+non_goals:
+  - replace all search modes
+  - self-authorize concept promotion
+  - trigger runtime execution directly
+inputs:
+  - memory artifacts
+  - graph schemas
+  - benchmark queries
+  - retrieval prompts
+outputs:
+  - retrieval paths
+  - scored recall artifacts
+  - benchmark comparison reports
+upstream_dependencies:
+  - memory/* artifacts
+  - retrieval scripts and schema files
+  - benchmark task definitions
+downstream_consumers:
+  - planning workflows needing continuity context
+  - governance review requiring inspectable recall evidence
+  - automation summaries where provenance matters
+governed_by:
+  - validation reports
+  - promotion gate review
+  - schema conformance checks
+claim_classes_supported:
+  - C
+  - E
+evidence_classes_produced:
+  - retrieval evidence
+  - benchmark comparison evidence
+promotion_relevance: supports continuity-aware automation and admissible recall claims
+workflow_participation: partial
+interface_clarity: medium
+evidence_maturity: mixed
+bounded_influence: explicit
+removal_impact: degrades
+failure_if_removed: continuity workflows fall back to flatter retrieval with weaker provenance and lower interpretability
+main_risks:
+  - enclave risk (high quality but weak host adoption)
+  - benchmark overfit without broader task coverage
+  - authority creep into runtime decisioning without membrane checks
+membrane_contracts:
+  - memory-dispatch-v1
+source_docs:
+  - docs/17_endosymbiosis_and_host_assimilation.md
+  - docs/archive/topological_memory_continuity_retrieval_v0.md
+notes: Promote to canonical-candidate only after standard workflows consume outputs by default and evidence maturity reaches strong.

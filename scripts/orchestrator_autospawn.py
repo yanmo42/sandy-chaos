@@ -54,6 +54,61 @@ DEFAULT_PROMPTING = {
     ],
 }
 DEFAULT_DISPATCH_AGENT_ID = ROOT.name
+GOVERNANCE_POLICY_REF = "spine/membranes/governance-runtime-v1.yaml"
+MEMORY_POLICY_REF = "spine/membranes/memory-dispatch-v1.yaml"
+
+
+def _as_string_list(raw: object) -> list[str]:
+    if isinstance(raw, str):
+        text = raw.strip()
+        return [text] if text else []
+    if isinstance(raw, list):
+        out: list[str] = []
+        for item in raw:
+            text = str(item).strip()
+            if text:
+                out.append(text)
+        return out
+    return []
+
+
+def _extract_dispatch_membrane_evidence(req: dict) -> dict:
+    """Build membrane evidence fields for dispatch logs.
+
+    This keeps governance/runtime and memory/dispatch membrane traces explicit
+    without changing dispatch semantics.
+    """
+    prompt_context = req.get("prompt_context", {}) if isinstance(req, dict) else {}
+    capability_lane = str(prompt_context.get("capability_lane", req.get("capability_lane", ""))).strip().lower()
+
+    memory_artifact_ids = []
+    for candidate in (
+        req.get("memory_artifact_ids"),
+        prompt_context.get("memory_artifact_ids"),
+        prompt_context.get("continuity_artifact_ids"),
+    ):
+        memory_artifact_ids.extend(_as_string_list(candidate))
+
+    deduped_ids: list[str] = []
+    seen: set[str] = set()
+    for artifact_id in memory_artifact_ids:
+        if artifact_id in seen:
+            continue
+        seen.add(artifact_id)
+        deduped_ids.append(artifact_id)
+
+    continuity_relevant = capability_lane == "continuity"
+    memory_consulted = bool(deduped_ids)
+
+    evidence = {
+        "continuity_relevant": continuity_relevant,
+        "memory_consulted": memory_consulted,
+        "memory_artifact_ids": deduped_ids,
+        "governance_policy_ref": GOVERNANCE_POLICY_REF,
+    }
+    if continuity_relevant or memory_consulted:
+        evidence["memory_policy_ref"] = MEMORY_POLICY_REF
+    return evidence
 
 
 def now_iso() -> str:
@@ -154,9 +209,14 @@ def render_contract_prompt(task: dict, prompting: dict | None = None) -> str:
     }
 
     try:
-        return str(cfg.get("template", DEFAULT_PROMPT_TEMPLATE)).format(**fields).strip()
+        rendered = str(cfg.get("template", DEFAULT_PROMPT_TEMPLATE)).format(**fields).strip()
     except Exception:
-        return DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
+        rendered = DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
+
+    continuity_artifacts = _as_string_list(task.get("memory_artifact_ids"))
+    if continuity_artifacts:
+        rendered += "\n\nContinuity evidence artifacts:\n" + _render_bullets(continuity_artifacts)
+    return rendered
 
 
 def resolve_default_validation_command() -> str:
@@ -179,10 +239,12 @@ def to_spawn_request(task: dict, idx: int, prompting: dict | None = None) -> dic
     lane = str(task.get("lane", "sandy-builder")).strip() or "sandy-builder"
     contract = {
         "lane": lane,
+        "capability_lane": task.get("capability_lane", "unspecified"),
         "goal": task.get("goal", "(missing goal)"),
         "section": task.get("section", "(unknown section)"),
         "constraints": task.get("constraints", []),
         "definition_of_done": task.get("definition_of_done", []),
+        "memory_artifact_ids": task.get("memory_artifact_ids", []),
         "validation_command": task.get("validation_command", resolve_default_validation_command()),
     }
     prompt = render_contract_prompt(contract, prompting=prompting)
@@ -288,6 +350,7 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
     for req in requests:
         out["attempted"] += 1
         payload = _build_dispatch_agent_call(req)
+        membrane_evidence = _extract_dispatch_membrane_evidence(req)
 
         if not payload["message"]:
             out["errors"].append(f"{req.get('id', 'unknown')}: empty spawn task message")
@@ -306,7 +369,15 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
 
         if dry_run:
             out["dispatched"] += 1
-            out["results"].append({"id": req.get("id"), "ok": True, "dry_run": True})
+            out["results"].append(
+                {
+                    "id": req.get("id"),
+                    "ok": True,
+                    "dry_run": True,
+                    "control_mode": "control-affecting",
+                    **membrane_evidence,
+                }
+            )
             append_dispatch_log(
                 {
                     "ts": now_iso(),
@@ -316,6 +387,8 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
                     "dry_run": True,
                     "method": "agent",
                     "sessionKey": payload["sessionKey"],
+                    "control_mode": "control-affecting",
+                    **membrane_evidence,
                 }
             )
             continue
@@ -340,6 +413,8 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
                 "ok": ok,
                 "runId": run_id,
                 "status": status,
+                "control_mode": "control-affecting",
+                **membrane_evidence,
                 "stdout": (proc.stdout or "").strip()[:2000],
                 "stderr": (proc.stderr or "").strip()[:2000],
             }
@@ -360,6 +435,8 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
                     "sessionKey": payload["sessionKey"],
                     "runId": run_id,
                     "status": status,
+                    "control_mode": "control-affecting",
+                    **membrane_evidence,
                     "stdout": result["stdout"],
                     "stderr": result["stderr"],
                 }
@@ -375,6 +452,8 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
                     "dry_run": False,
                     "method": "agent",
                     "sessionKey": payload["sessionKey"],
+                    "control_mode": "control-affecting",
+                    **membrane_evidence,
                     "error": str(exc),
                 }
             )
@@ -409,6 +488,8 @@ def main() -> int:
             "plan": str(plan_path),
             "out": str(out_path),
             "count": len(requests),
+            "control_mode": "descriptive",
+            "governance_policy_ref": GOVERNANCE_POLICY_REF,
         }
     )
 

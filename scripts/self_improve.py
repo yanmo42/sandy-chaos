@@ -869,6 +869,13 @@ def load_orchestrator_snapshot() -> dict:
     dispatched = 0
     latest_runs: list[str] = []
     capability_lanes: dict[str, int] = {}
+    membrane = {
+        "control_affecting": 0,
+        "descriptive": 0,
+        "continuity_relevant": 0,
+        "memory_consulted": 0,
+        "memory_artifact_refs": 0,
+    }
 
     if ORCH_PLAN_PATH.exists():
         try:
@@ -903,6 +910,17 @@ def load_orchestrator_snapshot() -> dict:
             disp = [e for e in events if e.get("event") == "spawn_dispatched"]
             dispatched = len(disp)
             latest_runs = [str(e.get("runId", "")) for e in disp[-5:] if e.get("runId")]
+            for event in events:
+                control_mode = str(event.get("control_mode", "")).strip().lower()
+                if control_mode == "control-affecting":
+                    membrane["control_affecting"] += 1
+                elif control_mode == "descriptive":
+                    membrane["descriptive"] += 1
+                if bool(event.get("continuity_relevant", False)):
+                    membrane["continuity_relevant"] += 1
+                if bool(event.get("memory_consulted", False)):
+                    membrane["memory_consulted"] += 1
+                membrane["memory_artifact_refs"] += len(event.get("memory_artifact_ids", []) or [])
         except Exception:
             pass
 
@@ -912,6 +930,7 @@ def load_orchestrator_snapshot() -> dict:
         "dispatched_count": dispatched,
         "latest_run_ids": latest_runs,
         "capability_lanes": capability_lanes,
+        "membrane": membrane,
     }
 
 
@@ -1144,6 +1163,14 @@ def compose_fullpass_message(
     run_text = ", ".join(orch.get("latest_run_ids", [])) if orch.get("latest_run_ids") else "none"
     plan_lanes = orch.get("capability_lanes", {}) or {}
     plan_lane_text = ", ".join([f"{k}={v}" for k, v in sorted(plan_lanes.items())]) if plan_lanes else "none"
+    membrane = orch.get("membrane", {}) if isinstance(orch.get("membrane", {}), dict) else {}
+    membrane_text = (
+        f"control-affecting={int(membrane.get('control_affecting', 0))}, "
+        f"descriptive={int(membrane.get('descriptive', 0))}, "
+        f"continuity-relevant={int(membrane.get('continuity_relevant', 0))}, "
+        f"memory-consulted={int(membrane.get('memory_consulted', 0))}, "
+        f"artifact-refs={int(membrane.get('memory_artifact_refs', 0))}"
+    )
     touch_lane_text = ", ".join([f"{k}={v}" for k, v in sorted(lane_hits.items())]) if lane_hits else "none"
     verdict = "productive" if productive else "maintenance/no-op"
     reason_text = "; ".join(productivity_reasons) if productivity_reasons else "no gate condition met"
@@ -1170,6 +1197,7 @@ def compose_fullpass_message(
         f"- capability lanes in plan: {plan_lane_text}\n"
         f"- spawn requests prepared: {orch.get('request_count', 0)}\n"
         f"- recent dispatch events logged: {orch.get('dispatched_count', 0)}\n"
+        f"- dispatch membrane evidence: {membrane_text}\n"
         f"- recent run ids: {run_text}\n"
         f"- pipeline orchestrator/autospawn: {orch.get('pipeline',{}).get('orchestrator_ok', False)}/{orch.get('pipeline',{}).get('autospawn_ok', False)}\n"
         f"- dispatch attempted/sent: {orch.get('dispatch',{}).get('attempted', 0)}/{orch.get('dispatch',{}).get('dispatched', 0)}\n"

@@ -11,10 +11,14 @@ SPINE_DIR = ROOT / "spine"
 CONCEPT_DIR = SPINE_DIR / "concepts"
 PRESSURE_DIR = SPINE_DIR / "pressure"
 PROMOTION_LEDGER = SPINE_DIR / "promotions" / "ledger.jsonl"
+SUBSYSTEM_DIR = SPINE_DIR / "subsystems"
+MEMBRANE_DIR = SPINE_DIR / "membranes"
 
 CONCEPT_ID_RE = re.compile(r"^SC-CONCEPT-[0-9]{4}$")
 PRESSURE_ID_RE = re.compile(r"^SC-PRESSURE-[0-9]{8}-[0-9]{2}$")
 PROMOTION_ID_RE = re.compile(r"^SC-PROMOTE-[0-9]{8}-[0-9]{2}$")
+SUBSYSTEM_ID_RE = re.compile(r"^SC-SUBSYSTEM-[0-9]{4}$")
+MEMBRANE_ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*-v[0-9]+$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 ALLOWED_LANES = {"theory", "simulation", "formalization", "automation", "continuity", "interface", "neuro"}
@@ -26,10 +30,62 @@ ALLOWED_PRESSURE_KINDS = {"doc-critique", "toy-model-evaluation", "simulation-ru
 ALLOWED_PRESSURE_RESULTS = {"support", "partial-support", "contradiction", "insufficient-evidence", "refinement-needed"}
 ALLOWED_PRESSURE_DISPOSITIONS = {"KEEP_EXPLORING", "REVISE", "ARCHIVE", "DOC_PROMOTE", "CODE_PROMOTE", "TEST_PROMOTE", "MERGE_INTO_EXISTING", "YGG_BRIDGE", "NEEDS_FALSIFICATION", "WAITING_ON_EVIDENCE", "KILL"}
 ALLOWED_PROMOTION_DISPOSITIONS = {"DOC_PROMOTE", "CODE_PROMOTE", "TEST_PROMOTE", "ARCHIVE", "MERGE_INTO_EXISTING", "YGG_BRIDGE", "KILL"}
+ALLOWED_SUBSYSTEM_STATUS = {"experimental", "advisory", "infrastructural", "canonical"}
+ALLOWED_AUTHORITY_CLASSES = {"experimental", "advisory", "infrastructural", "canonical-candidate", "canonical"}
+ALLOWED_HOST_LAYERS = {"interpretive", "memory", "circulatory", "experimental", "governance"}
+ALLOWED_REPO_LANES = {"theory", "continuity", "simulation", "validation", "ops"}
+ALLOWED_WORKFLOW_PARTICIPATION = {"none", "partial", "standard"}
+ALLOWED_INTERFACE_CLARITY = {"low", "medium", "high"}
+ALLOWED_EVIDENCE_MATURITY = {"weak", "mixed", "strong"}
+ALLOWED_BOUNDED_INFLUENCE = {"unclear", "partial", "explicit"}
+ALLOWED_REMOVAL_IMPACT = {"none", "degrades", "breaks"}
+ALLOWED_CLAIM_CLASSES = {"F", "C", "E", "S"}
 
 CONCEPT_REQUIRED = {"id", "name", "summary", "lane", "claim_tier", "status", "failure_conditions", "next_action", "promotion_target", "owner_surface"}
 PRESSURE_REQUIRED = {"id", "date", "concepts", "kind", "summary", "result", "disposition", "evidence", "next_action"}
 PROMOTION_REQUIRED = {"id", "date", "concepts", "from_status", "to_status", "promotion_target", "basis", "disposition"}
+SUBSYSTEM_REQUIRED = {
+    "subsystem_id",
+    "name",
+    "status",
+    "authority_class",
+    "host_layer",
+    "repo_lane",
+    "host_function",
+    "purpose",
+    "non_goals",
+    "inputs",
+    "outputs",
+    "upstream_dependencies",
+    "downstream_consumers",
+    "governed_by",
+    "claim_classes_supported",
+    "evidence_classes_produced",
+    "promotion_relevance",
+    "workflow_participation",
+    "interface_clarity",
+    "evidence_maturity",
+    "bounded_influence",
+    "removal_impact",
+    "failure_if_removed",
+    "main_risks",
+    "membrane_contracts",
+    "source_docs",
+    "notes",
+}
+MEMBRANE_REQUIRED = {
+    "membrane_id",
+    "between_layers",
+    "purpose",
+    "allowed_flows",
+    "forbidden_flows",
+    "required_evidence",
+    "authority_limits",
+    "artifacts_emitted",
+    "failure_mode",
+    "governed_by",
+    "notes",
+}
 
 LIST_FIELDS = {
     "tags",
@@ -43,6 +99,23 @@ LIST_FIELDS = {
     "concepts",
     "evidence",
     "findings",
+    "non_goals",
+    "inputs",
+    "outputs",
+    "upstream_dependencies",
+    "downstream_consumers",
+    "governed_by",
+    "claim_classes_supported",
+    "evidence_classes_produced",
+    "main_risks",
+    "membrane_contracts",
+    "source_docs",
+    "between_layers",
+    "allowed_flows",
+    "forbidden_flows",
+    "required_evidence",
+    "authority_limits",
+    "artifacts_emitted",
 }
 
 
@@ -126,3 +199,13 @@ def load_promotion_events(root: Path = ROOT) -> list[LoadedItem]:
             data = {"__parse_error__": f"invalid JSON: {exc.msg}"}
         items.append(LoadedItem(path=ledger, data=data, line=idx))
     return items
+
+
+def load_subsystems(root: Path = ROOT) -> list[LoadedItem]:
+    subsystem_dir = root / "spine" / "subsystems"
+    return [LoadedItem(path=p, data=parse_simple_yaml(p)) for p in sorted(subsystem_dir.glob("SC-SUBSYSTEM-*.yaml"))]
+
+
+def load_membranes(root: Path = ROOT) -> list[LoadedItem]:
+    membrane_dir = root / "spine" / "membranes"
+    return [LoadedItem(path=p, data=parse_simple_yaml(p)) for p in sorted(membrane_dir.glob("*.yaml"))]

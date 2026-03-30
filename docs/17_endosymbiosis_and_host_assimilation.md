@@ -3,6 +3,40 @@
 ## Status
 Draft v0
 
+## Document role
+Canonical design/governance bridge for subsystem admission and architectural assimilation.
+
+This document is intended to do three things:
+
+1. define when a merged subsystem counts as part of the host architecture,
+2. specify the records and contracts needed to make that status inspectable,
+3. constrain how subsystem authority enters runtime and governance.
+
+It is **not** a replacement for `FOUNDATIONS.md`, and it does not by itself grant promotion.
+
+## Scope and compatibility
+
+### In scope
+- subsystem status vocabulary
+- admission gates
+- registry record expectations
+- membrane contract expectations
+- host-identity consequences for architecture decisions
+
+### Out of scope
+- replacing formal proof obligations
+- proving theory claims directly
+- promoting speculative language to canonical truth
+- silently changing runtime behavior without governance pathways
+
+### Compatibility with Foundations
+This document adds an architectural classification layer on top of the hard contract in `FOUNDATIONS.md`.
+
+That means:
+- hard constraints and claim discipline still come from `FOUNDATIONS.md`
+- subsystem canonicalization here must still be grounded in **F/C/E** evidence where relevant
+- speculative language may guide design attention, but not override admissibility markers or promotion rules
+
 ## Purpose
 This document defines a coherent design lens for Sandy Chaos after the recent convergence of multiple branch lineages into `main`.
 
@@ -110,6 +144,18 @@ Sandy Chaos can currently be interpreted as a host architecture with five intera
    - promotion and legitimacy
 
 This model is useful because it distinguishes classes of subsystem by host function rather than by branch origin.
+
+### 4.1 Host layers mapped to current repo lanes
+
+To avoid introducing a parallel ontology, these host layers should map onto the repo's existing workflow and automation lanes.
+
+- **Interpretive layer** ↔ theory lane / canonical docs / conceptual compression
+- **Memory layer** ↔ continuity retrieval / memory artifacts / inspectable recall infrastructure
+- **Circulatory layer** ↔ ops lane / orchestration / scheduling / runtime dispatch
+- **Experimental layer** ↔ simulation lane / corridor probes / bounded exploratory systems
+- **Governance layer** ↔ validation lane / pressure accumulation / promotion and legitimacy machinery
+
+This mapping matters because a subsystem is not embedded merely by being described well; it is embedded when its host layer and lane participation are both legible.
 
 ---
 
@@ -363,21 +409,33 @@ This section converts the metaphor into an operational decision rule.
 Every major subsystem should be assigned one of the following host statuses:
 
 1. **Experimental**
-   - allowed to generate signals or artifacts
-   - not allowed to determine canonical host state by itself
+   - generates candidate signals, artifacts, or exploratory results
+   - cannot autonomously alter canonical host state
+   - may influence later review, but only through declared evidence pathways
 
 2. **Advisory**
-   - may influence interpretation, planning, or review
+   - may influence interpretation, planning, review, or routing recommendations
    - does not directly change canonical runtime or governance state without mediation
+   - must declare what kind of advice is admissible and what remains non-binding
 
 3. **Infrastructural**
-   - provides host-critical capability
-   - relied upon by standard workflows
-   - governed by stronger compatibility and stability expectations
+   - provides host-critical capability relied upon by standard workflows
+   - carries stronger compatibility, stability, and failure-legibility expectations
+   - may affect runtime operation, but only within declared authority boundaries
 
 4. **Canonical**
    - recognized as part of the host's body
    - integrated into normal legitimacy and execution pathways
+   - permitted to alter standard host state through approved governance and runtime routes
+
+### 11.1.1 Authority reminder
+
+Merge presence, conceptual glamour, and author preference are not authority classes.
+
+Every subsystem must declare:
+- what kinds of outputs it may emit,
+- what those outputs are allowed to influence,
+- what they are explicitly not allowed to influence without mediation.
 
 ### 11.2 Admission gates
 
@@ -443,10 +501,21 @@ A subsystem should only be considered **canonical host tissue** when:
 
 To make the architecture inspectable, each major subsystem should have a compact registry record.
 
+### Proposed artifact placement
+
+This schema becomes operational only if it lives somewhere concrete. A minimal path would be:
+
+- `spine/subsystems/README.md` — registry conventions
+- `spine/subsystems/<subsystem_id>.yaml` — one file per major subsystem
+
+If that location changes later, the important part is preserving a stable, queryable home for subsystem identity and authority.
+
 ### Proposed fields
 - `subsystem_id`
 - `name`
 - `status` — experimental | advisory | infrastructural | canonical
+- `host_layer`
+- `repo_lane`
 - `host_function`
 - `biological_role_metaphor`
 - `purpose`
@@ -457,12 +526,17 @@ To make the architecture inspectable, each major subsystem should have a compact
 - `downstream_consumers`
 - `authority_class`
 - `governed_by`
+- `claim_classes_supported`
 - `evidence_classes_produced`
 - `promotion_relevance`
 - `failure_if_removed`
 - `main_risks`
 - `membrane_contracts`
-- `assimilation_score`
+- `workflow_participation`
+- `interface_clarity`
+- `evidence_maturity`
+- `bounded_influence`
+- `removal_impact`
 - `notes`
 
 ### Minimal example shape
@@ -471,6 +545,8 @@ To make the architecture inspectable, each major subsystem should have a compact
 subsystem_id: SC-SUBSYSTEM-0001
 name: topological-memory-v0
 status: infrastructural
+host_layer: memory
+repo_lane: validation
 host_function: continuity retrieval
 biological_role_metaphor: memory organelle candidate
 purpose: Provide inspectable path-structured retrieval over project memory artifacts.
@@ -497,6 +573,9 @@ governed_by:
   - validation reports
   - promotion gates
   - schema conformance
+claim_classes_supported:
+  - C
+  - E
 evidence_classes_produced:
   - retrieval evidence
   - benchmark comparison evidence
@@ -508,17 +587,81 @@ main_risks:
 membrane_contracts:
   - memory-dispatch-v1
   - memory-governance-v1
-assimilation_score: 4
+workflow_participation: partial
+interface_clarity: medium
+evidence_maturity: mixed
+bounded_influence: explicit
+removal_impact: degrades
 notes: Candidate near-core organelle if standard workflows adopt outputs.
 ```
 
 The metaphor is permitted here, but the record itself must remain operational.
+
+### Registry interpretation rule
+
+Avoid a single scalar assimilation score for now.
+
+Until the project has clearer empirical update rules, assimilation should be tracked through explicit dimensions rather than a vibes-bearing number. The fields above are intended to make disagreements inspectable:
+
+- is the host function clear?
+- is there standard workflow participation?
+- is the influence bounded?
+- is the evidence mature enough?
+- does removal merely degrade behavior, or actually break a host pathway?
 
 ---
 
 ## 13. Membrane contracts (v0)
 
 A membrane contract specifies how two host layers interact without collapsing their distinction.
+
+### 13.0 Membrane artifact shape
+
+To become part of the architecture rather than just this document, each membrane should eventually exist as its own artifact.
+
+Suggested location:
+
+- `spine/membranes/<membrane_id>.yaml`
+
+Suggested fields:
+
+- `membrane_id`
+- `between_layers`
+- `purpose`
+- `allowed_flows`
+- `forbidden_flows`
+- `required_evidence`
+- `authority_limits`
+- `artifacts_emitted`
+- `failure_mode`
+- `notes`
+
+Minimal example shape:
+
+```yaml
+membrane_id: memory-dispatch-v1
+between_layers:
+  - memory
+  - circulatory
+purpose: Allow dispatch to consume inspectable continuity artifacts without granting memory autonomous execution authority.
+allowed_flows:
+  - context slices
+  - retrieval paths
+  - continuity summaries
+forbidden_flows:
+  - autonomous execution triggers from memory alone
+  - unreferenced recall artifacts affecting dispatch
+required_evidence:
+  - inspectable source artifact
+  - request provenance
+authority_limits:
+  - memory may inform dispatch
+  - memory may not directly execute runtime actions
+artifacts_emitted:
+  - dispatch consultation record
+failure_mode: memory-oracle creep or amnesia-plumbing
+notes: initial membrane for continuity-aware automation
+```
 
 ### 13.1 Theory ↔ Governance membrane
 

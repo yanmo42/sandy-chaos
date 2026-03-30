@@ -1,0 +1,31 @@
+membrane_id: governance-runtime-v1
+between_layers:
+  - governance
+  - circulatory
+purpose: Bind legitimacy decisions to runtime behavior while preventing decorative governance and unauthorized runtime self-legitimation.
+allowed_flows:
+  - governance-approved defaults/routing constraints into runtime config
+  - runtime evidence artifacts into governance pressure/review channels
+  - explicit policy flags that alter dispatch availability or thresholds
+forbidden_flows:
+  - runtime self-promotion to canonical authority without governance pathway
+  - governance assertions changing runtime behavior without an inspectable artifact
+  - undocumented manual overrides treated as canonical policy
+required_evidence:
+  - referenced governance artifact id for binding runtime changes
+  - referenced runtime log artifacts for governance pressure ingestion
+  - explicit distinction between descriptive logs and control-affecting decisions
+authority_limits:
+  - governance may constrain runtime behavior through declared channels only
+  - runtime may report evidence and propose changes but may not self-authorize canonical status
+  - emergency runtime safeguards may act immediately but must emit post-hoc governance artifacts
+artifacts_emitted:
+  - governance-linked runtime change records
+  - runtime evidence packets for pressure/promotion review
+  - exception records for emergency safeguard interventions
+failure_mode: governance theater or runtime anarchy
+governed_by:
+  - FOUNDATIONS.md markers C1 C2 C3 C4
+  - docs/07_agentic_automation_loop.md
+  - docs/17_endosymbiosis_and_host_assimilation.md section 13
+notes: v1 establishes bidirectional evidence/control pathways; future versions should formalize rollback semantics and confidence thresholds.

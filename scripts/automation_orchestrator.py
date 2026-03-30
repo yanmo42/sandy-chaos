@@ -24,6 +24,18 @@ from typing import List
 
 ROOT = Path(__file__).resolve().parents[1]
 
+CONTINUITY_CORE_ARTIFACTS = [
+    "spine/subsystems/SC-SUBSYSTEM-0001-topological-memory-v0.yaml",
+    "spine/membranes/memory-dispatch-v1.yaml",
+]
+
+TOPOLOGICAL_MEMORY_ARTIFACTS = [
+    "docs/archive/topological_memory_continuity_retrieval_v0.md",
+    "memory/research/topological-memory-v0/comparison_summary_v0.json",
+    "memory/research/topological-memory-v0/comparison_report_v0.md",
+    "docs/notes/topological_memory_v0_provisional_validation.md",
+]
+
 
 @dataclass
 class TodoItem:
@@ -91,6 +103,8 @@ def rank_items(items: List[TodoItem], prefer_sections: list[str], include_partia
 
 def capability_lane_for_item(item: TodoItem) -> str:
     text = f"{item.section} {item.text}".lower()
+    if any(k in text for k in ["memory", "continuity", "retrieval", "recall", "topological"]):
+        return "continuity"
     if any(k in text for k in ["test", "falsification", "verify", "validation"]):
         return "validation"
     if any(k in text for k in ["docs", "document", "claim tier", "math", "theory", "foundations"]):
@@ -121,6 +135,32 @@ def resolve_validation_command(cfg: dict, lane: str) -> str:
     return "./venv/bin/python -m unittest discover -s tests -q"
 
 
+def continuity_artifact_ids_for_item(item: TodoItem, root: Path = ROOT) -> list[str]:
+    text = f"{item.section} {item.text}".lower()
+    refs: list[str] = []
+
+    if capability_lane_for_item(item) != "continuity":
+        return refs
+
+    for rel in CONTINUITY_CORE_ARTIFACTS:
+        if (root / rel).exists():
+            refs.append(rel)
+
+    if any(k in text for k in ["topological", "retrieval", "recall", "memory"]):
+        for rel in TOPOLOGICAL_MEMORY_ARTIFACTS:
+            if (root / rel).exists():
+                refs.append(rel)
+
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for ref in refs:
+        if ref in seen:
+            continue
+        seen.add(ref)
+        deduped.append(ref)
+    return deduped
+
+
 
 def task_contract(item: TodoItem, cfg: dict) -> dict:
     lane = "sandy-builder"
@@ -133,7 +173,7 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
 
     validation = resolve_validation_command(cfg, lane=lane)
 
-    return {
+    contract = {
         "lane": lane,
         "capability_lane": capability_lane,
         "goal": item.text,
@@ -155,6 +195,12 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
             "lane": lane,
         },
     }
+
+    continuity_refs = continuity_artifact_ids_for_item(item)
+    if continuity_refs:
+        contract["memory_artifact_ids"] = continuity_refs
+
+    return contract
 
 
 def write_jsonl(path: Path, tasks: list[dict]) -> None:

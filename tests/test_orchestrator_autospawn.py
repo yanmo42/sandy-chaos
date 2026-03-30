@@ -34,6 +34,8 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
     def test_to_spawn_request_includes_prompt_context(self):
         task = {
             "lane": "sandy-builder",
+            "capability_lane": "continuity",
+            "memory_artifact_ids": ["memory/research/topological-memory-v0/comparison_summary_v0.json"],
             "goal": "Implement minimal config renderer",
             "section": "Ops",
             "constraints": ["Small patch"],
@@ -44,7 +46,54 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
         req = orchestrator_autospawn.to_spawn_request(task, 1, prompting=orchestrator_autospawn.resolve_prompting_runtime())
         self.assertIn("prompt_context", req)
         self.assertEqual(req["prompt_schema_version"], "v1")
+        self.assertEqual(req["prompt_context"].get("capability_lane"), "continuity")
+        self.assertEqual(
+            req["prompt_context"].get("memory_artifact_ids"),
+            ["memory/research/topological-memory-v0/comparison_summary_v0.json"],
+        )
         self.assertTrue(req.get("spawn", {}).get("task", "").strip())
+        self.assertIn("Continuity evidence artifacts:", req["spawn"]["task"])
+
+    def test_extract_dispatch_membrane_evidence_detects_continuity(self):
+        req = {
+            "id": "spawn-01",
+            "prompt_context": {
+                "capability_lane": "continuity",
+                "memory_artifact_ids": ["memory/2026-03-29.md#L1-L12"],
+            },
+        }
+
+        evidence = orchestrator_autospawn._extract_dispatch_membrane_evidence(req)
+
+        self.assertTrue(evidence["continuity_relevant"])
+        self.assertTrue(evidence["memory_consulted"])
+        self.assertEqual(evidence["memory_artifact_ids"], ["memory/2026-03-29.md#L1-L12"])
+        self.assertEqual(
+            evidence["governance_policy_ref"],
+            "spine/membranes/governance-runtime-v1.yaml",
+        )
+        self.assertEqual(
+            evidence["memory_policy_ref"],
+            "spine/membranes/memory-dispatch-v1.yaml",
+        )
+
+    def test_extract_dispatch_membrane_evidence_separates_continuity_from_consultation(self):
+        req = {
+            "id": "spawn-01",
+            "prompt_context": {
+                "capability_lane": "continuity",
+            },
+        }
+
+        evidence = orchestrator_autospawn._extract_dispatch_membrane_evidence(req)
+
+        self.assertTrue(evidence["continuity_relevant"])
+        self.assertFalse(evidence["memory_consulted"])
+        self.assertEqual(evidence["memory_artifact_ids"], [])
+        self.assertEqual(
+            evidence["memory_policy_ref"],
+            "spine/membranes/memory-dispatch-v1.yaml",
+        )
 
     def test_resolve_prompting_runtime_reads_config(self):
         with tempfile.TemporaryDirectory() as td:
@@ -81,10 +130,20 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
         self.assertTrue(payload["sessionKey"].startswith("agent:sandy-chaos:orchestrator-"))
 
     def test_dispatch_uses_agent_gateway_call(self):
-        requests = [{"id": "spawn-01", "lane": "sandy-builder", "spawn": {"runtime": "subagent", "task": "x"}}]
+        requests = [
+            {
+                "id": "spawn-01",
+                "lane": "sandy-builder",
+                "prompt_context": {
+                    "capability_lane": "continuity",
+                    "memory_artifact_ids": ["memory/2026-03-29.md#L10-L16"],
+                },
+                "spawn": {"runtime": "subagent", "task": "x"},
+            }
+        ]
 
         with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
-             patch.object(orchestrator_autospawn, "append_dispatch_log"), \
+             patch.object(orchestrator_autospawn, "append_dispatch_log") as mock_log, \
              patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
             mock_run.return_value.returncode = 0
             mock_run.return_value.stdout = '{"runId":"r1","status":"accepted"}'
@@ -101,11 +160,25 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             self.assertIn("call", called)
             self.assertIn("agent", called)
 
+            log_payload = mock_log.call_args[0][0]
+            self.assertEqual(log_payload["control_mode"], "control-affecting")
+            self.assertTrue(log_payload["continuity_relevant"])
+            self.assertTrue(log_payload["memory_consulted"])
+            self.assertEqual(log_payload["memory_artifact_ids"], ["memory/2026-03-29.md#L10-L16"])
+            self.assertEqual(
+                log_payload["governance_policy_ref"],
+                "spine/membranes/governance-runtime-v1.yaml",
+            )
+            self.assertEqual(
+                log_payload["memory_policy_ref"],
+                "spine/membranes/memory-dispatch-v1.yaml",
+            )
+
     def test_dispatch_dry_run_marks_dispatched_without_subprocess(self):
         requests = [{"id": "spawn-01", "spawn": {"runtime": "subagent", "task": "x"}}]
 
         with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
-             patch.object(orchestrator_autospawn, "append_dispatch_log"), \
+             patch.object(orchestrator_autospawn, "append_dispatch_log") as mock_log, \
              patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
             out = orchestrator_autospawn.dispatch_spawn_requests(requests, dry_run=True)
 
@@ -113,6 +186,21 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             self.assertEqual(out["dispatched"], 1)
             self.assertEqual(len(out["errors"]), 0)
             mock_run.assert_not_called()
+
+            self.assertEqual(out["results"][0]["control_mode"], "control-affecting")
+            self.assertFalse(out["results"][0]["continuity_relevant"])
+            self.assertFalse(out["results"][0]["memory_consulted"])
+            self.assertEqual(out["results"][0]["memory_artifact_ids"], [])
+            self.assertNotIn("memory_policy_ref", out["results"][0])
+
+            log_payload = mock_log.call_args[0][0]
+            self.assertEqual(log_payload["control_mode"], "control-affecting")
+            self.assertFalse(log_payload["continuity_relevant"])
+            self.assertEqual(
+                log_payload["governance_policy_ref"],
+                "spine/membranes/governance-runtime-v1.yaml",
+            )
+            self.assertNotIn("memory_policy_ref", log_payload)
 
 
 if __name__ == "__main__":

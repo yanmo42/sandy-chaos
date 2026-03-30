@@ -55,6 +55,13 @@ class FullPassValidationSummaryTests(unittest.TestCase):
                 "dispatched_count": 0,
                 "latest_run_ids": [],
                 "capability_lanes": {},
+                "membrane": {
+                    "control_affecting": 2,
+                    "descriptive": 1,
+                    "continuity_relevant": 2,
+                    "memory_consulted": 1,
+                    "memory_artifact_refs": 4,
+                },
                 "pipeline": {"orchestrator_ok": False, "autospawn_ok": False},
                 "dispatch": {"attempted": 0, "dispatched": 0, "session_id": "none", "errors": []},
             },
@@ -68,6 +75,7 @@ class FullPassValidationSummaryTests(unittest.TestCase):
 
         self.assertIn("Validation outcomes (commands run):", msg)
         self.assertIn("PASS (exit 0): `./venv/bin/python -m unittest -q`", msg)
+        self.assertIn("dispatch membrane evidence: control-affecting=2, descriptive=1, continuity-relevant=2, memory-consulted=1, artifact-refs=4", msg)
 
 
 if __name__ == "__main__":
