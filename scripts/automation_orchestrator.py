@@ -351,6 +351,30 @@ def validate_task_contracts(tasks: list[dict]) -> list[str]:
 
 
 
+def _lux_nyx_shape(text: str, section: str, root: Path = ROOT) -> dict | None:
+    """Run the Lux–Nyx Phase 2 shaping pipeline on a next-action text.
+
+    Lazy import so the orchestrator degrades gracefully if nfem_suite is absent.
+    Returns a serialisable dict of the EvaluatorRecommendation fields plus the
+    shadow artifact path, or None on any error.
+    """
+    try:
+        from nfem_suite.intelligence.narrative_invariants.lux_nyx_pilot import (
+            shape_next_action,
+        )
+        recommendation, artifact_path = shape_next_action(text, section, root)
+        return {
+            "action": recommendation.action,
+            "rationale": recommendation.rationale,
+            "recommended_nyx_ops": list(recommendation.recommended_nyx_ops),
+            "shadow_artifact_type": recommendation.shadow_artifact_type,
+            "trace_note": recommendation.trace_note,
+            "shadow_artifact_path": str(artifact_path.relative_to(root)),
+        }
+    except Exception:
+        return None
+
+
 def task_contract(item: TodoItem, cfg: dict) -> dict:
     lane = "sandy-builder"
     if "document" in item.text.lower() or "claim tier" in item.text.lower():
@@ -396,6 +420,14 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
     continuity_refs = continuity_artifact_ids_for_item(item)
     if continuity_refs:
         contract["memory_artifact_ids"] = continuity_refs
+
+    lux_nyx = _lux_nyx_shape(item.text, item.section)
+    if lux_nyx:
+        contract["lux_nyx_shaping"] = {k: v for k, v in lux_nyx.items() if k != "shadow_artifact_path"}
+        shadow_path = lux_nyx.get("shadow_artifact_path")
+        if shadow_path:
+            existing = contract.get("memory_artifact_ids", [])
+            contract["memory_artifact_ids"] = existing + [shadow_path]
 
     continuity_ctx: dict = {}
     topological_signal = load_topological_memory_signal()
