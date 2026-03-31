@@ -22,3 +22,12 @@ IDENTITY.md
 SOUL.md
 TOOLS.md
 USER.md
+
+# Generated memory artifacts (session notes, orchestrator outputs, research cycles)
+memory/2026-*
+memory/*.jsonl
+memory/orchestrator_*.json
+memory/orchestrator_*.md
+memory/self_improve_state.json
+memory/notification_outbox.md
+memory/research/
