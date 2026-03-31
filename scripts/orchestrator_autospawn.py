@@ -298,6 +298,25 @@ def render_contract_prompt(task: dict, prompting: dict | None = None) -> str:
         )
         if notes:
             rendered += "\n- Retrieval notes:\n" + _render_bullets(notes)
+    session_resume = continuity_context.get("session_resume") if isinstance(continuity_context, dict) else None
+    if session_resume:
+        resume_type = str(session_resume.get("type", "prior"))
+        ts = str(session_resume.get("timestamp", ""))[:10]
+        rendered += f"\n\nPrior session context ({resume_type}, {ts}):"
+        rendered += f"\n- Lane: {session_resume.get('lane', '(unknown)')}"
+        if session_resume.get("branch_purpose"):
+            rendered += f"\n- Purpose: {session_resume['branch_purpose']}"
+        if session_resume.get("current_state"):
+            rendered += f"\n- State at close: {session_resume['current_state']}"
+        if session_resume.get("summary"):
+            rendered += f"\n- Summary: {session_resume['summary']}"
+        if session_resume.get("next_action"):
+            rendered += f"\n- Next action: {session_resume['next_action']}"
+        if session_resume.get("blocker"):
+            rendered += f"\n- Blocker: {session_resume['blocker']}"
+        prior_refs = _as_lines(session_resume.get("relevant_artifact_refs"))
+        if prior_refs:
+            rendered += "\n- Prior refs:\n" + _render_bullets(prior_refs)
     return rendered
 
 

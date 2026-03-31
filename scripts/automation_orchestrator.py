@@ -29,6 +29,8 @@ try:
         ALLOWED_PROMOTION_TARGETS,
         ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
         ALLOWED_PROMOTION_REVIEW_STATUSES,
+        load_latest_checkpoint,
+        load_latest_resume_artifact,
     )
 except ModuleNotFoundError:
     import sys
@@ -40,6 +42,8 @@ except ModuleNotFoundError:
         ALLOWED_PROMOTION_TARGETS,
         ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
         ALLOWED_PROMOTION_REVIEW_STATUSES,
+        load_latest_checkpoint,
+        load_latest_resume_artifact,
     )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -228,6 +232,37 @@ def load_topological_memory_signal(root: Path = ROOT) -> dict | None:
     }
 
 
+def load_session_resume_context(root: Path = ROOT) -> dict | None:
+    """Load the latest resume artifact or checkpoint as inline session context.
+
+    Tries resume artifacts first (richer); falls back to checkpoints.
+    Returns None if no prior session artifacts exist.
+    """
+    artifact = load_latest_resume_artifact(root)
+    if artifact is not None:
+        return {
+            "type": "resume",
+            "timestamp": artifact.timestamp,
+            "lane": artifact.lane,
+            "branch_purpose": artifact.branch_purpose,
+            "current_state": artifact.current_state,
+            "next_action": artifact.next_action,
+            "blocker": artifact.blocker,
+            "summary": artifact.summary,
+            "relevant_artifact_refs": list(artifact.relevant_artifact_refs),
+        }
+    checkpoint = load_latest_checkpoint(root)
+    if checkpoint is not None:
+        return {
+            "type": "checkpoint",
+            "timestamp": checkpoint.timestamp,
+            "lane": checkpoint.lane,
+            "summary": checkpoint.summary,
+            "next_action": checkpoint.next_action,
+        }
+    return None
+
+
 def continuity_artifact_ids_for_item(item: TodoItem, root: Path = ROOT) -> list[str]:
     text = f"{item.section} {item.text}".lower()
     refs: list[str] = []
@@ -243,6 +278,14 @@ def continuity_artifact_ids_for_item(item: TodoItem, root: Path = ROOT) -> list[
         for rel in TOPOLOGICAL_MEMORY_ARTIFACTS:
             if (root / rel).exists():
                 refs.append(rel)
+
+    # Include the latest durable session artifact so the dispatched agent sees where we left off
+    for subdir in ("resume", "checkpoints"):
+        artifact_dir = root / "state" / "ygg" / subdir
+        if artifact_dir.exists():
+            candidates = sorted(artifact_dir.glob("*.json"))
+            if candidates:
+                refs.append(str(candidates[-1].relative_to(root)))
 
     deduped: list[str] = []
     seen: set[str] = set()
@@ -353,11 +396,16 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
     continuity_refs = continuity_artifact_ids_for_item(item)
     if continuity_refs:
         contract["memory_artifact_ids"] = continuity_refs
-        topological_signal = load_topological_memory_signal()
-        if topological_signal:
-            contract["continuity_context"] = {
-                "topological_memory_signal": topological_signal,
-            }
+
+    continuity_ctx: dict = {}
+    topological_signal = load_topological_memory_signal()
+    if topological_signal:
+        continuity_ctx["topological_memory_signal"] = topological_signal
+    session_resume = load_session_resume_context()
+    if session_resume:
+        continuity_ctx["session_resume"] = session_resume
+    if continuity_ctx:
+        contract["continuity_context"] = continuity_ctx
 
     return contract
 

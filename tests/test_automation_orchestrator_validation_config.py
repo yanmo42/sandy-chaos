@@ -1,4 +1,7 @@
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 from scripts import automation_orchestrator
 
@@ -114,6 +117,115 @@ class AutomationOrchestratorValidationConfigTests(unittest.TestCase):
         self.assertTrue(any("branch_outcome_class" in err for err in errors))
         self.assertTrue(any("promotion_review_requirement" in err for err in errors))
         self.assertTrue(any("promotion_review_status" in err for err in errors))
+
+
+class SessionResumeContextTests(unittest.TestCase):
+    def test_load_session_resume_context_returns_none_when_empty(self):
+        with tempfile.TemporaryDirectory() as td:
+            ctx = automation_orchestrator.load_session_resume_context(Path(td))
+        self.assertIsNone(ctx)
+
+    def test_load_session_resume_context_from_checkpoint(self):
+        from nfem_suite.intelligence.ygg.continuity import write_checkpoint
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            write_checkpoint(
+                root,
+                lane="ops",
+                summary="Ops lane stable",
+                disposition="LOG_ONLY",
+                next_action="proceed to validation",
+            )
+            ctx = automation_orchestrator.load_session_resume_context(root)
+        self.assertIsNotNone(ctx)
+        self.assertEqual(ctx["type"], "checkpoint")
+        self.assertEqual(ctx["lane"], "ops")
+        self.assertEqual(ctx["next_action"], "proceed to validation")
+
+    def test_load_session_resume_context_prefers_resume_over_checkpoint(self):
+        from nfem_suite.intelligence.ygg.continuity import write_checkpoint, write_resume_artifact
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            write_checkpoint(
+                root,
+                lane="ops",
+                summary="Earlier checkpoint",
+                disposition="LOG_ONLY",
+                next_action="stale action",
+            )
+            write_resume_artifact(
+                root,
+                lane="continuity",
+                branch_purpose="Wire the consumer",
+                current_state="Half done",
+                branch_outcome_class="policy-relevant",
+                disposition="POLICY_PROMOTE",
+                promotion_target="tests/config",
+                next_action="finish wiring",
+            )
+            ctx = automation_orchestrator.load_session_resume_context(root)
+        self.assertIsNotNone(ctx)
+        self.assertEqual(ctx["type"], "resume")
+        self.assertEqual(ctx["lane"], "continuity")
+        self.assertEqual(ctx["branch_purpose"], "Wire the consumer")
+        self.assertEqual(ctx["next_action"], "finish wiring")
+
+    def test_task_contract_attaches_session_resume(self):
+        item = automation_orchestrator.TodoItem(
+            state="open",
+            text="Fix dispatch validation",
+            section="Ops",
+        )
+        cfg = {
+            "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
+        }
+        mock_resume = {
+            "type": "checkpoint",
+            "timestamp": "2026-03-26T16:59:58+00:00",
+            "lane": "Symbolic Maps",
+            "summary": "Lane stabilized",
+            "next_action": "extend Ygg promote flows",
+        }
+        with patch.object(automation_orchestrator, "load_session_resume_context", return_value=mock_resume), \
+             patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
+            contract = automation_orchestrator.task_contract(item, cfg=cfg)
+        self.assertIn("continuity_context", contract)
+        self.assertEqual(contract["continuity_context"]["session_resume"], mock_resume)
+
+    def test_task_contract_omits_continuity_context_when_nothing_loaded(self):
+        item = automation_orchestrator.TodoItem(
+            state="open",
+            text="Fix dispatch validation",
+            section="Ops",
+        )
+        cfg = {
+            "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
+        }
+        with patch.object(automation_orchestrator, "load_session_resume_context", return_value=None), \
+             patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
+            contract = automation_orchestrator.task_contract(item, cfg=cfg)
+        self.assertNotIn("continuity_context", contract)
+
+    def test_continuity_artifact_ids_includes_session_artifact_paths(self):
+        from nfem_suite.intelligence.ygg.continuity import write_checkpoint
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            write_checkpoint(
+                root,
+                lane="continuity",
+                summary="Checkpoint for test",
+                disposition="LOG_ONLY",
+                next_action="proceed",
+            )
+            item = automation_orchestrator.TodoItem(
+                state="open",
+                text="Integrate topological memory retrieval into planner context",
+                section="Continuity",
+            )
+            refs = automation_orchestrator.continuity_artifact_ids_for_item(item, root=root)
+        checkpoint_refs = [r for r in refs if "checkpoints" in r]
+        self.assertEqual(len(checkpoint_refs), 1)
+        self.assertTrue(checkpoint_refs[0].startswith("state/ygg/checkpoints/"))
 
 
 if __name__ == "__main__":

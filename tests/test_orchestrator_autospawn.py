@@ -206,6 +206,87 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
 
             self.assertEqual(runtime["template"], "Goal={goal}")
 
+    def test_render_contract_prompt_includes_resume_session_context(self):
+        task = {
+            "lane": "sandy-builder",
+            "goal": "Continue continuity wiring",
+            "section": "Continuity",
+            "branch_outcome_class": "policy-relevant",
+            "disposition": "POLICY_PROMOTE",
+            "promotion_target": "tests/config",
+            "promotion_review_requirement": "not-required",
+            "promotion_review_status": "not-required",
+            "constraints": [],
+            "definition_of_done": [],
+            "validation_command": "python -m unittest discover -s tests -q",
+            "continuity_context": {
+                "session_resume": {
+                    "type": "resume",
+                    "timestamp": "2026-03-30T12:00:00+00:00",
+                    "lane": "continuity",
+                    "branch_purpose": "Wire resume artifacts into orchestrator",
+                    "current_state": "Dataclasses written, consumer missing",
+                    "next_action": "Add load_session_resume_context to automation_orchestrator",
+                    "blocker": "",
+                    "summary": "Resume artifact surface is ready",
+                    "relevant_artifact_refs": ["scripts/ygg.py"],
+                }
+            },
+        }
+        prompt = orchestrator_autospawn.render_contract_prompt(task)
+        self.assertIn("Prior session context (resume,", prompt)
+        self.assertIn("Lane: continuity", prompt)
+        self.assertIn("Purpose: Wire resume artifacts into orchestrator", prompt)
+        self.assertIn("State at close: Dataclasses written, consumer missing", prompt)
+        self.assertIn("Next action: Add load_session_resume_context to automation_orchestrator", prompt)
+        self.assertIn("scripts/ygg.py", prompt)
+
+    def test_render_contract_prompt_includes_checkpoint_session_context(self):
+        task = {
+            "lane": "sandy-builder",
+            "goal": "Resume from checkpoint",
+            "section": "Ops",
+            "branch_outcome_class": "local",
+            "disposition": "LOG_ONLY",
+            "promotion_target": "log-only",
+            "promotion_review_requirement": "not-required",
+            "promotion_review_status": "not-required",
+            "constraints": [],
+            "definition_of_done": [],
+            "validation_command": "python -m unittest discover -s tests -q",
+            "continuity_context": {
+                "session_resume": {
+                    "type": "checkpoint",
+                    "timestamp": "2026-03-26T16:59:58+00:00",
+                    "lane": "Symbolic Maps",
+                    "summary": "Lane stabilized with docs and tests",
+                    "next_action": "build retrieval/composition or extend Ygg promote flows",
+                }
+            },
+        }
+        prompt = orchestrator_autospawn.render_contract_prompt(task)
+        self.assertIn("Prior session context (checkpoint,", prompt)
+        self.assertIn("Lane: Symbolic Maps", prompt)
+        self.assertIn("Summary: Lane stabilized with docs and tests", prompt)
+        self.assertIn("Next action: build retrieval/composition", prompt)
+
+    def test_render_contract_prompt_omits_session_context_when_absent(self):
+        task = {
+            "lane": "sandy-builder",
+            "goal": "Simple task",
+            "section": "Ops",
+            "branch_outcome_class": "local",
+            "disposition": "LOG_ONLY",
+            "promotion_target": "log-only",
+            "promotion_review_requirement": "not-required",
+            "promotion_review_status": "not-required",
+            "constraints": [],
+            "definition_of_done": [],
+            "validation_command": "python -m unittest discover -s tests -q",
+        }
+        prompt = orchestrator_autospawn.render_contract_prompt(task)
+        self.assertNotIn("Prior session context", prompt)
+
 
 class OrchestratorAutospawnDispatchTests(unittest.TestCase):
     def test_build_dispatch_agent_call_uses_configured_agent_id(self):
