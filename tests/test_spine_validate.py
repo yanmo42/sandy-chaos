@@ -52,8 +52,8 @@ class SpineValidationTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
         self.assertIn("Spine validation passed.", result.stdout)
-        self.assertIn("- 2 membranes", result.stdout)
-        self.assertIn("- 2 subsystems", result.stdout)
+        self.assertIn("- 3 membranes", result.stdout)
+        self.assertIn("- 3 subsystems", result.stdout)
 
     def test_validate_concepts_flags_missing_dependency(self):
         item = spine_common.LoadedItem(
