@@ -41,6 +41,17 @@ ALLOWED_BRANCH_OUTCOME_CLASSES = {
     "blocked",
 }
 
+ALLOWED_PROMOTION_REVIEW_REQUIREMENTS = {
+    "not-required",
+    "human-review",
+}
+
+ALLOWED_PROMOTION_REVIEW_STATUSES = {
+    "not-required",
+    "pending",
+    "approved",
+}
+
 
 @dataclass(frozen=True)
 class ContinuityCheckpoint:

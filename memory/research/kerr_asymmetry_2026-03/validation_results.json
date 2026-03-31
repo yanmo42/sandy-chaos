@@ -1,0 +1,127 @@
+{
+  "validation_date": "2026-03-30",
+  "purpose": "Validate intrinsic proper-time asymmetry in Kerr spacetime",
+  "kerr_results": {
+    "spin_0.1": {
+      "spin_a/M": 0.1,
+      "proper_time_prograde": 35.5,
+      "proper_time_retrograde": 34.7,
+      "proper_time_asymmetry": 0.02279202279202271,
+      "status_prograde": "captured",
+      "status_retrograde": "captured"
+    },
+    "spin_0.3": {
+      "spin_a/M": 0.3,
+      "proper_time_prograde": 36.4,
+      "proper_time_retrograde": 34.0,
+      "proper_time_asymmetry": 0.06818181818181814,
+      "status_prograde": "captured",
+      "status_retrograde": "captured"
+    },
+    "spin_0.5": {
+      "spin_a/M": 0.5,
+      "proper_time_prograde": 37.4,
+      "proper_time_retrograde": 33.35,
+      "proper_time_asymmetry": 0.11448763250883384,
+      "status_prograde": "captured",
+      "status_retrograde": "captured"
+    },
+    "spin_0.7": {
+      "spin_a/M": 0.7,
+      "proper_time_prograde": 38.650000000000006,
+      "proper_time_retrograde": 32.75,
+      "proper_time_asymmetry": 0.16526610644257717,
+      "status_prograde": "captured",
+      "status_retrograde": "captured"
+    },
+    "spin_0.9": {
+      "spin_a/M": 0.9,
+      "proper_time_prograde": 40.300000000000004,
+      "proper_time_retrograde": 32.25,
+      "proper_time_asymmetry": 0.22191592005513447,
+      "status_prograde": "captured",
+      "status_retrograde": "captured"
+    }
+  },
+  "flat_space_models": [
+    {
+      "boost_velocity": 0.1,
+      "time_prograde": 9.9498743710662,
+      "time_retrograde": 10.05037815259212,
+      "asymmetry": -0.010050251256281397
+    },
+    {
+      "boost_velocity": 0.3,
+      "time_prograde": 9.539392014169458,
+      "time_retrograde": 10.482848367219182,
+      "asymmetry": -0.09424083769633482
+    },
+    {
+      "boost_velocity": 0.5,
+      "time_prograde": 8.660254037844386,
+      "time_retrograde": 11.547005383792516,
+      "asymmetry": -0.2857142857142859
+    },
+    {
+      "boost_velocity": 0.7,
+      "time_prograde": 7.1414284285428495,
+      "time_retrograde": 14.002800840280099,
+      "asymmetry": -0.6490066225165564
+    },
+    {
+      "boost_velocity": 0.9,
+      "time_prograde": 4.358898943540673,
+      "time_retrograde": 22.94157338705618,
+      "asymmetry": -1.361344537815126
+    }
+  ],
+  "match_analysis": {
+    "spin_0.1": {
+      "kerr_asymmetry": 0.02279202279202271,
+      "flat_asymmetry": -0.010050251256281397,
+      "flat_boost_velocity": 0.1,
+      "absolute_residual": 0.03284227404830411,
+      "relative_residual": 1.4409547675471588,
+      "match_quality": "POOR"
+    },
+    "spin_0.3": {
+      "kerr_asymmetry": 0.06818181818181814,
+      "flat_asymmetry": -0.010050251256281397,
+      "flat_boost_velocity": 0.1,
+      "absolute_residual": 0.07823206943809953,
+      "relative_residual": 1.1474036834092687,
+      "match_quality": "POOR"
+    },
+    "spin_0.5": {
+      "kerr_asymmetry": 0.11448763250883384,
+      "flat_asymmetry": -0.010050251256281397,
+      "flat_boost_velocity": 0.1,
+      "absolute_residual": 0.12453788376511524,
+      "relative_residual": 1.087784601072325,
+      "match_quality": "POOR"
+    },
+    "spin_0.7": {
+      "kerr_asymmetry": 0.16526610644257717,
+      "flat_asymmetry": -0.010050251256281397,
+      "flat_boost_velocity": 0.1,
+      "absolute_residual": 0.17531635769885856,
+      "relative_residual": 1.0608125366207024,
+      "match_quality": "POOR"
+    },
+    "spin_0.9": {
+      "kerr_asymmetry": 0.22191592005513447,
+      "flat_asymmetry": -0.010050251256281397,
+      "flat_boost_velocity": 0.1,
+      "absolute_residual": 0.23196617131141586,
+      "relative_residual": 1.0452885541030836,
+      "match_quality": "POOR"
+    }
+  },
+  "conclusion": {
+    "overall": "KERR VALIDATION PASSES: Geometry produces intrinsic asymmetry",
+    "detail": "All spin values show >5% residual vs best flat-space match",
+    "any_significant_residual": true,
+    "all_significant_residuals": true,
+    "significance_threshold": 0.05
+  }
+}

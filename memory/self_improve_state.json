@@ -1,31 +1,32 @@
 {
   "last_productivity": {
-    "at": "2026-03-03T11:31:36",
-    "productive": true,
+    "at": "2026-03-30T22:54:20",
+    "productive": false,
     "reasons": [
-      "theory/docs lane touched",
-      "orchestrator pipeline healthy"
+      "orchestrator pipeline healthy",
+      "dispatch completed without errors",
+      "validation gate failed"
     ],
     "validation_commands": [
       "./venv/bin/python -m unittest discover -s tests -q"
     ],
-    "validation_gate_ok": true
+    "validation_gate_ok": false
   },
   "last_run": {
-    "daily": "2026-03-03T00:04:22",
-    "full_pass": "2026-03-03T11:31:36",
-    "weekly": "2026-03-02T00:00:20"
+    "daily": "2026-03-30T22:50:55",
+    "full_pass": "2026-03-30T22:54:20",
+    "weekly": "2026-03-30T22:50:55"
   },
   "last_todo_snapshot": {
-    "done": 63,
-    "open": 3,
-    "partial": 1,
-    "pct": 94.02985074626866,
-    "total": 67
+    "done": 79,
+    "open": 4,
+    "partial": 3,
+    "pct": 91.86046511627907,
+    "total": 86
   },
   "missed_runs": {
-    "daily": 0,
-    "weekly": 0
+    "daily": 26,
+    "weekly": 3
   },
   "policy_tweak_counts": {
     "Agent prompt templates should be centrally configured and rendered from structured fields, with code-enforced fallbacks for malformed/missing config": 1,

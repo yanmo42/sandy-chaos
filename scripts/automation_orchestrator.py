@@ -27,6 +27,8 @@ try:
         ALLOWED_BRANCH_OUTCOME_CLASSES,
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
+        ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
+        ALLOWED_PROMOTION_REVIEW_STATUSES,
     )
 except ModuleNotFoundError:
     import sys
@@ -36,6 +38,8 @@ except ModuleNotFoundError:
         ALLOWED_BRANCH_OUTCOME_CLASSES,
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
+        ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
+        ALLOWED_PROMOTION_REVIEW_STATUSES,
     )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -151,6 +155,79 @@ def resolve_validation_command(cfg: dict, lane: str) -> str:
     return "./venv/bin/python -m unittest discover -s tests -q"
 
 
+def resolve_promotion_review_policy(cfg: dict, promotion_target: str) -> dict[str, str]:
+    review_cfg = cfg.get("promotionReview", {}) if isinstance(cfg, dict) else {}
+    by_target = review_cfg.get("byTarget", {}) if isinstance(review_cfg, dict) else {}
+    target_cfg = by_target.get(promotion_target, {}) if isinstance(by_target, dict) else {}
+
+    requirement = str(target_cfg.get("requirement", review_cfg.get("defaultRequirement", "human-review"))).strip()
+    if requirement not in ALLOWED_PROMOTION_REVIEW_REQUIREMENTS:
+        requirement = "human-review"
+
+    default_status = "not-required" if requirement == "not-required" else "pending"
+    status = str(target_cfg.get("status", review_cfg.get("defaultStatus", default_status))).strip()
+    if status not in ALLOWED_PROMOTION_REVIEW_STATUSES:
+        status = default_status
+    if requirement == "not-required":
+        status = "not-required"
+    elif status == "not-required":
+        status = "pending"
+
+    return {
+        "requirement": requirement,
+        "status": status,
+    }
+
+
+def load_topological_memory_signal(root: Path = ROOT) -> dict | None:
+    summary_path = root / "memory" / "research" / "topological-memory-v0" / "comparison_summary_v0.json"
+    if not summary_path.exists():
+        return None
+
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+    metrics = summary.get("metrics", {}) if isinstance(summary, dict) else {}
+    topology = metrics.get("topology", {}) if isinstance(metrics, dict) else {}
+    keyword = metrics.get("keyword", {}) if isinstance(metrics, dict) else {}
+    recency = metrics.get("recency", {}) if isinstance(metrics, dict) else {}
+
+    if not topology.get("available"):
+        return None
+
+    topology_hit = float(topology.get("hit_rate", 0.0))
+    topology_mrr = float(topology.get("mrr", 0.0))
+    keyword_hit = float(keyword.get("hit_rate", 0.0)) if keyword.get("available") else None
+    keyword_mrr = float(keyword.get("mrr", 0.0)) if keyword.get("available") else None
+    recency_hit = float(recency.get("hit_rate", 0.0)) if recency.get("available") else None
+    recency_mrr = float(recency.get("mrr", 0.0)) if recency.get("available") else None
+
+    notes: list[str] = []
+    if recency_hit is not None and recency_mrr is not None and topology_hit > recency_hit and topology_mrr > recency_mrr:
+        notes.append("topology currently beats recency on hit-rate and MRR")
+    if keyword_hit is not None and keyword_mrr is not None:
+        if topology_hit > keyword_hit and topology_mrr < keyword_mrr:
+            notes.append("topology beats keyword on hit-rate but still trails on MRR")
+        elif topology_hit > keyword_hit and topology_mrr >= keyword_mrr:
+            notes.append("topology currently beats keyword on both hit-rate and MRR")
+
+    return {
+        "source": str(summary_path.relative_to(root)),
+        "query_count": int(summary.get("query_count", 0)),
+        "top_k": int(summary.get("top_k", 0)),
+        "topology_hit_rate": topology_hit,
+        "topology_mrr": topology_mrr,
+        "keyword_hit_rate": keyword_hit,
+        "keyword_mrr": keyword_mrr,
+        "recency_hit_rate": recency_hit,
+        "recency_mrr": recency_mrr,
+        "notes": notes,
+        "advisory": "Inform continuity/planning context only; not sufficient by itself for promotion.",
+    }
+
+
 def continuity_artifact_ids_for_item(item: TodoItem, root: Path = ROOT) -> list[str]:
     text = f"{item.section} {item.text}".lower()
     refs: list[str] = []
@@ -211,12 +288,22 @@ def validate_task_contracts(tasks: list[dict]) -> list[str]:
         disposition = task.get("disposition")
         promotion_target = task.get("promotion_target")
         outcome_class = task.get("branch_outcome_class")
+        review_requirement = task.get("promotion_review_requirement")
+        review_status = task.get("promotion_review_status")
         if disposition not in ALLOWED_DISPOSITIONS:
             errors.append(f"task {idx}: invalid or missing disposition '{disposition}'")
         if promotion_target not in ALLOWED_PROMOTION_TARGETS:
             errors.append(f"task {idx}: invalid or missing promotion_target '{promotion_target}'")
         if outcome_class not in ALLOWED_BRANCH_OUTCOME_CLASSES:
             errors.append(f"task {idx}: invalid or missing branch_outcome_class '{outcome_class}'")
+        if review_requirement not in ALLOWED_PROMOTION_REVIEW_REQUIREMENTS:
+            errors.append(f"task {idx}: invalid or missing promotion_review_requirement '{review_requirement}'")
+        if review_status not in ALLOWED_PROMOTION_REVIEW_STATUSES:
+            errors.append(f"task {idx}: invalid or missing promotion_review_status '{review_status}'")
+        if review_requirement == "not-required" and review_status != "not-required":
+            errors.append(f"task {idx}: promotion_review_status must be 'not-required' when review is not required")
+        if review_requirement == "human-review" and review_status == "not-required":
+            errors.append(f"task {idx}: human-review targets may not use review_status 'not-required'")
     return errors
 
 
@@ -231,6 +318,7 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
     capability_lane = capability_lane_for_item(item)
     disposition, promotion_target = infer_disposition_and_promotion_target(item)
     outcome_class = infer_branch_outcome_class(disposition)
+    promotion_review = resolve_promotion_review_policy(cfg, promotion_target)
 
     validation = resolve_validation_command(cfg, lane=lane)
 
@@ -242,6 +330,8 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
         "disposition": disposition,
         "promotion_target": promotion_target,
         "branch_outcome_class": outcome_class,
+        "promotion_review_requirement": promotion_review["requirement"],
+        "promotion_review_status": promotion_review["status"],
         "constraints": [
             "Use openai-codex/gpt-5.3-codex",
             "Keep strict causality; no retrocausal claims",
@@ -263,6 +353,11 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
     continuity_refs = continuity_artifact_ids_for_item(item)
     if continuity_refs:
         contract["memory_artifact_ids"] = continuity_refs
+        topological_signal = load_topological_memory_signal()
+        if topological_signal:
+            contract["continuity_context"] = {
+                "topological_memory_signal": topological_signal,
+            }
 
     return contract
 
@@ -274,8 +369,9 @@ def write_jsonl(path: Path, tasks: list[dict]) -> None:
             f.write(json.dumps(t, ensure_ascii=False) + "\n")
 
 
-def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], plan_path: Path) -> None:
+def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], plan_path: Path, cfg: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    topological_signal = load_topological_memory_signal()
     lines = [
         f"# Orchestrator Cycle Summary ({now()})",
         "",
@@ -286,8 +382,16 @@ def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], pl
             cap = capability_lane_for_item(it)
             disposition, promotion_target = infer_disposition_and_promotion_target(it)
             outcome_class = infer_branch_outcome_class(disposition)
+            promotion_review = resolve_promotion_review_policy(cfg, promotion_target)
+            review_text = f"review={promotion_review['requirement']}/{promotion_review['status']}"
+            continuity_text = ""
+            if cap == "continuity" and topological_signal:
+                continuity_text = (
+                    f" · topology_hit={topological_signal['topology_hit_rate']:.3f}"
+                    f" · topology_mrr={topological_signal['topology_mrr']:.3f}"
+                )
             lines.append(
-                f"{i}. [{it.state}] {it.text} ({it.section}) · lane={cap} · disposition={disposition} · target={promotion_target} · outcome={outcome_class}"
+                f"{i}. [{it.state}] {it.text} ({it.section}) · lane={cap} · disposition={disposition} · target={promotion_target} · outcome={outcome_class} · {review_text}{continuity_text}"
             )
     else:
         lines.append("- none")
@@ -329,7 +433,7 @@ def main() -> int:
     out_summary = repo / cfg["output"]["cycleSummary"]
 
     write_jsonl(out_plan, tasks)
-    write_summary(out_summary, selected, git_status_short(repo), out_plan)
+    write_summary(out_summary, selected, git_status_short(repo), out_plan, cfg)
 
     print(f"Prepared {len(tasks)} task contracts -> {out_plan}")
     print(f"Summary -> {out_summary}")

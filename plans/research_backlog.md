@@ -94,9 +94,10 @@ Build a repeatable pipeline that turns scientific literature into:
 
 - [x] Specify hyperstition update function `\mathcal{G}` with toy model + fixed-point analysis (`nfem_suite/intelligence/cognition/hyperstition.py`, `tests/test_hyperstition_dynamics.py`)
 - [ ] Benchmark Nested Temporal Domains neighbor-layer transfer against all-to-all and uncoupled baselines (`docs/13_nested_temporal_domains.md`)
-- [ ] Anchor epistemic retro-influence framing in formal literature baseline
+- [~] Anchor epistemic retro-influence framing in formal literature baseline (research cycle 2026-03-30 completed; parallels established with signaling games, Bayesian persuasion, forward induction)
 - [ ] Advance observer read-write `\Phi` from structural placeholder to concrete fluid-domain implementation
 - [ ] Build entropy-causality literature synthesis lane (Wissner-Gross / Verlinde / Penrose / Carroll, etc.)
+- [~] Extract Sandy Chaos-relevant insights from capital allocation artifact (research cycle 2026-03-30 completed; mappings to observer coupling, nested temporal domains, signaling games)
 
 ### 3.2 Integration to canonical docs
 

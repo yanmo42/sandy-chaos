@@ -14,6 +14,36 @@
     "requireTestsForCodeTasks": true,
     "allowAutoPush": false
   },
+  "promotionReview": {
+    "defaultRequirement": "human-review",
+    "defaultStatus": "pending",
+    "byTarget": {
+      "log-only": {
+        "requirement": "not-required",
+        "status": "not-required"
+      },
+      "todo": {
+        "requirement": "not-required",
+        "status": "not-required"
+      },
+      "docs": {
+        "requirement": "human-review",
+        "status": "pending"
+      },
+      "tests/config": {
+        "requirement": "human-review",
+        "status": "pending"
+      },
+      "workflow": {
+        "requirement": "human-review",
+        "status": "pending"
+      },
+      "foundations": {
+        "requirement": "human-review",
+        "status": "pending"
+      }
+    }
+  },
   "validation": {
     "commands": {
       "default": [

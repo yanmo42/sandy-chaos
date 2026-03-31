@@ -21,6 +21,8 @@ try:
         ALLOWED_BRANCH_OUTCOME_CLASSES,
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
+        ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
+        ALLOWED_PROMOTION_REVIEW_STATUSES,
     )
     from scripts.dispatch_log_validator import validate_dispatch_log_entry
 except ModuleNotFoundError:
@@ -31,6 +33,8 @@ except ModuleNotFoundError:
         ALLOWED_BRANCH_OUTCOME_CLASSES,
         ALLOWED_DISPOSITIONS,
         ALLOWED_PROMOTION_TARGETS,
+        ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
+        ALLOWED_PROMOTION_REVIEW_STATUSES,
     )
     from scripts.dispatch_log_validator import validate_dispatch_log_entry
 
@@ -134,13 +138,32 @@ def validate_continuity_contract(contract: dict) -> list[str]:
     disposition = contract.get("disposition")
     promotion_target = contract.get("promotion_target")
     outcome_class = contract.get("branch_outcome_class")
+    review_requirement = contract.get("promotion_review_requirement")
+    review_status = contract.get("promotion_review_status")
     if disposition not in ALLOWED_DISPOSITIONS:
         errors.append(f"invalid or missing disposition '{disposition}'")
     if promotion_target not in ALLOWED_PROMOTION_TARGETS:
         errors.append(f"invalid or missing promotion_target '{promotion_target}'")
     if outcome_class not in ALLOWED_BRANCH_OUTCOME_CLASSES:
         errors.append(f"invalid or missing branch_outcome_class '{outcome_class}'")
+    if review_requirement not in ALLOWED_PROMOTION_REVIEW_REQUIREMENTS:
+        errors.append(f"invalid or missing promotion_review_requirement '{review_requirement}'")
+    if review_status not in ALLOWED_PROMOTION_REVIEW_STATUSES:
+        errors.append(f"invalid or missing promotion_review_status '{review_status}'")
+    if review_requirement == "not-required" and review_status != "not-required":
+        errors.append("promotion_review_status must be 'not-required' when review is not required")
+    if review_requirement == "human-review" and review_status == "not-required":
+        errors.append("human-review targets may not use review_status 'not-required'")
     return errors
+
+
+def promotion_review_gate_error(contract: dict) -> str | None:
+    requirement = str(contract.get("promotion_review_requirement", "")).strip()
+    status = str(contract.get("promotion_review_status", "")).strip()
+    target = str(contract.get("promotion_target", "")).strip() or "(missing target)"
+    if requirement == "human-review" and status != "approved":
+        return f"promotion_target '{target}' requires human review before dispatch (status={status or 'missing'})"
+    return None
 
 
 def now_iso() -> str:
@@ -246,18 +269,35 @@ def render_contract_prompt(task: dict, prompting: dict | None = None) -> str:
         rendered = DEFAULT_PROMPT_TEMPLATE.format(**fields).strip()
 
     continuity_artifacts = _as_string_list(task.get("memory_artifact_ids"))
+    continuity_context = task.get("continuity_context", {}) if isinstance(task.get("continuity_context"), dict) else {}
     disposition = str(task.get("disposition", "")).strip()
     promotion_target = str(task.get("promotion_target", "")).strip()
     outcome_class = str(task.get("branch_outcome_class", "")).strip()
+    review_requirement = str(task.get("promotion_review_requirement", "")).strip()
+    review_status = str(task.get("promotion_review_status", "")).strip()
     rendered += (
         "\n\nContinuity contract:\n"
         f"- Branch outcome class: {outcome_class or '(missing)'}\n"
         f"- Disposition: {disposition or '(missing)'}\n"
         f"- Promotion target: {promotion_target or '(missing)'}\n"
-        "- End your completion note by restating all three explicitly."
+        f"- Promotion review: {review_requirement or '(missing)'} / {review_status or '(missing)'}\n"
+        "- End your completion note by restating all four fields explicitly."
     )
     if continuity_artifacts:
         rendered += "\n\nContinuity evidence artifacts:\n" + _render_bullets(continuity_artifacts)
+    topological_signal = continuity_context.get("topological_memory_signal", {}) if isinstance(continuity_context, dict) else {}
+    if topological_signal:
+        notes = _as_lines(topological_signal.get("notes"))
+        rendered += (
+            "\n\nContinuity retrieval context:\n"
+            f"- Source: {topological_signal.get('source', '(missing)')}\n"
+            f"- Query count: {topological_signal.get('query_count', 0)}\n"
+            f"- Topology hit-rate: {float(topological_signal.get('topology_hit_rate', 0.0)):.3f}\n"
+            f"- Topology MRR: {float(topological_signal.get('topology_mrr', 0.0)):.3f}\n"
+            f"- Advisory: {topological_signal.get('advisory', '(none)')}"
+        )
+        if notes:
+            rendered += "\n- Retrieval notes:\n" + _render_bullets(notes)
     return rendered
 
 
@@ -291,9 +331,12 @@ def to_spawn_request(task: dict, idx: int, prompting: dict | None = None) -> dic
         "branch_outcome_class": task.get("branch_outcome_class", ""),
         "disposition": task.get("disposition", ""),
         "promotion_target": task.get("promotion_target", ""),
+        "promotion_review_requirement": task.get("promotion_review_requirement", ""),
+        "promotion_review_status": task.get("promotion_review_status", ""),
         "constraints": task.get("constraints", []),
         "definition_of_done": task.get("definition_of_done", []),
         "memory_artifact_ids": task.get("memory_artifact_ids", []),
+        "continuity_context": task.get("continuity_context", {}),
         "validation_command": task.get("validation_command", resolve_default_validation_command()),
     }
     prompt = render_contract_prompt(contract, prompting=prompting)
@@ -404,6 +447,10 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
         contract_errors = validate_continuity_contract(req.get("prompt_context", {}))
         if contract_errors:
             out["errors"].append(f"{req.get('id', 'unknown')}: {'; '.join(contract_errors)}")
+            continue
+        review_gate_error = promotion_review_gate_error(req.get("prompt_context", {}))
+        if review_gate_error:
+            out["errors"].append(f"{req.get('id', 'unknown')}: {review_gate_error}")
             continue
 
         payload = _build_dispatch_agent_call(req)

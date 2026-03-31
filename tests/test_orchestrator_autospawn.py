@@ -38,7 +38,19 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
             "branch_outcome_class": "policy-relevant",
             "disposition": "POLICY_PROMOTE",
             "promotion_target": "tests/config",
+            "promotion_review_requirement": "human-review",
+            "promotion_review_status": "approved",
             "memory_artifact_ids": ["memory/research/topological-memory-v0/comparison_summary_v0.json"],
+            "continuity_context": {
+                "topological_memory_signal": {
+                    "source": "memory/research/topological-memory-v0/comparison_summary_v0.json",
+                    "query_count": 30,
+                    "topology_hit_rate": 0.867,
+                    "topology_mrr": 0.728,
+                    "notes": ["topology currently beats recency on hit-rate and MRR"],
+                    "advisory": "Inform continuity/planning context only; not sufficient by itself for promotion.",
+                }
+            },
             "goal": "Implement minimal config renderer",
             "section": "Ops",
             "constraints": ["Small patch"],
@@ -57,12 +69,17 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
         self.assertEqual(req["prompt_context"].get("disposition"), "POLICY_PROMOTE")
         self.assertEqual(req["prompt_context"].get("promotion_target"), "tests/config")
         self.assertEqual(req["prompt_context"].get("branch_outcome_class"), "policy-relevant")
+        self.assertEqual(req["prompt_context"].get("promotion_review_requirement"), "human-review")
+        self.assertEqual(req["prompt_context"].get("promotion_review_status"), "approved")
         self.assertTrue(req.get("spawn", {}).get("task", "").strip())
         self.assertIn("Continuity contract:", req["spawn"]["task"])
         self.assertIn("Branch outcome class: policy-relevant", req["spawn"]["task"])
         self.assertIn("Disposition: POLICY_PROMOTE", req["spawn"]["task"])
         self.assertIn("Promotion target: tests/config", req["spawn"]["task"])
+        self.assertIn("Promotion review: human-review / approved", req["spawn"]["task"])
         self.assertIn("Continuity evidence artifacts:", req["spawn"]["task"])
+        self.assertIn("Continuity retrieval context:", req["spawn"]["task"])
+        self.assertIn("Topology hit-rate: 0.867", req["spawn"]["task"])
 
     def test_validate_continuity_contract_requires_disposition_and_target(self):
         errors = orchestrator_autospawn.validate_continuity_contract({"goal": "x"})
@@ -70,6 +87,19 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
         self.assertTrue(any("disposition" in err for err in errors))
         self.assertTrue(any("promotion_target" in err for err in errors))
         self.assertTrue(any("branch_outcome_class" in err for err in errors))
+        self.assertTrue(any("promotion_review_requirement" in err for err in errors))
+        self.assertTrue(any("promotion_review_status" in err for err in errors))
+
+    def test_promotion_review_gate_requires_approval(self):
+        error = orchestrator_autospawn.promotion_review_gate_error(
+            {
+                "promotion_target": "workflow",
+                "promotion_review_requirement": "human-review",
+                "promotion_review_status": "pending",
+            }
+        )
+
+        self.assertIn("requires human review", error)
 
     def test_extract_dispatch_membrane_evidence_detects_continuity(self):
         req = {
@@ -204,6 +234,8 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
                     "capability_lane": "continuity",
                     "disposition": "POLICY_PROMOTE",
                     "promotion_target": "tests/config",
+                    "promotion_review_requirement": "human-review",
+                    "promotion_review_status": "approved",
                     "memory_artifact_ids": ["memory/2026-03-29.md#L10-L16"],
                 },
                 "spawn": {"runtime": "subagent", "task": "x"},
@@ -249,6 +281,8 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
                 "branch_outcome_class": "local",
                 "disposition": "LOG_ONLY",
                 "promotion_target": "log-only",
+                "promotion_review_requirement": "not-required",
+                "promotion_review_status": "not-required",
             },
             "spawn": {"runtime": "subagent", "task": "x"},
         }]
@@ -289,6 +323,28 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             self.assertEqual(out["dispatched"], 0)
             self.assertTrue(any("disposition" in err for err in out["errors"]))
             self.assertTrue(any("promotion_target" in err for err in out["errors"]))
+            mock_run.assert_not_called()
+
+    def test_dispatch_blocks_review_required_targets_until_approved(self):
+        requests = [{
+            "id": "spawn-01",
+            "prompt_context": {
+                "branch_outcome_class": "policy-relevant",
+                "disposition": "POLICY_PROMOTE",
+                "promotion_target": "workflow",
+                "promotion_review_requirement": "human-review",
+                "promotion_review_status": "pending",
+            },
+            "spawn": {"runtime": "subagent", "task": "x"},
+        }]
+
+        with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
+             patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
+            out = orchestrator_autospawn.dispatch_spawn_requests(requests, dry_run=False)
+
+            self.assertEqual(out["attempted"], 1)
+            self.assertEqual(out["dispatched"], 0)
+            self.assertTrue(any("requires human review" in err for err in out["errors"]))
             mock_run.assert_not_called()
 
 
