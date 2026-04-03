@@ -13,6 +13,11 @@
 > - `docs/13_nested_temporal_domains.md`
 > - `docs/14_cognitive_tempo_orchestration.md`
 > - `docs/16_temporal_predictive_processing.md`
+> - `docs/17_endosymbiosis_and_host_assimilation.md`
+> - `docs/theory-implementation-matrix.md`
+> - `docs/prediction-protocol.md`
+> - `docs/paradox-registry.md`
+> - `docs/math_foundations_zf.md`
 
 ---
 
@@ -86,13 +91,13 @@ $$ x_{t+\Delta} = F_\Delta(x_t, a_t, \eta_t; \Gamma) $$
 
 with no admissible implementation depending on future intervention to determine present state.
 
-A better way to summarize the thesis is therefore not “the future acts on the past,” but rather:
+A better way to summarize the thesis is therefore not "the future acts on the past," but rather:
 
 > a structured medium can make downstream constraints differentially legible to differently situated observers while all physical evolution remains forward-causal.
 
 ### 3.1 Operational-present axioms (N-series)
 
-To keep this thesis mathematically disciplined, Sandy Chaos now uses three operational-present axioms:
+To keep this thesis mathematically disciplined, Sandy Chaos uses three operational-present axioms:
 
 - **N1 — Bounded-now axiom:** no observer has direct access to a latency-free global present. Each observer has delayed, noisy measurements of world state.
 - **N2 — Measurement-backaction axiom:** observation policy can perturb future admissible dynamics (possibly weakly), so sensing and acting cannot be modeled as perfectly separable in general.
@@ -108,11 +113,19 @@ where $\delta_i$ is channel/observer latency, $\pi_i$ is measurement policy, and
 
 Implication: Sandy Chaos does not model an absolute accessible $t=0$ oracle. It models a continuously updated, latency-bounded estimate of present state constrained by causal physics and evidence quality.
 
-That causal discipline is the project’s load-bearing axiom. If it fails, the project ceases to be itself.
+That causal discipline is the project's load-bearing axiom. If it fails, the project ceases to be itself.
+
+### 3.2 First computational evidence (Kerr asymmetry validation)
+
+The causal thesis predicts that curved spacetime geometry produces **intrinsic proper-time asymmetry** unavailable in flat spacetime — making the GR layer load-bearing rather than aesthetic.
+
+This has now been computationally validated (T-015 in the theory-implementation matrix). Kerr geodesic simulations across spin parameters $a/M \in [0.1, 0.9]$ demonstrate that prograde/retrograde proper-time asymmetry is qualitatively distinct from anything achievable by flat-space Lorentz boosts. All tested spin values show >5% residual versus the best-fit flat-space model, with the residual growing monotonically with spin. The match quality between Kerr and flat-space asymmetry is uniformly poor, confirming that the geometry itself — not merely relative velocity — is the source of the asymmetry.
+
+This is the project's first matrix row at `PASS` status. It is a narrow result — it does not validate the full framework — but it establishes that one specific foundational claim survives computational testing.
 
 ---
 
-## 4) The project’s minimal ontology
+## 4) The project's minimal ontology
 
 The ontology is intentionally compact.
 
@@ -134,6 +147,17 @@ This is important because much of the subject matter invites uncontrolled vocabu
 - a computational object,
 - a constraint,
 - or a benchmarked observable.
+
+### 4.1 Formal foundations
+
+The project's mathematical structures are now traceable through an explicit derivation chain from ZF set theory axioms, through number systems and geometric/analytic structures, into the framework's working objects (`docs/math_foundations_zf.md`). This chain distinguishes four assumption classes:
+
+1. **Set-theoretic axioms** (ZF/ZFC),
+2. **Mathematical structure choices** (smooth manifolds, complex embedding),
+3. **Physical postulates** (relativity, Kerr geometry),
+4. **Sandy Chaos modeling choices** (complex entropy state, observer-coupling fields).
+
+The purpose is not to erase assumptions but to make the derivation chain and assumption boundaries explicit.
 
 ---
 
@@ -181,7 +205,7 @@ It says, in essence:
 
 ## 6) Tempo Tracing: what is actually being measured
 
-Tempo Tracing is the project’s operational layer for timing, signaling, and validation.
+Tempo Tracing is the project's operational layer for timing, signaling, and validation.
 
 Its job is not to make grand ontological claims. Its job is to define measurable quantities under causal constraints.
 
@@ -234,7 +258,11 @@ The presently implemented observables in this neighborhood include quantities su
 - observer-coupling drift,
 - frame-channel asymmetry.
 
-This is where the project’s language about agency becomes scientifically admissible: not as metaphysics, but as measurable perturbation, control, and calibration structure.
+This is where the project's language about agency becomes scientifically admissible: not as metaphysics, but as measurable perturbation, control, and calibration structure.
+
+### 7.1 The Observer Ouroboros
+
+A specific case of observer coupling is the tightly coupled human–machine predictive loop (`docs/06`). This is not a mystical closed circle but an operational model: human intent shapes machine suggestions, machine suggestions reshape human action, and all state change remains forward in interaction time. The measurable question is whether such loops produce reproducible reduction in intent–suggestion mismatch.
 
 ---
 
@@ -276,7 +304,119 @@ This layer is still speculative and remains quarantined accordingly.
 
 ---
 
-## 9) What exists now versus what is still aspirational
+## 9) Nested Temporal Domains: how timescales relate
+
+Sandy Chaos operates across multiple timescales — fast, meso, slow — but the question of how those layers should communicate was previously underspecified.
+
+**Nested Temporal Domains** (`docs/13`) provides the answer: a causality-safe architecture in which temporally banded domains exchange only constrained, neighbor-layer representations under explicit latency, distortion, and reconstruction limits.
+
+The core discipline is **neighbor-first coupling**:
+
+- same-role, adjacent-tempo edges,
+- opposite-role, same-band edges,
+- no diagonal or long-jump edges unless explicitly justified.
+
+This prevents the failure mode where every layer can be imagined as talking directly to every other layer. The grid-like architecture keeps multiscale language falsifiable.
+
+### 9.1 Temporal Predictive Processing bridge
+
+`docs/16` provides the formal bridge between Nested Temporal Domains and Potential-Flow Contracts. Its thesis:
+
+> predictive processing across temporal frames can be modeled as graph-constrained message passing between adjacent temporal domains, where admissible transfers are regulated by potential-flow contracts over a shared latent coordinate space.
+
+The computational mechanism is a graph-neural operator layer with explicit contract projection, latency/distortion accounting, and residual-based admissibility testing. This bridge is architecturally specified but not yet benchmarked — it must show measurable lift over single-scale and unconstrained-coupling baselines before promotion.
+
+---
+
+## 10) Hyperstitioning: narrative structure under causal discipline
+
+Sandy Chaos admits a controlled role for narrative/belief dynamics (`docs/05`), but only within the causal boundary.
+
+Hyperstitioning is treated as an **emergent boundary-condition field** — a structural attractor that constrains present trajectories and thereby shapes future observables. It is modeled via subcritical-regime propagation: boundary structure modifies local gradients now; local gradient response modifies outcomes later.
+
+This is admissible as **epistemic retro-influence**, not retrocausality. The boundary is strict: narrative fields are allowed to do structural work only when they cash out in state variables, transport laws, and measurable coupling terms. Testability is anchored through a two-agent mean-field toy model with fixed-point classification (T-012 in the theory-implementation matrix).
+
+---
+
+## 11) Yggdrasil: continuity architecture for branching work
+
+As Sandy Chaos grew to support parallel research sessions, automation cycles, and multi-surface artifact production, continuity became an architectural problem.
+
+**Yggdrasil** (`docs/12`) is the response: a continuity model for branching intelligence that gives the system a spine, allows branches, and defines how branch outputs may or may not alter the durable center.
+
+Core primitives:
+
+- **Spine** — repo surfaces that change slowly under stronger evidence (FOUNDATIONS.md, canonical docs, workflow rules, tests).
+- **Branch** — any bounded local process allowed to unfold with relative independence.
+- **Promotion** — the process by which a branch result is evaluated before altering more durable surfaces. Uses explicit disposition classes: `DROP_LOCAL`, `LOG_ONLY`, `TODO_PROMOTE`, `DOC_PROMOTE`, `POLICY_PROMOTE`, `ESCALATE`.
+- **Durable trace** — any artifact that carries continuity across time (summaries, docs updates, research artifacts, commit history).
+
+Temporal cadence is part of the design: fast loops at the edge, meso loops compare and route, slow loops consolidate. This cadence maps onto the broader Nested Temporal Domains grammar.
+
+---
+
+## 12) Endosymbiosis: when does a subsystem become part of the body?
+
+As multiple lineages merged into `main`, a new architectural question emerged: under what conditions has a subsystem actually become part of the host architecture rather than merely being co-located with it?
+
+**Endosymbiosis and Host Assimilation** (`docs/17`) addresses this through an admission protocol with explicit gates:
+
+- **Host function clarity** — what does the subsystem serve?
+- **Boundary clarity** — what does it consume and produce?
+- **Authority declaration** — experimental, advisory, infrastructural, or canonical?
+- **Dependency legibility** — what breaks if it is removed?
+- **Workflow participation** — does at least one standard workflow consume its outputs?
+- **Governance compatibility** and **membrane definition** — how is its interaction with adjacent layers regulated?
+
+The working host identity: **Sandy Chaos is a runtime for concept evolution under inspectable governance.**
+
+This matters because it defines four membrane contracts that regulate how host layers interact without collapsing their distinction: theory ↔ governance, memory ↔ dispatch, experiment ↔ governance, and governance ↔ runtime.
+
+Merge is not assimilation. A merged lineage has only been assimilated when the host can describe and use it in the host's own causal grammar.
+
+---
+
+## 13) Governance and validation machinery
+
+Sandy Chaos now has operational governance machinery beyond documentation discipline.
+
+### 13.1 Theory-implementation matrix
+
+The `theory-implementation-matrix.md` is a live bidirectional traceability ledger mapping theoretical claims to implementation artifacts, validation evidence, and gate decisions. Each row carries:
+
+- claim class (F/C/E/S),
+- criterion markers from FOUNDATIONS.md,
+- implementation surface,
+- validation commands and evidence artifacts,
+- and an explicit PASS/REVIEW/FAIL decision.
+
+Hard-gate violations (C1 forward-causal, I1 capacity, P1 relativistic, P2 quantum no-signaling) are immediate FAIL. The matrix currently has 15 rows; T-015 (Kerr asymmetry) is the first to reach PASS.
+
+### 13.2 Prediction protocol
+
+Predictions must follow a locked lifecycle: hypothesis → pre-register → predict → lock → observe → score → update (`docs/prediction-protocol.md`). No edits to predicted values after lock. Scoring uses proper scoring rules. Every prediction must decompose uncertainty into aleatoric, epistemic, and assumption components.
+
+### 13.3 Paradox registry
+
+Informational and causal paradoxes are converted into executable stress tests with explicit falsifiers (`docs/paradox-registry.md`). Active cases include bootstrap information illusion, delayed-choice inference confusion, and relativistic ordering disagreement. Each case names what result would break the framework.
+
+### 13.4 Spine governance
+
+The `spine/` directory provides a lightweight mechanism for keeping concept evolution inspectable:
+
+- `spine/concepts/` — concept nodes tracking formalization, pressure, and promotion history,
+- `spine/pressure/` — pressure events (empirical performance, workflow adoption, governance approval),
+- `spine/promotions/` — promotion records with provenance and rollback paths,
+- `spine/membranes/` — membrane contract artifacts regulating inter-layer interaction,
+- `spine/subsystems/` — registry records for major subsystem identity and authority.
+
+### 13.5 Research automation
+
+Research cycles follow a structured protocol (`docs/09`): frame question → collect evidence → extract into schema → dual synthesis → verifier pass → artifact commit. Each cycle ends with an explicit continuity contract (branch outcome class, disposition, promotion target, next action). The protocol includes extensions for reality-anchor ladder rows, provisional $Q_{now}$ metrics, backaction regime tags, and retrodictive benchmark task templates.
+
+---
+
+## 14) What exists now versus what is still aspirational
 
 A healthy reading of Sandy Chaos must distinguish three levels.
 
@@ -287,7 +427,16 @@ A healthy reading of Sandy Chaos must distinguish three levels.
 - packet/timing semantics,
 - directional asymmetry metrics,
 - observer-coupling observables,
-- some simulation/test scaffolding around these ideas.
+- simulation scaffolding and first computational validation (Kerr proper-time asymmetry),
+- theory-implementation matrix with live gate decisions,
+- prediction protocol with pre-registration and scoring rules,
+- paradox registry with explicit falsifiers,
+- spine governance with concept/pressure/promotion tracking,
+- Yggdrasil continuity architecture with explicit dispositions and cadence rules,
+- endosymbiosis admission protocol with subsystem registry and membrane contracts,
+- research automation with structured cycle artifacts,
+- agentic automation loop with orchestrator, scheduler, and notification delivery,
+- ZF-rooted formal derivation chain for framework mathematics.
 
 ### Plausible but not yet established
 
@@ -295,20 +444,23 @@ A healthy reading of Sandy Chaos must distinguish three levels.
 - useful observer-coupled coordination gains,
 - path-functional reward structures outperforming terminal-only schemes,
 - sensory anchoring measurably improving calibration over purely internal baselines,
-- bounded retrodictive reconstruction succeeding in trace-rich domains.
+- bounded retrodictive reconstruction succeeding in trace-rich domains,
+- contract-constrained cross-frame transfer improving coherence over unconstrained coupling (the temporal predictive processing bridge),
+- subsystem admission gates producing measurably cleaner architecture than informal co-location.
 
 ### Speculative frontier
 
 - deep ontological synthesis across physics/cognition/narrative layers,
-- curvature-specific or astrophysical leverage beyond cleaner flat-space explanations,
+- curvature-specific or astrophysical leverage beyond cleaner flat-space explanations (partially addressed by Kerr validation, but much remains),
 - strong claims about consciousness or cognition transfer,
+- narrative/hyperstition fields capturing a deep general law of intelligence,
 - any suggestion that speculative language has already become validated machinery.
 
-This layered reading is not rhetorical modesty. It is one of the project’s main safety devices.
+This layered reading is not rhetorical modesty. It is one of the project's main safety devices.
 
 ---
 
-## 10) Ambitious but disciplined goals
+## 15) Ambitious but disciplined goals
 
 The project should state ambitious goals, provided they are formulated in a way that remains lawful, falsifiable, and ontologically disciplined.
 
@@ -328,7 +480,7 @@ Examples include:
 - environmental sensors,
 - other bounded-fidelity world channels with explicit provenance.
 
-These should not be described as raw “truth” in an absolute sense. They are better understood as **reality anchors**: external signals with finite latency, finite resolution, and explicit uncertainty that help the system remain calibrated to a changing present.
+These should not be described as raw "truth" in an absolute sense. They are better understood as **reality anchors**: external signals with finite latency, finite resolution, and explicit uncertainty that help the system remain calibrated to a changing present.
 
 Their role is to:
 
@@ -338,6 +490,8 @@ Their role is to:
 - and improve both forward prediction and backward inference.
 
 This fits naturally with the observer framework. A sensory channel is simply an especially important case of an observation channel whose fidelity, delay, and perturbation structure must be modeled explicitly. In this sense, even biological observers are never in instantaneous contact with the world: nervous systems already operate through delayed, bandwidth-limited, inference-laden sensory transport. Sandy Chaos formalizes and leverages that fact rather than ignoring it.
+
+The research automation protocol now includes a provisional anchor ladder schema and $Q_{now}$ metric fields for tracking anchor quality per cycle.
 
 ### B) Retrodictive trace reconstruction
 
@@ -357,6 +511,8 @@ Some domains are especially favorable for this:
 
 The long-horizon aspiration is that sufficiently strong present anchors may allow the system to reconstruct meaningful causal structure from a small present kernel of evidence. In the most ambitious applications, this could support serious forensic reconstruction of harmful events — but only under strong uncertainty quantification, provenance tracking, admissibility criteria, and human/legal oversight.
 
+The research automation protocol now includes retrodictive benchmark task templates with explicit abstention rules and uncertainty gates.
+
 ### C) Why these goals belong together
 
 These two ambitions reinforce one another.
@@ -372,7 +528,7 @@ This is also one path by which the ontology can grow without losing rigor. New m
 
 ---
 
-## 11) How the code should relate to the theory
+## 16) How the code should relate to the theory
 
 The codebase should neither merely decorate the theory, nor should the theory merely rationalize the code.
 
@@ -392,11 +548,13 @@ Sandy Chaos should therefore be read neither as a finished physical theory nor a
 - validation filters,
 - governance constrains promotion.
 
-This is also why the documentation structure matters: the docs are not merely explanatory. They are part of the system’s control surface.
+This is also why the documentation structure matters: the docs are not merely explanatory. They are part of the system's control surface.
+
+The theory-implementation matrix (`docs/theory-implementation-matrix.md`) is the operational traceability ledger that enforces this relationship row by row.
 
 ---
 
-## 12) Why the project remains scientifically interesting
+## 17) Why the project remains scientifically interesting
 
 Even after all the guardrails, there is still a nontrivial scientific core.
 
@@ -407,14 +565,16 @@ The interesting possibility is that useful anticipatory performance may arise fr
 - observer-induced steering,
 - geometry of admissible state motion,
 - rigorous path-dependent evaluation,
-- and reality-anchored inference over present traces.
+- reality-anchored inference over present traces,
+- and multiscale coupling with neighbor-first discipline.
 
 If that turns out to be true in even modest domains, the project would contribute something real:
 
 - a cleaner language for future-like informational advantage,
 - a causal alternative to sloppier retrocausal narratives,
-- a framework for treating present-world signals as calibrated anchors rather than vague “ground truth,”
-- and perhaps a design vocabulary for systems whose success depends on how they move through state space, not merely where they end.
+- a framework for treating present-world signals as calibrated anchors rather than vague "ground truth,"
+- a design vocabulary for systems whose success depends on how they move through state space, not merely where they end,
+- and a governance architecture for concept evolution under inspectable constraints.
 
 If it turns out to be false, Sandy Chaos still aims to fail well: by narrowing what kinds of asymmetry, coupling, path-functional structure, and retrodictive trace logic are actually useful.
 
@@ -422,49 +582,57 @@ That, too, would be a good scientific outcome.
 
 ---
 
-## 13) Near-term roadmap
+## 18) Near-term roadmap
 
-Near-term, the priority is not ontological expansion for its own sake. It is to tighten the current spine while adding carefully chosen anchors.
+Near-term, the priority is not ontological expansion for its own sake. It is to tighten the current spine while adding carefully chosen anchors and turning existing architecture into benchmarked evidence.
 
 That means:
 
 1. make the shared formal layer across `02 / 03 / 11` increasingly explicit,
 2. make the fast / meso / slow layering more legible through explicit nested temporal-domain architecture and adjacency rules,
 3. benchmark null vs coupled transport models,
-4. benchmark flat vs geometry-weighted formulations,
+4. benchmark flat vs geometry-weighted formulations (building on the Kerr validation),
 5. benchmark endpoint-only vs path-functional evaluation,
 6. introduce present-world sensory anchors with explicit provenance/fidelity accounting,
 7. define bounded retrodictive benchmark tasks in domains with recoverable traces,
 8. keep speculative frontier docs visibly quarantined,
-9. continue aligning code/tests with the strongest defensible layer.
+9. continue aligning code/tests with the strongest defensible layer,
+10. advance the temporal predictive processing bridge toward its first baseline comparison,
+11. close remaining membrane contracts between host layers (theory ↔ governance, memory ↔ dispatch, experiment ↔ governance, governance ↔ runtime),
+12. move additional theory-implementation matrix rows toward PASS through targeted simulation and benchmarking.
 
-### 13.1 Roadmap ownership map (lean control surface)
+### 18.1 Roadmap ownership map (lean control surface)
 
 | Item | Owner doc/protocol | Evidence artifact(s) | Gate status |
 | --- | --- | --- | --- |
 | 1. Shared formal layer across `02/03/11` | `docs/02_tempo_tracer_protocol.md`, `docs/03_micro_observer_agency.md`, `docs/11_geodesic_hydrology_contracts.md` | cross-doc equation alignment notes + targeted simulation/test references | active |
 | 2. Fast/meso/slow layering + adjacency rules | `docs/13_nested_temporal_domains.md`, `docs/14_cognitive_tempo_orchestration.md`, `docs/12_yggdrasil_continuity_architecture.md` | neighbor-coupling benchmarks + lane mapping notes | partial |
 | 3. Null vs coupled transport benchmarks | `docs/02_tempo_tracer_protocol.md`, `docs/theory-implementation-matrix.md` (`T-002`, `T-013`) | asymmetry benchmark outputs + null/coupled comparison reports | partial |
-| 4. Flat vs geometry-weighted benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/16_temporal_predictive_processing.md` | comparative runs with equal budget and declared metrics | planned |
+| 4. Flat vs geometry-weighted benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/16_temporal_predictive_processing.md`, `docs/math_foundations_zf.md` | comparative runs — Kerr validation complete (T-015 PASS); further geometry benchmarks planned | **partial → first PASS** |
 | 5. Endpoint-only vs path-functional benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/prediction-protocol.md` | path vs endpoint scorecards + falsification notes | planned |
 | 6. Present-world sensory anchors + provenance/fidelity accounting | `docs/09_research_automation_protocol.md` (anchor+retrodiction section), `docs/02_tempo_tracer_protocol.md` | anchor ladder rows + channel provenance fields per cycle | planned |
 | 7. Bounded retrodictive benchmark tasks | `docs/09_research_automation_protocol.md`, `docs/theory-implementation-matrix.md` (`T-013`) | retrodictive task cards + reconstruction reports + abstention stats | planned |
 | 8. Keep speculative frontier quarantined | `FOUNDATIONS.md`, `docs/README.md`, `docs/assumptions_register.md` | claim-tier labels + promotion/audit notes | active |
-| 9. Align code/tests to strongest defensible layer | `docs/theory-implementation-matrix.md`, `docs/07_agentic_automation_loop.md`, `WORKFLOW.md` | validator/test outputs + cycle summaries with explicit dispositions | partial |
+| 9. Align code/tests to strongest defensible layer | `docs/theory-implementation-matrix.md`, `docs/07_agentic_automation_loop.md` | validator/test outputs + cycle summaries with explicit dispositions | partial |
+| 10. Temporal predictive processing → first benchmark | `docs/16_temporal_predictive_processing.md`, `docs/theory-implementation-matrix.md` (`T-014`) | baseline comparison report + ablation table | planned |
+| 11. Close membrane contracts | `docs/17_endosymbiosis_and_host_assimilation.md`, `spine/membranes/` | membrane artifact files + workflow integration evidence | partial |
+| 12. Advance matrix rows toward PASS | `docs/theory-implementation-matrix.md` | per-row evidence artifacts | ongoing |
 
 In short:
 
-> the next task is not to claim more. It is to make the existing framework sharper, cleaner, more reality-anchored, and harder to misread.
+> the next task is not to claim more. It is to make the existing framework sharper, cleaner, more reality-anchored, and harder to misread — while turning architectural specifications into benchmarked computational evidence.
 
 That now includes keeping the canonical split legible:
 
 - **[04 Neuro Roadmap](04_neuro_roadmap.md)** for the neural evidence / decoding lane,
 - **[13 Nested Temporal Domains](13_nested_temporal_domains.md)** for multiscale coupling grammar,
-- **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)** for the practical external scaffolding lane.
+- **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)** for the practical external scaffolding lane,
+- **[16 Temporal Predictive Processing](16_temporal_predictive_processing.md)** for the cross-frame predictive bridge,
+- **[17 Endosymbiosis](17_endosymbiosis_and_host_assimilation.md)** for subsystem admission and host identity.
 
 ---
 
-## 14) Reading Sandy Chaos correctly
+## 19) Reading Sandy Chaos correctly
 
 A technically mature reader should read Sandy Chaos in the following order:
 
@@ -472,25 +640,27 @@ A technically mature reader should read Sandy Chaos in the following order:
 2. then as an **information/transport framework**,
 3. then as an **observer-coupled control model**,
 4. then as a **possible path-functional contract theory**,
-5. then as a program of **reality-anchored prediction and retrodictive reconstruction**,
-6. and only lastly as a speculative philosophical frontier.
+5. then as a **multiscale coupling architecture with neighbor-first discipline**,
+6. then as a program of **reality-anchored prediction and retrodictive reconstruction**,
+7. then as a **governed host architecture for concept evolution**,
+8. and only lastly as a speculative philosophical frontier.
 
 That order matters.
 
 If read in reverse, the project looks mystical.
 If read in the correct order, it looks like what it is trying to become:
 
-> a rigorous framework for studying anticipatory informational structure without abandoning physics, falsifiability, implementation discipline, or present-world anchoring.
+> a rigorous framework for studying anticipatory informational structure without abandoning physics, falsifiability, implementation discipline, present-world anchoring, or inspectable governance.
 
 ---
 
-## 15) Open research program: reality anchoring, bounded-now estimation, and retrodictive reconstruction
+## 20) Open research program: reality anchoring, bounded-now estimation, and retrodictive reconstruction
 
 The blueprint should not only summarize the current framework; it should also expose the most promising next questions in a way that is disciplined enough to guide both theory and implementation.
 
 The following research pillars are intended as a structured agenda rather than as validated conclusions.
 
-### 15.1 Reality-anchor ladder
+### 20.1 Reality-anchor ladder
 
 Not all present-world signal injection is equally informative. A useful next step is to define a **reality-anchor ladder** that ranks sensory channels by:
 
@@ -513,7 +683,9 @@ The core scientific question is not "how many channels can be added," but:
 
 > which kinds of anchors improve calibration, reconstruction, and prediction enough to justify their complexity and uncertainty burden?
 
-### 15.2 Bounded-now estimation
+The research automation protocol already includes a provisional anchor ladder schema for per-cycle tracking.
+
+### 20.2 Bounded-now estimation
 
 Because no observer has latency-free access to a universal present, Sandy Chaos should explicitly study the quality of present-state estimation under realistic delays.
 
@@ -529,9 +701,9 @@ A useful candidate object is a **now-contact quality** metric, not yet fully def
 
 $$ Q_{now} = f(\text{latency},\, \text{provenance},\, \text{noise},\, \text{calibration},\, \text{coverage}) $$
 
-The point of such a quantity would be modest but important: to replace vague language about being "closer to the real now" with explicit, benchmarkable criteria.
+The point of such a quantity would be modest but important: to replace vague language about being "closer to the real now" with explicit, benchmarkable criteria. Provisional $Q_{now}$ component fields are now tracked per research cycle.
 
-### 15.3 Measurement backaction regimes
+### 20.3 Measurement backaction regimes
 
 The project should distinguish regimes in which sensing is approximately passive from regimes in which sensing materially perturbs the future trajectory.
 
@@ -545,9 +717,9 @@ A useful program here is to map a **backaction regime diagram** with axes such a
 - channel coupling strength,
 - and state fragility.
 
-This would let the project say, with more precision, when observer-coupling language is structurally important and when it is merely a small correction.
+This would let the project say, with more precision, when observer-coupling language is structurally important and when it is merely a small correction. Research cycles now tag their backaction regime (passive, weak-coupled, strong-coupled, control-dominant).
 
-### 15.4 Retrodictive trace reconstruction
+### 20.4 Retrodictive trace reconstruction
 
 The retrodictive program should begin in domains where traces are rich, timestamped, and reproducible.
 
@@ -565,9 +737,9 @@ The key question is:
 
 > under what conditions does a present evidence kernel support stable posterior reconstruction of earlier states, actions, or events?
 
-This is an inverse-problem program, not a metaphysical one.
+This is an inverse-problem program, not a metaphysical one. The research automation protocol now includes retrodictive benchmark task templates with explicit abstention rules.
 
-### 15.5 Contractized reconstruction
+### 20.5 Contractized reconstruction
 
 Potential-Flow Contracts currently emphasize path quality and forward coordination. A natural extension is to ask whether contract logic can also reward **disciplined reconstruction**.
 
@@ -581,7 +753,7 @@ For example, a future contract layer might score:
 
 This is attractive because it links epistemology to mechanism design: if agents are rewarded for calibrated reconstruction rather than dramatic overclaiming, the system may become safer and more scientifically useful.
 
-### 15.6 Causal kernel extraction
+### 20.6 Causal kernel extraction
 
 Many high-value applications will depend not on abundant evidence, but on a small surviving residue of it.
 
@@ -596,7 +768,7 @@ Questions here include:
 
 This is one of the places where the project could eventually become practically distinctive.
 
-### 15.7 Null models, failure modes, and governance envelope
+### 20.7 Null models, failure modes, and governance envelope
 
 If this research program is to remain serious, every ambitious layer needs explicit nulls and failure criteria.
 
@@ -619,7 +791,7 @@ High-stakes applications — especially forensic or policy-facing ones — requi
 
 Without that envelope, the project would risk turning a disciplined inference framework into an overconfident narrative machine.
 
-### 15.8 Immediate synthesis
+### 20.8 Immediate synthesis
 
 Taken together, these pillars suggest that Sandy Chaos is converging toward a broader program than forecasting alone.
 
