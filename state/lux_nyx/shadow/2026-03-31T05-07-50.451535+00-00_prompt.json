@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-03-31T05:07:50.451535+00:00",
+  "source_text": "Integrate topological memory retrieval into planner context",
+  "section": "Continuity",
+  "input_type": "prompt",
+  "evaluator_action": "compress",
+  "recommended_nyx_ops": [
+    "compress",
+    "trace"
+  ],
+  "shadow_artifact_type": "glint",
+  "rationale": "Default compression path; shape before surfacing.",
+  "trace_note": "Compressed: no specific routing condition matched."
+}

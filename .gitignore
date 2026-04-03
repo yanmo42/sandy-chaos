@@ -16,6 +16,7 @@ enthalpy_simulation_data.csv
 
 # OpenClaw workspace-local files (do not commit)
 .openclaw/
+.codex
 AGENTS.md
 HEARTBEAT.md
 IDENTITY.md
