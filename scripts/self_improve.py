@@ -91,6 +91,7 @@ try:
         ALLOWED_PROMOTION_TARGETS,
     )
     from scripts.dispatch_log_validator import validate_dispatch_log_entry
+    from scripts.validate_foundations import validate_evidence_payload
 except ModuleNotFoundError:
     import sys
 
@@ -101,6 +102,7 @@ except ModuleNotFoundError:
         ALLOWED_PROMOTION_TARGETS,
     )
     from scripts.dispatch_log_validator import validate_dispatch_log_entry
+    from scripts.validate_foundations import validate_evidence_payload
 
 
 def now_dt() -> datetime:
@@ -669,7 +671,12 @@ def list_open_checkbox_items(limit: int = 5) -> list[str]:
 
 def git_status_short(limit: int = 12) -> list[str]:
     try:
-        out = subprocess.check_output(["git", "status", "--short"], cwd=ROOT, text=True)
+        out = subprocess.check_output(
+            ["git", "status", "--short"],
+            cwd=ROOT,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        )
     except Exception:
         return []
     lines = [ln for ln in out.splitlines() if ln.strip()]
@@ -1005,14 +1012,18 @@ def format_validation_outcomes(outcomes: list[dict]) -> str:
     lines: list[str] = []
     for row in outcomes:
         cmd = str(row.get("command", "")).strip() or "(unknown command)"
+        verdict = str(row.get("verdict", "")).strip().upper()
         ok = bool(row.get("ok", False))
         code = row.get("returncode")
-        verdict = "PASS" if ok else "FAIL"
+        if verdict not in {"PASS", "REVIEW", "FAIL"}:
+            verdict = "PASS" if ok else "FAIL"
         suffix = ""
         if row.get("zero_tests"):
             suffix = " (0 tests discovered)"
         if row.get("policy_violation"):
             suffix = f" (policy violation: {row.get('policy_violation')})"
+        if row.get("foundations_summary"):
+            suffix = f" ({row.get('foundations_summary')})"
         if isinstance(code, int):
             lines.append(f"- {verdict} (exit {code}){suffix}: `{cmd}`")
         else:
@@ -1097,6 +1108,54 @@ def run_validation_commands(commands: list[str], dry_run: bool, policy: dict | N
                 "zero_tests": zero_tests,
                 "stdout": (proc.stdout or "").strip()[:2000],
                 "stderr": (proc.stderr or "").strip()[:2000],
+            }
+        )
+    return outcomes
+
+
+def run_foundations_validation(evidence_paths: list[str], dry_run: bool) -> list[dict]:
+    outcomes: list[dict] = []
+    for raw_path in evidence_paths:
+        path_text = str(raw_path).strip()
+        if not path_text:
+            continue
+        payload_path = Path(path_text)
+        cmd = f"python3 scripts/validate_foundations.py --payload-file {payload_path}"
+        if dry_run and not payload_path.exists():
+            outcomes.append(
+                {
+                    "command": cmd,
+                    "ok": True,
+                    "verdict": "REVIEW",
+                    "returncode": 0,
+                    "foundations_summary": f"dry-run skipped missing payload {payload_path}",
+                }
+            )
+            continue
+        try:
+            payload = json.loads(payload_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            outcomes.append(
+                {
+                    "command": cmd,
+                    "ok": False,
+                    "verdict": "FAIL",
+                    "returncode": 1,
+                    "foundations_summary": f"unable to load payload: {exc}",
+                }
+            )
+            continue
+
+        result = validate_evidence_payload(payload)
+        decision = str(result.get("decision", "FAIL")).strip().upper() or "FAIL"
+        outcomes.append(
+            {
+                "command": cmd,
+                "ok": decision != "FAIL",
+                "verdict": decision,
+                "returncode": 0 if decision != "FAIL" else 1,
+                "foundations_summary": result.get("summary", "").strip(),
+                "matrix_id": result.get("matrix_id"),
             }
         )
     return outcomes
@@ -1535,7 +1594,7 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
     return out
 
 
-def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3, validation_commands: list[str] | None = None) -> bool:
+def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items: int, with_orchestration: bool = False, with_dispatch: bool = False, dispatch_limit: int = 3, validation_commands: list[str] | None = None, foundations_evidence_paths: list[str] | None = None) -> bool:
     started = now_dt()
     cycle_id = started.strftime("%Y%m%dT%H%M%S")
     summary = run_scheduler(scheduler=scheduler, dry_run=dry_run)
@@ -1551,6 +1610,8 @@ def full_pass(scheduler: str, send_telegram: bool, dry_run: bool, max_open_items
     effective_validation_commands = validation_runtime.get("commands", [])
     validation_policy = validation_runtime.get("policy", {})
     validation_outcomes = run_validation_commands(effective_validation_commands, dry_run=dry_run, policy=validation_policy)
+    if foundations_evidence_paths:
+        validation_outcomes.extend(run_foundations_validation(foundations_evidence_paths, dry_run=dry_run))
     validation_gate_ok = evaluate_validation_gate(validation_outcomes, validation_policy)
     research_summary = maybe_write_research_cycle_summary(dry_run=dry_run)
 
@@ -1673,6 +1734,13 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Validation shell command to run and summarize (repeatable)",
     )
+    p_full.add_argument(
+        "--foundations-evidence",
+        action="append",
+        dest="foundations_evidence_paths",
+        default=None,
+        help="JSON evidence payload to validate against FOUNDATIONS/matrix rules (repeatable)",
+    )
 
     p_add = sub.add_parser("todo-add", help="Add a checkbox item to plans/todo.md")
     p_add.add_argument("--text", required=True)
@@ -1729,6 +1797,7 @@ def main(argv: list[str] | None = None) -> int:
             with_dispatch=args.with_dispatch,
             dispatch_limit=args.dispatch_limit,
             validation_commands=args.validation_commands,
+            foundations_evidence_paths=args.foundations_evidence_paths,
         )
         return 0 if validation_gate_ok else 1
 

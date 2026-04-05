@@ -101,7 +101,12 @@ def parse_todo(todo_path: Path) -> List[TodoItem]:
 
 def git_status_short(cwd: Path) -> list[str]:
     try:
-        out = subprocess.check_output(["git", "status", "--short"], cwd=cwd, text=True)
+        out = subprocess.check_output(
+            ["git", "status", "--short"],
+            cwd=cwd,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        )
         return [ln for ln in out.splitlines() if ln.strip()]
     except Exception:
         return []
