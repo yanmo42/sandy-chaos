@@ -32,3 +32,6 @@ memory/orchestrator_*.md
 memory/self_improve_state.json
 memory/notification_outbox.md
 memory/research/
+
+# Generated Lux/Nyx pilot shadow artifacts
+state/lux_nyx/shadow/
