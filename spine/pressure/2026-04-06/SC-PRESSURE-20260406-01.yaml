@@ -1,0 +1,19 @@
+id: SC-PRESSURE-20260406-01
+date: 2026-04-06
+concepts:
+  - SC-CONCEPT-0008
+  - SC-CONCEPT-0006
+kind: workflow-review
+summary: First explicit proof-frontier compression pass produced a durable ladder, ranked the live surfaces, and selected symbolic-maps-and-narrative-invariants as the next proof surface to push toward a discriminating benchmark.
+result: partial-support
+disposition: YGG_BRIDGE
+evidence:
+  - docs/proof-path-ladder.md
+  - plans/today_frontier_2026-04-06.md
+  - spine/concepts/SC-CONCEPT-0008.yaml
+  - spine/concepts/SC-CONCEPT-0006.yaml
+findings:
+  - claim-tier discipline alone was insufficient to choose the next best proof move
+  - the new ladder compresses multiple live surfaces into one active frontier without requiring broad architectural expansion
+  - symbolic-maps-and-narrative-invariants looks like the strongest next Level-4 candidate after the frontier instrument is in place
+next_action: mirror the chosen frontier into Ygg active-work and baton state, then define one discriminating benchmark for SC-CONCEPT-0006

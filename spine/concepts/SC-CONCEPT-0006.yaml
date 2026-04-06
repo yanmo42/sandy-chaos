@@ -14,15 +14,17 @@ documented_in:
   - docs/README.md
   - docs/symbolic-maps
 implemented_in:
-  - nfem_suite/intelligence/cognition/__init__.py
+  - nfem_suite/intelligence/narrative_invariants/symbolic_maps.py
   - scripts/frame_aware_corridor_sim.py
-tested_by: []
+tested_by:
+  - tests/test_narrative_invariants.py
 contradicts: []
 failure_conditions:
   - artifact family remains too loose to support consistent extraction, normalization, or validation
   - public-facing symbolic maps cannot be connected back to inspectable internal invariants
-next_test: map three symbolic map artifacts into one invariant schema and verify round-trip extraction consistency
-next_action: formalize a small concept-to-artifact schema and tie it to one validator or loader beyond ad hoc notes
+  - no discriminating benchmark shows advantage over looser symbolic description or ad hoc interpretation
+next_test: define one Level-4 benchmark that compares invariant extraction consistency against at least one looser symbolic-description baseline across three artifacts
+next_action: specify the benchmark object, baseline, scoring rule, and failure condition for a first symbolic-maps discrimination pass
 promotion_target: docs/canonical
 owner_surface: sandy-chaos
-notes: This looks like an emerging organizing layer and may deserve its own tighter schema soon.
+notes: This looks like an emerging organizing layer and now appears to be the strongest next proof surface after frontier compression.

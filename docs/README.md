@@ -27,6 +27,7 @@ This documentation set is intentionally compressed into a small canonical path:
 
 Supporting references:
 
+- **[Proof-Path Ladder](proof-path-ladder.md)**
 - **[Glossary](glossary.md)**
 - **[Math Appendix](math_appendix.md)**
 - **[Math Foundations ZF](math_foundations_zf.md)**
