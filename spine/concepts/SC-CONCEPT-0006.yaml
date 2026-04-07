@@ -23,8 +23,8 @@ failure_conditions:
   - artifact family remains too loose to support consistent extraction, normalization, or validation
   - public-facing symbolic maps cannot be connected back to inspectable internal invariants
   - no discriminating benchmark shows advantage over looser symbolic description or ad hoc interpretation
-next_test: define one Level-4 benchmark that compares invariant extraction consistency against at least one looser symbolic-description baseline across three artifacts
-next_action: specify the benchmark object, baseline, scoring rule, and failure condition for a first symbolic-maps discrimination pass
+next_test: run a second bounded benchmark pass or explicit scoring pass to confirm whether invariant-guided extraction keeps its advantage over a loose symbolic-description baseline beyond the initial three-artifact set
+next_action: decide whether to add explicit small-score rubrics or a narrow validator/schema follow-on based on what Arm A preserved that Arm B lost in the first comparison pass
 promotion_target: docs/canonical
 owner_surface: sandy-chaos
-notes: This looks like an emerging organizing layer and now appears to be the strongest next proof surface after frontier compression.
+notes: Initial three-artifact comparison suggests a real advantage in comparison stability, boundary preservation, and downstream reuse, but not enough yet for broad promotion.
