@@ -23,8 +23,8 @@ failure_conditions:
   - artifact family remains too loose to support consistent extraction, normalization, or validation
   - public-facing symbolic maps cannot be connected back to inspectable internal invariants
   - no discriminating benchmark shows advantage over looser symbolic description or ad hoc interpretation
-next_test: run a second bounded benchmark pass or explicit scoring pass to confirm whether invariant-guided extraction keeps its advantage over a loose symbolic-description baseline beyond the initial three-artifact set
-next_action: decide whether to add explicit small-score rubrics or a narrow validator/schema follow-on based on what Arm A preserved that Arm B lost in the first comparison pass
+next_test: draft one minimal normalization sketch for the repeated role/operator/constraint/failure/boundary skeleton and test whether it improves comparison leverage across the current four-artifact set without creating hollow formality
+next_action: keep the lane active and pressure one tiny normalization draft against the four-artifact set before attempting any broader validator/schema hardening
 promotion_target: docs/canonical
 owner_surface: sandy-chaos
-notes: Initial three-artifact comparison suggests a real advantage in comparison stability, boundary preservation, and downstream reuse, but not enough yet for broad promotion.
+notes: Initial three-artifact comparison suggested a real advantage in comparison stability, boundary preservation, and downstream reuse. The explicit scoring pass in `plans/symbolic_maps_level4_scoring_pass_v0.md` confirmed partial support, with Arm A beating Arm B on consistency, structural coverage, and reuse but not on raw round-trip reconstructability. The follow-on four-artifact pass in `plans/symbolic_maps_level4_scoring_pass_v1.md`, which added the semi-structured `starter_atlas.json`, strengthened that partial support rather than collapsing it. Arm A still wins on consistency, structural coverage, and downstream reuse, but broad hardening is still not yet earned.
