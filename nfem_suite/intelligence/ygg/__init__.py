@@ -8,6 +8,12 @@ from .continuity import (
     write_checkpoint,
     write_resume_artifact,
 )
+from .frontier import (
+    FrontierCandidate,
+    FrontierSnapshot,
+    load_frontier_snapshot,
+    write_frontier_snapshot,
+)
 from .topological_memory import (
     BenchmarkQuery,
     GraphBundle,
@@ -28,9 +34,13 @@ from .topological_memory import (
 __all__ = [
     "ContinuityCheckpoint",
     "ContinuityResumeArtifact",
+    "FrontierCandidate",
+    "FrontierSnapshot",
     "load_latest_checkpoint",
     "load_latest_resume_artifact",
+    "load_frontier_snapshot",
     "write_checkpoint",
+    "write_frontier_snapshot",
     "write_resume_artifact",
     "TopologyNode",
     "TopologyEdge",
