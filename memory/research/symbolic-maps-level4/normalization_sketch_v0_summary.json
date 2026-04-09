@@ -1,0 +1,90 @@
+{
+  "artifact_count": 4,
+  "slot_families": [
+    "role_slots",
+    "operator_slots",
+    "constraint_slots",
+    "failure_slots",
+    "boundary_slots"
+  ],
+  "family_presence": {
+    "role_slots": 4,
+    "operator_slots": 4,
+    "constraint_slots": 4,
+    "failure_slots": 4,
+    "boundary_slots": 4
+  },
+  "family_avg_counts": {
+    "role_slots": 5.75,
+    "operator_slots": 6.25,
+    "constraint_slots": 3.0,
+    "failure_slots": 3.0,
+    "boundary_slots": 2.0
+  },
+  "fully_populated_artifacts": [
+    "docs/symbolic-maps/symbolic_operator_extraction_naming.md",
+    "docs/symbolic-maps/rimuru_adaptive_substrate_snap_model.md",
+    "docs/symbolic-maps/symbolic_maps_intelligence_modules.md",
+    "docs/symbolic-maps/examples/starter_atlas.json"
+  ],
+  "all_artifacts_fully_populated": true,
+  "per_artifact": [
+    {
+      "artifact_id": "docs/symbolic-maps/symbolic_operator_extraction_naming.md",
+      "artifact_role": "naming-contract",
+      "source_mode": "schema-contract",
+      "slot_counts": {
+        "role_slots": 5,
+        "operator_slots": 6,
+        "constraint_slots": 3,
+        "failure_slots": 3,
+        "boundary_slots": 2
+      },
+      "total_slots": 19
+    },
+    {
+      "artifact_id": "docs/symbolic-maps/rimuru_adaptive_substrate_snap_model.md",
+      "artifact_role": "symbolic-specimen-translation",
+      "source_mode": "specimen-translation",
+      "slot_counts": {
+        "role_slots": 6,
+        "operator_slots": 6,
+        "constraint_slots": 3,
+        "failure_slots": 3,
+        "boundary_slots": 2
+      },
+      "total_slots": 20
+    },
+    {
+      "artifact_id": "docs/symbolic-maps/symbolic_maps_intelligence_modules.md",
+      "artifact_role": "module-roadmap",
+      "source_mode": "architecture",
+      "slot_counts": {
+        "role_slots": 6,
+        "operator_slots": 6,
+        "constraint_slots": 3,
+        "failure_slots": 3,
+        "boundary_slots": 2
+      },
+      "total_slots": 20
+    },
+    {
+      "artifact_id": "docs/symbolic-maps/examples/starter_atlas.json",
+      "artifact_role": "example-atlas",
+      "source_mode": "structured-example",
+      "slot_counts": {
+        "role_slots": 6,
+        "operator_slots": 7,
+        "constraint_slots": 3,
+        "failure_slots": 3,
+        "boundary_slots": 2
+      },
+      "total_slots": 21
+    }
+  ],
+  "bounds": [
+    "This sketch only claims the current four benchmark artifacts can be represented with one repeated slot family.",
+    "It does not ratify a global symbolic-maps schema or prove future corpus generalization.",
+    "If later artifacts require repeated ad hoc fields, this sketch should be revised or rejected rather than expanded cosmetically."
+  ]
+}

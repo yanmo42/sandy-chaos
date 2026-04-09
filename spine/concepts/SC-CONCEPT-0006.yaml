@@ -15,16 +15,19 @@ documented_in:
   - docs/symbolic-maps
 implemented_in:
   - nfem_suite/intelligence/narrative_invariants/symbolic_maps.py
+  - nfem_suite/intelligence/narrative_invariants/benchmark.py
   - scripts/frame_aware_corridor_sim.py
+  - scripts/symbolic_maps_normalization_sketch_v0.py
 tested_by:
   - tests/test_narrative_invariants.py
+  - tests/test_symbolic_maps_normalization_sketch.py
 contradicts: []
 failure_conditions:
   - artifact family remains too loose to support consistent extraction, normalization, or validation
   - public-facing symbolic maps cannot be connected back to inspectable internal invariants
   - no discriminating benchmark shows advantage over looser symbolic description or ad hoc interpretation
-next_test: draft one minimal normalization sketch for the repeated role/operator/constraint/failure/boundary skeleton and test whether it improves comparison leverage across the current four-artifact set without creating hollow formality
-next_action: keep the lane active and pressure one tiny normalization draft against the four-artifact set before attempting any broader validator/schema hardening
+next_test: use the v0 normalization sketch to answer a small cross-artifact comparison set and reject it if it needs repeated ad hoc slot growth or fails to improve comparison leverage over the prose extraction notes
+next_action: keep the lane active under bounded pressure and test whether the new normalization sketch produces cleaner comparison behavior before attempting any broader validator/schema hardening
 promotion_target: docs/canonical
 owner_surface: sandy-chaos
-notes: Initial three-artifact comparison suggested a real advantage in comparison stability, boundary preservation, and downstream reuse. The explicit scoring pass in `plans/symbolic_maps_level4_scoring_pass_v0.md` confirmed partial support, with Arm A beating Arm B on consistency, structural coverage, and reuse but not on raw round-trip reconstructability. The follow-on four-artifact pass in `plans/symbolic_maps_level4_scoring_pass_v1.md`, which added the semi-structured `starter_atlas.json`, strengthened that partial support rather than collapsing it. Arm A still wins on consistency, structural coverage, and downstream reuse, but broad hardening is still not yet earned.
+notes: Initial three-artifact comparison suggested a real advantage in comparison stability, boundary preservation, and downstream reuse. The explicit scoring pass in `plans/symbolic_maps_level4_scoring_pass_v0.md` confirmed partial support, with Arm A beating Arm B on consistency, structural coverage, and reuse but not on raw round-trip reconstructability. The follow-on four-artifact pass in `plans/symbolic_maps_level4_scoring_pass_v1.md`, which added the semi-structured `starter_atlas.json`, strengthened that partial support rather than collapsing it. Arm A still wins on consistency, structural coverage, and downstream reuse, but broad hardening is still not yet earned. The new normalization sketch pass in `plans/symbolic_maps_level4_normalization_sketch_v0.md` shows that all four current benchmark artifacts fit one minimal role/operator/constraint/failure/boundary slot family without rescue-field sprawl, which is bounded support for the next comparison-focused follow-on rather than permission for broad schema expansion.

@@ -1,0 +1,146 @@
+[
+  {
+    "artifact_id": "docs/symbolic-maps/symbolic_operator_extraction_naming.md",
+    "artifact_role": "naming-contract",
+    "source_mode": "schema-contract",
+    "role_slots": [
+      "extractor",
+      "capability",
+      "artifact family",
+      "source object",
+      "constraint keeper"
+    ],
+    "operator_slots": [
+      "ingest_source_object",
+      "identify_symbolic_roles",
+      "extract_invariants",
+      "normalize_to_operators",
+      "annotate_constraints",
+      "emit_symbolic_map"
+    ],
+    "constraint_slots": [
+      "mechanism, capability, and artifact family must remain distinct",
+      "outputs must preserve failure modes and exclusions",
+      "symbolic output only counts if it cashes out into operational leverage"
+    ],
+    "failure_slots": [
+      "naming layers collapse into one ambiguous term",
+      "extraction produces attractive prose without downstream leverage",
+      "operators cannot be normalized or compared across artifacts"
+    ],
+    "boundary_slots": [
+      "elegant symbolic prose alone does not complete the loop",
+      "failure modes and exclusions are required output, not optional commentary"
+    ],
+    "notes": "Normalization sketch row distilled from extraction_01."
+  },
+  {
+    "artifact_id": "docs/symbolic-maps/rimuru_adaptive_substrate_snap_model.md",
+    "artifact_role": "symbolic-specimen-translation",
+    "source_mode": "specimen-translation",
+    "role_slots": [
+      "specimen",
+      "substrate",
+      "pressure field",
+      "threshold trigger",
+      "post-transition organizer",
+      "translator"
+    ],
+    "operator_slots": [
+      "translate_specimen_to_model",
+      "accumulate_capability",
+      "detect_threshold_crossing",
+      "reorganize_behavior",
+      "externalize_coherence",
+      "separate_metaphor_model_mechanism"
+    ],
+    "constraint_slots": [
+      "narrative specimen is a modeling metaphor rather than evidence",
+      "post-transition coherence must be distinguishable from generic power increase",
+      "the line fails if the snap point cannot be operationalized"
+    ],
+    "failure_slots": [
+      "the snap point cannot be operationalized as a real transition criterion",
+      "the mapping adds style but no compression over simpler description",
+      "metaphor, model, and mechanism collapse into one category during use"
+    ],
+    "boundary_slots": [
+      "metaphor must not be confused with mechanism",
+      "formalization must produce a meaningful discontinuity rather than richer lore gloss"
+    ],
+    "notes": "Normalization sketch row distilled from extraction_02."
+  },
+  {
+    "artifact_id": "docs/symbolic-maps/symbolic_maps_intelligence_modules.md",
+    "artifact_role": "module-roadmap",
+    "source_mode": "architecture",
+    "role_slots": [
+      "integrity keeper",
+      "canonicalizer",
+      "retriever",
+      "combiner",
+      "bridge builder",
+      "failure guard"
+    ],
+    "operator_slots": [
+      "validate_records",
+      "normalize_operators",
+      "retrieve_by_structure",
+      "compose_operators",
+      "bridge_to_simulation_tags",
+      "order_module_buildout"
+    ],
+    "constraint_slots": [
+      "each module must improve an operational dimension rather than sounding smarter",
+      "normalization and validation are prerequisites for richer composition",
+      "retrieval must support downstream routing or design work"
+    ],
+    "failure_slots": [
+      "records become inconsistent faster than modules improve them",
+      "operators cannot be compared or normalized across artifacts",
+      "the roadmap remains architectural aspiration without executable module boundaries"
+    ],
+    "boundary_slots": [
+      "symbolic prose sludge is a failure mode, not a success state",
+      "simulation bridgeability is a criterion rather than an aspirational slogan"
+    ],
+    "notes": "Normalization sketch row distilled from extraction_03."
+  },
+  {
+    "artifact_id": "docs/symbolic-maps/examples/starter_atlas.json",
+    "artifact_role": "example-atlas",
+    "source_mode": "structured-example",
+    "role_slots": [
+      "source object",
+      "domain anchor",
+      "operator carrier",
+      "constraint bearer",
+      "failure witness",
+      "comparison slot"
+    ],
+    "operator_slots": [
+      "role_labeling",
+      "operator_bundling",
+      "constraint_binding",
+      "failure_projection",
+      "composability_mapping",
+      "boundary_exclusion",
+      "atlas_packetization"
+    ],
+    "constraint_slots": [
+      "this is a starter atlas rather than a validated taxonomy",
+      "rows are compressed symbolic packets rather than exhaustive analyses",
+      "composability suggestions should not be mistaken for proven mechanistic compatibility"
+    ],
+    "failure_slots": [
+      "the atlas reduces to stylish character-summary rows",
+      "operator labels drift so much that comparison becomes ad hoc",
+      "the packet format looks structured but does not improve later comparison or validation work"
+    ],
+    "boundary_slots": [
+      "excluded domains are interpretive boundaries rather than universal truths",
+      "the example stays useful only if the slots remain reusable across additional artifacts"
+    ],
+    "notes": "Normalization sketch row distilled from extraction_04."
+  }
+]
