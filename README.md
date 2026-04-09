@@ -15,13 +15,18 @@ Canonical set (compressed):
 - **[02 Tempo Tracer Protocol](docs/02_tempo_tracer_protocol.md)**
 - **[03 Micro-Observer & Agency](docs/03_micro_observer_agency.md)**
 - **[04 Neuro Roadmap](docs/04_neuro_roadmap.md)**
+- **[13 Nested Temporal Domains](docs/13_nested_temporal_domains.md)**
 - **[14 Cognitive Tempo Orchestration](docs/14_cognitive_tempo_orchestration.md)**
+- **[17 Endosymbiosis and Host Assimilation](docs/17_endosymbiosis_and_host_assimilation.md)**
+- **[18 Adaptive Substrate and Host Binding](docs/18_adaptive_substrate_and_host_binding.md)**
+- **[19 Surface Authority Architecture](docs/19_surface_authority_architecture.md)**
 
 Supporting:
 
-- **[13 Nested Temporal Domains](docs/13_nested_temporal_domains.md)**
 - **[Glossary](docs/glossary.md)**
 - **[Math Appendix](docs/math_appendix.md)**
+- **[Topological Memory Runtime Adoption v0](docs/notes/topological_memory_runtime_adoption_v0.md)**
+- **[Implementation Prompts](plans/prompts/README.md)**
 
 Legacy long-form drafts are preserved in **`docs/archive/`**.
 
@@ -51,9 +56,22 @@ python -m cosmic_comm.main
 This project intentionally distinguishes between:
 
 - **Defensible claims** (causality-preserving, testable signal structure)
+- **Plausible but unproven claims** (promising extensions that still need stronger evidence)
 - **Speculative extensions** (future engineering scenarios)
 
-See `docs/01_foundations.md` for assumptions and claim boundaries, and `docs/02_tempo_tracer_protocol.md` for constraints + falsification metrics.
+See `docs/01_foundations.md` for assumptions and claim boundaries, `docs/02_tempo_tracer_protocol.md` for constraints + falsification metrics, and `docs/19_surface_authority_architecture.md` for surface/authority discipline.
+
+## Implementation prompt loop
+
+Sandy Chaos now treats some docs as sources for bounded implementation pressure rather than as decorative theory.
+
+Start here:
+- **[Implementation Prompts](plans/prompts/README.md)**
+- **[SC-PROMPT-0001](plans/prompts/SC-PROMPT-0001-topological-memory-runtime-adoption-v0.md)**
+- **[Adversarial Review Template](plans/prompts/review_template_adversarial.md)**
+
+The loop is:
+- canonical docs -> prompt packet -> code/tests/evidence -> adversarial review -> promotion or revision
 
 ## Spine governance
 

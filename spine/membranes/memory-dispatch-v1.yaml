@@ -1,4 +1,6 @@
 membrane_id: memory-dispatch-v1
+surface_class: canon
+authority_class: canonical
 between_layers:
   - memory
   - circulatory

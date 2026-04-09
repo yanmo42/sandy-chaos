@@ -20,6 +20,7 @@ Each record should be a flat YAML object with simple lists (no advanced YAML fea
 
 - `subsystem_id`
 - `name`
+- `surface_class` (normally `canon` for registered subsystem records)
 - `status` (experimental|advisory|infrastructural|canonical)
 - `authority_class`
 - `host_layer`

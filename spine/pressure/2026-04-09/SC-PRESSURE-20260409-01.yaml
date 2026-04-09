@@ -1,0 +1,17 @@
+id: SC-PRESSURE-20260409-01
+date: 2026-04-09
+concepts:
+  - SC-CONCEPT-0001
+kind: architecture-review
+summary: Cross-doc review confirmed that nested temporal domains now acts as a shared organizational grammar across observer, neuro, and continuity surfaces, but it still lacks a direct executable harness.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - docs/03_micro_observer_agency.md
+  - docs/04_neuro_roadmap.md
+  - docs/12_yggdrasil_continuity_architecture.md
+  - docs/13_nested_temporal_domains.md
+findings:
+  - the adjacent-layer framing is now reused across multiple active Sandy Chaos surfaces rather than living in one isolated theory note
+  - the grammar currently earns its keep mainly as an architectural compression layer, not yet as a benchmarked executable component
+next_action: attach nested temporal domains to at least one runnable evaluation or interface contract so the concept is pressured by more than cross-document consistency

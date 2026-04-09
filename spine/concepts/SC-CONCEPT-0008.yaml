@@ -15,8 +15,11 @@ depends_on:
 documented_in:
   - docs/proof-path-ladder.md
   - plans/today_frontier_2026-04-06.md
-implemented_in: []
-tested_by: []
+implemented_in:
+  - nfem_suite/intelligence/ygg/frontier.py
+  - scripts/ygg.py
+tested_by:
+  - tests/test_ygg_frontier.py
 contradicts: []
 failure_conditions:
   - the ladder fails to reduce ambiguity and operators still end with multiple equal priorities

@@ -17,7 +17,8 @@ documented_in:
 implemented_in:
   - scripts/spine_validate.py
   - scripts/spine_common.py
-tested_by: []
+tested_by:
+  - tests/test_spine_validate.py
 contradicts: []
 failure_conditions:
   - repeated runs on similar concepts produce inconsistent dispositions without evidence-traceable causes

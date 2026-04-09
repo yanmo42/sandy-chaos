@@ -83,11 +83,71 @@ class SpineValidationTests(unittest.TestCase):
 
         self.assertTrue(any("missing concept 'SC-CONCEPT-0001'" in e or "missing concept 'SC-CONCEPT-1234'" in e for e in errors))
 
+    def test_validate_concepts_warns_when_implemented_concept_has_no_tests(self):
+        item = spine_common.LoadedItem(
+            path=Path("spine/concepts/SC-CONCEPT-9998.yaml"),
+            data={
+                "id": "SC-CONCEPT-9998",
+                "name": "implemented-but-untested",
+                "summary": "broken",
+                "lane": "automation",
+                "claim_tier": "plausible",
+                "status": "draft",
+                "depends_on": [],
+                "documented_in": [],
+                "implemented_in": ["scripts/example.py"],
+                "tested_by": [],
+                "contradicts": [],
+                "failure_conditions": ["fails"],
+                "next_test": "add a test",
+                "next_action": "fix it",
+                "promotion_target": "workflow",
+                "owner_surface": "sandy-chaos",
+            },
+        )
+        errors = []
+        warnings = []
+
+        spine_validate.validate_concepts([item], errors, warnings)
+
+        self.assertTrue(any("implemented concept has no tested_by links" in w for w in warnings))
+
+    def test_validate_concepts_does_not_warn_for_unimplemented_theory_concept(self):
+        item = spine_common.LoadedItem(
+            path=Path("spine/concepts/SC-CONCEPT-9997.yaml"),
+            data={
+                "id": "SC-CONCEPT-9997",
+                "name": "theory-only",
+                "summary": "broken",
+                "lane": "theory",
+                "claim_tier": "plausible",
+                "status": "draft",
+                "depends_on": [],
+                "documented_in": ["docs/example.md"],
+                "implemented_in": [],
+                "tested_by": [],
+                "contradicts": [],
+                "failure_conditions": ["fails"],
+                "next_test": "decide how to pressure it",
+                "next_action": "fix it",
+                "promotion_target": "docs/archive",
+                "owner_surface": "sandy-chaos",
+            },
+        )
+        errors = []
+        warnings = []
+
+        spine_validate.validate_concepts([item], errors, warnings)
+
+        self.assertFalse(any("tested_by links" in w for w in warnings))
+
     def test_validate_membranes_flags_invalid_layer(self):
         item = spine_common.LoadedItem(
             path=Path("spine/membranes/bad-v1.yaml"),
             data={
                 "membrane_id": "bad-membrane-v1",
+                "surface_class": "canon",
+                "authority_class": "canonical",
                 "between_layers": ["memory", "mystery"],
                 "purpose": "broken",
                 "allowed_flows": ["context slices"],
@@ -113,6 +173,7 @@ class SpineValidationTests(unittest.TestCase):
             data={
                 "subsystem_id": "SC-SUBSYSTEM-9999",
                 "name": "bad-subsystem",
+                "surface_class": "canon",
                 "status": "infrastructural",
                 "authority_class": "infrastructural",
                 "host_layer": "memory",
@@ -147,6 +208,32 @@ class SpineValidationTests(unittest.TestCase):
 
         self.assertTrue(any("references missing membrane 'missing-membrane-v1'" in e for e in errors))
         self.assertTrue(any("repo_lane 'validation' is inconsistent with host_layer 'memory'" in e for e in errors))
+
+    def test_validate_membranes_flags_invalid_surface_class(self):
+        item = spine_common.LoadedItem(
+            path=Path("spine/membranes/bad-v1.yaml"),
+            data={
+                "membrane_id": "bad-membrane-v1",
+                "surface_class": "mythic",
+                "authority_class": "canonical",
+                "between_layers": ["memory", "circulatory"],
+                "purpose": "broken",
+                "allowed_flows": ["context slices"],
+                "forbidden_flows": ["memory-only triggers"],
+                "required_evidence": ["artifact path"],
+                "authority_limits": ["memory informs only"],
+                "artifacts_emitted": ["log record"],
+                "failure_mode": "drift",
+                "governed_by": ["docs/17_endosymbiosis_and_host_assimilation.md"],
+                "notes": "test",
+            },
+        )
+        errors = []
+        warnings = []
+
+        spine_validate.validate_membranes([item], errors, warnings)
+
+        self.assertTrue(any("invalid surface_class 'mythic'" in e for e in errors))
 
     def test_validate_promotion_events_flags_unknown_concept(self):
         item = spine_common.LoadedItem(

@@ -1,5 +1,6 @@
 subsystem_id: SC-SUBSYSTEM-0001
 name: topological-memory-v0
+surface_class: canon
 status: infrastructural
 authority_class: infrastructural
 host_layer: memory

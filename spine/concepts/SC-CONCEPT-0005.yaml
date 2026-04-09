@@ -13,14 +13,21 @@ documented_in:
   - docs/12_yggdrasil_continuity_architecture.md
   - WORKFLOW.md
   - FOUNDATIONS.md
-implemented_in: []
-tested_by: []
+implemented_in:
+  - scripts/automation_orchestrator.py
+  - scripts/orchestrator_autospawn.py
+  - scripts/ygg.py
+  - nfem_suite/intelligence/ygg/continuity.py
+tested_by:
+  - tests/test_automation_orchestrator_validation_config.py
+  - tests/test_orchestrator_autospawn.py
+  - tests/test_ygg.py
 contradicts: []
 failure_conditions:
   - branch outputs continue to end silently without reliable disposition capture
   - promotion targets remain ambiguous enough that governance fragments across surfaces
 next_test: run three non-trivial orchestrator branches and confirm each terminates with explicit disposition plus promotion target fields
-next_action: add explicit disposition fields to orchestrator outputs and summaries, then validate that non-trivial runs cannot terminate without one
+next_action: extend the same disposition contract through remaining branch-producing surfaces so continuity metadata stops fragmenting between local automation and Ygg-facing carriers
 promotion_target: ygg-bridge
 owner_surface: shared-with-ygg
-notes: Operational home is likely Ygg long-term, but Sandy Chaos still needs the bridge semantics locally.
+notes: Operational home is likely Ygg long-term, but Sandy Chaos already has partial executable support for the bridge semantics locally.

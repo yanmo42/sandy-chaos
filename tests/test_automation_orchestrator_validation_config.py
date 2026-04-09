@@ -93,12 +93,27 @@ class AutomationOrchestratorValidationConfigTests(unittest.TestCase):
             }
         }
 
-        contract = automation_orchestrator.task_contract(item, cfg=cfg)
+        mock_trace = type(
+            "Trace",
+            (),
+            {
+                "mode_requested": "auto",
+                "mode_used": "topology",
+                "baseline_mode": "topology",
+                "fallback_reason": None,
+                "authority_note": "Advisory continuity context only.",
+                "retrieval_trace_artifact": "memory/research/topological-memory-v0/runtime_traces/sample.json",
+                "ranked_results": [{"node_id": "N_SCRIPT_AUTOMATION_ORCH", "score": 1.0}],
+            },
+        )()
+        with patch.object(automation_orchestrator, "write_retrieval_trace", return_value=mock_trace):
+            contract = automation_orchestrator.task_contract(item, cfg=cfg)
 
         self.assertIn("memory_artifact_ids", contract)
         self.assertIn("spine/subsystems/SC-SUBSYSTEM-0001-topological-memory-v0.yaml", contract["memory_artifact_ids"])
         self.assertIn("spine/membranes/memory-dispatch-v1.yaml", contract["memory_artifact_ids"])
         self.assertIn("memory/research/topological-memory-v0/comparison_summary_v0.json", contract["memory_artifact_ids"])
+        self.assertIn("memory/research/topological-memory-v0/runtime_traces/sample.json", contract["memory_artifact_ids"])
         self.assertEqual(contract["disposition"], "POLICY_PROMOTE")
         self.assertEqual(contract["promotion_target"], "tests/config")
         self.assertEqual(contract["branch_outcome_class"], "policy-relevant")
@@ -106,6 +121,12 @@ class AutomationOrchestratorValidationConfigTests(unittest.TestCase):
         self.assertEqual(contract["promotion_review_status"], "pending")
         self.assertIn("continuity_context", contract)
         self.assertIn("topological_memory_signal", contract["continuity_context"])
+        self.assertIn("topological_retrieval", contract["continuity_context"])
+        self.assertEqual(contract["continuity_context"]["topological_retrieval"]["mode_used"], "topology")
+        self.assertEqual(
+            contract["continuity_context"]["topological_retrieval"]["retrieval_trace_artifact"],
+            "memory/research/topological-memory-v0/runtime_traces/sample.json",
+        )
 
     def test_validate_task_contracts_requires_disposition_and_target(self):
         errors = automation_orchestrator.validate_task_contracts(
@@ -191,6 +212,26 @@ class SessionResumeContextTests(unittest.TestCase):
             contract = automation_orchestrator.task_contract(item, cfg=cfg)
         self.assertIn("continuity_context", contract)
         self.assertEqual(contract["continuity_context"]["session_resume"], mock_resume)
+
+    def test_task_contract_keeps_fallback_when_runtime_retrieval_fails(self):
+        item = automation_orchestrator.TodoItem(
+            state="open",
+            text="Integrate topological memory retrieval into planner context",
+            section="Continuity",
+        )
+        cfg = {
+            "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
+        }
+        with patch.object(automation_orchestrator, "write_retrieval_trace", side_effect=FileNotFoundError("missing graph")), \
+             patch.object(automation_orchestrator, "load_session_resume_context", return_value=None), \
+             patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
+            contract = automation_orchestrator.task_contract(item, cfg=cfg)
+
+        self.assertIn("memory_artifact_ids", contract)
+        self.assertNotIn("runtime_traces", " ".join(contract["memory_artifact_ids"]))
+        self.assertIn("continuity_context", contract)
+        self.assertFalse(contract["continuity_context"]["topological_retrieval"]["available"])
+        self.assertIn("Workflow continues without runtime retrieval", contract["continuity_context"]["topological_retrieval"]["fallback_behavior"])
 
     def test_task_contract_omits_continuity_context_when_nothing_loaded(self):
         item = automation_orchestrator.TodoItem(

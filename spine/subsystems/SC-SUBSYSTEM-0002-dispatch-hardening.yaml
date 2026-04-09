@@ -1,5 +1,6 @@
 subsystem_id: SC-SUBSYSTEM-0002
 name: dispatch-hardening
+surface_class: canon
 status: infrastructural
 authority_class: infrastructural
 host_layer: circulatory

@@ -31,6 +31,7 @@ ALLOWED_PRESSURE_RESULTS = {"support", "partial-support", "contradiction", "insu
 ALLOWED_PRESSURE_DISPOSITIONS = {"KEEP_EXPLORING", "REVISE", "ARCHIVE", "DOC_PROMOTE", "CODE_PROMOTE", "TEST_PROMOTE", "MERGE_INTO_EXISTING", "YGG_BRIDGE", "NEEDS_FALSIFICATION", "WAITING_ON_EVIDENCE", "KILL"}
 ALLOWED_PROMOTION_DISPOSITIONS = {"DOC_PROMOTE", "CODE_PROMOTE", "TEST_PROMOTE", "ARCHIVE", "MERGE_INTO_EXISTING", "YGG_BRIDGE", "KILL"}
 ALLOWED_SUBSYSTEM_STATUS = {"experimental", "advisory", "infrastructural", "canonical"}
+ALLOWED_SURFACE_CLASSES = {"canon", "experimental", "symbolic-specimen", "speculative-archive"}
 ALLOWED_AUTHORITY_CLASSES = {"experimental", "advisory", "infrastructural", "canonical-candidate", "canonical"}
 ALLOWED_HOST_LAYERS = {"interpretive", "memory", "circulatory", "experimental", "governance"}
 ALLOWED_REPO_LANES = {"theory", "continuity", "simulation", "validation", "ops"}
@@ -47,6 +48,7 @@ PROMOTION_REQUIRED = {"id", "date", "concepts", "from_status", "to_status", "pro
 SUBSYSTEM_REQUIRED = {
     "subsystem_id",
     "name",
+    "surface_class",
     "status",
     "authority_class",
     "host_layer",
@@ -75,6 +77,8 @@ SUBSYSTEM_REQUIRED = {
 }
 MEMBRANE_REQUIRED = {
     "membrane_id",
+    "surface_class",
+    "authority_class",
     "between_layers",
     "purpose",
     "allowed_flows",

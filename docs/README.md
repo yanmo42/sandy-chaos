@@ -22,9 +22,10 @@ This documentation set is intentionally compressed into a small canonical path:
 16. **[16 Temporal Predictive Processing via Potential-Flow Contracts](16_temporal_predictive_processing.md)**
 17. **[17 Endosymbiosis and Host Assimilation](17_endosymbiosis_and_host_assimilation.md)**
 18. **[18 Adaptive Substrate and Host Binding](18_adaptive_substrate_and_host_binding.md)**
-19. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-20. **[Prediction Protocol](prediction-protocol.md)**
-21. **[Paradox Registry](paradox-registry.md)**
+19. **[19 Surface Authority Architecture](19_surface_authority_architecture.md)**
+20. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+21. **[Prediction Protocol](prediction-protocol.md)**
+22. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -35,6 +36,13 @@ Supporting references:
 - **[Assumptions Register](assumptions_register.md)**
 - **[Research Backlog](../plans/research_backlog.md)**
 - **[Topological Memory v0 — Provisional Validation](notes/topological_memory_v0_provisional_validation.md)**
+- **[Topological Memory Runtime Adoption v0](notes/topological_memory_runtime_adoption_v0.md)**
+
+Implementation / pressure surfaces:
+
+- **[Implementation Prompts](../plans/prompts/README.md)**
+- **[SC-PROMPT-0001 Topological Memory Runtime Adoption v0](../plans/prompts/SC-PROMPT-0001-topological-memory-runtime-adoption-v0.md)**
+- **[Adversarial Review Template](../plans/prompts/review_template_adversarial.md)**
 
 Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 

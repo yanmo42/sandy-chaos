@@ -97,8 +97,8 @@ def validate_concepts(concepts: list[spine_common.LoadedItem], errors: list[str]
 
         if item.data.get("status") == "canonical" and not item.data.get("documented_in"):
             warnings.append(f"{_loc(item)}: canonical concept has no documented_in links")
-        if not item.data.get("tested_by"):
-            warnings.append(f"{_loc(item)}: concept has no tested_by links")
+        if item.data.get("implemented_in") and not item.data.get("tested_by"):
+            warnings.append(f"{_loc(item)}: implemented concept has no tested_by links")
         if item.data.get("status") in {"draft", "pressure-testing", "validated-partial"} and not item.data.get("next_test"):
             warnings.append(f"{_loc(item)}: active concept has no next_test field")
         if item.data.get("owner_surface") == "ygg-candidate" and not str(item.data.get("promotion_target", "")).startswith("ygg"):
@@ -215,6 +215,9 @@ def validate_membranes(membranes: list[spine_common.LoadedItem], errors: list[st
         for field in ("purpose", "failure_mode", "notes"):
             _require_non_empty_string(item, field, errors)
 
+        _require_enum(item, "surface_class", spine_common.ALLOWED_SURFACE_CLASSES, errors)
+        _require_enum(item, "authority_class", spine_common.ALLOWED_AUTHORITY_CLASSES, errors)
+
         for layer in item.data.get("between_layers", []):
             if layer not in spine_common.ALLOWED_HOST_LAYERS:
                 errors.append(f"{_loc(item)}: invalid between_layers entry '{layer}'")
@@ -268,6 +271,7 @@ def validate_subsystems(
         ):
             _require_non_empty_string(item, field, errors)
 
+        _require_enum(item, "surface_class", spine_common.ALLOWED_SURFACE_CLASSES, errors)
         _require_enum(item, "status", spine_common.ALLOWED_SUBSYSTEM_STATUS, errors)
         _require_enum(item, "authority_class", spine_common.ALLOWED_AUTHORITY_CLASSES, errors)
         _require_enum(item, "host_layer", spine_common.ALLOWED_HOST_LAYERS, errors)

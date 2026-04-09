@@ -32,6 +32,7 @@ try:
         load_latest_checkpoint,
         load_latest_resume_artifact,
     )
+    from nfem_suite.intelligence.ygg.topological_memory_runtime import write_retrieval_trace
 except ModuleNotFoundError:
     import sys
 
@@ -45,6 +46,7 @@ except ModuleNotFoundError:
         load_latest_checkpoint,
         load_latest_resume_artifact,
     )
+    from nfem_suite.intelligence.ygg.topological_memory_runtime import write_retrieval_trace
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -426,6 +428,34 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
     if continuity_refs:
         contract["memory_artifact_ids"] = continuity_refs
 
+    continuity_ctx: dict = {}
+    if capability_lane == "continuity":
+        try:
+            retrieval_trace = write_retrieval_trace(item.text, mode="auto", top_k=3)
+        except Exception as exc:
+            continuity_ctx["topological_retrieval"] = {
+                "available": False,
+                "mode_requested": "auto",
+                "mode_used": "flat-unavailable",
+                "fallback_behavior": "Workflow continues without runtime retrieval; static artifact refs remain available.",
+                "error": exc.__class__.__name__,
+                "authority_note": "Retrieval remains advisory only and may not self-authorize planning or governance changes.",
+            }
+        else:
+            continuity_ctx["topological_retrieval"] = {
+                "available": True,
+                "mode_requested": retrieval_trace.mode_requested,
+                "mode_used": retrieval_trace.mode_used,
+                "baseline_mode": retrieval_trace.baseline_mode,
+                "fallback_reason": retrieval_trace.fallback_reason,
+                "authority_note": retrieval_trace.authority_note,
+                "retrieval_trace_artifact": retrieval_trace.retrieval_trace_artifact,
+                "top_results": retrieval_trace.ranked_results[:3],
+            }
+            if retrieval_trace.retrieval_trace_artifact:
+                existing = contract.get("memory_artifact_ids", [])
+                contract["memory_artifact_ids"] = existing + [retrieval_trace.retrieval_trace_artifact]
+
     lux_nyx = _lux_nyx_shape(item.text, item.section)
     if lux_nyx:
         contract["lux_nyx_shaping"] = {k: v for k, v in lux_nyx.items() if k != "shadow_artifact_path"}
@@ -434,7 +464,6 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
             existing = contract.get("memory_artifact_ids", [])
             contract["memory_artifact_ids"] = existing + [shadow_path]
 
-    continuity_ctx: dict = {}
     topological_signal = load_topological_memory_signal()
     if topological_signal:
         continuity_ctx["topological_memory_signal"] = topological_signal
@@ -443,6 +472,15 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
         continuity_ctx["session_resume"] = session_resume
     if continuity_ctx:
         contract["continuity_context"] = continuity_ctx
+    if contract.get("memory_artifact_ids"):
+        deduped: list[str] = []
+        seen: set[str] = set()
+        for ref in contract["memory_artifact_ids"]:
+            if ref in seen:
+                continue
+            seen.add(ref)
+            deduped.append(ref)
+        contract["memory_artifact_ids"] = deduped
 
     return contract
 

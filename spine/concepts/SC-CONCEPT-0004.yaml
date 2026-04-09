@@ -12,14 +12,20 @@ depends_on:
   - SC-CONCEPT-0001
 documented_in:
   - docs/archive/topological_memory_continuity_retrieval_v0.md
-implemented_in: []
-tested_by: []
+implemented_in:
+  - nfem_suite/intelligence/ygg/topological_memory.py
+  - nfem_suite/intelligence/ygg/topological_memory_runtime.py
+  - scripts/topological_memory_v0.py
+  - scripts/topological_memory_runtime_compare_v0.py
+tested_by:
+  - tests/test_topological_memory.py
+  - tests/test_topological_memory_runtime.py
 contradicts: []
 failure_conditions:
   - topology-aware retrieval fails to beat at least one flat baseline on a real continuity benchmark
   - path outputs are not interpretable enough to justify added complexity
-next_test: score topology-aware retrieval against keyword and recency baselines on at least 20 continuity prompts with trace readability checks
-next_action: define the v0 node/edge/trace schema and build a small benchmark against keyword/recency baselines
+next_test: extend runtime-consumer evaluation beyond the current small workflow sample and check whether topology-aware retrieval beats at least one flat baseline while keeping path traces readable
+next_action: use the new runtime adoption comparison to decide whether this lane stays archive-bounded, needs retriever revision, or earns a tighter promotion candidate packet
 promotion_target: docs/archive
 owner_surface: sandy-chaos
-notes: Do not promote beyond archive until it beats a baseline with inspectable paths.
+notes: Schema, baseline benchmark, and runtime-consumer wiring now exist, but the runtime adoption result still does not justify promotion beyond archive.

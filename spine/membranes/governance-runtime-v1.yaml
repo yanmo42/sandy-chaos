@@ -1,4 +1,6 @@
 membrane_id: governance-runtime-v1
+surface_class: canon
+authority_class: canonical
 between_layers:
   - governance
   - circulatory
