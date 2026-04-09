@@ -21,9 +21,10 @@ This documentation set is intentionally compressed into a small canonical path:
 15. **[15 Gravitational Centers and Energistics](15_gravitational_centers_and_energistics.md)**
 16. **[16 Temporal Predictive Processing via Potential-Flow Contracts](16_temporal_predictive_processing.md)**
 17. **[17 Endosymbiosis and Host Assimilation](17_endosymbiosis_and_host_assimilation.md)**
-18. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-19. **[Prediction Protocol](prediction-protocol.md)**
-20. **[Paradox Registry](paradox-registry.md)**
+18. **[18 Adaptive Substrate and Host Binding](18_adaptive_substrate_and_host_binding.md)**
+19. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+20. **[Prediction Protocol](prediction-protocol.md)**
+21. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -47,11 +48,11 @@ Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
 ### Research path (full)
 
-- Foundations → Protocol → Micro-Observer → Nested Temporal Domains → Potential-Flow Contracts → Temporal Predictive Processing → Cognitive Tempo Orchestration → Gravitational Centers and Energistics → Neuro Roadmap → Math Appendix
+- Foundations → Protocol → Micro-Observer → Nested Temporal Domains → Potential-Flow Contracts → Temporal Predictive Processing → Cognitive Tempo Orchestration → Gravitational Centers and Energistics → Endosymbiosis and Host Assimilation → Adaptive Substrate and Host Binding → Neuro Roadmap → Math Appendix
 
 ### Philosophy-first path
 
-- Foundations → Micro-Observer → Nested Temporal Domains → Gravitational Centers and Energistics → Cognitive Tempo Orchestration
+- Foundations → Micro-Observer → Nested Temporal Domains → Gravitational Centers and Energistics → Endosymbiosis and Host Assimilation → Adaptive Substrate and Host Binding → Cognitive Tempo Orchestration
 
 ---
 
@@ -65,6 +66,7 @@ The near-term roadmap emphasizes **agency as a computed physical observable**:
 - a practical external-scaffolding lane via cognitive tempo orchestration,
 - a bridge architecture for temporal predictive processing under potential-flow constraints,
 - a cross-cutting thesis surface around effective gravitational centers and energistics,
+- a new substrate-to-assimilation bridge for host-binding and subsystem-governance questions,
 - strict claim-tier separation between defensible results and speculative interpretation.
 
 ## Documentation status policy

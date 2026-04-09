@@ -16,6 +16,12 @@ It is **not** a replacement for `FOUNDATIONS.md`, and it does not by itself gran
 
 ## Scope and compatibility
 
+Related docs:
+- `docs/18_adaptive_substrate_and_host_binding.md`
+- `docs/12_yggdrasil_continuity_architecture.md`
+- `docs/13_nested_temporal_domains.md`
+- `docs/assumptions_register.md`
+
 ### In scope
 - subsystem status vocabulary
 - admission gates
@@ -43,6 +49,10 @@ This document defines a coherent design lens for Sandy Chaos after the recent co
 The goal is not to use biological metaphor for ornament. The goal is to make a specific architectural problem legible:
 
 **When a new subsystem is merged into the repository, under what conditions has it actually become part of the host architecture rather than merely being co-located with it?**
+
+This note is downstream of **[18 Adaptive Substrate and Host Binding](18_adaptive_substrate_and_host_binding.md)**.
+That upstream note describes how a carrier or subsystem candidate acquires enough retained structure and organizing reach to become a real host-binding question at all.
+This note starts once that pressure has become architectural and governance can no longer ignore it.
 
 That is the endosymbiosis question.
 
@@ -793,6 +803,7 @@ Current best answer:
 2. Mark each current major subsystem as experimental / advisory / infrastructural / canonical-candidate.
 3. Define at least one membrane contract artifact for each missing interface class.
 4. Decide whether the host definition in Section 10 is accepted as the current working identity.
+5. Use **[18 Adaptive Substrate and Host Binding](18_adaptive_substrate_and_host_binding.md)** as the precursor filter for subsystem candidates that appear to be crossing from symbolic carrier or local tool into host-shaping substrate.
 
 ### Near-term
 1. Decide whether topological memory is required infrastructure for continuity-aware automation.

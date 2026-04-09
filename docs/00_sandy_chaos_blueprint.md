@@ -14,6 +14,7 @@
 > - `docs/14_cognitive_tempo_orchestration.md`
 > - `docs/16_temporal_predictive_processing.md`
 > - `docs/17_endosymbiosis_and_host_assimilation.md`
+> - `docs/18_adaptive_substrate_and_host_binding.md`
 > - `docs/theory-implementation-matrix.md`
 > - `docs/prediction-protocol.md`
 > - `docs/paradox-registry.md`
@@ -628,7 +629,8 @@ That now includes keeping the canonical split legible:
 - **[13 Nested Temporal Domains](13_nested_temporal_domains.md)** for multiscale coupling grammar,
 - **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)** for the practical external scaffolding lane,
 - **[16 Temporal Predictive Processing](16_temporal_predictive_processing.md)** for the cross-frame predictive bridge,
-- **[17 Endosymbiosis](17_endosymbiosis_and_host_assimilation.md)** for subsystem admission and host identity.
+- **[17 Endosymbiosis](17_endosymbiosis_and_host_assimilation.md)** for subsystem admission and host identity,
+- **[18 Adaptive Substrate and Host Binding](18_adaptive_substrate_and_host_binding.md)** for the substrate-to-assimilation transition class and host-binding doctrine.
 
 ---
 
