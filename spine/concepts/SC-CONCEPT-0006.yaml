@@ -18,16 +18,22 @@ implemented_in:
   - nfem_suite/intelligence/narrative_invariants/benchmark.py
   - scripts/frame_aware_corridor_sim.py
   - scripts/symbolic_maps_normalization_sketch_v0.py
+  - scripts/symbolic_maps_schema_hardening_gate_v0.py
+  - scripts/symbolic_maps_operator_vocabulary_pressure_v0.py
+  - scripts/symbolic_maps_operator_canonicalization_probe_v0.py
 tested_by:
   - tests/test_narrative_invariants.py
   - tests/test_symbolic_maps_normalization_sketch.py
+  - tests/test_symbolic_maps_schema_hardening_gate.py
+  - tests/test_symbolic_maps_operator_vocabulary_pressure.py
+  - tests/test_symbolic_maps_operator_canonicalization_probe.py
 contradicts: []
 failure_conditions:
   - artifact family remains too loose to support consistent extraction, normalization, or validation
   - public-facing symbolic maps cannot be connected back to inspectable internal invariants
   - no discriminating benchmark shows advantage over looser symbolic description or ad hoc interpretation
-next_test: use the v0 normalization sketch to answer a small cross-artifact comparison set and reject it if it needs repeated ad hoc slot growth or fails to improve comparison leverage over the prose extraction notes
-next_action: keep the lane active under bounded pressure and test whether the new normalization sketch produces cleaner comparison behavior before attempting any broader validator/schema hardening
+next_test: if this lane is revisited, reopen from a new artifact or a new naturally convergent operator vocabulary signal rather than another attempt to force the current four-artifact sketch into schema hardening
+next_action: keep the lane active as a bounded comparison surface, but park schema hardening pressure and commit the current proof package
 promotion_target: docs/canonical
 owner_surface: sandy-chaos
-notes: Initial three-artifact comparison suggested a real advantage in comparison stability, boundary preservation, and downstream reuse. The explicit scoring pass in `plans/symbolic_maps_level4_scoring_pass_v0.md` confirmed partial support, with Arm A beating Arm B on consistency, structural coverage, and reuse but not on raw round-trip reconstructability. The follow-on four-artifact pass in `plans/symbolic_maps_level4_scoring_pass_v1.md`, which added the semi-structured `starter_atlas.json`, strengthened that partial support rather than collapsing it. Arm A still wins on consistency, structural coverage, and downstream reuse, but broad hardening is still not yet earned. The new normalization sketch pass in `plans/symbolic_maps_level4_normalization_sketch_v0.md` shows that all four current benchmark artifacts fit one minimal role/operator/constraint/failure/boundary slot family without rescue-field sprawl, which is bounded support for the next comparison-focused follow-on rather than permission for broad schema expansion.
+notes: Initial three-artifact comparison suggested a real advantage in comparison stability, boundary preservation, and downstream reuse. The explicit scoring pass in `plans/symbolic_maps_level4_scoring_pass_v0.md` confirmed partial support, with Arm A beating Arm B on consistency, structural coverage, and reuse but not on raw round-trip reconstructability. The follow-on four-artifact pass in `plans/symbolic_maps_level4_scoring_pass_v1.md`, which added the semi-structured `starter_atlas.json`, strengthened that partial support rather than collapsing it. Arm A still wins on consistency, structural coverage, and downstream reuse, but broad hardening is still not yet earned. The new normalization sketch pass in `plans/symbolic_maps_level4_normalization_sketch_v0.md` shows that all four current benchmark artifacts fit one minimal role/operator/constraint/failure/boundary slot family without rescue-field sprawl, which is bounded support for the next comparison-focused follow-on rather than permission for broad schema expansion. The schema-hardening gate in `plans/symbolic_maps_level4_schema_hardening_gate_result_v0.md` tightened that read further: the slot family remains real enough for bounded comparison, but only failure-language showed meaningful cross-artifact value convergence, so schema hardening should remain on hold. The operator-vocabulary pressure pass in `plans/symbolic_maps_operator_vocabulary_pressure_result_v0.md` pushed the lane one step further and found that zero query families clear a direct three-artifact threshold; useful coverage still depends on alias rescue rather than naturally recurring operator vocabulary. The final canonicalization probe in `plans/symbolic_maps_operator_canonicalization_probe_result_v0.md` found thin but real cross-artifact operator structure, enough to keep the concept alive as a bounded comparison surface but not enough to keep hardening as the active next proof move.

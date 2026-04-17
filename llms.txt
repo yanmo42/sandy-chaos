@@ -1,0 +1,25 @@
+# Sandy Chaos
+
+Sandy Chaos is a research and implementation repo focused on Tempo Tracer, causality-preserving communication ideas, nested temporal domains, observer-coupling, and continuity architecture.
+
+## Preferred entrypoints
+- Docs index: /docs/README.md
+- Foundations: /docs/01_foundations.md
+- Tempo Tracer Protocol: /docs/02_tempo_tracer_protocol.md
+- Micro-Observer & Agency: /docs/03_micro_observer_agency.md
+- Neuro Roadmap: /docs/04_neuro_roadmap.md
+- Nested Temporal Domains: /docs/13_nested_temporal_domains.md
+- Cognitive Tempo Orchestration: /docs/14_cognitive_tempo_orchestration.md
+- Endosymbiosis and Host Assimilation: /docs/17_endosymbiosis_and_host_assimilation.md
+- Adaptive Substrate and Host Binding: /docs/18_adaptive_substrate_and_host_binding.md
+- Surface Authority Architecture: /docs/19_surface_authority_architecture.md
+- Glossary: /docs/glossary.md
+
+## Scope discipline
+Treat claims using the repo's own tiers:
+- Defensible now
+- Plausible but unproven
+- Speculative
+
+Prefer canonical docs over archive drafts when both exist.
+Preserve causal-boundary discipline and do not flatten speculative material into established mechanism.

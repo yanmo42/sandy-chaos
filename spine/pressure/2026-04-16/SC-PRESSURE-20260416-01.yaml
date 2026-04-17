@@ -1,0 +1,20 @@
+id: SC-PRESSURE-20260416-01
+date: 2026-04-16
+concepts:
+  - SC-CONCEPT-0006
+kind: test-review
+summary: A bounded schema-hardening gate confirmed that the current four-artifact symbolic-maps frontier has real slot-family coverage but not enough slot-value convergence to justify hardening.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - plans/symbolic_maps_level4_schema_hardening_gate_v0.md
+  - plans/symbolic_maps_level4_schema_hardening_gate_result_v0.md
+  - memory/research/symbolic-maps-level4/schema_hardening_gate_v0.json
+  - memory/research/symbolic-maps-level4/schema_hardening_gate_v0_summary.md
+  - scripts/symbolic_maps_schema_hardening_gate_v0.py
+  - tests/test_symbolic_maps_schema_hardening_gate.py
+findings:
+  - the repeated five-slot skeleton survives, but only one slot family cleared the minimal value-convergence gate
+  - convergence is strongest in failure rhetoric rather than in operator, constraint, or boundary vocabulary
+  - schema hardening would currently require invented taxonomy rather than simply hardening already-earned structure
+next_action: run one bounded operator-vocabulary pressure pass and reject hardening again if it still depends on hand-authored synonym glue instead of naturally recurring reusable terms

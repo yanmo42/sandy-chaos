@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Add a confirmed absolute Sitemap URL once the live site domain/path is pinned down.

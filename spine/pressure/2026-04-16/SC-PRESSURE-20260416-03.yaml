@@ -1,0 +1,20 @@
+id: SC-PRESSURE-20260416-03
+date: 2026-04-16
+concepts:
+  - SC-CONCEPT-0006
+kind: test-review
+summary: A final canonical-operator probe found real but thin cross-artifact operator structure, enough to keep SC-CONCEPT-0006 alive as a bounded comparison surface but not enough to keep schema hardening as the active next-step pressure.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - plans/symbolic_maps_operator_canonicalization_probe_v0.md
+  - plans/symbolic_maps_operator_canonicalization_probe_result_v0.md
+  - memory/research/symbolic-maps-level4/operator_canonicalization_probe_v0.json
+  - memory/research/symbolic-maps-level4/operator_canonicalization_probe_v0_summary.md
+  - scripts/symbolic_maps_operator_canonicalization_probe_v0.py
+  - tests/test_symbolic_maps_operator_canonicalization_probe.py
+findings:
+  - direct lexical mapping reached only 64 percent, below the success bar for preserving active hardening pressure
+  - all three query families retained at least one shared multi-artifact canonical operator, so the vocabulary is not purely imposed
+  - hardening should be parked rather than treated as the next active proof move
+next_action: commit the bounded proof package and only reopen hardening from new artifact evidence or stronger naturally convergent operator vocabulary

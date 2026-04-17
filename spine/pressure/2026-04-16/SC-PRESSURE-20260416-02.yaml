@@ -1,0 +1,20 @@
+id: SC-PRESSURE-20260416-02
+date: 2026-04-16
+concepts:
+  - SC-CONCEPT-0006
+kind: test-review
+summary: A bounded operator-vocabulary pressure pass showed that the current four-artifact symbolic-maps frontier remains comparison-usable, but multi-artifact query coverage still depends more on alias stitching than on naturally recurring operator vocabulary.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - plans/symbolic_maps_operator_vocabulary_pressure_v0.md
+  - plans/symbolic_maps_operator_vocabulary_pressure_result_v0.md
+  - memory/research/symbolic-maps-level4/operator_vocabulary_pressure_v0.json
+  - memory/research/symbolic-maps-level4/operator_vocabulary_pressure_v0_summary.md
+  - scripts/symbolic_maps_operator_vocabulary_pressure_v0.py
+  - tests/test_symbolic_maps_operator_vocabulary_pressure.py
+findings:
+  - zero query families cleared the direct three-artifact threshold
+  - structural_normalization and constraint_discipline only reached useful coverage after explicit alias rescue
+  - comparison_reuse remains concentrated in the architecture/module artifact rather than functioning as a shared cross-artifact operator vocabulary
+next_action: run one final tiny canonical-operator probe and demote hardening candidacy if the vocabulary still looks imposed rather than discovered
