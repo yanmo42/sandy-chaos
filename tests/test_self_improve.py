@@ -192,6 +192,7 @@ class SelfImproveDispatchTests(unittest.TestCase):
                                 "memory_consulted": True,
                                 "memory_artifact_ids": ["memory/2026-03-29.md#L1"],
                                 "memory_policy_ref": "spine/membranes/memory-dispatch-v1.yaml",
+                                "memory_request_provenance": "spawn-01:prompt_context.memory_artifact_ids",
                             }
                         ),
                         json.dumps(

@@ -103,13 +103,19 @@ def _extract_dispatch_membrane_evidence(req: dict) -> dict:
     prompt_context = req.get("prompt_context", {}) if isinstance(req, dict) else {}
     capability_lane = str(prompt_context.get("capability_lane", req.get("capability_lane", ""))).strip().lower()
 
+    request_id = str(req.get("id", "unknown-request")).strip() or "unknown-request"
+
     memory_artifact_ids = []
-    for candidate in (
-        req.get("memory_artifact_ids"),
-        prompt_context.get("memory_artifact_ids"),
-        prompt_context.get("continuity_artifact_ids"),
+    memory_request_source = "request"
+    for source, candidate in (
+        ("request.memory_artifact_ids", req.get("memory_artifact_ids")),
+        ("prompt_context.memory_artifact_ids", prompt_context.get("memory_artifact_ids")),
+        ("prompt_context.continuity_artifact_ids", prompt_context.get("continuity_artifact_ids")),
     ):
-        memory_artifact_ids.extend(_as_string_list(candidate))
+        refs = _as_string_list(candidate)
+        if refs and memory_request_source == "request":
+            memory_request_source = source
+        memory_artifact_ids.extend(refs)
 
     deduped_ids: list[str] = []
     seen: set[str] = set()
@@ -122,6 +128,9 @@ def _extract_dispatch_membrane_evidence(req: dict) -> dict:
     continuity_relevant = capability_lane == "continuity"
     memory_consulted = bool(deduped_ids)
 
+    if memory_request_source == "request" and continuity_relevant:
+        memory_request_source = "prompt_context.capability_lane"
+
     evidence = {
         "continuity_relevant": continuity_relevant,
         "memory_consulted": memory_consulted,
@@ -130,6 +139,7 @@ def _extract_dispatch_membrane_evidence(req: dict) -> dict:
     }
     if continuity_relevant or memory_consulted:
         evidence["memory_policy_ref"] = MEMORY_POLICY_REF
+        evidence["memory_request_provenance"] = f"{request_id}:{memory_request_source}"
     return evidence
 
 

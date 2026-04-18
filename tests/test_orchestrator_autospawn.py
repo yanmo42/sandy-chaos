@@ -124,6 +124,10 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
             evidence["memory_policy_ref"],
             "spine/membranes/memory-dispatch-v1.yaml",
         )
+        self.assertEqual(
+            evidence["memory_request_provenance"],
+            "spawn-01:prompt_context.memory_artifact_ids",
+        )
 
     def test_extract_dispatch_membrane_evidence_separates_continuity_from_consultation(self):
         req = {
@@ -141,6 +145,10 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
         self.assertEqual(
             evidence["memory_policy_ref"],
             "spine/membranes/memory-dispatch-v1.yaml",
+        )
+        self.assertEqual(
+            evidence["memory_request_provenance"],
+            "spawn-01:prompt_context.capability_lane",
         )
 
     def test_append_dispatch_log_rejects_inconsistent_memory_fields(self):
@@ -188,6 +196,23 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
         }
 
         with self.assertRaisesRegex(ValueError, "memory_policy_ref may only appear"):
+            orchestrator_autospawn.append_dispatch_log(entry)
+
+    def test_append_dispatch_log_requires_memory_request_provenance_when_relevant(self):
+        entry = {
+            "ts": "2026-03-30T12:00:00",
+            "event": "spawn_dispatched",
+            "id": "spawn-01",
+            "ok": True,
+            "control_mode": "descriptive",
+            "governance_policy_ref": "spine/membranes/governance-runtime-v1.yaml",
+            "continuity_relevant": True,
+            "memory_consulted": False,
+            "memory_artifact_ids": [],
+            "memory_policy_ref": "spine/membranes/memory-dispatch-v1.yaml",
+        }
+
+        with self.assertRaisesRegex(ValueError, "memory_request_provenance"):
             orchestrator_autospawn.append_dispatch_log(entry)
 
     def test_resolve_prompting_runtime_reads_config(self):
@@ -354,6 +379,10 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
                 log_payload["memory_policy_ref"],
                 "spine/membranes/memory-dispatch-v1.yaml",
             )
+            self.assertEqual(
+                log_payload["memory_request_provenance"],
+                "spawn-01:prompt_context.memory_artifact_ids",
+            )
 
     def test_dispatch_dry_run_marks_dispatched_without_subprocess(self):
         requests = [{
@@ -392,6 +421,7 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
                 "spine/membranes/governance-runtime-v1.yaml",
             )
             self.assertNotIn("memory_policy_ref", log_payload)
+            self.assertNotIn("memory_request_provenance", log_payload)
 
     def test_dispatch_rejects_missing_disposition_and_target(self):
         requests = [{"id": "spawn-01", "prompt_context": {}, "spawn": {"runtime": "subagent", "task": "x"}}]
