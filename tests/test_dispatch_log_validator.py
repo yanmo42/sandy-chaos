@@ -88,6 +88,50 @@ class DispatchLogValidatorTests(unittest.TestCase):
             errors,
         )
 
+    def test_rejects_artifact_bearing_provenance_without_artifacts(self):
+        errors = validate_dispatch_log_entry(
+            {
+                "ts": "2026-04-18T08:12:20",
+                "event": "spawn_dispatched",
+                "id": "spawn-01",
+                "ok": True,
+                "control_mode": "descriptive",
+                "governance_policy_ref": "spine/membranes/governance-runtime-v1.yaml",
+                "continuity_relevant": True,
+                "memory_consulted": False,
+                "memory_artifact_ids": [],
+                "memory_policy_ref": "spine/membranes/memory-dispatch-v1.yaml",
+                "memory_request_provenance": "spawn-01:prompt_context.memory_artifact_ids",
+            }
+        )
+
+        self.assertIn(
+            "artifact-bearing memory_request_provenance requires memory_artifact_ids",
+            errors,
+        )
+
+    def test_rejects_provenance_request_id_mismatch(self):
+        errors = validate_dispatch_log_entry(
+            {
+                "ts": "2026-04-18T08:12:20",
+                "event": "spawn_dispatched",
+                "id": "spawn-01",
+                "ok": True,
+                "control_mode": "descriptive",
+                "governance_policy_ref": "spine/membranes/governance-runtime-v1.yaml",
+                "continuity_relevant": True,
+                "memory_consulted": True,
+                "memory_artifact_ids": ["memory/2026-04-18.md#L1-L4"],
+                "memory_policy_ref": "spine/membranes/memory-dispatch-v1.yaml",
+                "memory_request_provenance": "spawn-99:prompt_context.memory_artifact_ids",
+            }
+        )
+
+        self.assertIn(
+            "memory_request_provenance request id must match dispatch entry id",
+            errors,
+        )
+
     def test_validate_dispatch_log_file_reports_line_numbers(self):
         with tempfile.TemporaryDirectory() as td:
             log_path = Path(td) / "dispatch.jsonl"
@@ -105,7 +149,10 @@ class DispatchLogValidatorTests(unittest.TestCase):
 
         self.assertEqual(
             errors,
-            ["line 2: memory_consulted=true requires memory_artifact_ids"],
+            [
+                "line 2: memory_consulted=true requires memory_artifact_ids",
+                "line 2: artifact-bearing memory_request_provenance requires memory_artifact_ids",
+            ],
         )
 
     def test_validate_dispatch_log_file_reports_invalid_json(self):

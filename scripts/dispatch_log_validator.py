@@ -14,6 +14,11 @@ ALLOWED_MEMORY_PROVENANCE_SOURCES = {
     "prompt_context.continuity_artifact_ids",
     "prompt_context.capability_lane",
 }
+ARTIFACT_BEARING_MEMORY_PROVENANCE_SOURCES = {
+    "request.memory_artifact_ids",
+    "prompt_context.memory_artifact_ids",
+    "prompt_context.continuity_artifact_ids",
+}
 GOVERNANCE_POLICY_REF = "spine/membranes/governance-runtime-v1.yaml"
 MEMORY_POLICY_REF = "spine/membranes/memory-dispatch-v1.yaml"
 
@@ -96,10 +101,14 @@ def validate_dispatch_log_entry(entry: dict) -> list[str]:
     request_provenance_present = request_provenance is not None
     if entry.get("memory_request_provenance") is not None and not request_provenance_present:
         errors.append("memory_request_provenance must be formatted as <request-id>:<source>")
+    request_source = None
     if request_provenance_present:
-        _, request_source = request_provenance
+        request_id, request_source = request_provenance
         if request_source not in ALLOWED_MEMORY_PROVENANCE_SOURCES:
             errors.append("memory_request_provenance source is not allowed")
+        entry_id = str(entry.get("id", "")).strip()
+        if entry_id and request_id != entry_id:
+            errors.append("memory_request_provenance request id must match dispatch entry id")
 
     memory_membrane_relevant = continuity_relevant or memory_consulted
 
@@ -116,8 +125,10 @@ def validate_dispatch_log_entry(entry: dict) -> list[str]:
         errors.append("memory_request_provenance may only appear when continuity/memory membrane is relevant")
     if memory_membrane_relevant and not request_provenance_present:
         errors.append("continuity/memory membrane events require memory_request_provenance")
-    if memory_consulted and request_provenance_present and request_provenance[1] == "prompt_context.capability_lane":
+    if memory_consulted and request_source == "prompt_context.capability_lane":
         errors.append("memory_consulted=true requires memory_request_provenance to cite artifact-bearing evidence")
+    if request_source in ARTIFACT_BEARING_MEMORY_PROVENANCE_SOURCES and not artifact_ids:
+        errors.append("artifact-bearing memory_request_provenance requires memory_artifact_ids")
 
     return errors
 
