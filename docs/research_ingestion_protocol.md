@@ -221,6 +221,14 @@ Default cadence:
 - 1 deeper synthesis cycle/week (2–4 h),
 - monthly consolidation into long-term docs.
 
+For Yggdrasil continuity purposes, those loops should be read as an explicit cadence surface map:
+
+- daily collection, extraction, and schema fill work usually sits at the **edge / fast** layer,
+- weekly synthesis, verifier comparison, and cycle-summary packaging usually sit at the **bridge / meso** layer,
+- monthly consolidation into long-term docs and other durable protocol expectations sits at the **spine / slow** layer.
+
+This remains strictly forward-causal: fast ingestion artifacts can inform bridge summaries, and bridge summaries can justify slow-surface consolidation, but the protocol should not imply raw fast-loop output directly rewriting spine surfaces.
+
 ---
 
 ## 11) Immediate next action

@@ -86,6 +86,14 @@ These are optional until implementation is complete.
 6. `git push <remote> <branch>`
 7. Log + digest summary
 
+For continuity architecture purposes, this execution order should be read as a cadence map rather than only a shell sequence:
+
+- fetch, validation, staging, commit creation, and push attempts operate at the **edge / fast** layer because they are local, reversible run-time actions,
+- structured logs, digest summaries, and operator review cues operate at the **bridge / meso** layer because they summarize and route the run's outcome,
+- branch policy, remote policy, and validation requirements operate at the **spine / slow** layer because they define the durable rules the run must obey.
+
+That mapping stays strictly forward-causal: fast git-run artifacts can feed bridge summaries, and bridge review can justify slow policy edits later, but a single unattended run should not imply raw edge activity directly rewriting spine policy.
+
 ## Non-goals
 
 - No automatic history rewrites

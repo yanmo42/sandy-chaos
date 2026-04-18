@@ -22,6 +22,22 @@ class AutomationCadenceDocsTests(unittest.TestCase):
         self.assertIn("**spine / slow** layer", text)
         self.assertIn("should not imply raw fast-loop output directly rewriting spine surfaces", text)
 
+    def test_git_automation_protocol_makes_edge_bridge_spine_mapping_explicit(self):
+        text = (ROOT / "docs/08_git_automation_protocol.md").read_text(encoding="utf-8")
+
+        self.assertIn("**edge / fast** layer", text)
+        self.assertIn("**bridge / meso** layer", text)
+        self.assertIn("**spine / slow** layer", text)
+        self.assertIn("should not imply raw edge activity directly rewriting spine policy", text)
+
+    def test_research_ingestion_protocol_makes_edge_bridge_spine_mapping_explicit(self):
+        text = (ROOT / "docs/research_ingestion_protocol.md").read_text(encoding="utf-8")
+
+        self.assertIn("**edge / fast** layer", text)
+        self.assertIn("**bridge / meso** layer", text)
+        self.assertIn("**spine / slow** layer", text)
+        self.assertIn("should not imply raw fast-loop output directly rewriting spine surfaces", text)
+
     def test_yggdrasil_continuity_architecture_makes_edge_bridge_spine_mapping_explicit(self):
         text = (ROOT / "docs/12_yggdrasil_continuity_architecture.md").read_text(encoding="utf-8")
 
