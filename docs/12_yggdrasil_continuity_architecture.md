@@ -261,6 +261,10 @@ Nervous-system, tree, society, and lineage analogies are useful only when they c
 
 ### Rule 5 — Temporal cadence is part of the design
 
+**Fast = edge** cadence.
+**Meso = bridge** cadence.
+**Slow = spine** cadence.
+
 Fast loops belong at the edge.
 Meso loops compare and route.
 Slow loops consolidate.
@@ -280,11 +284,13 @@ A useful mapping is:
 - **verifier** → evidence filter and promotion gate pressure
 - **reporter** → durable trace generation and cross-time continuity
 
-Likewise, the existing fast / meso / slow cadence maps naturally onto:
+Likewise, the existing fast / meso / slow cadence maps naturally onto the same continuity surfaces:
 
-- **fast** → edge sensing and local adaptation
-- **meso** → routing, summarization, and comparison
-- **slow** → consolidation, policy shaping, and long-horizon continuity
+- **fast = edge** → sensing, local adaptation, and reversible branch work
+- **meso = bridge** → routing, summarization, comparison, and promotion gating
+- **slow = spine** → consolidation, policy shaping, and long-horizon continuity
+
+The mapping stays strictly forward-causal: edge outputs can inform bridge summaries, and bridge summaries can justify spine updates, but Yggdrasil should not imply direct fast-to-spine promotion or any retrocausal influence from slow surfaces back into already-recorded fast-loop state.
 
 This cadence interpretation is now easier to align with the broader canonical split:
 

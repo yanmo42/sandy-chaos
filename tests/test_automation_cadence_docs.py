@@ -22,6 +22,18 @@ class AutomationCadenceDocsTests(unittest.TestCase):
         self.assertIn("**spine / slow** layer", text)
         self.assertIn("should not imply raw fast-loop output directly rewriting spine surfaces", text)
 
+    def test_yggdrasil_continuity_architecture_makes_edge_bridge_spine_mapping_explicit(self):
+        text = (ROOT / "docs/12_yggdrasil_continuity_architecture.md").read_text(encoding="utf-8")
+
+        self.assertIn("**Fast = edge** cadence.", text)
+        self.assertIn("**Meso = bridge** cadence.", text)
+        self.assertIn("**Slow = spine** cadence.", text)
+        self.assertIn("**fast = edge** → sensing, local adaptation, and reversible branch work", text)
+        self.assertIn("**meso = bridge** → routing, summarization, comparison, and promotion gating", text)
+        self.assertIn("**slow = spine** → consolidation, policy shaping, and long-horizon continuity", text)
+        self.assertIn("should not imply direct fast-to-spine promotion", text)
+        self.assertIn("retrocausal influence", text)
+
 
 if __name__ == "__main__":
     unittest.main()
