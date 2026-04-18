@@ -92,6 +92,9 @@ Build a repeatable pipeline that turns scientific literature into:
 
 ### 3.1 Open theoretical priorities (from `plans/todo.md`)
 
+> Cross-reference (2026-04-18): several of these items now have bounded first-move entries queued under **Next Development Directions (2026-04-18)** in `plans/todo.md`. When those items produce artifacts, update the anchor entry here rather than duplicating. Specifically: backlog item "observer read-write Φ" ↔ todo §B; "entropy-causality synthesis lane" ↔ todo §E; "NTD neighbor-layer benchmark" relates to todo §A (T-014 bridge shares the multiframe comparison spine).
+
+
 - [x] Specify hyperstition update function `\mathcal{G}` with toy model + fixed-point analysis (`nfem_suite/intelligence/cognition/hyperstition.py`, `tests/test_hyperstition_dynamics.py`)
 - [ ] Benchmark Nested Temporal Domains neighbor-layer transfer against all-to-all and uncoupled baselines (`docs/13_nested_temporal_domains.md`)
 - [~] Anchor epistemic retro-influence framing in formal literature baseline (research cycle 2026-03-30 completed; parallels established with signaling games, Bayesian persuasion, forward induction)

@@ -331,3 +331,63 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add topology-aware retriever with inspectable path output (`topology_aware_retrieval` with `path_nodes`, `path_edges`, `path_summary`; inspect via `scripts/topological_memory_v0.py --inspect-query Q-001`)
 - [x] Compare topology-aware retrieval against flat baselines (`memory/research/topological-memory-v0/comparison_report_v0.md`, `memory/research/topological-memory-v0/comparison_summary_v0.json`)
 - [x] Only promote beyond archive if it beats at least one baseline with interpretable paths (`memory/research/topological-memory-v0/promotion_gate_v0.md`, `docs/notes/topological_memory_v0_provisional_validation.md`)
+
+## Next Development Directions (2026-04-18)
+
+Context: seven bounded first moves surfaced from a repo-wide read of the canonical docs and theory-implementation matrix on 2026-04-18. Each item below is intended to be pickable in one orchestrator cycle. Several anchor to existing `plans/research_backlog.md` Phase 3.1 entries and are flagged inline — do not duplicate work; update the anchor entry once progress is real.
+
+Authority posture: advisory work packets. None may raise claim tier, promote to canon silently, or bypass human review for `docs` / `foundations` promotion targets (per `config/orchestrator.json` promotionReview gates). Evidence artifacts go to `memory/` or `docs/notes/`. Matrix row edits require human review.
+
+### A. Benchmark T-014 (temporal predictive processing bridge)
+
+Source: `docs/16_temporal_predictive_processing.md`, matrix row T-014 (REVIEW).
+
+- [ ] Draft minimal baseline-comparison spec in `docs/notes/t014_baseline_spec_v0.md`: declare single-scale / unconstrained-multiframe / contract-bounded variants, a synthetic multiscale dataset generator, and the ablation table columns. Claim tier: defensible for the spec itself; T-014 remains speculative.
+- [ ] Stub the benchmark harness skeleton under `nfem_suite/` exposing the three variant interfaces plus one smoke test. No empirical results yet — inspectable scaffold only.
+- [ ] Failure condition: if the spec cannot name a baseline that is plausibly beatable by the contract-bounded variant, record that T-014 is not yet benchmark-ready and halt this lane.
+
+### B. Concretize observer read-write Φ in fluid sim
+
+Source: `docs/math_foundations_zf.md` §12, `docs/03_micro_observer_agency.md`, matrix row T-013 (REVIEW). Anchors `research_backlog.md` Phase 3.1 "observer read-write Φ" item.
+
+- [ ] Pick one probe-insertion scenario in the existing fluid simulation surface and document it as a bounded Φ test case in `docs/notes/phi_fluid_probe_v0.md`: declare the state variable affected, the coupling scale λ, and the measurable downstream observable.
+- [ ] Implement the minimal Φ perturbation in code with a test demonstrating that probe measurement alters downstream velocity field in a bounded, reproducible way. Keep scope to one scenario.
+- [ ] Prepare matrix T-013 evidence field update as a draft artifact under `memory/research/phi-fluid-probe-2026-04/`; do not edit `docs/theory-implementation-matrix.md` without human review.
+
+### C. Map Potential-Flow Contracts onto Wasserstein gradient flow
+
+Source: `docs/11_geodesic_hydrology_contracts.md` §6, matrix row T-011 (REVIEW).
+
+- [ ] Write `docs/notes/potential_flow_wasserstein_map_v0.md` identifying which of the tuple `(M, g, K, H, B_λ, Ω)` corresponds to which object in the Wasserstein / Otto-calculus / JKO framework. Defensible tier for the mapping itself.
+- [ ] Identify at least one theorem from the Wasserstein literature (e.g. convergence under convexity of H, dissipation inequality for JKO schemes) whose preconditions can be checked against the potential-flow contract formulation. List what would have to be shown.
+- [ ] Failure condition: if the mapping does not close without contortion, record explicitly that Potential-Flow Contracts are NOT Wasserstein gradient flow, and state what the closest neighbor actually is.
+
+### D. First retrodictive pilot (internet-log domain)
+
+Source: `docs/00_sandy_chaos_blueprint.md` §15B/§20, `docs/09_research_automation_protocol.md`, matrix row T-013. Anchors `research_backlog.md` Phase 1.4 retrodictive task list.
+
+- [ ] Scope one bounded retrodictive task with locally recoverable traces (candidate: reconstruct a short commit/PR/branch sequence from current repo state + git reflog + logs, with held-out ground truth). Write the task card in `memory/research/retrodiction-pilot-2026-04/task_card.md`.
+- [ ] In the same card declare null model, scoring metric, abstention rule, and failure condition per the research automation protocol.
+- [ ] Run the task manually first and log calibration / abstention behavior; automate only after that inspection.
+
+### E. Engage entropy-causality literature
+
+Source: `research_backlog.md` Phase 3.1 entropy-causality item (still open).
+
+- [ ] Draft `docs/notes/entropy_causality_literature_v0.md` with a position-mapping against Wissner-Gross & Freer (causal entropic forces), Verlinde (entropic gravity), Penrose / Carroll (thermodynamic arrow). For each, state: where Sandy Chaos agrees, where it differs, and what operational claim — if any — would distinguish the two.
+- [ ] Failure condition: if the Sandy Chaos position collapses into one of these existing programs under honest reading, admit it in the note and update `research_backlog.md` Phase 3.1 to cite rather than reinvent.
+
+### F. Second Kerr-specific observable (extending T-015)
+
+Source: matrix row T-015 (PASS), `docs/02_tempo_tracer_protocol.md` §2.2, `cosmic_comm/`.
+
+- [ ] Draft `docs/notes/kerr_second_observable_v0.md` proposing one additional geometry-specific prediction distinct from proper-time asymmetry. Candidates: ISCO-adjacent information attenuation ratio; ergosphere-edge frame-drag-induced channel anisotropy; prograde/retrograde photon-ring brightness asymmetry. State the failure mode that would separate it from a noisy flat-channel baseline.
+- [ ] Prepare a matrix T-016 candidate row draft in the same note (claim, class, markers, surface, validation command sketch) for human review before any edit to `docs/theory-implementation-matrix.md`.
+
+### G. Tiempo Cero as phase-closure (not timestamp)
+
+Source: `plans/tiempo-cero-automation-plan-2026-04-17.md` Workstream A, `docs/math_foundations_zf.md` §11 (tachyonic-loop winding-number reinterpretation).
+
+- [ ] Write `docs/tiempo-cero.md` per the 2026-04-17 plan's "smallest next move": one-sentence canonical definition, variables list (phase, direction, effective velocity, closure condition), claim tiers, failure conditions, minimal cancellation / closure math sketch, and explicit link to the §11 winding-number / holonomy reinterpretation.
+- [ ] Place Tiempo Cero on the proof-path ladder (`docs/proof-path-ladder.md`) with current level and smallest-next-level move.
+- [ ] Hold: do not add Tiempo Cero to frontier ranking or automate promotion until the bounded note clearly distinguishes metaphor / geometry / implementable mechanism per the plan's own failure condition.
