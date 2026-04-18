@@ -5,13 +5,13 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-WorkingDirectory=%h/dev/sandy-chaos
+WorkingDirectory=%h/projects/sandy-chaos
 ## Secrets loading order:
 # 1) repo-local .secrets.local.env (preferred, gitignored)
 # 2) legacy ~/.config/sandy-chaos/automation.env (fallback)
-EnvironmentFile=-%h/dev/sandy-chaos/.secrets.local.env
+EnvironmentFile=-%h/projects/sandy-chaos/.secrets.local.env
 EnvironmentFile=-%h/.config/sandy-chaos/automation.env
-Environment=PATH=%h/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=/usr/bin/python3 %h/dev/sandy-chaos/scripts/self_improve.py full-pass --scheduler host-cron --with-orchestration --with-dispatch --dispatch-limit 3 --send-telegram
+Environment=PATH=%h/.npm-global/bin:%h/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/usr/bin/python3 %h/projects/sandy-chaos/scripts/hourly_openclaw_cycle.py --dispatch-limit 1 --agent claude
 StandardOutput=append:%h/.local/state/sandy-chaos/automation.log
 StandardError=append:%h/.local/state/sandy-chaos/automation.log
