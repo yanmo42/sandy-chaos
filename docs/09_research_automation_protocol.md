@@ -25,6 +25,14 @@ Use AI agents for parallelization and synthesis; keep humans in control of:
    - claim-tier compliance.
 6. **Artifact commit** (notes, evidence table, summary, next action).
 
+Across continuity cadences, this loop should be read as an explicit surface map rather than an implicit tempo metaphor:
+
+- collection and extraction work usually belongs to the **edge / fast** layer,
+- verifier synthesis, cycle summaries, and continuity-contract routing belong to the **bridge / meso** layer,
+- promoted docs, workflow rules, and test-bearing expectations belong to the **spine / slow** layer.
+
+That mapping is strictly forward-causal. Fast research artifacts can inform bridge summaries, and bridge summaries can justify slow-surface promotion, but the protocol should not imply raw fast-loop output directly rewriting spine surfaces.
+
 ## 4) Required artifacts per cycle
 
 - `memory/research/<date>-query.md` — scoped question + constraints
@@ -84,6 +92,12 @@ python3 scripts/research_verifier.py --synthesis memory/research/<date>-synthesi
 - **builder lane:** extraction scripts and evidence artifacts
 - **verifier lane:** contradiction/citation checks
 - **reporter lane:** concise decision memo + next best action
+
+The lane split should also respect cadence placement:
+
+- planner/builder work often starts at the **edge / fast** layer,
+- verifier/reporter outputs usually form the **bridge / meso** layer,
+- only reviewed promotions from those outputs should update **spine / slow** surfaces such as canonical docs, workflow policy, or tests/config.
 
 ## 9) Efficiency defaults
 

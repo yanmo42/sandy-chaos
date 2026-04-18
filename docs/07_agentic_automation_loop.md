@@ -10,6 +10,14 @@ Define a closed operational loop for Sandy Chaos where assistant work on the rep
 - **Meso loop (daily):** summarize completed work, blockers, and policy tweaks.
 - **Slow loop (weekly):** distill stable behavior updates into workflow/policy docs.
 
+For continuity architecture purposes, this cadence should be read explicitly as:
+
+- **fast = edge** cadence, where local execution can vary quickly and remain reversible,
+- **meso = bridge** cadence, where automation summarizes, compares, and routes local outputs,
+- **slow = spine** cadence, where only durable policy or canonical-doc changes should land.
+
+The loops therefore compose forward-causally: edge outputs feed bridge summaries, and bridge summaries justify any spine updates. The automation should not imply direct fast-to-spine promotion without an intermediate review surface.
+
 ## 3) Operational flow
 
 1. Human gives objective/constraints.
@@ -200,6 +208,12 @@ This means each timer cycle executes:
 3. spawn-request generation,
 4. coordinator-side Gateway `agent` dispatch in the active OpenClaw runtime,
 5. lane-aware productivity digest generation (outbox-first, Telegram optional).
+
+Operationally, the service-level cadence should preserve the same surface split:
+
+- timer-driven task execution and local corrections stay at the **edge / fast** layer,
+- orchestrator summaries, dispatch logs, and digests act as the **bridge / meso** layer,
+- workflow, config, canonical docs, and hard tests remain **spine / slow** targets that change only after review or repeated evidence.
 
 ## 12) Auto-improvement definition (repo-native)
 
