@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
+import io
 import json
 import subprocess
 import sys
@@ -9,6 +11,10 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts import self_improve
 RECEIPT_PATH = ROOT / "memory" / "hourly_cycle_receipts.md"
 DEFAULT_VALIDATION = ["./venv/bin/python", "-m", "unittest", "discover", "-s", "tests", "-q"]
 DEFAULT_REMOTE = "origin"
@@ -75,20 +81,26 @@ def changed_paths(lines: list[str]) -> list[str]:
 
 
 def run_full_pass(limit: int, dry_run: bool) -> subprocess.CompletedProcess[str]:
-    cmd = [
-        "python3",
-        "scripts/self_improve.py",
-        "full-pass",
-        "--scheduler",
-        "host-cron",
-        "--with-orchestration",
-        "--with-dispatch",
-        "--dispatch-limit",
-        str(limit),
-    ]
-    if dry_run:
-        cmd.append("--dry-run")
-    return run_live(cmd)
+    out = io.StringIO()
+    err = io.StringIO()
+    with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+        ok = self_improve.full_pass(
+            scheduler="host-cron",
+            send_telegram=False,
+            dry_run=dry_run,
+            max_open_items=5,
+            with_orchestration=True,
+            with_dispatch=True,
+            dispatch_limit=limit,
+            validation_commands=None,
+            foundations_evidence_paths=None,
+        )
+    return subprocess.CompletedProcess(
+        args=["self_improve.full_pass"],
+        returncode=0 if ok else 1,
+        stdout=out.getvalue(),
+        stderr=err.getvalue(),
+    )
 
 
 def run_validation() -> subprocess.CompletedProcess[str]:
@@ -160,7 +172,8 @@ def main() -> int:
 
     append_receipt(start_head=start_head, dispatch_limit=args.dispatch_limit, dry_run=args.dry_run)
     status_lines = git_status()
-    commit_candidates = status_lines if args.allow_untracked else tracked_changes_only(status_lines)
+    candidate_lines = status_lines if args.allow_untracked else tracked_changes_only(status_lines)
+    commit_candidates = changed_paths(candidate_lines)
 
     validation = None
     if commit_candidates and not args.dry_run:
@@ -192,7 +205,7 @@ def main() -> int:
         "dry_run": args.dry_run,
         "full_pass_tail": full_pass.stdout.splitlines()[-20:],
         "changed": changed_paths(status_lines),
-        "commit_candidates": changed_paths(commit_candidates),
+        "commit_candidates": commit_candidates,
         "validation_ran": bool(validation is not None),
         "validation_ok": None if validation is None else validation.returncode == 0,
         "validation_tail": [] if validation is None else (validation.stdout + "\n" + validation.stderr).splitlines()[-20:],
