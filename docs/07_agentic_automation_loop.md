@@ -259,7 +259,7 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 - `memory/orchestrator_task_plan.jsonl` (continuity tasks may carry `memory_artifact_ids` so downstream dispatch/runtime evidence cites concrete retrieval and governance artifacts)
 - task-plan entries now also carry explicit `disposition` + `promotion_target` fields so non-trivial continuity work cannot end silently
 - `memory/orchestrator_spawn_requests.json`
-- `memory/orchestrator_dispatch_log.jsonl` (includes `control_mode`, `governance_policy_ref`, `continuity_relevant`, `memory_consulted`, `memory_artifact_ids`, and when applicable `memory_policy_ref` plus `memory_request_provenance` per dispatch event)
+- `memory/orchestrator_dispatch_log.jsonl` (includes `control_mode`, `governance_policy_ref`, `continuity_relevant`, `memory_consulted`, `memory_artifact_ids`, and when applicable `memory_policy_ref` plus `memory_request_provenance` per dispatch event; validator now requires inspectable repo-relative artifact refs and `<request-id>:<source>` provenance formatting for memory membrane evidence)
 - `memory/orchestrator_cycle_summary.md`
 - `memory/self_improve_state.json`
 - `memory/notification_outbox.md` (append-only markdown outbox grouped by `## YYYY-MM-DD` with timestamped `### [YYYY-MM-DD HH:MM]` entries)

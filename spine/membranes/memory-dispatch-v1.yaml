@@ -28,4 +28,4 @@ failure_mode: memory-oracle creep or amnesia-plumbing
 governed_by:
   - FOUNDATIONS.md markers N1 N2 N3 C1
   - docs/17_endosymbiosis_and_host_assimilation.md section 13
-notes: v1 focuses on evidence-carrying reads only; dispatch-log evidence should include `memory_request_provenance` alongside referenced artifact ids and `memory_policy_ref` whenever this membrane is active. Write-back pathways should be specified in a future memory-dispatch-v2 contract.
+notes: v1 focuses on evidence-carrying reads only; dispatch-log evidence should include `memory_request_provenance` alongside referenced artifact ids and `memory_policy_ref` whenever this membrane is active. Runtime validator expects repo-relative inspectable artifact refs plus `<request-id>:<source>` provenance formatting so membrane evidence stays auditable. Write-back pathways should be specified in a future memory-dispatch-v2 contract.
