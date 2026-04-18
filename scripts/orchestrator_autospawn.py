@@ -106,6 +106,7 @@ def _extract_dispatch_membrane_evidence(req: dict) -> dict:
     request_id = str(req.get("id", "unknown-request")).strip() or "unknown-request"
 
     memory_artifact_ids = []
+    continuity_artifact_ids: list[str] = []
     memory_request_source = "request"
     for source, candidate in (
         ("request.memory_artifact_ids", req.get("memory_artifact_ids")),
@@ -115,6 +116,8 @@ def _extract_dispatch_membrane_evidence(req: dict) -> dict:
         refs = _as_string_list(candidate)
         if refs and memory_request_source == "request":
             memory_request_source = source
+        if source == "prompt_context.continuity_artifact_ids":
+            continuity_artifact_ids.extend(refs)
         memory_artifact_ids.extend(refs)
 
     deduped_ids: list[str] = []
@@ -125,7 +128,7 @@ def _extract_dispatch_membrane_evidence(req: dict) -> dict:
         seen.add(artifact_id)
         deduped_ids.append(artifact_id)
 
-    continuity_relevant = capability_lane == "continuity"
+    continuity_relevant = capability_lane == "continuity" or bool(continuity_artifact_ids)
     memory_consulted = bool(deduped_ids)
 
     if memory_request_source == "request" and continuity_relevant:

@@ -88,6 +88,28 @@ class DispatchLogValidatorTests(unittest.TestCase):
             errors,
         )
 
+    def test_rejects_continuity_scoped_provenance_without_continuity_flag(self):
+        errors = validate_dispatch_log_entry(
+            {
+                "ts": "2026-04-18T08:12:20",
+                "event": "spawn_dispatched",
+                "id": "spawn-01",
+                "ok": True,
+                "control_mode": "descriptive",
+                "governance_policy_ref": "spine/membranes/governance-runtime-v1.yaml",
+                "continuity_relevant": False,
+                "memory_consulted": True,
+                "memory_artifact_ids": ["state/ygg/checkpoints/sample.json"],
+                "memory_policy_ref": "spine/membranes/memory-dispatch-v1.yaml",
+                "memory_request_provenance": "spawn-01:prompt_context.continuity_artifact_ids",
+            }
+        )
+
+        self.assertIn(
+            "continuity-scoped memory_request_provenance requires continuity_relevant=true",
+            errors,
+        )
+
     def test_rejects_artifact_bearing_provenance_without_artifacts(self):
         errors = validate_dispatch_log_entry(
             {

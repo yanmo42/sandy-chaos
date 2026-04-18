@@ -151,6 +151,24 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
             "spawn-01:prompt_context.capability_lane",
         )
 
+    def test_extract_dispatch_membrane_evidence_marks_continuity_artifacts_as_continuity_relevant(self):
+        req = {
+            "id": "spawn-01",
+            "prompt_context": {
+                "continuity_artifact_ids": ["state/ygg/checkpoints/sample.json"],
+            },
+        }
+
+        evidence = orchestrator_autospawn._extract_dispatch_membrane_evidence(req)
+
+        self.assertTrue(evidence["continuity_relevant"])
+        self.assertTrue(evidence["memory_consulted"])
+        self.assertEqual(evidence["memory_artifact_ids"], ["state/ygg/checkpoints/sample.json"])
+        self.assertEqual(
+            evidence["memory_request_provenance"],
+            "spawn-01:prompt_context.continuity_artifact_ids",
+        )
+
     def test_append_dispatch_log_rejects_inconsistent_memory_fields(self):
         entry = {
             "ts": "2026-03-30T12:00:00",

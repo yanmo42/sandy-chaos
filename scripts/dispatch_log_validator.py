@@ -19,6 +19,10 @@ ARTIFACT_BEARING_MEMORY_PROVENANCE_SOURCES = {
     "prompt_context.memory_artifact_ids",
     "prompt_context.continuity_artifact_ids",
 }
+CONTINUITY_SCOPED_MEMORY_PROVENANCE_SOURCES = {
+    "prompt_context.continuity_artifact_ids",
+    "prompt_context.capability_lane",
+}
 GOVERNANCE_POLICY_REF = "spine/membranes/governance-runtime-v1.yaml"
 MEMORY_POLICY_REF = "spine/membranes/memory-dispatch-v1.yaml"
 
@@ -125,6 +129,8 @@ def validate_dispatch_log_entry(entry: dict) -> list[str]:
         errors.append("memory_request_provenance may only appear when continuity/memory membrane is relevant")
     if memory_membrane_relevant and not request_provenance_present:
         errors.append("continuity/memory membrane events require memory_request_provenance")
+    if request_source in CONTINUITY_SCOPED_MEMORY_PROVENANCE_SOURCES and not continuity_relevant:
+        errors.append("continuity-scoped memory_request_provenance requires continuity_relevant=true")
     if memory_consulted and request_source == "prompt_context.capability_lane":
         errors.append("memory_consulted=true requires memory_request_provenance to cite artifact-bearing evidence")
     if request_source in ARTIFACT_BEARING_MEMORY_PROVENANCE_SOURCES and not artifact_ids:
