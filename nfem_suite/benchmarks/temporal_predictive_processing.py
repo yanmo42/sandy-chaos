@@ -149,6 +149,18 @@ class BenchmarkHarness:
             ],
         }
 
+    def variant_interfaces(self) -> dict[str, list[str]]:
+        """Expose inspectable per-variant interface contracts.
+
+        This method is intentionally structural only. It does not execute variants
+        or report benchmark scores.
+        """
+
+        return {
+            variant.variant_id: list(variant.interface_contract)
+            for variant in self.variants
+        }
+
     def run_smoke_case(self) -> list[VariantRunResult]:
         case = make_smoke_case()
         return [variant.run(case) for variant in self.variants]
