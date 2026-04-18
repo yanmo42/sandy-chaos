@@ -1,6 +1,8 @@
+import tempfile
 import unittest
+from pathlib import Path
 
-from scripts.dispatch_log_validator import validate_dispatch_log_entry
+from scripts.dispatch_log_validator import validate_dispatch_log_entry, validate_dispatch_log_file
 
 
 class DispatchLogValidatorTests(unittest.TestCase):
@@ -85,6 +87,35 @@ class DispatchLogValidatorTests(unittest.TestCase):
             "memory_consulted=true requires memory_request_provenance to cite artifact-bearing evidence",
             errors,
         )
+
+    def test_validate_dispatch_log_file_reports_line_numbers(self):
+        with tempfile.TemporaryDirectory() as td:
+            log_path = Path(td) / "dispatch.jsonl"
+            log_path.write_text(
+                "\n".join(
+                    [
+                        '{"id":"spawn-01","control_mode":"descriptive","continuity_relevant":true,"memory_consulted":false,"memory_artifact_ids":[],"memory_policy_ref":"spine/membranes/memory-dispatch-v1.yaml","memory_request_provenance":"spawn-01:prompt_context.capability_lane"}',
+                        '{"id":"spawn-02","control_mode":"descriptive","continuity_relevant":true,"memory_consulted":true,"memory_artifact_ids":[],"memory_policy_ref":"spine/membranes/memory-dispatch-v1.yaml","memory_request_provenance":"spawn-02:prompt_context.memory_artifact_ids"}',
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            errors = validate_dispatch_log_file(log_path)
+
+        self.assertEqual(
+            errors,
+            ["line 2: memory_consulted=true requires memory_artifact_ids"],
+        )
+
+    def test_validate_dispatch_log_file_reports_invalid_json(self):
+        with tempfile.TemporaryDirectory() as td:
+            log_path = Path(td) / "dispatch.jsonl"
+            log_path.write_text('{"id":"spawn-01"}\nnot-json\n', encoding="utf-8")
+
+            errors = validate_dispatch_log_file(log_path)
+
+        self.assertEqual(errors, ["line 2: invalid JSON (Expecting value)"])
 
 
 if __name__ == "__main__":

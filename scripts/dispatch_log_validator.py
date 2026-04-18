@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+import argparse
+import json
+from pathlib import Path
+
 
 ALLOWED_CONTROL_MODES = {"control-affecting", "descriptive"}
 ALLOWED_MEMORY_PROVENANCE_SOURCES = {
@@ -116,3 +120,37 @@ def validate_dispatch_log_entry(entry: dict) -> list[str]:
         errors.append("memory_consulted=true requires memory_request_provenance to cite artifact-bearing evidence")
 
     return errors
+
+
+def validate_dispatch_log_file(path: Path) -> list[str]:
+    errors: list[str] = []
+    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        if not raw_line.strip():
+            continue
+        try:
+            payload = json.loads(raw_line)
+        except json.JSONDecodeError as exc:
+            errors.append(f"line {line_number}: invalid JSON ({exc.msg})")
+            continue
+        entry_errors = validate_dispatch_log_entry(payload)
+        errors.extend(f"line {line_number}: {error}" for error in entry_errors)
+    return errors
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Validate orchestrator dispatch-log membrane evidence fields")
+    parser.add_argument("logfile", help="Path to a JSONL dispatch log")
+    args = parser.parse_args()
+
+    errors = validate_dispatch_log_file(Path(args.logfile))
+    if errors:
+        for error in errors:
+            print(error)
+        return 1
+
+    print("dispatch log validation: ok")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
