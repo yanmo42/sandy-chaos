@@ -33,7 +33,7 @@ Legacy long-form drafts are preserved in **`docs/archive/`**.
 ## Repository modules
 
 - `cosmic_comm/`: Kerr metric + geodesic tracing prototypes
-- `nfem_suite/`: simulation + protocol + visualization stack
+- `nfem_suite/`: simulation + protocol + visualization stack, including inspectable benchmark scaffolds under `nfem_suite/benchmarks/`
 
 ## Quick start
 
