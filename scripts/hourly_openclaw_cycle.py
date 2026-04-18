@@ -9,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+RECEIPT_PATH = ROOT / "memory" / "hourly_cycle_receipts.jsonl"
 DEFAULT_VALIDATION = ["./venv/bin/python", "-m", "unittest", "discover", "-s", "tests", "-q"]
 DEFAULT_REMOTE = "origin"
 DEFAULT_BRANCH = "main"
@@ -94,6 +95,19 @@ def run_validation() -> subprocess.CompletedProcess[str]:
     return run_live(DEFAULT_VALIDATION)
 
 
+def append_receipt(*, start_head: str, dispatch_limit: int, dry_run: bool) -> None:
+    if dry_run:
+        return
+    RECEIPT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "ts": datetime.now().isoformat(timespec="seconds"),
+        "start_head": start_head,
+        "dispatch_limit": dispatch_limit,
+    }
+    with RECEIPT_PATH.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+
 def maybe_commit(changed: list[str], *, dry_run: bool) -> tuple[bool, str | None]:
     if not changed:
         return False, None
@@ -146,6 +160,7 @@ def main() -> int:
         }, indent=2))
         return 1
 
+    append_receipt(start_head=start_head, dispatch_limit=args.dispatch_limit, dry_run=args.dry_run)
     status_lines = git_status()
     commit_candidates = status_lines if args.allow_untracked else tracked_changes_only(status_lines)
 
