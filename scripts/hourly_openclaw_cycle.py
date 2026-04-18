@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RECEIPT_PATH = ROOT / "memory" / "hourly_cycle_receipts.jsonl"
+RECEIPT_PATH = ROOT / "memory" / "hourly_cycle_receipts.md"
 DEFAULT_VALIDATION = ["./venv/bin/python", "-m", "unittest", "discover", "-s", "tests", "-q"]
 DEFAULT_REMOTE = "origin"
 DEFAULT_BRANCH = "main"
@@ -99,13 +99,11 @@ def append_receipt(*, start_head: str, dispatch_limit: int, dry_run: bool) -> No
     if dry_run:
         return
     RECEIPT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    payload = {
-        "ts": datetime.now().isoformat(timespec="seconds"),
-        "start_head": start_head,
-        "dispatch_limit": dispatch_limit,
-    }
+    stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if not RECEIPT_PATH.exists():
+        RECEIPT_PATH.write_text("# Hourly Cycle Receipts\n\n", encoding="utf-8")
     with RECEIPT_PATH.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(payload, ensure_ascii=False) + "\n")
+        fh.write(f"- {stamp} | start_head={start_head} | dispatch_limit={dispatch_limit}\n")
 
 
 def maybe_commit(changed: list[str], *, dry_run: bool) -> tuple[bool, str | None]:
@@ -115,7 +113,7 @@ def maybe_commit(changed: list[str], *, dry_run: bool) -> tuple[bool, str | None
     msg = f"chore: hourly automation cycle {stamp}"
     if dry_run:
         return True, msg
-    subprocess.run(["git", "add", "-A"], cwd=ROOT, check=True)
+    subprocess.run(["git", "add", "--", *changed], cwd=ROOT, check=True)
     commit = subprocess.run(
         ["git", "commit", "-m", msg], cwd=ROOT, text=True, capture_output=True
     )

@@ -1,0 +1,2 @@
+# Hourly Cycle Receipts
+
