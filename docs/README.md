@@ -23,9 +23,10 @@ This documentation set is intentionally compressed into a small canonical path:
 17. **[17 Endosymbiosis and Host Assimilation](17_endosymbiosis_and_host_assimilation.md)**
 18. **[18 Adaptive Substrate and Host Binding](18_adaptive_substrate_and_host_binding.md)**
 19. **[19 Surface Authority Architecture](19_surface_authority_architecture.md)**
-20. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-21. **[Prediction Protocol](prediction-protocol.md)**
-22. **[Paradox Registry](paradox-registry.md)**
+20. **[20 How Time Learns Your Name](20_how_time_learns_your_name.md)**
+21. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+22. **[Prediction Protocol](prediction-protocol.md)**
+23. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -60,7 +61,7 @@ Legacy long-form drafts are preserved under **[archive/](archive/README.md)**.
 
 ### Philosophy-first path
 
-- Foundations → Micro-Observer → Nested Temporal Domains → Gravitational Centers and Energistics → Endosymbiosis and Host Assimilation → Adaptive Substrate and Host Binding → Cognitive Tempo Orchestration
+- Foundations → Micro-Observer → Nested Temporal Domains → Gravitational Centers and Energistics → Endosymbiosis and Host Assimilation → Adaptive Substrate and Host Binding → Cognitive Tempo Orchestration → How Time Learns Your Name
 
 ---
 

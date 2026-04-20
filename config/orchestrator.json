@@ -47,14 +47,14 @@
   "validation": {
     "commands": {
       "default": [
-        "./venv/bin/python -m unittest discover -s tests -q"
+        "python3 -m unittest tests.test_self_improve tests.test_fullpass_validation_summary tests.test_orchestrator_autospawn tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_resolve_validation_command_by_lane tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_task_contract_includes_validation_policy_ref tests.test_automation_orchestrator_validation_config.SessionResumeContextTests -q"
       ],
       "byLane": {
         "sandy-builder": [
-          "./venv/bin/python -m unittest discover -s tests -q"
+          "python3 -m unittest tests.test_self_improve tests.test_fullpass_validation_summary tests.test_orchestrator_autospawn tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_resolve_validation_command_by_lane tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_task_contract_includes_validation_policy_ref tests.test_automation_orchestrator_validation_config.SessionResumeContextTests -q"
         ],
         "sandy-verifier": [
-          "./venv/bin/python -m unittest discover -s tests -q"
+          "python3 -m unittest tests.test_self_improve tests.test_fullpass_validation_summary tests.test_orchestrator_autospawn tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_resolve_validation_command_by_lane tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_task_contract_includes_validation_policy_ref tests.test_automation_orchestrator_validation_config.SessionResumeContextTests -q"
         ],
         "sandy-planner": [
           "python3 scripts/todo_scan.py plans/todo.md"

@@ -27,8 +27,8 @@ failure_conditions:
 missing_assumptions:
   - operators will rank by proof leverage rather than novelty or emotional pull
   - active surfaces can be stated tightly enough to place on one level without hand-waving
-next_test: apply the ladder to the top Sandy Chaos surfaces across at least two cycles and check whether the chosen primary target remains more decision-useful than ad hoc prioritization
-next_action: use the ladder to frame one Level-4 discriminating benchmark for SC-CONCEPT-0006 symbolic-maps-and-narrative-invariants
+next_test: apply the ladder across the post-SC-CONCEPT-0006 rerank and check whether the new `SC-CONCEPT-0003` primary target remains more decision-useful than ad hoc prioritization over the next cycle
+next_action: keep one ranked frontier after the symbolic-maps bounded package, with the baton now pointed at `SC-CONCEPT-0003` rather than reopening parked hardening pressure on `SC-CONCEPT-0006`
 promotion_target: ygg-bridge
 owner_surface: shared-with-ygg
-notes: This is a governance concept, not a claim that the ladder itself proves scientific results. Its value is in better pressure placement and cleaner branch compression.
+notes: This is a governance concept, not a claim that the ladder itself proves scientific results. Its value is in better pressure placement and cleaner branch compression. The 2026-04-18 rerank is the first real post-frontier handoff test: `SC-CONCEPT-0006` remained proof-bearing, but the ladder should still demote it from the active slot once the hardening path honestly stalls.

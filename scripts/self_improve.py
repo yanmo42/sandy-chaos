@@ -21,6 +21,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import urllib.parse
 import urllib.request
 import uuid
@@ -44,7 +45,6 @@ ORCH_CYCLE_LOG = ROOT / "memory" / "orchestrator_cycle_events.jsonl"
 DAILY_DIGEST_TEMPLATE = TEMPLATES / "daily_digest_notification.md"
 WEEKLY_DIGEST_TEMPLATE = TEMPLATES / "weekly_digest_notification.md"
 RESEARCH_DIR = MEMORY_DIR / "research"
-DEFAULT_VALIDATION_COMMAND = "./venv/bin/python -m unittest discover -s tests -q"
 DEFAULT_VALIDATION_POLICY = {
     "requireAtLeastOneCommand": True,
     "requireAllPass": True,
@@ -83,6 +83,34 @@ DEFAULT_PROMPTING = {
     ],
 }
 DEFAULT_DISPATCH_AGENT_ID = ROOT.name
+
+
+def resolve_validation_python() -> str:
+    repo_python = ROOT / "venv" / "bin" / "python"
+    if repo_python.exists():
+        return str(repo_python)
+    if sys.executable:
+        return sys.executable
+    return shutil.which("python3") or "python3"
+
+
+def default_validation_command() -> str:
+    return f"{resolve_validation_python()} -m unittest discover -s tests -q"
+
+
+DEFAULT_VALIDATION_COMMAND = default_validation_command()
+
+
+def normalize_validation_command(command: str) -> str:
+    text = str(command).strip()
+    if not text:
+        return default_validation_command()
+    stale_prefix = "./venv/bin/python"
+    if text == stale_prefix or text.startswith(f"{stale_prefix} "):
+        repo_python = ROOT / "venv" / "bin" / "python"
+        if not repo_python.exists():
+            return text.replace(stale_prefix, resolve_validation_python(), 1)
+    return text
 
 try:
     from nfem_suite.intelligence.ygg.continuity import (
@@ -244,7 +272,10 @@ def render_contract_prompt(contract: dict, prompting: dict | None = None) -> str
     goal = str(contract.get("goal", "(missing goal)")).strip() or "(missing goal)"
     constraints = _as_lines(contract.get("constraints"))
     dod = _as_lines(contract.get("definition_of_done"))
-    validation_command = str(contract.get("validation_command", DEFAULT_VALIDATION_COMMAND)).strip() or DEFAULT_VALIDATION_COMMAND
+    fallback_command = default_validation_command()
+    validation_command = normalize_validation_command(
+        str(contract.get("validation_command", fallback_command)).strip() or fallback_command
+    )
 
     by_lane = cfg.get("byLane", {}) if isinstance(cfg, dict) else {}
     lane_specific = _as_lines(by_lane.get(lane))
@@ -302,14 +333,14 @@ def resolve_validation_runtime(validation_commands_override: list[str] | None = 
 
     default_commands = commands_cfg.get("default") if isinstance(commands_cfg, dict) else None
     if isinstance(default_commands, list):
-        default_commands_list = [str(c).strip() for c in default_commands if str(c).strip()]
+        default_commands_list = [normalize_validation_command(str(c).strip()) for c in default_commands if str(c).strip()]
     elif isinstance(default_commands, str) and default_commands.strip():
-        default_commands_list = [default_commands.strip()]
+        default_commands_list = [normalize_validation_command(default_commands.strip())]
     else:
-        default_commands_list = [DEFAULT_VALIDATION_COMMAND]
+        default_commands_list = [default_validation_command()]
 
     if validation_commands_override:
-        commands = [str(c).strip() for c in validation_commands_override if str(c).strip()]
+        commands = [normalize_validation_command(str(c).strip()) for c in validation_commands_override if str(c).strip()]
     else:
         commands = default_commands_list
 

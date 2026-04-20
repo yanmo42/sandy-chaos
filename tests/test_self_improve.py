@@ -1,4 +1,5 @@
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -299,6 +300,15 @@ class SelfImprovePromptingConfigTests(unittest.TestCase):
 
 
 class SelfImproveValidationConfigTests(unittest.TestCase):
+    def test_resolve_validation_python_falls_back_to_sys_executable(self):
+        with tempfile.TemporaryDirectory() as td:
+            original_root = self_improve.ROOT
+            try:
+                self_improve.ROOT = Path(td)
+                self.assertEqual(self_improve.resolve_validation_python(), sys.executable)
+            finally:
+                self_improve.ROOT = original_root
+
     def test_resolve_validation_runtime_uses_orchestrator_config(self):
         with tempfile.TemporaryDirectory() as td:
             cfg_path = Path(td) / "orchestrator.json"

@@ -20,6 +20,7 @@ Canonical set (compressed):
 - **[17 Endosymbiosis and Host Assimilation](docs/17_endosymbiosis_and_host_assimilation.md)**
 - **[18 Adaptive Substrate and Host Binding](docs/18_adaptive_substrate_and_host_binding.md)**
 - **[19 Surface Authority Architecture](docs/19_surface_authority_architecture.md)**
+- **[20 How Time Learns Your Name](docs/20_how_time_learns_your_name.md)**
 
 Supporting:
 

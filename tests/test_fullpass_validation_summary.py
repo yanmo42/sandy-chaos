@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -76,6 +77,14 @@ class FullPassValidationSummaryTests(unittest.TestCase):
         self.assertIn("Validation outcomes (commands run):", msg)
         self.assertIn("PASS (exit 0): `./venv/bin/python -m unittest -q`", msg)
         self.assertIn("dispatch membrane evidence: control-affecting=2, descriptive=1, continuity-relevant=2, memory-consulted=1, artifact-refs=4", msg)
+
+    def test_default_validation_command_uses_resolved_python(self):
+        with patch("scripts.self_improve.resolve_validation_python", return_value="/tmp/python-real"):
+            with patch.object(self_improve, "ORCHESTRATOR_CONFIG_PATH", Path("/tmp/missing-orchestrator.json")):
+                self.assertEqual(
+                    self_improve.resolve_validation_runtime()["commands"],
+                    ["/tmp/python-real -m unittest discover -s tests -q"],
+                )
 
 
 if __name__ == "__main__":

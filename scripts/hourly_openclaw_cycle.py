@@ -5,6 +5,7 @@ import argparse
 import contextlib
 import io
 import json
+import shlex
 import shutil
 import subprocess
 import sys
@@ -18,10 +19,14 @@ if str(ROOT) not in sys.path:
 from scripts import orchestrator_autospawn, self_improve
 RECEIPT_PATH = ROOT / "memory" / "hourly_cycle_receipts.md"
 TASK_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
-DEFAULT_VALIDATION = ["./venv/bin/python", "-m", "unittest", "discover", "-s", "tests", "-q"]
 DEFAULT_REMOTE = "origin"
 DEFAULT_BRANCH = "main"
 DEFAULT_AGENT = "claude"
+DEFAULT_AGENT_TIMEOUT_SEC = 300
+
+
+def default_validation_command() -> list[str]:
+    return [self_improve.resolve_validation_python(), "-m", "unittest", "discover", "-s", "tests", "-q"]
 
 
 def run(cmd: list[str], *, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -141,7 +146,7 @@ def build_agent_prompt(task: dict) -> str:
     return prompt
 
 
-def run_agent_task(task: dict, *, agent: str, dry_run: bool) -> subprocess.CompletedProcess[str]:
+def run_agent_task(task: dict, *, agent: str, dry_run: bool, timeout_sec: int) -> subprocess.CompletedProcess[str]:
     prompt = build_agent_prompt(task)
     if dry_run:
         return subprocess.CompletedProcess(
@@ -151,11 +156,48 @@ def run_agent_task(task: dict, *, agent: str, dry_run: bool) -> subprocess.Compl
             stderr="",
         )
     cmd = resolve_agent_command(agent)
-    return subprocess.run(cmd + [prompt], cwd=ROOT, text=True, capture_output=True)
+    try:
+        return subprocess.run(
+            cmd + [prompt],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            timeout=timeout_sec,
+        )
+    except subprocess.TimeoutExpired as exc:
+        return subprocess.CompletedProcess(
+            args=cmd,
+            returncode=124,
+            stdout=(exc.stdout or ""),
+            stderr=((exc.stderr or "") + f"\nagent timed out after {timeout_sec}s").strip(),
+        )
 
 
-def run_validation() -> subprocess.CompletedProcess[str]:
-    return run_live(DEFAULT_VALIDATION)
+def resolve_task_validation_command(task: dict | None) -> list[str]:
+    if isinstance(task, dict):
+        raw = str(task.get("validation_command", "")).strip()
+        if raw:
+            return shlex.split(self_improve.normalize_validation_command(raw))
+    return default_validation_command()
+
+
+def run_validation(task: dict | None) -> subprocess.CompletedProcess[str]:
+    return run_live(resolve_task_validation_command(task))
+
+
+def latest_cycle_event() -> dict | None:
+    path = self_improve.ORCH_CYCLE_LOG
+    if not path.exists():
+        return None
+    for raw in reversed(path.read_text(encoding="utf-8", errors="ignore").splitlines()):
+        line = raw.strip()
+        if not line:
+            continue
+        try:
+            return json.loads(line)
+        except json.JSONDecodeError:
+            continue
+    return None
 
 
 def append_receipt(*, start_head: str, dispatch_limit: int, task: dict | None, agent: str, dry_run: bool) -> None:
@@ -214,6 +256,7 @@ def main() -> int:
     ap.add_argument("--remote", default=DEFAULT_REMOTE)
     ap.add_argument("--branch", default=DEFAULT_BRANCH)
     ap.add_argument("--agent", default=DEFAULT_AGENT)
+    ap.add_argument("--agent-timeout-sec", type=int, default=DEFAULT_AGENT_TIMEOUT_SEC)
     ap.add_argument("--allow-untracked", action="store_true", help="Include untracked files in the commit set")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
@@ -221,11 +264,15 @@ def main() -> int:
     start_head = git_head()
     full_pass = run_full_pass(limit=args.dispatch_limit, dry_run=args.dry_run)
     if full_pass.returncode != 0:
+        cycle_event = latest_cycle_event()
         print(json.dumps({
             "ok": False,
             "stage": "full-pass",
             "stdout": full_pass.stdout[-4000:],
             "stderr": full_pass.stderr[-4000:],
+            "validation_gate_ok": None if not cycle_event else cycle_event.get("validation_gate_ok"),
+            "validation": [] if not cycle_event else cycle_event.get("validation", []),
+            "pipeline": {} if not cycle_event else cycle_event.get("pipeline", {}),
         }, indent=2))
         return 1
 
@@ -239,7 +286,12 @@ def main() -> int:
         }, indent=2))
         return 1
 
-    agent_run = run_agent_task(selected_task, agent=args.agent, dry_run=args.dry_run)
+    agent_run = run_agent_task(
+        selected_task,
+        agent=args.agent,
+        dry_run=args.dry_run,
+        timeout_sec=max(1, args.agent_timeout_sec),
+    )
     if agent_run.returncode != 0:
         print(json.dumps({
             "ok": False,
@@ -263,7 +315,7 @@ def main() -> int:
 
     validation = None
     if commit_candidates and not args.dry_run:
-        validation = run_validation()
+        validation = run_validation(selected_task)
         if validation.returncode != 0:
             print(json.dumps({
                 "ok": False,

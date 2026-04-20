@@ -17,6 +17,7 @@ import argparse
 import json
 import re
 import subprocess
+import sys
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -34,8 +35,6 @@ try:
     )
     from nfem_suite.intelligence.ygg.topological_memory_runtime import write_retrieval_trace
 except ModuleNotFoundError:
-    import sys
-
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from nfem_suite.intelligence.ygg.continuity import (
         ALLOWED_BRANCH_OUTCOME_CLASSES,
@@ -154,16 +153,24 @@ def resolve_validation_command(cfg: dict, lane: str) -> str:
     if isinstance(lane_value, list):
         lane_value = lane_value[0] if lane_value else None
     if isinstance(lane_value, str) and lane_value.strip():
-        return lane_value.strip()
+        return lane_value.strip().replace(
+            "./venv/bin/python",
+            sys.executable or "python3",
+            1,
+        ) if lane_value.strip().startswith("./venv/bin/python") and not Path("./venv/bin/python").exists() else lane_value.strip()
 
     default_value = commands_cfg.get("default") if isinstance(commands_cfg, dict) else None
     if isinstance(default_value, list):
         default_value = default_value[0] if default_value else None
     if isinstance(default_value, str) and default_value.strip():
-        return default_value.strip()
+        return default_value.strip().replace(
+            "./venv/bin/python",
+            sys.executable or "python3",
+            1,
+        ) if default_value.strip().startswith("./venv/bin/python") and not Path("./venv/bin/python").exists() else default_value.strip()
 
     # Safe fallback if config is missing/malformed.
-    return "./venv/bin/python -m unittest discover -s tests -q"
+    return f"{sys.executable or 'python3'} -m unittest discover -s tests -q"
 
 
 def resolve_promotion_review_policy(cfg: dict, promotion_target: str) -> dict[str, str]:

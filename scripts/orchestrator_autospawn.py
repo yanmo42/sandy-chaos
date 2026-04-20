@@ -12,6 +12,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -26,8 +27,6 @@ try:
     )
     from scripts.dispatch_log_validator import validate_dispatch_log_entry
 except ModuleNotFoundError:
-    import sys
-
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from nfem_suite.intelligence.ygg.continuity import (
         ALLOWED_BRANCH_OUTCOME_CLASSES,
@@ -343,10 +342,13 @@ def resolve_default_validation_command() -> str:
             if isinstance(default_value, list):
                 default_value = default_value[0] if default_value else None
             if isinstance(default_value, str) and default_value.strip():
-                return default_value.strip()
+                text = default_value.strip()
+                if text.startswith("./venv/bin/python") and not (ROOT / "venv" / "bin" / "python").exists():
+                    return text.replace("./venv/bin/python", sys.executable or "python3", 1)
+                return text
     except Exception:
         pass
-    return "./venv/bin/python -m unittest discover -s tests -q"
+    return f"{sys.executable or 'python3'} -m unittest discover -s tests -q"
 
 
 def to_spawn_request(task: dict, idx: int, prompting: dict | None = None) -> dict:
