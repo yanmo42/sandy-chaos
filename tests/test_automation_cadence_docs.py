@@ -71,6 +71,20 @@ class AutomationCadenceDocsTests(unittest.TestCase):
             text,
         )
 
+    def test_daily_digest_notification_template_makes_meso_bridge_mapping_explicit(self):
+        text = (ROOT / "templates/daily_digest_notification.md").read_text(encoding="utf-8")
+
+        self.assertIn("cadence surface: **bridge**", text)
+        self.assertIn("daily = meso = bridge", text)
+        self.assertIn("docs/12_yggdrasil_continuity_architecture.md", text)
+
+    def test_weekly_digest_notification_template_makes_slow_spine_mapping_explicit(self):
+        text = (ROOT / "templates/weekly_digest_notification.md").read_text(encoding="utf-8")
+
+        self.assertIn("cadence surface: **spine**", text)
+        self.assertIn("weekly = slow = spine", text)
+        self.assertIn("docs/12_yggdrasil_continuity_architecture.md", text)
+
     def test_yggdrasil_continuity_architecture_makes_edge_bridge_spine_mapping_explicit(self):
         text = (ROOT / "docs/12_yggdrasil_continuity_architecture.md").read_text(encoding="utf-8")
 
