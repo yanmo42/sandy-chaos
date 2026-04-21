@@ -40,6 +40,7 @@ class BenchmarkCase:
         if not self.frames:
             raise ValueError("benchmark case must include at least one frame")
         seen_ids: set[str] = set()
+        previous_timestep: int | None = None
         for frame in self.frames:
             if not frame.frame_id.strip():
                 raise ValueError("frame_id must be non-empty")
@@ -50,6 +51,15 @@ class BenchmarkCase:
                 raise ValueError("latency must be non-negative")
             if frame.distortion < 0:
                 raise ValueError("distortion must be non-negative")
+            # Strict causality: frames must be ordered by non-decreasing
+            # timestep. Out-of-order frames would let a variant index a "future"
+            # observation while pretending it was present/past.
+            if previous_timestep is not None and frame.timestep < previous_timestep:
+                raise ValueError(
+                    "frames must be supplied in non-decreasing timestep order "
+                    f"(frame {frame.frame_id!r} at t={frame.timestep} follows t={previous_timestep})"
+                )
+            previous_timestep = frame.timestep
 
 
 @dataclass(frozen=True)

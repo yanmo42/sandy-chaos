@@ -103,6 +103,28 @@ class BenchmarkHarnessFailureModeTests(unittest.TestCase):
                 target_state={"signal": 0.0},
             )
 
+    def test_benchmark_case_rejects_retrocausal_frame_order(self):
+        # Frames must be supplied in non-decreasing timestep order. A later
+        # frame_id carrying an earlier timestep would let a variant index a
+        # "future" observation while pretending it was a past one.
+        earlier = BenchmarkFrame(
+            frame_id="past",
+            timestep=2,
+            observed_state={"signal": 0.0},
+        )
+        later = BenchmarkFrame(
+            frame_id="before-past",
+            timestep=1,
+            observed_state={"signal": 0.0},
+        )
+        with self.assertRaises(ValueError):
+            BenchmarkCase(
+                case_id="retrocausal",
+                description="non-monotonic timesteps must fail loudly",
+                frames=(earlier, later),
+                target_state={"signal": 0.0},
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
