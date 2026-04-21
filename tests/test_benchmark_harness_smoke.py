@@ -42,6 +42,96 @@ class BenchmarkHarnessSmokeTests(unittest.TestCase):
             )
 
 
+class BenchmarkHarnessDescribeContractTests(unittest.TestCase):
+    """Falsification guard: ``describe()`` must keep advertising scaffold-only.
+
+    The harness and each variant report ``status="scaffold-only"`` and the
+    harness notes explicitly deny empirical-result claims. Those declarations
+    are the only outsider-legible signal that no promotion is implied yet. If
+    they silently disappear or change wording, the scaffold could be read as
+    producing real scores. This test pins the canonical shape so any drift has
+    to happen deliberately, not by accident.
+    """
+
+    _REQUIRED_NOTE_FRAGMENTS = (
+        "inspectable scaffolding only",
+        "No empirical results",
+        "Strict causality",
+    )
+
+    def test_harness_describe_declares_scaffold_only_posture(self):
+        harness = make_default_harness()
+
+        description = harness.describe()
+
+        self.assertEqual(description["status"], "scaffold-only")
+        variant_ids = [entry["variant_id"] for entry in description["variants"]]
+        self.assertEqual(
+            variant_ids,
+            [
+                "single-scale-baseline",
+                "multiframe-unconstrained-baseline",
+                "neighbor-only-contract-model",
+            ],
+        )
+        for entry in description["variants"]:
+            self.assertEqual(
+                entry["status"],
+                "scaffold-only",
+                msg=f"variant {entry['variant_id']!r} must advertise scaffold-only status",
+            )
+        joined_notes = " ".join(description["notes"])
+        for fragment in self._REQUIRED_NOTE_FRAGMENTS:
+            self.assertIn(
+                fragment,
+                joined_notes,
+                msg=(
+                    f"harness describe notes dropped required fragment {fragment!r}; "
+                    "scaffold-only posture must remain explicit"
+                ),
+            )
+
+
+class BenchmarkHarnessNoEmpiricalScoresTests(unittest.TestCase):
+    """Falsification guard: the smoke scaffold must not emit numeric scores.
+
+    The scaffold declares `status="scaffold-only"` and `"No empirical results"`
+    in its describe notes. If any of the canonical numeric placeholder metrics
+    silently turns into a real number, the harness has drifted out of the
+    inspectable-only posture. Checking only `prediction_error` would let the
+    other three slots drift unnoticed, so this test asserts the full set.
+    """
+
+    _NUMERIC_PLACEHOLDER_KEYS = (
+        "prediction_error",
+        "contract_violation_rate",
+        "coherence_gain",
+        "latency_adjusted_utility",
+    )
+
+    def test_smoke_run_emits_no_numeric_scores_across_variants(self):
+        harness = make_default_harness()
+
+        smoke_results = harness.run_smoke_case()
+
+        self.assertEqual(len(smoke_results), 3)
+        for result in smoke_results:
+            self.assertEqual(result.status, "scaffold-only")
+            for key in self._NUMERIC_PLACEHOLDER_KEYS:
+                self.assertIn(
+                    key,
+                    result.placeholder_metrics,
+                    msg=f"variant {result.variant_id} missing placeholder metric {key!r}",
+                )
+                self.assertIsNone(
+                    result.placeholder_metrics[key],
+                    msg=(
+                        f"variant {result.variant_id} emitted a non-None value for "
+                        f"{key!r}; scaffold must not report empirical scores yet"
+                    ),
+                )
+
+
 class BenchmarkHarnessFailureModeTests(unittest.TestCase):
     """Falsification-oriented checks: the scaffold must refuse malformed inputs.
 
