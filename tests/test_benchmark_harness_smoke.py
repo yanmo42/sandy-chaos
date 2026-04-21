@@ -1,6 +1,7 @@
 import unittest
 
 from nfem_suite.benchmarks.temporal_predictive_processing import (
+    _ALLOWED_ABLATION_IDS,
     BenchmarkCase,
     BenchmarkFrame,
     BenchmarkHarness,
@@ -242,6 +243,34 @@ class BenchmarkHarnessFailureModeTests(unittest.TestCase):
         shuffled = (default.variants[2], default.variants[0], default.variants[1])
         with self.assertRaises(ValueError):
             BenchmarkHarness(variants=shuffled)
+
+    def test_harness_rejects_unknown_ablation_id(self):
+        # Falsification symmetry: variant ids are canonical-only and ablation
+        # ids must be too. A silent typo/rename at construction time would
+        # otherwise drift past the scaffold contract without failing loudly.
+        default = make_default_harness()
+        with self.assertRaises(ValueError) as ctx:
+            BenchmarkHarness(
+                variants=default.variants,
+                ablations=("no-contract-projection", "totally-made-up-ablation"),
+            )
+        self.assertIn("unknown ablation ids", str(ctx.exception))
+        self.assertIn("totally-made-up-ablation", str(ctx.exception))
+
+    def test_harness_rejects_duplicate_ablation_ids(self):
+        default = make_default_harness()
+        duplicated = _ALLOWED_ABLATION_IDS + ("no-contract-projection",)
+        with self.assertRaises(ValueError) as ctx:
+            BenchmarkHarness(variants=default.variants, ablations=duplicated)
+        self.assertIn("duplicate ablation ids", str(ctx.exception))
+
+    def test_harness_rejects_missing_canonical_ablation(self):
+        default = make_default_harness()
+        dropped = tuple(a for a in _ALLOWED_ABLATION_IDS if a != "all-to-all-coupling")
+        with self.assertRaises(ValueError) as ctx:
+            BenchmarkHarness(variants=default.variants, ablations=dropped)
+        self.assertIn("missing canonical ablation ids", str(ctx.exception))
+        self.assertIn("all-to-all-coupling", str(ctx.exception))
 
     def test_benchmark_case_rejects_empty_frames(self):
         with self.assertRaises(ValueError):

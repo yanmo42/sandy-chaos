@@ -10,6 +10,14 @@ _ALLOWED_VARIANT_IDS = (
     "neighbor-only-contract-model",
 )
 
+_ALLOWED_ABLATION_IDS = (
+    "no-contract-projection",
+    "no-shared-latent-space",
+    "no-cross-frame-coupling",
+    "all-to-all-coupling",
+    "latency-distortion-removed",
+)
+
 
 MetadataInvariant = Callable[["BenchmarkCase"], "str | None"]
 
@@ -191,13 +199,7 @@ class ScaffoldVariant:
 @dataclass(frozen=True)
 class BenchmarkHarness:
     variants: tuple[ScaffoldVariant, ...]
-    ablations: tuple[str, ...] = (
-        "no-contract-projection",
-        "no-shared-latent-space",
-        "no-cross-frame-coupling",
-        "all-to-all-coupling",
-        "latency-distortion-removed",
-    )
+    ablations: tuple[str, ...] = _ALLOWED_ABLATION_IDS
 
     def __post_init__(self) -> None:
         ids = tuple(variant.variant_id for variant in self.variants)
@@ -205,6 +207,27 @@ class BenchmarkHarness:
             raise ValueError(
                 "benchmark harness must expose the canonical variant order: "
                 + ", ".join(_ALLOWED_VARIANT_IDS)
+            )
+        if self.ablations != _ALLOWED_ABLATION_IDS:
+            allowed = set(_ALLOWED_ABLATION_IDS)
+            unknown = tuple(a for a in self.ablations if a not in allowed)
+            seen: set[str] = set()
+            duplicates = tuple(
+                a for a in self.ablations if a in seen or seen.add(a)  # type: ignore[func-returns-value]
+            )
+            missing = tuple(a for a in _ALLOWED_ABLATION_IDS if a not in self.ablations)
+            detail_parts = []
+            if unknown:
+                detail_parts.append(f"unknown ablation ids: {', '.join(unknown)}")
+            if duplicates:
+                detail_parts.append(f"duplicate ablation ids: {', '.join(duplicates)}")
+            if missing:
+                detail_parts.append(f"missing canonical ablation ids: {', '.join(missing)}")
+            detail = "; ".join(detail_parts) if detail_parts else "ablation order drifted from canonical"
+            raise ValueError(
+                "benchmark harness must expose the canonical ablation list: "
+                + ", ".join(_ALLOWED_ABLATION_IDS)
+                + f" ({detail})"
             )
 
     def describe(self) -> dict[str, Any]:

@@ -18,6 +18,7 @@ Included now:
 - per-variant metadata invariants for declared structure: the `neighbor-only-contract-model` refuses cases whose `neighbor_topology` is empty, references unknown `frame_id`s, or declares a neighbor edge running backward in time (the declared topology must respect strict forward causality just like the frame ordering itself)
 - pinned canonical ablation list on `BenchmarkHarness.ablations`: silent reorder, rename, or addition would desync the ablation-table contract from the spec note and now fails loudly
 - pinned per-variant required-metadata mapping: baselines must stay minimal-contract (no required metadata), and `neighbor-only-contract-model` must keep `neighbor_topology` as its declared precondition; silent drift either way now fails loudly
+- constructor-level ablation-id validation on `BenchmarkHarness`: any direct construction whose `ablations` tuple drifts from the canonical list (unknown id, duplicate id, missing canonical id, or reordered) fails at `__post_init__` with a named detail, so silent typo/rename can no longer slip past as a valid scaffold harness
 
 Not included yet:
 
