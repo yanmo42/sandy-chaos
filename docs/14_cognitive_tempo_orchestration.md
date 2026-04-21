@@ -94,6 +94,16 @@ It should be described as a system that:
 - forms bounded estimates,
 - and applies constrained interventions across adjacent tempo bands.
 
+### 3.1 Cadence mapping onto edge / bridge / spine
+
+For continuity with `docs/12_yggdrasil_continuity_architecture.md`, the three CTO loops map onto the canonical Yggdrasil cadence surfaces:
+
+- **fast = edge** cadence → safety, rate limiting, and reversible local modulation,
+- **meso = bridge** cadence → state scaffolding, routing, and cross-band summary handoff,
+- **slow = spine** cadence → continuity, identity constraints, and policy shaping.
+
+The mapping stays strictly forward-causal: edge observations can inform bridge summaries, and bridge summaries can justify spine revisions, but CTO should not imply direct fast-to-spine promotion or any retrocausal rewrite of slow-band policy from raw fast-loop activity.
+
 ---
 
 ## 4) Core architecture
