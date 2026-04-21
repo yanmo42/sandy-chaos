@@ -343,7 +343,7 @@ Authority posture: advisory work packets. None may raise claim tier, promote to 
 Source: `docs/16_temporal_predictive_processing.md`, matrix row T-014 (REVIEW).
 
 - [ ] Draft minimal baseline-comparison spec in `docs/notes/t014_baseline_spec_v0.md`: declare single-scale / unconstrained-multiframe / contract-bounded variants, a synthetic multiscale dataset generator, and the ablation table columns. Claim tier: defensible for the spec itself; T-014 remains speculative.
-- [ ] Stub the benchmark harness skeleton under `nfem_suite/` exposing the three variant interfaces plus one smoke test. No empirical results yet — inspectable scaffold only.
+- [x] Stub the benchmark harness skeleton under `nfem_suite/` exposing the three variant interfaces plus one smoke test. No empirical results yet — inspectable scaffold only. (`nfem_suite/benchmarks/temporal_predictive_processing.py`, `tests/test_benchmark_harness_smoke.py`, `docs/notes/t014_benchmark_harness_scaffold_v0.md`)
 - [ ] Failure condition: if the spec cannot name a baseline that is plausibly beatable by the contract-bounded variant, record that T-014 is not yet benchmark-ready and halt this lane.
 
 ### B. Concretize observer read-write Φ in fluid sim

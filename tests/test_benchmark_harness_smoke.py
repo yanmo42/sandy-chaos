@@ -42,6 +42,29 @@ class BenchmarkHarnessSmokeTests(unittest.TestCase):
                 msg=f"missing failure modes for {result.variant_id}",
             )
 
+    def test_smoke_results_match_canonical_variant_order(self):
+        # Falsification guard: ``run_smoke_case()`` must emit results in the
+        # canonical variant order. Without this, a shuffled result list would
+        # still pass the generic shape checks above, letting outsiders read
+        # the wrong ``variant_id`` against the wrong interface contract. The
+        # scaffold's inspectability depends on this pairing being pinned.
+        harness = make_default_harness()
+
+        smoke_results = harness.run_smoke_case()
+
+        self.assertEqual(
+            [result.variant_id for result in smoke_results],
+            [
+                "single-scale-baseline",
+                "multiframe-unconstrained-baseline",
+                "neighbor-only-contract-model",
+            ],
+        )
+        self.assertEqual(
+            [result.variant_id for result in smoke_results],
+            [variant.variant_id for variant in harness.variants],
+        )
+
 
 class BenchmarkHarnessDescribeContractTests(unittest.TestCase):
     """Falsification guard: ``describe()`` must keep advertising scaffold-only.

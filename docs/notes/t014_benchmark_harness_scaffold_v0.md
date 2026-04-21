@@ -19,6 +19,7 @@ Included now:
 - pinned canonical ablation list on `BenchmarkHarness.ablations`: silent reorder, rename, or addition would desync the ablation-table contract from the spec note and now fails loudly
 - pinned per-variant required-metadata mapping: baselines must stay minimal-contract (no required metadata), and `neighbor-only-contract-model` must keep `neighbor_topology` as its declared precondition; silent drift either way now fails loudly
 - constructor-level ablation-id validation on `BenchmarkHarness`: any direct construction whose `ablations` tuple drifts from the canonical list (unknown id, duplicate id, missing canonical id, or reordered) fails at `__post_init__` with a named detail, so silent typo/rename can no longer slip past as a valid scaffold harness
+- pinned smoke-result emission order on `run_smoke_case()`: results must pair positionally with `harness.variants` in the canonical variant order, so a shuffled emission cannot silently mislabel an interface contract against the wrong `variant_id`
 
 Not included yet:
 
