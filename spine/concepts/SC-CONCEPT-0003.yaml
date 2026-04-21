@@ -21,8 +21,8 @@ contradicts: []
 failure_conditions:
   - toy-model dynamics show no meaningful regime distinction beyond baseline controller behavior
   - narrative state contributes no measurable explanatory or predictive gain
-next_test: run narrative-on vs narrative-off sweeps with matched initialization and report regime differences plus failure envelopes
-next_action: add null-model comparison plus bifurcation-oriented reporting so the claim can move from named idea to pressure-bearing result
+next_test: compare the active profile against null, passive-observer, and no-temporal-bias ablations and report whether bidirectional corridor structure survives as the distinguishing signature
+next_action: package the current null + ablation results into a compact Level-4 corridor-oriented summary with explicit boundary intervals and failure envelopes
 promotion_target: code/experiment
 owner_surface: sandy-chaos
-notes: Partial executable support exists, but literature anchoring and stronger validation are still open.
+notes: Partial executable support exists, null-model discrimination is now recorded, and stronger ablation pressure suggests the key benchmark target is bidirectional corridor structure rather than raw paradox counts.

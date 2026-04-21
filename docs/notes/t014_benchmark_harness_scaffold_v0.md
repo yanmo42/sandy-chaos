@@ -10,10 +10,11 @@ Included now:
   - `single-scale-baseline`
   - `multiframe-unconstrained-baseline`
   - `neighbor-only-contract-model`
-- one synthetic smoke case covering `fast`, `meso`, and `slow` frames
+- one synthetic smoke case covering `fast`, `meso`, and `slow` frames, with neighbor-topology metadata wired in for the contract variant
 - explicit placeholder outputs that refuse to report empirical benchmark scores
 - causal guard text stating that present-state inputs must not depend on future interventions
 - failure-mode declarations per variant so falsification pressure is inspectable before any scoring exists
+- per-variant contract preconditions enforced at `run()` time: the `neighbor-only-contract-model` declares `required_metadata_keys=("neighbor_topology",)` and returns `status="scaffold-only-contract-unmet"` with the missing keys listed when a case omits them, rather than silently passing
 
 Not included yet:
 

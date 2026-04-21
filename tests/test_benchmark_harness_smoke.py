@@ -125,6 +125,41 @@ class BenchmarkHarnessFailureModeTests(unittest.TestCase):
                 target_state={"signal": 0.0},
             )
 
+    def test_neighbor_only_variant_refuses_case_without_topology_metadata(self):
+        # The neighbor-only contract model declares that neighbor topology
+        # metadata is a precondition. Without it, the scaffold must refuse the
+        # case instead of silently emitting a "scaffold-only" pass.
+        from nfem_suite.benchmarks.temporal_predictive_processing import (
+            make_default_harness,
+            make_smoke_case,
+        )
+
+        harness = make_default_harness()
+        neighbor_variant = next(
+            v for v in harness.variants if v.variant_id == "neighbor-only-contract-model"
+        )
+
+        base_case = make_smoke_case()
+        stripped_metadata = {
+            k: v for k, v in base_case.metadata.items() if k != "neighbor_topology"
+        }
+        bad_case = BenchmarkCase(
+            case_id=base_case.case_id,
+            description=base_case.description,
+            frames=base_case.frames,
+            target_state=base_case.target_state,
+            metadata=stripped_metadata,
+        )
+
+        result = neighbor_variant.run(bad_case)
+
+        self.assertEqual(result.status, "scaffold-only-contract-unmet")
+        self.assertIn("neighbor_topology", result.summary)
+        self.assertEqual(
+            result.placeholder_metrics["missing_metadata_keys"], ["neighbor_topology"]
+        )
+        self.assertIsNone(result.placeholder_metrics["prediction_error"])
+
 
 if __name__ == "__main__":
     unittest.main()

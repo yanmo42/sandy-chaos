@@ -93,6 +93,7 @@ class ScaffoldVariant:
     interface_contract: tuple[str, ...]
     causal_guards: tuple[str, ...]
     failure_modes: tuple[str, ...]
+    required_metadata_keys: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if self.variant_id not in _ALLOWED_VARIANT_IDS:
@@ -105,10 +106,40 @@ class ScaffoldVariant:
             "interface_contract": list(self.interface_contract),
             "causal_guards": list(self.causal_guards),
             "failure_modes": list(self.failure_modes),
+            "required_metadata_keys": list(self.required_metadata_keys),
             "status": "scaffold-only",
         }
 
+    def _missing_metadata_keys(self, case: BenchmarkCase) -> tuple[str, ...]:
+        return tuple(
+            key for key in self.required_metadata_keys if key not in case.metadata
+        )
+
     def run(self, case: BenchmarkCase) -> VariantRunResult:
+        missing = self._missing_metadata_keys(case)
+        if missing:
+            # Falsification posture: the variant's declared contract precondition
+            # is not satisfied, so the scaffold refuses to pretend it "ran" the
+            # case. No empirical metrics are emitted, and the caller gets an
+            # inspectable explanation instead of a silent pass.
+            return VariantRunResult(
+                variant_id=self.variant_id,
+                status="scaffold-only-contract-unmet",
+                summary=(
+                    f"{self.label} refused benchmark case {case.case_id!r}: "
+                    f"required metadata keys missing: {', '.join(missing)}."
+                ),
+                placeholder_metrics={
+                    "prediction_error": None,
+                    "contract_violation_rate": None,
+                    "coherence_gain": None,
+                    "latency_adjusted_utility": None,
+                    "case_frame_count": len(case.frames),
+                    "missing_metadata_keys": list(missing),
+                },
+                causal_guards=self.causal_guards,
+                failure_modes=self.failure_modes,
+            )
         return VariantRunResult(
             variant_id=self.variant_id,
             status="scaffold-only",
@@ -225,7 +256,9 @@ def make_default_harness() -> BenchmarkHarness:
                 failure_modes=(
                     "contract residual function is not implemented yet",
                     "must not claim coherence lift before scored comparisons exist",
+                    "refuses cases that omit neighbor_topology metadata",
                 ),
+                required_metadata_keys=("neighbor_topology",),
             ),
         )
     )
@@ -263,5 +296,9 @@ def make_smoke_case() -> BenchmarkCase:
         metadata={
             "purpose": "smoke-test",
             "causal_scope": "present-and-past-observations-only",
+            "neighbor_topology": (
+                ("fast", "meso"),
+                ("meso", "slow"),
+            ),
         },
     )
