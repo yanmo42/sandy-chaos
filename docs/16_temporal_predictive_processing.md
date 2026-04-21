@@ -162,6 +162,8 @@ Let temporal frames be indexed by `k`, with a default set such as:
 
 - `k ∈ {fast, meso, slow}`
 
+For continuity with Yggdrasil's cadence surfaces (see `docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5), these frame indices align with **fast = edge** cadence, **meso = bridge** cadence, and **slow = spine** cadence. The alignment is strictly forward-causal: edge-frame messages may inform bridge-frame summaries, and bridge-frame summaries may justify spine-frame revisions, but admissible transfers in this architecture should not imply direct fast-to-spine promotion or any retrocausal rewrite of slow-frame state from raw fast-frame activity.
+
 Let role polarity optionally be indexed by `r` when needed, as in `13_nested_temporal_domains.md`.
 
 A local frame state may be written as:

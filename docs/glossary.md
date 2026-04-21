@@ -59,7 +59,7 @@ A domain indexed by both role polarity and temporal band, allowed to exchange on
 The relational side occupied by a domain (for example observer/observed, chaser/chased, parent/child).
 
 ### Temporal band
-The cadence class at which a domain updates (for example fast, meso, slow).
+The cadence class at which a domain updates (for example fast, meso, slow). These bands map onto the Yggdrasil continuity surfaces as **fast = edge** cadence, **meso = bridge** cadence, and **slow = spine** cadence (see `docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5). The mapping is strictly forward-causal: edge outputs may inform bridge summaries, and bridge summaries may justify spine revisions, but raw fast-band activity should not directly rewrite slow-band state.
 
 ### Polarity coupling
 Exchange between opposite-role domains at the same temporal band.

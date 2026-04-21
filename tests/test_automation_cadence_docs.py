@@ -49,6 +49,28 @@ class AutomationCadenceDocsTests(unittest.TestCase):
             text,
         )
 
+    def test_glossary_temporal_band_makes_edge_bridge_spine_mapping_explicit(self):
+        text = (ROOT / "docs/glossary.md").read_text(encoding="utf-8")
+
+        self.assertIn("**fast = edge** cadence", text)
+        self.assertIn("**meso = bridge** cadence", text)
+        self.assertIn("**slow = spine** cadence", text)
+        self.assertIn(
+            "raw fast-band activity should not directly rewrite slow-band state",
+            text,
+        )
+
+    def test_temporal_predictive_processing_makes_edge_bridge_spine_mapping_explicit(self):
+        text = (ROOT / "docs/16_temporal_predictive_processing.md").read_text(encoding="utf-8")
+
+        self.assertIn("**fast = edge** cadence", text)
+        self.assertIn("**meso = bridge** cadence", text)
+        self.assertIn("**slow = spine** cadence", text)
+        self.assertIn(
+            "should not imply direct fast-to-spine promotion or any retrocausal rewrite",
+            text,
+        )
+
     def test_yggdrasil_continuity_architecture_makes_edge_bridge_spine_mapping_explicit(self):
         text = (ROOT / "docs/12_yggdrasil_continuity_architecture.md").read_text(encoding="utf-8")
 
