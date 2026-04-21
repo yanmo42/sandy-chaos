@@ -350,7 +350,7 @@ Source: `docs/16_temporal_predictive_processing.md`, matrix row T-014 (REVIEW).
 
 Source: `docs/math_foundations_zf.md` §12, `docs/03_micro_observer_agency.md`, matrix row T-013 (REVIEW). Anchors `research_backlog.md` Phase 3.1 "observer read-write Φ" item.
 
-- [ ] Pick one probe-insertion scenario in the existing fluid simulation surface and document it as a bounded Φ test case in `docs/notes/phi_fluid_probe_v0.md`: declare the state variable affected, the coupling scale λ, and the measurable downstream observable.
+- [x] Pick one probe-insertion scenario in the existing fluid simulation surface and document it as a bounded Φ test case in `docs/notes/phi_fluid_probe_v0.md`: declare the state variable affected, the coupling scale λ, and the measurable downstream observable. (SPDD v0: single-probe downstream deflection; state = nodewise velocity field; λ = `ObserverCouplingConfig.gain` with sweep {0.0, 0.05, 0.15, 0.3}; observable = transverse deflection `Δv_⊥(d, N)` with noise-floor falsification.)
 - [ ] Implement the minimal Φ perturbation in code with a test demonstrating that probe measurement alters downstream velocity field in a bounded, reproducible way. Keep scope to one scenario.
 - [ ] Prepare matrix T-013 evidence field update as a draft artifact under `memory/research/phi-fluid-probe-2026-04/`; do not edit `docs/theory-implementation-matrix.md` without human review.
 
