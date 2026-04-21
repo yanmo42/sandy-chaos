@@ -125,6 +125,93 @@ class BenchmarkHarnessFailureModeTests(unittest.TestCase):
                 target_state={"signal": 0.0},
             )
 
+    def test_neighbor_only_variant_refuses_backward_edge_in_topology(self):
+        # A declared neighbor edge that runs backward in time would let the
+        # contract variant read a later frame as if it were informed by an
+        # earlier one. Strict causality requires refusal, not a quiet pass.
+        from nfem_suite.benchmarks.temporal_predictive_processing import (
+            make_default_harness,
+            make_smoke_case,
+        )
+
+        harness = make_default_harness()
+        neighbor_variant = next(
+            v for v in harness.variants if v.variant_id == "neighbor-only-contract-model"
+        )
+
+        base_case = make_smoke_case()
+        bad_metadata = dict(base_case.metadata)
+        bad_metadata["neighbor_topology"] = (("slow", "fast"),)
+        bad_case = BenchmarkCase(
+            case_id=base_case.case_id,
+            description=base_case.description,
+            frames=base_case.frames,
+            target_state=base_case.target_state,
+            metadata=bad_metadata,
+        )
+
+        result = neighbor_variant.run(bad_case)
+
+        self.assertEqual(result.status, "scaffold-only-contract-unmet")
+        self.assertIn("backward in time", result.summary)
+        self.assertIn("backward in time", result.placeholder_metrics["invariant_violation"])
+        self.assertIsNone(result.placeholder_metrics["prediction_error"])
+
+    def test_neighbor_only_variant_refuses_unknown_frame_reference(self):
+        from nfem_suite.benchmarks.temporal_predictive_processing import (
+            make_default_harness,
+            make_smoke_case,
+        )
+
+        harness = make_default_harness()
+        neighbor_variant = next(
+            v for v in harness.variants if v.variant_id == "neighbor-only-contract-model"
+        )
+
+        base_case = make_smoke_case()
+        bad_metadata = dict(base_case.metadata)
+        bad_metadata["neighbor_topology"] = (("fast", "ghost"),)
+        bad_case = BenchmarkCase(
+            case_id=base_case.case_id,
+            description=base_case.description,
+            frames=base_case.frames,
+            target_state=base_case.target_state,
+            metadata=bad_metadata,
+        )
+
+        result = neighbor_variant.run(bad_case)
+
+        self.assertEqual(result.status, "scaffold-only-contract-unmet")
+        self.assertIn("unknown frame_id", result.summary)
+        self.assertIn("ghost", result.summary)
+
+    def test_neighbor_only_variant_refuses_empty_topology(self):
+        from nfem_suite.benchmarks.temporal_predictive_processing import (
+            make_default_harness,
+            make_smoke_case,
+        )
+
+        harness = make_default_harness()
+        neighbor_variant = next(
+            v for v in harness.variants if v.variant_id == "neighbor-only-contract-model"
+        )
+
+        base_case = make_smoke_case()
+        bad_metadata = dict(base_case.metadata)
+        bad_metadata["neighbor_topology"] = ()
+        bad_case = BenchmarkCase(
+            case_id=base_case.case_id,
+            description=base_case.description,
+            frames=base_case.frames,
+            target_state=base_case.target_state,
+            metadata=bad_metadata,
+        )
+
+        result = neighbor_variant.run(bad_case)
+
+        self.assertEqual(result.status, "scaffold-only-contract-unmet")
+        self.assertIn("at least one edge", result.summary)
+
     def test_neighbor_only_variant_refuses_case_without_topology_metadata(self):
         # The neighbor-only contract model declares that neighbor topology
         # metadata is a precondition. Without it, the scaffold must refuse the

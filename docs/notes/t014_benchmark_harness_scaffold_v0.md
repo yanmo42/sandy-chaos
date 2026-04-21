@@ -15,6 +15,7 @@ Included now:
 - causal guard text stating that present-state inputs must not depend on future interventions
 - failure-mode declarations per variant so falsification pressure is inspectable before any scoring exists
 - per-variant contract preconditions enforced at `run()` time: the `neighbor-only-contract-model` declares `required_metadata_keys=("neighbor_topology",)` and returns `status="scaffold-only-contract-unmet"` with the missing keys listed when a case omits them, rather than silently passing
+- per-variant metadata invariants for declared structure: the `neighbor-only-contract-model` refuses cases whose `neighbor_topology` is empty, references unknown `frame_id`s, or declares a neighbor edge running backward in time (the declared topology must respect strict forward causality just like the frame ordering itself)
 
 Not included yet:
 

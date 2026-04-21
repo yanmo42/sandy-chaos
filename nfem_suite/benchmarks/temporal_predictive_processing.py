@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
 
 _ALLOWED_VARIANT_IDS = (
@@ -9,6 +9,9 @@ _ALLOWED_VARIANT_IDS = (
     "multiframe-unconstrained-baseline",
     "neighbor-only-contract-model",
 )
+
+
+MetadataInvariant = Callable[["BenchmarkCase"], "str | None"]
 
 
 @dataclass(frozen=True)
@@ -94,6 +97,7 @@ class ScaffoldVariant:
     causal_guards: tuple[str, ...]
     failure_modes: tuple[str, ...]
     required_metadata_keys: tuple[str, ...] = ()
+    metadata_invariants: tuple[MetadataInvariant, ...] = ()
 
     def __post_init__(self) -> None:
         if self.variant_id not in _ALLOWED_VARIANT_IDS:
@@ -107,12 +111,40 @@ class ScaffoldVariant:
             "causal_guards": list(self.causal_guards),
             "failure_modes": list(self.failure_modes),
             "required_metadata_keys": list(self.required_metadata_keys),
+            "metadata_invariant_count": len(self.metadata_invariants),
             "status": "scaffold-only",
         }
 
     def _missing_metadata_keys(self, case: BenchmarkCase) -> tuple[str, ...]:
         return tuple(
             key for key in self.required_metadata_keys if key not in case.metadata
+        )
+
+    def _first_invariant_violation(self, case: BenchmarkCase) -> str | None:
+        for invariant in self.metadata_invariants:
+            violation = invariant(case)
+            if violation:
+                return violation
+        return None
+
+    def _contract_unmet_result(
+        self, case: BenchmarkCase, reason: str, extra_metrics: dict[str, Any]
+    ) -> VariantRunResult:
+        metrics = {
+            "prediction_error": None,
+            "contract_violation_rate": None,
+            "coherence_gain": None,
+            "latency_adjusted_utility": None,
+            "case_frame_count": len(case.frames),
+        }
+        metrics.update(extra_metrics)
+        return VariantRunResult(
+            variant_id=self.variant_id,
+            status="scaffold-only-contract-unmet",
+            summary=f"{self.label} refused benchmark case {case.case_id!r}: {reason}",
+            placeholder_metrics=metrics,
+            causal_guards=self.causal_guards,
+            failure_modes=self.failure_modes,
         )
 
     def run(self, case: BenchmarkCase) -> VariantRunResult:
@@ -122,23 +154,20 @@ class ScaffoldVariant:
             # is not satisfied, so the scaffold refuses to pretend it "ran" the
             # case. No empirical metrics are emitted, and the caller gets an
             # inspectable explanation instead of a silent pass.
-            return VariantRunResult(
-                variant_id=self.variant_id,
-                status="scaffold-only-contract-unmet",
-                summary=(
-                    f"{self.label} refused benchmark case {case.case_id!r}: "
-                    f"required metadata keys missing: {', '.join(missing)}."
-                ),
-                placeholder_metrics={
-                    "prediction_error": None,
-                    "contract_violation_rate": None,
-                    "coherence_gain": None,
-                    "latency_adjusted_utility": None,
-                    "case_frame_count": len(case.frames),
-                    "missing_metadata_keys": list(missing),
-                },
-                causal_guards=self.causal_guards,
-                failure_modes=self.failure_modes,
+            return self._contract_unmet_result(
+                case,
+                reason=f"required metadata keys missing: {', '.join(missing)}.",
+                extra_metrics={"missing_metadata_keys": list(missing)},
+            )
+        violation = self._first_invariant_violation(case)
+        if violation:
+            # A declared-but-malformed contract precondition is just as
+            # disqualifying as a missing one. Refuse the case instead of
+            # emitting a placeholder pass that would later look like evidence.
+            return self._contract_unmet_result(
+                case,
+                reason=violation,
+                extra_metrics={"invariant_violation": violation},
             )
         return VariantRunResult(
             variant_id=self.variant_id,
@@ -208,6 +237,37 @@ class BenchmarkHarness:
 
 
 
+def _neighbor_topology_invariant(case: BenchmarkCase) -> str | None:
+    topology = case.metadata.get("neighbor_topology")
+    if topology is None:
+        return None
+    try:
+        edges = tuple(topology)
+    except TypeError:
+        return "neighbor_topology must be an iterable of (src, dst) frame_id pairs"
+    if not edges:
+        return "neighbor_topology must declare at least one edge"
+    frame_timesteps = {frame.frame_id: frame.timestep for frame in case.frames}
+    for edge in edges:
+        if not isinstance(edge, (tuple, list)) or len(edge) != 2:
+            return f"neighbor_topology edge must be a (src, dst) pair, got {edge!r}"
+        src, dst = edge
+        if src not in frame_timesteps:
+            return f"neighbor_topology references unknown frame_id {src!r}"
+        if dst not in frame_timesteps:
+            return f"neighbor_topology references unknown frame_id {dst!r}"
+        # Strict causality: a declared neighbor edge src -> dst may not run
+        # backward in time. Allowing t(dst) < t(src) would let the variant
+        # read a past frame as if it were informed by a future one.
+        if frame_timesteps[dst] < frame_timesteps[src]:
+            return (
+                f"neighbor_topology edge {src!r} -> {dst!r} runs backward in time "
+                f"(t={frame_timesteps[src]} -> t={frame_timesteps[dst]}); "
+                "strict causality requires non-decreasing timesteps"
+            )
+    return None
+
+
 def make_default_harness() -> BenchmarkHarness:
     shared_guards = (
         "no future intervention terms in present-state inputs",
@@ -257,8 +317,10 @@ def make_default_harness() -> BenchmarkHarness:
                     "contract residual function is not implemented yet",
                     "must not claim coherence lift before scored comparisons exist",
                     "refuses cases that omit neighbor_topology metadata",
+                    "refuses cases whose neighbor_topology references unknown frames or runs backward in time",
                 ),
                 required_metadata_keys=("neighbor_topology",),
+                metadata_invariants=(_neighbor_topology_invariant,),
             ),
         )
     )
