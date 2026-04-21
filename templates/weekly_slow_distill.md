@@ -1,5 +1,7 @@
 # Weekly Slow Distill (Once / Week)
 
+Cadence surface: **spine** (slow = spine, per `docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5). Promotions landed here should rest on evidence routed through bridge (meso) review, not on raw edge activity.
+
 Week of: YYYY-MM-DD
 
 ## 1) Stability review

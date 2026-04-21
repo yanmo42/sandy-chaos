@@ -363,8 +363,9 @@ When work branches across sessions, tools, or cadences, use these rules:
    - use `FOUNDATIONS.md` only for hardened rules/constraints
 
 6. **Match cadence to consequence**
-   - fast loop = edge sensing / local adaptation
-   - meso loop = summary / routing / comparison
-   - slow loop = consolidation / policy shaping / durable continuity
+   - fast loop = **edge** cadence: local sensing / reversible adaptation
+   - meso loop = **bridge** cadence: summary / routing / comparison
+   - slow loop = **spine** cadence: consolidation / policy shaping / durable continuity
+   - the mapping is strictly forward-causal (see `docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5): edge outputs can inform bridge summaries, and bridge summaries can justify spine updates, but edge runs should not directly rewrite spine surfaces
 
 The goal is not bureaucracy. The goal is to let many local processes stay alive without losing the center of the project.

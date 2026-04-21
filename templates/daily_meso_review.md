@@ -1,5 +1,7 @@
 # Daily Meso Review (End of Day)
 
+Cadence surface: **bridge** (meso = bridge, per `docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5). This review summarizes and routes edge outputs; it may justify spine updates but must not replace them.
+
 Date: YYYY-MM-DD
 
 ## 1) What happened
