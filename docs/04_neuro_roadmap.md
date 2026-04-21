@@ -67,6 +67,8 @@ A useful discipline rule is to treat these as **nested temporal domains** with n
 - meso ↔ slow,
 - and cross-band exchange should use bounded summaries, gains, or errors rather than assumed full-state access.
 
+For continuity with Yggdrasil (`docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5), these bands map onto the project's cadence surfaces as **fast = edge**, **meso = bridge**, **slow = spine**. The mapping stays strictly forward-causal: edge outputs can inform bridge summaries, and bridge summaries can justify spine revisions, but neuro-lane fast-loop activity should not directly rewrite slow-band policy.
+
 But this document does **not** define the full coupling grammar. That job belongs to **[13 Nested Temporal Domains](13_nested_temporal_domains.md)**.
 
 Likewise, this document does **not** define the external scaffolding / intervention lane. That job belongs to **[14 Cognitive Tempo Orchestration](14_cognitive_tempo_orchestration.md)**.

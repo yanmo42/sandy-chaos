@@ -352,7 +352,7 @@ Core primitives:
 - **Promotion** — the process by which a branch result is evaluated before altering more durable surfaces. Uses explicit disposition classes: `DROP_LOCAL`, `LOG_ONLY`, `TODO_PROMOTE`, `DOC_PROMOTE`, `POLICY_PROMOTE`, `ESCALATE`.
 - **Durable trace** — any artifact that carries continuity across time (summaries, docs updates, research artifacts, commit history).
 
-Temporal cadence is part of the design: fast loops at the edge, meso loops compare and route, slow loops consolidate. This cadence maps onto the broader Nested Temporal Domains grammar.
+Temporal cadence is part of the design and aligns the fast / meso / slow loops with the Yggdrasil cadence surfaces (see `docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5): **fast = edge** (local sensing and reversible adaptation), **meso = bridge** (summary, routing, comparison), **slow = spine** (consolidation, policy shaping, durable continuity). The mapping is strictly forward-causal — edge outputs may inform bridge summaries, and bridge summaries may justify spine updates, but edge runs should not directly rewrite spine surfaces. This cadence also maps onto the broader Nested Temporal Domains grammar.
 
 ---
 

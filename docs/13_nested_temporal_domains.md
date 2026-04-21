@@ -128,6 +128,8 @@ The current project already uses a natural triplet:
 - **meso** — routing / alignment / summary,
 - **slow** — continuity / goals / policy burden.
 
+These bands map directly onto Yggdrasil's cadence surfaces (see `docs/12_yggdrasil_continuity_architecture.md` §5 Rule 5): **fast = edge**, **meso = bridge**, **slow = spine**. Temporal-band updates should therefore respect the same forward-causal promotion discipline — edge observations inform bridge summaries, and bridge summaries may justify spine revisions, but raw fast-band activity should not rewrite slow-band state directly.
+
 More bands are possible, but the architecture should stay sparse unless measurement justifies finer resolution.
 
 ### 3.4 Adjacency
