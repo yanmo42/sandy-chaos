@@ -132,6 +132,94 @@ class BenchmarkHarnessNoEmpiricalScoresTests(unittest.TestCase):
                 )
 
 
+class BenchmarkHarnessAblationsContractTests(unittest.TestCase):
+    """Falsification guard: the declared ablation list must not drift silently.
+
+    ``BenchmarkHarness.ablations`` is part of the outsider-legible describe
+    output. Consumers (spec notes, falsification reviewers) read it as the
+    scaffold's canonical claim about *which* ablations the benchmark intends to
+    cover once scoring exists. If a name is silently added, renamed, or dropped
+    here, the ablation-table contract has drifted from the spec without a human
+    review. Pinning the exact ordered tuple forces any change to be deliberate.
+    """
+
+    _CANONICAL_ABLATIONS = (
+        "no-contract-projection",
+        "no-shared-latent-space",
+        "no-cross-frame-coupling",
+        "all-to-all-coupling",
+        "latency-distortion-removed",
+    )
+
+    def test_default_harness_exposes_canonical_ablation_list(self):
+        harness = make_default_harness()
+
+        self.assertEqual(harness.ablations, self._CANONICAL_ABLATIONS)
+
+    def test_describe_reports_canonical_ablation_list(self):
+        harness = make_default_harness()
+
+        description = harness.describe()
+
+        self.assertEqual(
+            tuple(description["ablations"]),
+            self._CANONICAL_ABLATIONS,
+            msg=(
+                "harness.describe() ablation list drifted from the canonical "
+                "scaffold contract; silent reorder/rename would desync the "
+                "ablation table spec from code"
+            ),
+        )
+
+
+class BenchmarkVariantRequiredMetadataContractTests(unittest.TestCase):
+    """Falsification guard: per-variant metadata-key requirements are pinned.
+
+    Only ``neighbor-only-contract-model`` is supposed to declare a metadata
+    precondition (``neighbor_topology``). The two baselines must stay
+    minimal-contract: no declared required metadata keys. Silent drift either
+    way would misrepresent the scaffold's falsification posture — a baseline
+    could quietly start refusing cases, or the contract model could quietly
+    lose its precondition and accept under-specified cases as scaffold-only
+    passes. Pinning the mapping prevents both failure modes.
+    """
+
+    _EXPECTED_REQUIRED_METADATA = {
+        "single-scale-baseline": (),
+        "multiframe-unconstrained-baseline": (),
+        "neighbor-only-contract-model": ("neighbor_topology",),
+    }
+
+    def test_each_variant_declares_expected_required_metadata_keys(self):
+        harness = make_default_harness()
+
+        actual = {
+            variant.variant_id: tuple(variant.required_metadata_keys)
+            for variant in harness.variants
+        }
+
+        self.assertEqual(actual, self._EXPECTED_REQUIRED_METADATA)
+
+    def test_describe_reports_required_metadata_per_variant(self):
+        harness = make_default_harness()
+
+        description = harness.describe()
+
+        actual = {
+            entry["variant_id"]: tuple(entry["required_metadata_keys"])
+            for entry in description["variants"]
+        }
+        self.assertEqual(
+            actual,
+            self._EXPECTED_REQUIRED_METADATA,
+            msg=(
+                "describe() required_metadata_keys drifted from the canonical "
+                "scaffold contract; baselines must remain minimal-contract and "
+                "the neighbor-only variant must keep its precondition visible"
+            ),
+        )
+
+
 class BenchmarkHarnessFailureModeTests(unittest.TestCase):
     """Falsification-oriented checks: the scaffold must refuse malformed inputs.
 
