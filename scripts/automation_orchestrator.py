@@ -349,6 +349,27 @@ def infer_branch_outcome_class(disposition: str) -> str:
     return "blocked"
 
 
+def _infer_routed_target_from_text(text: str, disposition: str, current_target: str) -> str:
+    if disposition == "LOG_ONLY":
+        return "log-only"
+    if disposition == "TODO_PROMOTE":
+        return "todo"
+    if disposition == "DOC_PROMOTE":
+        return "docs"
+    if disposition == "POLICY_PROMOTE":
+        if "workflow" in text:
+            return "workflow"
+        if "foundations" in text:
+            return "foundations"
+        if any(k in text for k in ["test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
+            return "tests/config"
+        if current_target in {"workflow", "foundations", "tests/config"}:
+            return current_target
+        return "tests/config"
+    return current_target
+
+
+
 def apply_lux_nyx_governance_routing(
     item: TodoItem,
     disposition: str,
@@ -363,8 +384,10 @@ def apply_lux_nyx_governance_routing(
     routed_target = str(lux_nyx.get("routing_promotion_target", "")).strip()
     text = f"{item.section} {item.text}".lower()
 
-    if routed_disposition and routed_target:
-        return routed_disposition, routed_target
+    if routed_disposition or routed_target:
+        final_disposition = routed_disposition or disposition
+        final_target = routed_target or _infer_routed_target_from_text(text, final_disposition, promotion_target)
+        return final_disposition, final_target
 
     if destination in {"archive", "refusal-log"}:
         return "LOG_ONLY", "log-only"

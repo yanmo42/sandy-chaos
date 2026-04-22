@@ -1104,14 +1104,42 @@ def validate_continuity_contract(contract: dict) -> list[str]:
     return errors
 
 
+def _effective_routed_promotion_target(contract: dict) -> str:
+    if not isinstance(contract, dict):
+        return ""
+
+    lux_nyx = contract.get("lux_nyx_shaping", {})
+    if not isinstance(lux_nyx, dict):
+        return str(contract.get("promotion_target", "")).strip()
+
+    routed_target = str(lux_nyx.get("routing_promotion_target", "")).strip()
+    if routed_target:
+        return routed_target
+
+    routed_disposition = str(lux_nyx.get("routing_disposition", "")).strip()
+    if routed_disposition == "LOG_ONLY":
+        return "log-only"
+    if routed_disposition == "TODO_PROMOTE":
+        return "todo"
+    if routed_disposition == "DOC_PROMOTE":
+        return "docs"
+    if routed_disposition == "POLICY_PROMOTE":
+        target = str(contract.get("promotion_target", "")).strip()
+        if target in {"workflow", "foundations", "tests/config"}:
+            return target
+        return "tests/config"
+
+    return str(contract.get("promotion_target", "")).strip()
+
+
+
 def governance_dispatch_gate_error(contract: dict) -> str | None:
     if not isinstance(contract, dict):
         return None
 
     lux_nyx = contract.get("lux_nyx_shaping", {})
     destination = str(lux_nyx.get("destination", "")).strip() if isinstance(lux_nyx, dict) else ""
-    routed_target = str(lux_nyx.get("routing_promotion_target", "")).strip() if isinstance(lux_nyx, dict) else ""
-    target = routed_target or str(contract.get("promotion_target", "")).strip() or "(missing target)"
+    target = _effective_routed_promotion_target(contract) or "(missing target)"
     requirement = str(contract.get("promotion_review_requirement", "")).strip()
     status = str(contract.get("promotion_review_status", "")).strip()
 
