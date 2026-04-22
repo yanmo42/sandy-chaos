@@ -16,6 +16,9 @@ from nfem_suite.intelligence.narrative_invariants.lux_nyx_governance import (
     route,
     write_governance_artifact,
 )
+from nfem_suite.intelligence.narrative_invariants.lux_nyx_metrics import (
+    PilotMetrics,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -302,3 +305,59 @@ def test_route_returns_governance_outcome():
         reco = evaluate(rec)
         outcome = route(reco, rec, root=td)
         assert isinstance(outcome, GovernanceOutcome)
+
+
+# ---------------------------------------------------------------------------
+# route — pilot acceptance signal
+# ---------------------------------------------------------------------------
+
+def test_route_surface_records_accepted_suggestion():
+    """Surfacing a suggestion counts as acceptance for the pilot metric."""
+    with tempfile.TemporaryDirectory() as td:
+        rec = make_record(salience="high", ambiguity="low", risk="low")
+        reco = evaluate(rec)
+        assert reco.action == "keep"
+        outcome = route(reco, rec, root=td)
+        assert outcome.destination == "surface"
+        metrics = PilotMetrics.load(td)
+        assert metrics.suggestion_accepted == 1
+
+
+def test_route_refusal_log_does_not_record_accepted_suggestion():
+    """Refusal is an explicit non-acceptance — suggestion_accepted stays 0."""
+    with tempfile.TemporaryDirectory() as td:
+        rec = make_full_ops_record(risk="high", evidence_tier="speculative")
+        reco = evaluate(rec)
+        assert reco.action == "refuse-with-reason"
+        outcome = route(reco, rec, root=td)
+        assert outcome.destination == "refusal-log"
+        metrics = PilotMetrics.load(td)
+        assert metrics.suggestion_accepted == 0
+
+
+def test_route_hold_queue_does_not_record_acceptance():
+    """hold-queue is unresolved — neither accepted nor refused at shaping time."""
+    with tempfile.TemporaryDirectory() as td:
+        rec = make_full_ops_record(risk="high", evidence_tier="plausible")
+        reco = make_recommendation("promote-candidate")
+        outcome = route(reco, rec, root=td)
+        assert outcome.destination == "hold-queue"
+        metrics = PilotMetrics.load(td)
+        assert metrics.suggestion_accepted == 0
+
+
+def test_route_promotion_queue_does_not_record_archive_promotion():
+    """promotion-queue is a candidate status, not an archive→promotion conversion.
+
+    Archive-to-promotion tracking requires identity across sessions and must
+    be driven by an explicit ``record_archive_to_promotion`` call, not by
+    the route() side effect.
+    """
+    with tempfile.TemporaryDirectory() as td:
+        rec = make_full_ops_record(risk="high", evidence_tier="defensible")
+        reco = evaluate(rec)
+        assert reco.action == "promote-candidate"
+        outcome = route(reco, rec, root=td)
+        assert outcome.destination == "promotion-queue"
+        metrics = PilotMetrics.load(td)
+        assert metrics.archive_promoted == 0

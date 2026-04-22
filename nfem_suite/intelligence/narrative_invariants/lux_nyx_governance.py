@@ -32,7 +32,7 @@ from nfem_suite.intelligence.narrative_invariants.lux_nyx_contract import (
     validate_record,
 )
 from nfem_suite.intelligence.narrative_invariants.lux_nyx_metrics import (
-    record_promotion,
+    record_acceptance,
 )
 
 # ---------------------------------------------------------------------------
@@ -182,8 +182,16 @@ def route(
     )
     path = write_governance_artifact(root, artifact)
 
-    if destination == "promotion-queue":
-        record_promotion(root, from_archive=(action == "archive"))
+    # Pilot acceptance signal: surface is the only destination where the
+    # suggestion is enacted as-is. refusal-log is an explicit rejection.
+    # Other destinations (archive, hold-queue, route-queue, promotion-queue)
+    # are unresolved at shaping time and neither accept nor reject the
+    # suggestion here — promotion-queue in particular is a candidate status,
+    # not a measured acceptance.
+    if destination == "surface":
+        record_acceptance(root, accepted=True)
+    elif destination == "refusal-log":
+        record_acceptance(root, accepted=False)
 
     return GovernanceOutcome(
         destination=destination,
