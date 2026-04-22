@@ -372,7 +372,7 @@ def apply_lux_nyx_governance_routing(
     if destination == "hold-queue":
         return "TODO_PROMOTE", "todo"
 
-    if destination == "promotion-queue" and promotion_target == "log-only":
+    if destination == "promotion-queue" and promotion_target in {"log-only", "todo"}:
         if "workflow" in text:
             return "POLICY_PROMOTE", "workflow"
         if "foundations" in text:

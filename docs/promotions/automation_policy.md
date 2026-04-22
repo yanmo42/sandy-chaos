@@ -47,3 +47,5 @@ Lux–Nyx governance routing must remain attached through downstream workflow ha
 When `lux_nyx_shaping` includes explicit routed fields such as `routing_disposition` and `routing_promotion_target`, downstream dispatch gates should treat those routed values as authoritative for archive/promotion handling rather than trusting stale pre-routing top-level targets.
 
 The same rule now applies earlier in the workflow: orchestrator task-contract generation should preserve and honor explicit Lux–Nyx routed disposition/target pairs before deriving review requirements, so policy-relevant promotion candidates do not silently fall back to their pre-routing heuristic targets.
+
+When Lux–Nyx marks work for `promotion-queue` without an explicit routed target, orchestration should still lift pre-routing `log-only` or `todo` work into the appropriate docs/workflow/foundations/tests-config promotion lane based on the task text rather than leaving it parked as bookkeeping.
