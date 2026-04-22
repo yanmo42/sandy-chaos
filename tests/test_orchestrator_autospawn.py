@@ -523,6 +523,35 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             self.assertTrue(any("requires approved human review" in err for err in out["errors"]))
             mock_run.assert_not_called()
 
+    def test_to_spawn_request_preserves_lux_nyx_routing_for_dispatch_gates(self):
+        task = {
+            "lane": "sandy-builder",
+            "goal": "Route archival outcome",
+            "section": "Workflow",
+            "branch_outcome_class": "local",
+            "disposition": "LOG_ONLY",
+            "promotion_target": "log-only",
+            "promotion_review_requirement": "not-required",
+            "promotion_review_status": "not-required",
+            "constraints": [],
+            "definition_of_done": [],
+            "validation_command": "python -m unittest discover -s tests -q",
+            "lux_nyx_shaping": {"destination": "archive"},
+        }
+
+        request = orchestrator_autospawn.to_spawn_request(task, 1)
+
+        self.assertEqual(request["prompt_context"]["lux_nyx_shaping"], {"destination": "archive"})
+
+        with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
+             patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
+            out = orchestrator_autospawn.dispatch_spawn_requests([request], dry_run=False)
+
+        self.assertEqual(out["attempted"], 1)
+        self.assertEqual(out["dispatched"], 0)
+        self.assertTrue(any("routed this task to archive" in err for err in out["errors"]))
+        mock_run.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

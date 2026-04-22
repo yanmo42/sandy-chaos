@@ -395,6 +395,9 @@ def to_spawn_request(task: dict, idx: int, prompting: dict | None = None) -> dic
         "continuity_context": task.get("continuity_context", {}),
         "validation_command": task.get("validation_command", resolve_default_validation_command()),
     }
+    lux_nyx_shaping = task.get("lux_nyx_shaping")
+    if isinstance(lux_nyx_shaping, dict) and lux_nyx_shaping:
+        contract["lux_nyx_shaping"] = lux_nyx_shaping
     prompt = render_contract_prompt(contract, prompting=prompting)
 
     return {

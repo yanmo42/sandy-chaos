@@ -41,3 +41,5 @@ Promotions with a `POLICY_PROMOTE` disposition must include a continuity context
 
 ## Enforcement
 This policy is enforced via `config/orchestrator.json` under the `promotionReview` block, ensuring that any task contract emitted by the Sandy Chaos orchestrator carries the correct review requirements and initial status based on its promotion target and outcome class.
+
+Lux–Nyx governance routing must remain attached through downstream workflow handoffs. In practice, generated spawn requests and self-improve dispatch validation must preserve `lux_nyx_shaping` plus the review metadata (`promotion_review_requirement`, `promotion_review_status`) so archive outcomes skip dispatch and promotion-queue outcomes stay gated on approved human review.

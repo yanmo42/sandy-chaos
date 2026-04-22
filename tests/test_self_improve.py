@@ -380,6 +380,29 @@ class SelfImprovePromptingConfigTests(unittest.TestCase):
         self.assertTrue(payload["sessionKey"].startswith("agent:sandy-chaos:orchestrator-"))
 
 
+class SelfImprovePromptContractTests(unittest.TestCase):
+    def test_render_contract_prompt_includes_review_fields(self):
+        prompt = self_improve.render_contract_prompt(
+            {
+                "lane": "sandy-builder",
+                "section": "Workflow",
+                "goal": "Route governance outcomes",
+                "branch_outcome_class": "policy-relevant",
+                "disposition": "POLICY_PROMOTE",
+                "promotion_target": "workflow",
+                "promotion_review_requirement": "human-review",
+                "promotion_review_status": "pending",
+                "validation_command": "python -m unittest discover -s tests -q",
+            }
+        )
+
+        self.assertIn("Branch outcome class: policy-relevant", prompt)
+        self.assertIn("Disposition: POLICY_PROMOTE", prompt)
+        self.assertIn("Promotion target: workflow", prompt)
+        self.assertIn("Promotion review: human-review / pending", prompt)
+        self.assertIn("all four explicitly", prompt)
+
+
 class SelfImproveValidationConfigTests(unittest.TestCase):
     def test_resolve_validation_python_falls_back_to_sys_executable(self):
         with tempfile.TemporaryDirectory() as td:
@@ -437,6 +460,8 @@ class SelfImproveValidationConfigTests(unittest.TestCase):
         self.assertTrue(any("branch_outcome_class" in e for e in errors))
         self.assertTrue(any("disposition" in e for e in errors))
         self.assertTrue(any("promotion_target" in e for e in errors))
+        self.assertTrue(any("promotion_review_requirement" in e for e in errors))
+        self.assertTrue(any("promotion_review_status" in e for e in errors))
 
 
 if __name__ == "__main__":

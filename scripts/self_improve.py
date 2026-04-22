@@ -116,6 +116,8 @@ try:
     from nfem_suite.intelligence.ygg.continuity import (
         ALLOWED_BRANCH_OUTCOME_CLASSES,
         ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
+        ALLOWED_PROMOTION_REVIEW_STATUSES,
         ALLOWED_PROMOTION_TARGETS,
     )
     from scripts.dispatch_log_validator import validate_dispatch_log_entry
@@ -127,6 +129,8 @@ except ModuleNotFoundError:
     from nfem_suite.intelligence.ygg.continuity import (
         ALLOWED_BRANCH_OUTCOME_CLASSES,
         ALLOWED_DISPOSITIONS,
+        ALLOWED_PROMOTION_REVIEW_REQUIREMENTS,
+        ALLOWED_PROMOTION_REVIEW_STATUSES,
         ALLOWED_PROMOTION_TARGETS,
     )
     from scripts.dispatch_log_validator import validate_dispatch_log_entry
@@ -302,14 +306,17 @@ def render_contract_prompt(contract: dict, prompting: dict | None = None) -> str
     outcome_class = str(contract.get("branch_outcome_class", "")).strip()
     disposition = str(contract.get("disposition", "")).strip()
     promotion_target = str(contract.get("promotion_target", "")).strip()
+    review_requirement = str(contract.get("promotion_review_requirement", "")).strip()
+    review_status = str(contract.get("promotion_review_status", "")).strip()
 
-    if outcome_class or disposition or promotion_target:
+    if outcome_class or disposition or promotion_target or review_requirement or review_status:
         rendered += (
             "\n\nContinuity contract:\n"
             f"- Branch outcome class: {outcome_class or '(missing)'}\n"
             f"- Disposition: {disposition or '(missing)'}\n"
             f"- Promotion target: {promotion_target or '(missing)'}\n"
-            "- End your completion note by restating all three explicitly."
+            f"- Promotion review: {review_requirement or '(missing)'} / {review_status or '(missing)'}\n"
+            "- End your completion note by restating all four explicitly."
         )
     return rendered
 
@@ -1076,6 +1083,8 @@ def validate_continuity_contract(contract: dict) -> list[str]:
     disposition = contract.get("disposition")
     promotion_target = contract.get("promotion_target")
     outcome_class = contract.get("branch_outcome_class")
+    review_requirement = contract.get("promotion_review_requirement")
+    review_status = contract.get("promotion_review_status")
 
     if disposition not in ALLOWED_DISPOSITIONS:
         errors.append(f"invalid or missing disposition '{disposition}'")
@@ -1083,6 +1092,14 @@ def validate_continuity_contract(contract: dict) -> list[str]:
         errors.append(f"invalid or missing promotion_target '{promotion_target}'")
     if outcome_class not in ALLOWED_BRANCH_OUTCOME_CLASSES:
         errors.append(f"invalid or missing branch_outcome_class '{outcome_class}'")
+    if review_requirement not in ALLOWED_PROMOTION_REVIEW_REQUIREMENTS:
+        errors.append(f"invalid or missing promotion_review_requirement '{review_requirement}'")
+    if review_status not in ALLOWED_PROMOTION_REVIEW_STATUSES:
+        errors.append(f"invalid or missing promotion_review_status '{review_status}'")
+    if review_requirement == "not-required" and review_status != "not-required":
+        errors.append("promotion_review_status must be 'not-required' when review is not required")
+    if review_requirement == "human-review" and review_status == "not-required":
+        errors.append("human-review targets may not use review_status 'not-required'")
 
     return errors
 
