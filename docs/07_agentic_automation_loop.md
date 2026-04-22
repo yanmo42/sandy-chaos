@@ -6,9 +6,9 @@ Define a closed operational loop for Sandy Chaos where assistant work on the rep
 
 ## 2) Loop model (three-layer alignment)
 
-- **Fast loop (per interaction):** quality checks + immediate corrections.
-- **Meso loop (daily):** summarize completed work, blockers, and policy tweaks.
-- **Slow loop (weekly):** distill stable behavior updates into workflow/policy docs.
+- **Fast loop (per interaction):** quality checks + immediate corrections (**edge** cadence).
+- **Meso loop (daily):** summarize completed work, blockers, and policy tweaks (**bridge** cadence).
+- **Slow loop (weekly):** distill stable behavior updates into workflow/policy docs (**spine** cadence).
 
 For continuity architecture purposes, this cadence should be read explicitly as:
 
@@ -100,6 +100,10 @@ Outputs:
 
 - Keeps the automation deterministic and inspectable.
 - Separates **planning**, **building**, **verification**, and **reporting** concerns.
+- Aligns role lanes with cadence surfaces:
+  - **builder lane** work often starts at the **edge / fast** layer,
+  - **verifier / reporter lane** outputs form the **bridge / meso** layer,
+  - **planner lane** proposals (canonical docs, workflow, tests/config) update the **spine / slow** layer after review.
 - Allows gradual expansion to fully automatic spawn execution later.
 
 
@@ -221,15 +225,15 @@ To keep autonomy aligned with Sandy Chaos goals, each cycle should score itself 
 
 ### A) Capability lanes (what "improvement" means)
 
-1. **Theory lane** (`docs/`)
+1. **Theory lane** (`docs/`) — **spine / slow** layer
    - Improves formal clarity, claim-tier discipline, falsification criteria.
-2. **Continuity lane** (`memory/`, retrieval tooling, continuity infrastructure)
+2. **Continuity lane** (`memory/`, retrieval tooling, continuity infrastructure) — **bridge / meso** layer
    - Improves inspectable recall, retrieval provenance, and continuity-aware automation.
-3. **Simulation lane** (`nfem_suite/`)
+3. **Simulation lane** (`nfem_suite/`) — **edge / fast** layer
    - Improves causal-observer coupling implementation and metrics.
-4. **Validation lane** (`tests/`)
+4. **Validation lane** (`tests/`) — **edge / fast** layer
    - Adds/updates tests proving forward-causal behavior and asymmetry claims.
-5. **Ops lane** (`scripts/`, `ops/`, `config/`)
+5. **Ops lane** (`scripts/`, `ops/`, `config/`) — **bridge / meso** layer
    - Improves orchestration reliability, scheduling, and digest quality.
 
 ### B) Cycle acceptance gates
@@ -283,9 +287,9 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 
 In Sandy Chaos terms, this automation provides a practical "forecasting edge" by continuously converting near-term structural signals into actionable policy updates, while preserving forward causality:
 
-- **Faster legibility of downstream constraints:** TODO drift, dispatch reliability, and test-state changes are surfaced every cycle.
-- **Observer-state updates in bounded time:** each cycle updates policy traces and next actions before backlog noise accumulates.
-- **Cross-lane temporal coupling:** theory/simulation/validation/ops signals are co-reported, improving intervention timing.
+- **Faster legibility of downstream constraints:** TODO drift, dispatch reliability, and test-state changes are surfaced every cycle (**edge** cadence).
+- **Observer-state updates in bounded time:** each cycle updates policy traces and next actions before backlog noise accumulates (**bridge** cadence).
+- **Cross-lane temporal coupling:** theory/simulation/validation/ops signals are co-reported, improving intervention timing (**spine** cadence).
 - **No retrocausal claims:** gains come from higher-frequency inference + disciplined feedback loops, not backward-time effects.
 
 Operationally: the system is useful when it reduces decision latency and increases the proportion of productive interventions per unit time.

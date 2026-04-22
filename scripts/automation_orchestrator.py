@@ -173,10 +173,15 @@ def resolve_validation_command(cfg: dict, lane: str) -> str:
     return f"{sys.executable or 'python3'} -m unittest discover -s tests -q"
 
 
-def resolve_promotion_review_policy(cfg: dict, promotion_target: str) -> dict[str, str]:
+def resolve_promotion_review_policy(cfg: dict, promotion_target: str, outcome_class: str) -> dict[str, str]:
     review_cfg = cfg.get("promotionReview", {}) if isinstance(cfg, dict) else {}
+    by_outcome = review_cfg.get("byOutcomeClass", {}) if isinstance(review_cfg, dict) else {}
     by_target = review_cfg.get("byTarget", {}) if isinstance(review_cfg, dict) else {}
-    target_cfg = by_target.get(promotion_target, {}) if isinstance(by_target, dict) else {}
+
+    # Target-specific policy takes precedence for granular overrides (e.g., todo).
+    target_cfg = by_target.get(promotion_target)
+    if not target_cfg:
+        target_cfg = by_outcome.get(outcome_class, {}) if isinstance(by_outcome, dict) else {}
 
     requirement = str(target_cfg.get("requirement", review_cfg.get("defaultRequirement", "human-review"))).strip()
     if requirement not in ALLOWED_PROMOTION_REVIEW_REQUIREMENTS:
@@ -399,7 +404,7 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
     capability_lane = capability_lane_for_item(item)
     disposition, promotion_target = infer_disposition_and_promotion_target(item)
     outcome_class = infer_branch_outcome_class(disposition)
-    promotion_review = resolve_promotion_review_policy(cfg, promotion_target)
+    promotion_review = resolve_promotion_review_policy(cfg, promotion_target, outcome_class)
 
     validation = resolve_validation_command(cfg, lane=lane)
 

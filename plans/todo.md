@@ -308,7 +308,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Add lightweight dispatch-log schema/invariant validator for orchestrator membrane evidence fields
 - [x] Add validation that non-trivial automation runs cannot end without a disposition
 - [x] Define canonical promotion targets more explicitly in automation outputs (`todo`, `docs`, `workflow`, `foundations`, `tests/config`, `log-only`)
-- [ ] Map fast / meso / slow loops onto edge / bridge / spine cadence in automation docs where still implicit
+- [x] Map fast / meso / slow loops onto edge / bridge / spine cadence in automation docs where still implicit
 - [ ] Decide which promotion classes are safe to automate vs require human review
 
 ## Lux–Nyx Interaction Layer (2026-03/04)

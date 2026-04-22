@@ -115,7 +115,7 @@ This protocol is intentionally lightweight so it can run daily.
 
 ## 11) Daily automation hook (active-cycle summary)
 
-`self_improve.py full-pass` now includes a research-cycle summary hook:
+`self_improve.py full-pass` now includes a research-cycle summary hook that operates at the **bridge / meso** layer:
 
 - It scans `memory/research/` for today's cycle bundles (`*-query/evidence/synthesis/falsification`).
 - It treats a cycle as active when at least one artifact in a complete bundle was updated in the last 24 hours.
@@ -126,7 +126,7 @@ This protocol is intentionally lightweight so it can run daily.
 
 ## 12) Anchor + retrodiction mini-protocol (v0, strict + compact)
 
-Use this extension when a cycle claims present-world anchoring, bounded-now quality, or retrodictive reconstruction.
+These components operate at the **edge / fast** layer to ensure sensing and reconstruction quality remain evidence-grounded:
 
 ### 12.1 Required anchor ladder row (per active channel)
 

@@ -17,30 +17,24 @@
   "promotionReview": {
     "defaultRequirement": "human-review",
     "defaultStatus": "pending",
-    "byTarget": {
-      "log-only": {
+    "byOutcomeClass": {
+      "local": {
         "requirement": "not-required",
         "status": "not-required"
       },
+      "promotable": {
+        "requirement": "human-review",
+        "status": "pending"
+      },
+      "policy-relevant": {
+        "requirement": "human-review",
+        "status": "pending"
+      }
+    },
+    "byTarget": {
       "todo": {
         "requirement": "not-required",
         "status": "not-required"
-      },
-      "docs": {
-        "requirement": "human-review",
-        "status": "pending"
-      },
-      "tests/config": {
-        "requirement": "human-review",
-        "status": "pending"
-      },
-      "workflow": {
-        "requirement": "human-review",
-        "status": "pending"
-      },
-      "foundations": {
-        "requirement": "human-review",
-        "status": "pending"
       }
     }
   },

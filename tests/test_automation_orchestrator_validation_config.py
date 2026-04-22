@@ -19,8 +19,8 @@ class AutomationOrchestratorValidationConfigTests(unittest.TestCase):
             }
         }
 
-        todo_policy = automation_orchestrator.resolve_promotion_review_policy(cfg, "todo")
-        workflow_policy = automation_orchestrator.resolve_promotion_review_policy(cfg, "workflow")
+        todo_policy = automation_orchestrator.resolve_promotion_review_policy(cfg, "todo", "promotable")
+        workflow_policy = automation_orchestrator.resolve_promotion_review_policy(cfg, "workflow", "policy-relevant")
 
         self.assertEqual(todo_policy, {"requirement": "not-required", "status": "not-required"})
         self.assertEqual(workflow_policy, {"requirement": "human-review", "status": "pending"})
