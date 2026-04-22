@@ -178,6 +178,37 @@ def promotion_review_gate_error(contract: dict) -> str | None:
     return None
 
 
+def _effective_routed_disposition(contract: dict) -> str:
+    if not isinstance(contract, dict):
+        return ""
+
+    lux_nyx = contract.get("lux_nyx_shaping", {})
+    if isinstance(lux_nyx, dict):
+        routed_disposition = str(lux_nyx.get("routing_disposition", "")).strip()
+        if routed_disposition:
+            return routed_disposition
+
+        destination = str(lux_nyx.get("destination", "")).strip()
+        if destination in {"archive", "refusal-log"}:
+            return "LOG_ONLY"
+        if destination == "hold-queue":
+            return "TODO_PROMOTE"
+
+        if destination == "promotion-queue":
+            current_disposition = str(contract.get("disposition", "")).strip()
+            if current_disposition in {"DROP_LOCAL", "LOG_ONLY", "TODO_PROMOTE"}:
+                text = " ".join(
+                    str(contract.get(key, "")).strip()
+                    for key in ("goal", "section")
+                    if str(contract.get(key, "")).strip()
+                ).lower()
+                if any(k in text for k in ["workflow", "foundations", "admissibility", "test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
+                    return "POLICY_PROMOTE"
+                return "DOC_PROMOTE"
+
+    return str(contract.get("disposition", "")).strip()
+
+
 def _effective_routed_promotion_target(contract: dict) -> str:
     if not isinstance(contract, dict):
         return ""
@@ -193,7 +224,7 @@ def _effective_routed_promotion_target(contract: dict) -> str:
             return "workflow"
         if "foundations" in context_text or "admissibility" in context_text:
             return "foundations"
-        if any(k in context_text for k in ["test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
+        if any(k in text for k in ["test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
             return "tests/config"
         return ""
 
@@ -205,7 +236,7 @@ def _effective_routed_promotion_target(contract: dict) -> str:
     if routed_target:
         return routed_target
 
-    routed_disposition = str(lux_nyx.get("routing_disposition", "")).strip()
+    routed_disposition = _effective_routed_disposition(contract)
     if routed_disposition == "LOG_ONLY":
         return "log-only"
     if routed_disposition == "TODO_PROMOTE":

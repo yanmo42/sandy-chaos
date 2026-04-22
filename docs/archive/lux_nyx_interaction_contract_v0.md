@@ -237,6 +237,18 @@ Candidate observables:
 - That Lux / Nyx becomes a broadly load-bearing architectural layer rather than a strong local interaction grammar.
 - That the framework scales cleanly beyond suggestion / routing / archive use cases.
 
+## Pilot Measurement Implementation
+
+As of April 2026, the pilot on **next-action suggestion shaping** includes a tracking layer to validate the contract against pre-Lux-Nyx baselines.
+
+### Tracked Metrics
+- **Suggestion Acceptance Rate**: Ratio of suggestions accepted without manual correction.
+- **Correction Burden**: Quantitative measure of manual edits required after a suggestion is surfaced.
+- **Archive-to-Promotion Conversion Quality**: Qualitative and quantitative tracking of whether items routed to archive eventually surface as high-quality promotion candidates.
+
+### Baseline Comparison
+Metrics are tracked in `state/lux_nyx/metrics.json` and compared against pre-Lux-Nyx baseline estimates to prove operational value before further architectural promotion.
+
 ## Failure conditions
 
 This effort fails if:

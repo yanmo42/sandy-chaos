@@ -318,7 +318,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Phase 2 — next-action suggestion shaping pilot: `classify_next_action`, `shape_next_action`, shadow artifact writer to `state/lux_nyx/shadow/` (`nfem_suite/intelligence/narrative_invariants/lux_nyx_pilot.py`, `tests/test_lux_nyx_pilot.py`)
 - [x] Phase 3 — governance coupling: `route(recommendation, record) → GovernanceOutcome`, evidence gate on promote-candidate, `GovernanceArtifact` writer to `state/lux_nyx/governance/` (`nfem_suite/intelligence/narrative_invariants/lux_nyx_governance.py`, `tests/test_lux_nyx_governance.py`)
 - [x] Connect `route()` into the `shape_next_action` full pipeline (combined into the single `shape_and_route()` entry point used by the orchestrator)
-- [ ] Wire governance outcomes into archive/promotion routing in existing workflows (e.g. orchestrator dispatch, doc promotion gates)
+- [x] Wire governance outcomes into archive/promotion routing in existing workflows (e.g. orchestrator dispatch, doc promotion gates)
 - [ ] Pilot measurement: track suggestion acceptance rate, correction burden, and archive-to-promotion conversion quality against pre-Lux-Nyx baseline
 - [ ] Evaluate against promotion condition: promote beyond bounded draft if pilot metrics show reduced mismatch or improved routing quality
 

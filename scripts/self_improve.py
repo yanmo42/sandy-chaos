@@ -1157,6 +1157,18 @@ def _effective_routed_disposition(contract: dict) -> str:
         if destination == "hold-queue":
             return "TODO_PROMOTE"
 
+        if destination == "promotion-queue":
+            current_disposition = str(contract.get("disposition", "")).strip()
+            if current_disposition in {"DROP_LOCAL", "LOG_ONLY", "TODO_PROMOTE"}:
+                text = " ".join(
+                    str(contract.get(key, "")).strip()
+                    for key in ("policy_tweak", "tweak", "goal", "section")
+                    if str(contract.get(key, "")).strip()
+                ).lower()
+                if any(k in text for k in ["workflow", "foundations", "admissibility", "test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
+                    return "POLICY_PROMOTE"
+                return "DOC_PROMOTE"
+
     return str(contract.get("disposition", "")).strip()
 
 

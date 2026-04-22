@@ -38,6 +38,9 @@ from nfem_suite.intelligence.narrative_invariants.lux_nyx_governance import (
     GovernanceOutcome,
     route,
 )
+from nfem_suite.intelligence.narrative_invariants.lux_nyx_metrics import (
+    record_suggestion,
+)
 
 # ---------------------------------------------------------------------------
 # Classifier lookup tables
@@ -266,6 +269,7 @@ def _shape_next_action_components(
         trace_note=recommendation.trace_note,
     )
     path = write_shadow_artifact(root, artifact)
+    record_suggestion(root, recommendation.action)
     return recommendation, path, record
 
 

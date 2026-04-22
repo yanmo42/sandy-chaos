@@ -31,6 +31,9 @@ from nfem_suite.intelligence.narrative_invariants.lux_nyx_contract import (
     LuxNyxInteractionRecord,
     validate_record,
 )
+from nfem_suite.intelligence.narrative_invariants.lux_nyx_metrics import (
+    record_promotion,
+)
 
 # ---------------------------------------------------------------------------
 # Governance destinations
@@ -178,6 +181,9 @@ def route(
         trace_note=trace_note,
     )
     path = write_governance_artifact(root, artifact)
+
+    if destination == "promotion-queue":
+        record_promotion(root, from_archive=(action == "archive"))
 
     return GovernanceOutcome(
         destination=destination,

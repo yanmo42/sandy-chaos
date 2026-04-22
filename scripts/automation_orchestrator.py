@@ -398,7 +398,7 @@ def apply_lux_nyx_governance_routing(
     if destination == "promotion-queue" and promotion_target in {"log-only", "todo"}:
         if "workflow" in text:
             return "POLICY_PROMOTE", "workflow"
-        if "foundations" in text:
+        if "foundations" in text or "admissibility" in text:
             return "POLICY_PROMOTE", "foundations"
         if any(k in text for k in ["test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
             return "POLICY_PROMOTE", "tests/config"
