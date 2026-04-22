@@ -253,6 +253,8 @@ The baseline is now an explicit frozen surface rather than an implicit all-zero 
 
 Live pilot events can now be logged one causal step at a time with `python3 scripts/lux_nyx_pilot_event.py`: `--suggestion <action>` records a shaped suggestion, `--accept` / `--reject` records whether that surfaced suggestion was taken as-is, `--corrections <n>` records manual correction burden, and `--archive-to-promotion` records the later archive → promotion conversion when that cross-session transition actually happens.
 
+The event recorder now enforces that ordering explicitly: acceptance and correction events require at least one previously recorded suggestion, and archive → promotion events require a previously recorded archive suggestion. This keeps the pilot counters causally honest instead of allowing retroactive conversion or acceptance counts to outrun their antecedent suggestions.
+
 Until that freeze step happens, `state/lux_nyx/pilot_report.json` marks baseline comparison entries as `direction: "unconfigured"` with `baseline` / `delta` left null, so the pilot does not claim false lift against a synthetic zero baseline.
 
 ## Failure conditions
