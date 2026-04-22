@@ -567,8 +567,10 @@ def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], pl
         for i, it in enumerate(selected, 1):
             cap = capability_lane_for_item(it)
             disposition, promotion_target = infer_disposition_and_promotion_target(it)
+            lux_nyx = _lux_nyx_shape(it.text, it.section)
+            disposition, promotion_target = apply_lux_nyx_governance_routing(it, disposition, promotion_target, lux_nyx)
             outcome_class = infer_branch_outcome_class(disposition)
-            promotion_review = resolve_promotion_review_policy(cfg, promotion_target)
+            promotion_review = resolve_promotion_review_policy(cfg, promotion_target, outcome_class)
             review_text = f"review={promotion_review['requirement']}/{promotion_review['status']}"
             continuity_text = ""
             if cap == "continuity" and topological_signal:

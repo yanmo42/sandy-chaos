@@ -337,6 +337,39 @@ class SessionResumeContextTests(unittest.TestCase):
         self.assertEqual(contract["lux_nyx_shaping"]["routing_disposition"], "DOC_PROMOTE")
         self.assertEqual(contract["lux_nyx_shaping"]["routing_promotion_target"], "docs")
 
+    def test_write_summary_reflects_lux_nyx_governance_routing(self):
+        item = automation_orchestrator.TodoItem(
+            state="open",
+            text="Document claim tier constraints",
+            section="Docs",
+        )
+        cfg = {
+            "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
+        }
+        mock_lux = {
+            "action": "archive",
+            "destination": "archive",
+            "rationale": "Preserve without promotion.",
+            "recommended_nyx_ops": ["compress", "trace"],
+            "shadow_artifact_type": "draft",
+            "trace_note": "Archived by governance.",
+            "shadow_artifact_path": "state/lux_nyx/shadow/sample.json",
+            "governance_artifact_path": "state/lux_nyx/governance/sample.json",
+        }
+
+        with tempfile.TemporaryDirectory() as td:
+            summary_path = Path(td) / "cycle_summary.md"
+            with patch.object(automation_orchestrator, "_lux_nyx_shape", return_value=mock_lux), \
+                 patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
+                automation_orchestrator.write_summary(summary_path, [item], [], Path("memory/orchestrator_task_plan.jsonl"), cfg)
+
+            text = summary_path.read_text(encoding="utf-8")
+
+        self.assertIn("disposition=LOG_ONLY", text)
+        self.assertIn("target=log-only", text)
+        self.assertIn("outcome=local", text)
+        self.assertIn("review=not-required/not-required", text)
+
 
 if __name__ == "__main__":
     unittest.main()
