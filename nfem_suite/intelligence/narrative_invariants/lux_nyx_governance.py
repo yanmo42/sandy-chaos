@@ -31,10 +31,6 @@ from nfem_suite.intelligence.narrative_invariants.lux_nyx_contract import (
     LuxNyxInteractionRecord,
     validate_record,
 )
-from nfem_suite.intelligence.narrative_invariants.lux_nyx_metrics import (
-    record_acceptance,
-    record_suggestion,
-)
 
 # ---------------------------------------------------------------------------
 # Governance destinations
@@ -183,24 +179,11 @@ def route(
     )
     path = write_governance_artifact(root, artifact)
 
-    # Pilot acceptance signal: surface is the only destination where the
-    # suggestion is enacted as-is. refusal-log is an explicit rejection.
-    # Other destinations (archive, hold-queue, route-queue, promotion-queue)
-    # are unresolved at shaping time and neither accept nor reject the
-    # suggestion here — promotion-queue in particular is a candidate status,
-    # not a measured acceptance.
-    #
-    # route() is usually called after shaping, which already records the
-    # suggestion. For route-only callers, seed one suggestion so acceptance
-    # bookkeeping remains causal and does not fail with "before any suggestion".
-    if destination in {"surface", "refusal-log"}:
-        try:
-            record_acceptance(root, accepted=(destination == "surface"))
-        except ValueError as exc:
-            if "before any suggestion" not in str(exc):
-                raise
-            record_suggestion(root, action)
-            record_acceptance(root, accepted=(destination == "surface"))
+    # Pilot measurement stays explicit here: routing is only the governance
+    # decision about where a suggestion goes next, not evidence that the
+    # surfaced suggestion was later accepted without correction. Suggestion
+    # acceptance/rejection must be recorded by a later causal event once an
+    # operator actually takes or rejects the suggestion.
 
     return GovernanceOutcome(
         destination=destination,

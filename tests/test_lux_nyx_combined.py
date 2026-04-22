@@ -4,9 +4,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from nfem_suite.intelligence.narrative_invariants.lux_nyx_governance import (
-    GovernanceOutcome,
-)
+from nfem_suite.intelligence.narrative_invariants.lux_nyx_governance import GovernanceOutcome
+from nfem_suite.intelligence.narrative_invariants.lux_nyx_metrics import PilotMetrics
 from nfem_suite.intelligence.narrative_invariants.lux_nyx_pilot import (
     LuxNyxCombinedOutcome,
     shape_and_route,
@@ -73,3 +72,15 @@ class LuxNyxCombinedTests(unittest.TestCase):
                 f'"shadow_artifact_type": "{outcome.recommendation.shadow_artifact_type}"',
                 artifact,
             )
+
+    def test_shape_and_route_records_suggestion_but_not_acceptance(self):
+        with tempfile.TemporaryDirectory() as td:
+            outcome = shape_and_route(
+                "Review the continuity artifacts for the current sprint",
+                section="continuity",
+                root=td,
+            )
+            self.assertEqual(outcome.governance.destination, "surface")
+            metrics = PilotMetrics.load(td)
+            self.assertEqual(metrics.suggestion_total, 1)
+            self.assertEqual(metrics.suggestion_accepted, 0)

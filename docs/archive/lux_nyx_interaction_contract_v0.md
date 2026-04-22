@@ -251,7 +251,7 @@ Metrics are tracked in `state/lux_nyx/metrics.json` and compared against pre-Lux
 
 The baseline is now an explicit frozen surface rather than an implicit all-zero default: use `python3 scripts/lux_nyx_pilot_baseline.py --suggestion-acceptance-rate <x> --correction-burden-per-suggestion <y> --archive-to-promotion-conversion-quality <z>` to write the pre-Lux-Nyx comparison reference without resetting live counters.
 
-Live pilot events can now be logged one causal step at a time with `python3 scripts/lux_nyx_pilot_event.py`: `--suggestion <action>` records a shaped suggestion, `--accept` / `--reject` records whether that surfaced suggestion was taken as-is, `--corrections <n>` records manual correction burden, and `--archive-to-promotion` records the later archive → promotion conversion when that cross-session transition actually happens.
+Live pilot events can now be logged one causal step at a time with `python3 scripts/lux_nyx_pilot_event.py`: `--suggestion <action>` records a shaped suggestion, `--accept` / `--reject` records whether that surfaced suggestion was taken as-is, `--corrections <n>` records manual correction burden, and `--archive-to-promotion` records the later archive → promotion conversion when that cross-session transition actually happens. Governance routing alone does **not** auto-record acceptance or rejection anymore; a suggestion only counts as accepted once a later explicit causal event says it was actually taken without correction.
 
 `--suggestion` now accepts only the canonical evaluator action names (`keep`, `compress`, `archive`, `route`, `hold`, `promote-candidate`, `refuse-with-reason`) so pilot counters cannot silently drift from the actual Lux–Nyx action grammar because of typos or ad-hoc labels.
 

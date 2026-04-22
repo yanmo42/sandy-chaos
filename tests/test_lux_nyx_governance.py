@@ -308,11 +308,11 @@ def test_route_returns_governance_outcome():
 
 
 # ---------------------------------------------------------------------------
-# route — pilot acceptance signal
+# route — pilot measurement remains explicit
 # ---------------------------------------------------------------------------
 
-def test_route_surface_records_accepted_suggestion():
-    """Surfacing a suggestion counts as acceptance for the pilot metric."""
+def test_route_surface_does_not_auto_record_acceptance():
+    """Routing to surface is not yet evidence of accepted-without-correction."""
     with tempfile.TemporaryDirectory() as td:
         rec = make_record(salience="high", ambiguity="low", risk="low")
         reco = evaluate(rec)
@@ -320,12 +320,12 @@ def test_route_surface_records_accepted_suggestion():
         outcome = route(reco, rec, root=td)
         assert outcome.destination == "surface"
         metrics = PilotMetrics.load(td)
-        assert metrics.suggestion_total == 1
-        assert metrics.suggestion_accepted == 1
+        assert metrics.suggestion_total == 0
+        assert metrics.suggestion_accepted == 0
 
 
-def test_route_refusal_log_does_not_record_accepted_suggestion():
-    """Refusal is an explicit non-acceptance — suggestion_accepted stays 0."""
+def test_route_refusal_log_does_not_auto_record_rejection():
+    """Routing to refusal-log is not itself a measured operator rejection event."""
     with tempfile.TemporaryDirectory() as td:
         rec = make_full_ops_record(risk="high", evidence_tier="speculative")
         reco = evaluate(rec)
@@ -333,7 +333,7 @@ def test_route_refusal_log_does_not_record_accepted_suggestion():
         outcome = route(reco, rec, root=td)
         assert outcome.destination == "refusal-log"
         metrics = PilotMetrics.load(td)
-        assert metrics.suggestion_total == 1
+        assert metrics.suggestion_total == 0
         assert metrics.suggestion_accepted == 0
 
 
@@ -345,6 +345,7 @@ def test_route_hold_queue_does_not_record_acceptance():
         outcome = route(reco, rec, root=td)
         assert outcome.destination == "hold-queue"
         metrics = PilotMetrics.load(td)
+        assert metrics.suggestion_total == 0
         assert metrics.suggestion_accepted == 0
 
 
