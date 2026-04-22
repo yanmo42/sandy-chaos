@@ -48,6 +48,6 @@ When `lux_nyx_shaping` includes explicit routed fields such as `routing_disposit
 
 The same rule now applies earlier in the workflow: orchestrator task-contract generation should preserve and honor explicit Lux–Nyx routed disposition/target pairs before deriving review requirements, so policy-relevant promotion candidates do not silently fall back to their pre-routing heuristic targets.
 
-Full-pass/orchestrator summaries should also count the effective Lux–Nyx-routed disposition and promotion target when shaping metadata is present, even if older task-plan rows still carry stale pre-routing top-level values.
+Full-pass/orchestrator summaries should also count the effective Lux–Nyx-routed disposition, promotion target, and derived branch outcome class when shaping metadata is present, even if older task-plan rows still carry stale pre-routing top-level values.
 
 When Lux–Nyx marks work for `promotion-queue` without an explicit routed target, orchestration should still lift pre-routing `log-only` or `todo` work into the appropriate docs/workflow/foundations/tests-config promotion lane based on the task text rather than leaving it parked as bookkeeping.

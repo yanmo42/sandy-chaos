@@ -662,6 +662,47 @@ class SelfImproveDispatchTests(unittest.TestCase):
             finally:
                 self_improve.ORCH_REQ_PATH = original_req_path
 
+    def test_load_orchestrator_snapshot_uses_routed_governance_metadata_in_counts(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+            plan_path = memory / "orchestrator_task_plan.jsonl"
+            plan_path.write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "capability_lane": "sandy-builder",
+                                "goal": "Workflow governance follow-up",
+                                "section": "Ops",
+                                "branch_outcome_class": "local",
+                                "disposition": "LOG_ONLY",
+                                "promotion_target": "log-only",
+                                "lux_nyx_shaping": {
+                                    "destination": "promotion-queue",
+                                    "routing_disposition": "POLICY_PROMOTE",
+                                    "routing_promotion_target": "workflow",
+                                },
+                            }
+                        )
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            original = {"ORCH_PLAN_PATH": self_improve.ORCH_PLAN_PATH}
+            try:
+                self_improve.ORCH_PLAN_PATH = plan_path
+                snapshot = self_improve.load_orchestrator_snapshot()
+            finally:
+                self_improve.ORCH_PLAN_PATH = original["ORCH_PLAN_PATH"]
+
+            self.assertEqual(snapshot["dispositions"], {"POLICY_PROMOTE": 1})
+            self.assertEqual(snapshot["promotion_targets"], {"workflow": 1})
+            self.assertEqual(snapshot["branch_outcome_classes"], {"policy-relevant": 1})
+
     def test_load_orchestrator_snapshot_skips_invalid_dispatch_membrane_rows(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)

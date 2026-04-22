@@ -1019,7 +1019,7 @@ def load_orchestrator_snapshot() -> dict:
                 dispositions[disposition] = int(dispositions.get(disposition, 0)) + 1
                 promotion = _effective_routed_promotion_target(row) or "unspecified"
                 promotion_targets[promotion] = int(promotion_targets.get(promotion, 0)) + 1
-                outcome = str(row.get("branch_outcome_class", "unspecified")).strip() or "unspecified"
+                outcome = _effective_routed_branch_outcome_class(row) or "unspecified"
                 outcome_classes[outcome] = int(outcome_classes.get(outcome, 0)) + 1
         except Exception:
             plan_count = 0
@@ -1158,6 +1158,19 @@ def _effective_routed_disposition(contract: dict) -> str:
             return "TODO_PROMOTE"
 
     return str(contract.get("disposition", "")).strip()
+
+
+def _effective_routed_branch_outcome_class(contract: dict) -> str:
+    disposition = _effective_routed_disposition(contract)
+    if disposition in {"DROP_LOCAL", "LOG_ONLY"}:
+        return "local"
+    if disposition in {"TODO_PROMOTE", "DOC_PROMOTE"}:
+        return "promotable"
+    if disposition == "POLICY_PROMOTE":
+        return "policy-relevant"
+    if disposition == "ESCALATE":
+        return "blocked"
+    return str(contract.get("branch_outcome_class", "")).strip()
 
 
 def _effective_routed_promotion_target(contract: dict) -> str:
