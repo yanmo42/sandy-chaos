@@ -476,6 +476,53 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             self.assertTrue(any("requires human review" in err for err in out["errors"]))
             mock_run.assert_not_called()
 
+    def test_dispatch_skips_archive_routed_contract(self):
+        requests = [{
+            "id": "spawn-01",
+            "prompt_context": {
+                "branch_outcome_class": "local",
+                "disposition": "LOG_ONLY",
+                "promotion_target": "log-only",
+                "promotion_review_requirement": "not-required",
+                "promotion_review_status": "not-required",
+                "lux_nyx_shaping": {"destination": "archive"},
+            },
+            "spawn": {"runtime": "subagent", "task": "x"},
+        }]
+
+        with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
+             patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
+            out = orchestrator_autospawn.dispatch_spawn_requests(requests, dry_run=False)
+
+            self.assertEqual(out["attempted"], 1)
+            self.assertEqual(out["dispatched"], 0)
+            self.assertTrue(any("routed this task to archive" in err for err in out["errors"]))
+            mock_run.assert_not_called()
+
+    def test_dispatch_blocks_promotion_queue_docs_without_approved_review(self):
+        requests = [{
+            "id": "spawn-01",
+            "prompt_context": {
+                "branch_outcome_class": "promotable",
+                "disposition": "DOC_PROMOTE",
+                "promotion_target": "docs",
+                "promotion_review_requirement": "not-required",
+                "promotion_review_status": "not-required",
+                "lux_nyx_shaping": {"destination": "promotion-queue"},
+            },
+            "spawn": {"runtime": "subagent", "task": "x"},
+        }]
+
+        with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
+             patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
+            out = orchestrator_autospawn.dispatch_spawn_requests(requests, dry_run=False)
+
+            self.assertEqual(out["attempted"], 1)
+            self.assertEqual(out["dispatched"], 0)
+            self.assertTrue(any("promotion-queue" in err for err in out["errors"]))
+            self.assertTrue(any("requires approved human review" in err for err in out["errors"]))
+            mock_run.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

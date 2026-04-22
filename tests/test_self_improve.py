@@ -171,6 +171,87 @@ class SelfImproveDispatchTests(unittest.TestCase):
             finally:
                 self_improve.ORCH_REQ_PATH = original_req_path
 
+    def test_dispatch_skips_archive_routed_contract(self):
+        with tempfile.TemporaryDirectory() as td:
+            req_path = Path(td) / "orchestrator_spawn_requests.json"
+            req_path.write_text(
+                json.dumps(
+                    {
+                        "requests": [
+                            {
+                                "id": "spawn-01",
+                                "lane": "sandy-builder",
+                                "prompt_context": {
+                                    "branch_outcome_class": "local",
+                                    "disposition": "LOG_ONLY",
+                                    "promotion_target": "log-only",
+                                    "promotion_review_requirement": "not-required",
+                                    "promotion_review_status": "not-required",
+                                    "lux_nyx_shaping": {"destination": "archive"},
+                                },
+                                "spawn": {"runtime": "subagent", "task": "x"},
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            original_req_path = self_improve.ORCH_REQ_PATH
+            try:
+                self_improve.ORCH_REQ_PATH = req_path
+                with patch.object(self_improve, "resolve_openclaw_command", return_value=(["openclaw"], ["openclaw"])), \
+                     patch("scripts.self_improve.subprocess.run") as mock_run:
+                    out = self_improve.dispatch_spawn_requests(dry_run=False, max_dispatch=1)
+
+                self.assertEqual(out["attempted"], 1)
+                self.assertEqual(out["dispatched"], 0)
+                self.assertTrue(any("routed this task to archive" in e for e in out["errors"]))
+                mock_run.assert_not_called()
+            finally:
+                self_improve.ORCH_REQ_PATH = original_req_path
+
+    def test_dispatch_blocks_promotion_queue_docs_without_approved_review(self):
+        with tempfile.TemporaryDirectory() as td:
+            req_path = Path(td) / "orchestrator_spawn_requests.json"
+            req_path.write_text(
+                json.dumps(
+                    {
+                        "requests": [
+                            {
+                                "id": "spawn-01",
+                                "lane": "sandy-builder",
+                                "prompt_context": {
+                                    "branch_outcome_class": "promotable",
+                                    "disposition": "DOC_PROMOTE",
+                                    "promotion_target": "docs",
+                                    "promotion_review_requirement": "not-required",
+                                    "promotion_review_status": "not-required",
+                                    "lux_nyx_shaping": {"destination": "promotion-queue"},
+                                },
+                                "spawn": {"runtime": "subagent", "task": "x"},
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            original_req_path = self_improve.ORCH_REQ_PATH
+            try:
+                self_improve.ORCH_REQ_PATH = req_path
+                with patch.object(self_improve, "resolve_openclaw_command", return_value=(["openclaw"], ["openclaw"])), \
+                     patch("scripts.self_improve.subprocess.run") as mock_run:
+                    out = self_improve.dispatch_spawn_requests(dry_run=False, max_dispatch=1)
+
+                self.assertEqual(out["attempted"], 1)
+                self.assertEqual(out["dispatched"], 0)
+                self.assertTrue(any("promotion-queue" in e for e in out["errors"]))
+                self.assertTrue(any("requires approved human review" in e for e in out["errors"]))
+                mock_run.assert_not_called()
+            finally:
+                self_improve.ORCH_REQ_PATH = original_req_path
+
     def test_load_orchestrator_snapshot_skips_invalid_dispatch_membrane_rows(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)

@@ -178,6 +178,28 @@ def promotion_review_gate_error(contract: dict) -> str | None:
     return None
 
 
+def governance_dispatch_gate_error(contract: dict) -> str | None:
+    if not isinstance(contract, dict):
+        return None
+
+    lux_nyx = contract.get("lux_nyx_shaping", {})
+    destination = str(lux_nyx.get("destination", "")).strip() if isinstance(lux_nyx, dict) else ""
+    target = str(contract.get("promotion_target", "")).strip() or "(missing target)"
+    status = str(contract.get("promotion_review_status", "")).strip()
+
+    if destination in {"archive", "refusal-log"}:
+        return f"Lux–Nyx governance routed this task to {destination}; dispatch is skipped"
+    if destination == "hold-queue":
+        return "Lux–Nyx governance routed this task to hold-queue; dispatch is skipped"
+    if destination == "promotion-queue" and target in {"docs", "workflow", "foundations", "tests/config"} and status != "approved":
+        return (
+            f"Lux–Nyx governance routed this task to promotion-queue for promotion_target '{target}', "
+            f"which still requires approved human review (status={status or 'missing'})"
+        )
+
+    return promotion_review_gate_error(contract)
+
+
 def now_iso() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
@@ -482,7 +504,7 @@ def dispatch_spawn_requests(requests: list[dict], dry_run: bool = False) -> dict
         if contract_errors:
             out["errors"].append(f"{req.get('id', 'unknown')}: {'; '.join(contract_errors)}")
             continue
-        review_gate_error = promotion_review_gate_error(req.get("prompt_context", {}))
+        review_gate_error = governance_dispatch_gate_error(req.get("prompt_context", {}))
         if review_gate_error:
             out["errors"].append(f"{req.get('id', 'unknown')}: {review_gate_error}")
             continue

@@ -1087,6 +1087,31 @@ def validate_continuity_contract(contract: dict) -> list[str]:
     return errors
 
 
+def governance_dispatch_gate_error(contract: dict) -> str | None:
+    if not isinstance(contract, dict):
+        return None
+
+    lux_nyx = contract.get("lux_nyx_shaping", {})
+    destination = str(lux_nyx.get("destination", "")).strip() if isinstance(lux_nyx, dict) else ""
+    target = str(contract.get("promotion_target", "")).strip() or "(missing target)"
+    requirement = str(contract.get("promotion_review_requirement", "")).strip()
+    status = str(contract.get("promotion_review_status", "")).strip()
+
+    if destination in {"archive", "refusal-log"}:
+        return f"Lux–Nyx governance routed this task to {destination}; dispatch is skipped"
+    if destination == "hold-queue":
+        return "Lux–Nyx governance routed this task to hold-queue; dispatch is skipped"
+    if destination == "promotion-queue" and target in {"docs", "workflow", "foundations", "tests/config"} and status != "approved":
+        return (
+            f"Lux–Nyx governance routed this task to promotion-queue for promotion_target '{target}', "
+            f"which still requires approved human review (status={status or 'missing'})"
+        )
+    if requirement == "human-review" and status != "approved":
+        return f"promotion_target '{target}' requires human review before dispatch (status={status or 'missing'})"
+
+    return None
+
+
 def _extract_unittest_ran_count(output_text: str) -> int | None:
     m = re.search(r"Ran\s+(\d+)\s+tests?", output_text)
     if not m:
@@ -1579,6 +1604,10 @@ def dispatch_spawn_requests(dry_run: bool, max_dispatch: int = 3) -> dict:
             continuity_errors = validate_continuity_contract(prompt_context)
             if continuity_errors:
                 out["errors"].append(f"{r.get('id', 'unknown')}: {'; '.join(continuity_errors)}")
+                continue
+            gate_error = governance_dispatch_gate_error(prompt_context)
+            if gate_error:
+                out["errors"].append(f"{r.get('id', 'unknown')}: {gate_error}")
                 continue
 
         payload = _build_dispatch_agent_payload(r)
