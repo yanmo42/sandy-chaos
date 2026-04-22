@@ -555,6 +555,8 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
         requests = [{
             "id": "spawn-01",
             "prompt_context": {
+                "goal": "Document docs promotion candidate",
+                "section": "Docs",
                 "branch_outcome_class": "local",
                 "disposition": "LOG_ONLY",
                 "promotion_target": "log-only",
@@ -575,6 +577,35 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             self.assertEqual(out["attempted"], 1)
             self.assertEqual(out["dispatched"], 0)
             self.assertTrue(any("promotion_target 'docs'" in err for err in out["errors"]))
+            self.assertTrue(any("requires approved human review" in err for err in out["errors"]))
+            mock_run.assert_not_called()
+
+    def test_dispatch_infers_foundations_target_from_routed_policy_disposition_and_context(self):
+        requests = [{
+            "id": "spawn-01",
+            "prompt_context": {
+                "goal": "Tighten admissibility markers in foundations guidance",
+                "section": "Foundations",
+                "branch_outcome_class": "local",
+                "disposition": "LOG_ONLY",
+                "promotion_target": "log-only",
+                "promotion_review_requirement": "human-review",
+                "promotion_review_status": "pending",
+                "lux_nyx_shaping": {
+                    "destination": "promotion-queue",
+                    "routing_disposition": "POLICY_PROMOTE",
+                },
+            },
+            "spawn": {"runtime": "subagent", "task": "x"},
+        }]
+
+        with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
+             patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
+            out = orchestrator_autospawn.dispatch_spawn_requests(requests, dry_run=False)
+
+            self.assertEqual(out["attempted"], 1)
+            self.assertEqual(out["dispatched"], 0)
+            self.assertTrue(any("promotion_target 'foundations'" in err for err in out["errors"]))
             self.assertTrue(any("requires approved human review" in err for err in out["errors"]))
             mock_run.assert_not_called()
 

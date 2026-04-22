@@ -498,6 +498,7 @@ def promote_policy_tweaks(min_count: int = 3, dry_run: bool = False) -> dict:
         if tweak in promoted:
             continue
         if gate_contract:
+            gate_contract = {**gate_contract, "policy_tweak": tweak}
             gate_error = governance_dispatch_gate_error(gate_contract)
             if gate_error:
                 skipped_now.append({"policy_tweak": tweak, "count": count, "reason": gate_error})
@@ -1144,9 +1145,24 @@ def _effective_routed_promotion_target(contract: dict) -> str:
     if not isinstance(contract, dict):
         return ""
 
+    context_text = " ".join(
+        str(contract.get(key, "")).strip()
+        for key in ("policy_tweak", "tweak", "goal", "section")
+        if str(contract.get(key, "")).strip()
+    ).lower()
+
+    def infer_policy_target() -> str:
+        if "workflow" in context_text:
+            return "workflow"
+        if "foundations" in context_text or "admissibility" in context_text:
+            return "foundations"
+        if any(k in context_text for k in ["test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
+            return "tests/config"
+        return ""
+
     lux_nyx = contract.get("lux_nyx_shaping", {})
     if not isinstance(lux_nyx, dict):
-        return str(contract.get("promotion_target", "")).strip()
+        return str(contract.get("promotion_target", "")).strip() or infer_policy_target()
 
     routed_target = str(lux_nyx.get("routing_promotion_target", "")).strip()
     if routed_target:
@@ -1163,9 +1179,9 @@ def _effective_routed_promotion_target(contract: dict) -> str:
         target = str(contract.get("promotion_target", "")).strip()
         if target in {"workflow", "foundations", "tests/config"}:
             return target
-        return "tests/config"
+        return infer_policy_target() or "tests/config"
 
-    return str(contract.get("promotion_target", "")).strip()
+    return str(contract.get("promotion_target", "")).strip() or infer_policy_target()
 
 
 

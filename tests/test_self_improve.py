@@ -339,6 +339,73 @@ class SelfImprovePromotionTests(unittest.TestCase):
                 self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
                 self_improve.FOUNDATIONS_PATH = original["FOUNDATIONS_PATH"]
 
+    def test_promote_policy_tweaks_infers_foundations_target_from_routed_disposition_and_text(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+
+            state_path = memory / "self_improve_state.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "policy_tweak_counts": {
+                            "Tighten admissibility review boundary": {
+                                "count": 3,
+                                "disposition": "LOG_ONLY",
+                                "promotion_target": "log-only",
+                                "promotion_review_requirement": "human-review",
+                                "promotion_review_status": "approved",
+                                "lux_nyx_shaping": {
+                                    "destination": "promotion-queue",
+                                    "routing_disposition": "POLICY_PROMOTE",
+                                },
+                            }
+                        },
+                        "promoted_policy_tweaks": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            agents = root / "AGENTS.md"
+            workflow = root / "WORKFLOW.md"
+            foundations = root / "FOUNDATIONS.md"
+            agents.write_text("# Agents\n", encoding="utf-8")
+            workflow.write_text("# Workflow\n", encoding="utf-8")
+            foundations.write_text("# Foundations\n", encoding="utf-8")
+
+            original = {
+                "ROOT": self_improve.ROOT,
+                "MEMORY_DIR": self_improve.MEMORY_DIR,
+                "STATE_PATH": self_improve.STATE_PATH,
+                "AGENTS_PATH": self_improve.AGENTS_PATH,
+                "WORKFLOW_PATH": self_improve.WORKFLOW_PATH,
+                "FOUNDATIONS_PATH": self_improve.FOUNDATIONS_PATH,
+            }
+            try:
+                self_improve.ROOT = root
+                self_improve.MEMORY_DIR = memory
+                self_improve.STATE_PATH = state_path
+                self_improve.AGENTS_PATH = agents
+                self_improve.WORKFLOW_PATH = workflow
+                self_improve.FOUNDATIONS_PATH = foundations
+
+                result = self_improve.promote_policy_tweaks(min_count=3, dry_run=False)
+
+                self.assertEqual(result["skipped"], [])
+                self.assertEqual(result["promoted"][0]["target"], "FOUNDATIONS.md")
+                self.assertIn("Tighten admissibility review boundary", foundations.read_text(encoding="utf-8"))
+                self.assertNotIn("Tighten admissibility review boundary", workflow.read_text(encoding="utf-8"))
+                self.assertNotIn("Tighten admissibility review boundary", agents.read_text(encoding="utf-8"))
+            finally:
+                self_improve.ROOT = original["ROOT"]
+                self_improve.MEMORY_DIR = original["MEMORY_DIR"]
+                self_improve.STATE_PATH = original["STATE_PATH"]
+                self_improve.AGENTS_PATH = original["AGENTS_PATH"]
+                self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
+                self_improve.FOUNDATIONS_PATH = original["FOUNDATIONS_PATH"]
+
     def test_queue_notification_creates_structured_outbox_entry(self):
         with tempfile.TemporaryDirectory() as td:
             outbox = Path(td) / "memory" / "notification_outbox.md"
