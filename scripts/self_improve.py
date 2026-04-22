@@ -28,6 +28,8 @@ import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from nfem_suite.intelligence.narrative_invariants import record_archive_to_promotion
+
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES = ROOT / "templates"
 MEMORY_DIR = ROOT / "memory"
@@ -473,6 +475,7 @@ def _policy_tweak_gate_contract(raw: object) -> tuple[int, dict | None]:
             "promotion_review_requirement": raw.get("promotion_review_requirement", ""),
             "promotion_review_status": raw.get("promotion_review_status", ""),
             "lux_nyx_shaping": raw.get("lux_nyx_shaping", {}),
+            "pilot_archive_origin": raw.get("pilot_archive_origin"),
         }
         if any(contract.values()):
             return count, contract
@@ -481,6 +484,20 @@ def _policy_tweak_gate_contract(raw: object) -> tuple[int, dict | None]:
             return count, nested
         return count, None
     return int(raw or 0), None
+
+
+
+def _has_explicit_archive_origin(contract: dict | None) -> bool:
+    if not isinstance(contract, dict):
+        return False
+    if contract.get("pilot_archive_origin") is True:
+        return True
+    lux_nyx = contract.get("lux_nyx_shaping", {})
+    if not isinstance(lux_nyx, dict):
+        return False
+    if lux_nyx.get("archive_origin") is True:
+        return True
+    return str(lux_nyx.get("prior_destination", "")).strip() == "archive"
 
 
 
@@ -510,13 +527,26 @@ def promote_policy_tweaks(min_count: int = 3, dry_run: bool = False) -> dict:
         if not dry_run:
             changed = append_promoted_tweak(target_path, tweak)
 
+        pilot_archive_promotion_recorded = False
+        if not dry_run and changed and _has_explicit_archive_origin(gate_contract):
+            record_archive_to_promotion(ROOT)
+            pilot_archive_promotion_recorded = True
+
         promoted[tweak] = {
             "target": target_path.name,
             "promoted_at": now_dt().isoformat(timespec="seconds"),
             "count": count,
             "applied": bool(changed),
+            "pilot_archive_promotion_recorded": pilot_archive_promotion_recorded,
         }
-        promoted_now.append({"policy_tweak": tweak, "target": target_path.name, "applied": bool(changed)})
+        promoted_now.append(
+            {
+                "policy_tweak": tweak,
+                "target": target_path.name,
+                "applied": bool(changed),
+                "pilot_archive_promotion_recorded": pilot_archive_promotion_recorded,
+            }
+        )
 
     if (promoted_now or skipped_now) and not dry_run:
         save_state(state)

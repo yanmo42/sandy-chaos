@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from nfem_suite.intelligence.narrative_invariants import PilotMetrics, record_suggestion
 from scripts import self_improve
 
 
@@ -331,6 +332,75 @@ class SelfImprovePromotionTests(unittest.TestCase):
                 self.assertIn("Tighten the admissibility boundary", foundations.read_text(encoding="utf-8"))
                 self.assertNotIn("Tighten the admissibility boundary", workflow.read_text(encoding="utf-8"))
                 self.assertNotIn("Tighten the admissibility boundary", agents.read_text(encoding="utf-8"))
+            finally:
+                self_improve.ROOT = original["ROOT"]
+                self_improve.MEMORY_DIR = original["MEMORY_DIR"]
+                self_improve.STATE_PATH = original["STATE_PATH"]
+                self_improve.AGENTS_PATH = original["AGENTS_PATH"]
+                self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
+                self_improve.FOUNDATIONS_PATH = original["FOUNDATIONS_PATH"]
+
+    def test_promote_policy_tweaks_records_archive_to_promotion_when_origin_is_explicit(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+            record_suggestion(root, "archive")
+
+            state_path = memory / "self_improve_state.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "policy_tweak_counts": {
+                            "Promote archived workflow tweak": {
+                                "count": 3,
+                                "disposition": "POLICY_PROMOTE",
+                                "promotion_target": "workflow",
+                                "promotion_review_requirement": "human-review",
+                                "promotion_review_status": "approved",
+                                "pilot_archive_origin": True,
+                                "lux_nyx_shaping": {
+                                    "destination": "promotion-queue",
+                                    "routing_disposition": "POLICY_PROMOTE",
+                                    "routing_promotion_target": "workflow",
+                                },
+                            }
+                        },
+                        "promoted_policy_tweaks": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            agents = root / "AGENTS.md"
+            workflow = root / "WORKFLOW.md"
+            foundations = root / "FOUNDATIONS.md"
+            agents.write_text("# Agents\n", encoding="utf-8")
+            workflow.write_text("# Workflow\n", encoding="utf-8")
+            foundations.write_text("# Foundations\n", encoding="utf-8")
+
+            original = {
+                "ROOT": self_improve.ROOT,
+                "MEMORY_DIR": self_improve.MEMORY_DIR,
+                "STATE_PATH": self_improve.STATE_PATH,
+                "AGENTS_PATH": self_improve.AGENTS_PATH,
+                "WORKFLOW_PATH": self_improve.WORKFLOW_PATH,
+                "FOUNDATIONS_PATH": self_improve.FOUNDATIONS_PATH,
+            }
+            try:
+                self_improve.ROOT = root
+                self_improve.MEMORY_DIR = memory
+                self_improve.STATE_PATH = state_path
+                self_improve.AGENTS_PATH = agents
+                self_improve.WORKFLOW_PATH = workflow
+                self_improve.FOUNDATIONS_PATH = foundations
+
+                result = self_improve.promote_policy_tweaks(min_count=3, dry_run=False)
+
+                self.assertEqual(result["skipped"], [])
+                self.assertTrue(result["promoted"][0]["pilot_archive_promotion_recorded"])
+                metrics = PilotMetrics.load(root)
+                self.assertEqual(metrics.archive_promoted, 1)
             finally:
                 self_improve.ROOT = original["ROOT"]
                 self_improve.MEMORY_DIR = original["MEMORY_DIR"]

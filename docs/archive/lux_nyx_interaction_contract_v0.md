@@ -255,6 +255,8 @@ Live pilot events can now be logged one causal step at a time with `python3 scri
 
 The event recorder now enforces that ordering explicitly: acceptance and correction events require at least one previously recorded suggestion, and archive → promotion events require a previously recorded archive suggestion. This keeps the pilot counters causally honest instead of allowing retroactive conversion or acceptance counts to outrun their antecedent suggestions.
 
+One narrow workflow auto-wire now exists for that last metric: when `scripts/self_improve.py promote-policy-tweaks` promotes a tweak carrying explicit archive-origin metadata (`pilot_archive_origin: true`, `lux_nyx_shaping.archive_origin: true`, or `lux_nyx_shaping.prior_destination: "archive"`), it records the archive → promotion conversion automatically instead of requiring a separate manual CLI step.
+
 Until that freeze step happens, `state/lux_nyx/pilot_report.json` marks baseline comparison entries as `direction: "unconfigured"` with `baseline` / `delta` left null, so the pilot does not claim false lift against a synthetic zero baseline.
 
 ## Failure conditions
