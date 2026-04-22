@@ -523,6 +523,34 @@ class OrchestratorAutospawnDispatchTests(unittest.TestCase):
             self.assertTrue(any("requires approved human review" in err for err in out["errors"]))
             mock_run.assert_not_called()
 
+    def test_dispatch_uses_routed_promotion_target_for_promotion_queue_gate(self):
+        requests = [{
+            "id": "spawn-01",
+            "prompt_context": {
+                "branch_outcome_class": "local",
+                "disposition": "LOG_ONLY",
+                "promotion_target": "log-only",
+                "promotion_review_requirement": "human-review",
+                "promotion_review_status": "pending",
+                "lux_nyx_shaping": {
+                    "destination": "promotion-queue",
+                    "routing_disposition": "POLICY_PROMOTE",
+                    "routing_promotion_target": "workflow",
+                },
+            },
+            "spawn": {"runtime": "subagent", "task": "x"},
+        }]
+
+        with patch.object(orchestrator_autospawn, "resolve_openclaw_command", return_value=["openclaw"]), \
+             patch("scripts.orchestrator_autospawn.subprocess.run") as mock_run:
+            out = orchestrator_autospawn.dispatch_spawn_requests(requests, dry_run=False)
+
+            self.assertEqual(out["attempted"], 1)
+            self.assertEqual(out["dispatched"], 0)
+            self.assertTrue(any("promotion_target 'workflow'" in err for err in out["errors"]))
+            self.assertTrue(any("requires approved human review" in err for err in out["errors"]))
+            mock_run.assert_not_called()
+
     def test_to_spawn_request_preserves_lux_nyx_routing_for_dispatch_gates(self):
         task = {
             "lane": "sandy-builder",

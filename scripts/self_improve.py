@@ -1110,7 +1110,8 @@ def governance_dispatch_gate_error(contract: dict) -> str | None:
 
     lux_nyx = contract.get("lux_nyx_shaping", {})
     destination = str(lux_nyx.get("destination", "")).strip() if isinstance(lux_nyx, dict) else ""
-    target = str(contract.get("promotion_target", "")).strip() or "(missing target)"
+    routed_target = str(lux_nyx.get("routing_promotion_target", "")).strip() if isinstance(lux_nyx, dict) else ""
+    target = routed_target or str(contract.get("promotion_target", "")).strip() or "(missing target)"
     requirement = str(contract.get("promotion_review_requirement", "")).strip()
     status = str(contract.get("promotion_review_status", "")).strip()
 
