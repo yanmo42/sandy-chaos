@@ -323,7 +323,7 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
   - [x] Counter scaffolding + per-metric direction classifier + CLI entry points (`nfem_suite/intelligence/narrative_invariants/lux_nyx_metrics.py`, `scripts/lux_nyx_pilot_{baseline,event,report}.py`)
   - [x] Honest-sampling guard: `sample_size` + `sample_sufficient` per baseline-comparison entry so small-n direction readings are flagged as provisional (`MIN_PILOT_SAMPLE_SIZE`)
   - [ ] Freeze a concrete pre-Lux-Nyx baseline (still null in `state/lux_nyx/metrics.json`)
-  - [~] Auto-wire correction burden + archive-to-promotion signals (correction burden still manual; self-improve promotion can now auto-record archive→promotion when explicit archive-origin metadata is carried, but broader workflow wiring remains open)
+  - [~] Auto-wire correction burden + archive-to-promotion signals (correction burden still manual, but pilot bookkeeping now forces each accept/reject/correction event to consume one unresolved suggestion; self-improve promotion can auto-record archive→promotion when explicit archive-origin metadata is carried, and broader workflow wiring remains open)
 - [ ] Evaluate against promotion condition: promote beyond bounded draft if pilot metrics show reduced mismatch or improved routing quality
   - [x] Declarative `pilot_promotion_verdict` rule + `PROMOTION_VERDICTS` enum surfaced in `build_pilot_report` output; verdict is gated on baseline being frozen, every headline metric having sufficient samples, no metric being `worse`, and at least one being `better`
 

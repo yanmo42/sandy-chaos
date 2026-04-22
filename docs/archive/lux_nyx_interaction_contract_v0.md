@@ -255,7 +255,7 @@ Live pilot events can now be logged one causal step at a time with `python3 scri
 
 `--suggestion` now accepts only the canonical evaluator action names (`keep`, `compress`, `archive`, `route`, `hold`, `promote-candidate`, `refuse-with-reason`) so pilot counters cannot silently drift from the actual Lux–Nyx action grammar because of typos or ad-hoc labels.
 
-The event recorder now enforces that ordering explicitly: acceptance and correction events require at least one previously recorded suggestion, and archive → promotion events require a previously recorded archive suggestion. This keeps the pilot counters causally honest instead of allowing retroactive conversion or acceptance counts to outrun their antecedent suggestions.
+The event recorder now enforces that ordering explicitly: acceptance, rejection, and correction events each consume one previously unresolved suggestion, and archive → promotion events require a previously recorded archive suggestion. This keeps the pilot counters causally honest instead of allowing retroactive conversion, duplicate resolutions, or acceptance counts to outrun their antecedent suggestions.
 
 One narrow workflow auto-wire now exists for that last metric: when `scripts/self_improve.py promote-policy-tweaks` promotes a tweak carrying explicit archive-origin metadata (`pilot_archive_origin: true`, `lux_nyx_shaping.archive_origin: true`, or `lux_nyx_shaping.prior_destination: "archive"`), it records the archive → promotion conversion automatically instead of requiring a separate manual CLI step.
 
