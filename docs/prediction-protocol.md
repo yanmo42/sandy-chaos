@@ -159,6 +159,13 @@ Store per prediction under `memory/predictions/` (or equivalent):
 
 Only repeated `PASS` outcomes can support automation policy promotion.
 
+For continuity architecture purposes, the prediction lifecycle should be read explicitly as a cadence map:
+- pre-registration, quantitative emission, and lock steps operate at the **edge / fast** layer (local, high-frequency, reversible before commit),
+- observation scoring and update-artifact generation operate at the **bridge / meso** layer (summarizing and routing results),
+- promotion of models or docs based on repeated PASS outcomes operates at the **spine / slow** layer (durable policy change).
+
+This mapping is strictly forward-causal: fast-layer registration and emission inform bridge-layer scoring, and bridge-layer results justify spine-layer promotion, but the protocol does not imply raw edge activity directly rewriting spine state.
+
 ---
 
 ## 10) Minimal immediate implementation checklist

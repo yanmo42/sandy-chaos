@@ -21,8 +21,8 @@ RECEIPT_PATH = ROOT / "memory" / "hourly_cycle_receipts.md"
 TASK_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
 DEFAULT_REMOTE = "origin"
 DEFAULT_BRANCH = "main"
-DEFAULT_AGENT = "claude"
-DEFAULT_AGENT_TIMEOUT_SEC = 300
+DEFAULT_AGENT = "openclaw"
+DEFAULT_AGENT_TIMEOUT_SEC = 600
 
 
 def default_validation_command() -> list[str]:
@@ -122,6 +122,87 @@ def load_selected_task() -> dict | None:
     return None
 
 
+def resolve_openclaw_command() -> list[str]:
+    return orchestrator_autospawn.resolve_openclaw_command()
+
+
+def run_openclaw_agent_task(task: dict, prompt: str, timeout_sec: int) -> subprocess.CompletedProcess[str]:
+    openclaw_cmd = resolve_openclaw_command()
+    if not openclaw_cmd:
+        return subprocess.CompletedProcess(
+            args=["openclaw"],
+            returncode=1,
+            stdout="",
+            stderr="openclaw binary not found",
+        )
+
+    agent_id = orchestrator_autospawn.resolve_dispatch_agent_id()
+    # Ensure we use a unique session for this task
+    safe_goal = "".join(c.lower() if c.isalnum() else "-" for c in str(task.get("goal", "task"))).strip("-")[:30]
+    stamp = datetime.now().strftime("%H%M%S")
+    session_key = f"agent:{agent_id}:hourly-{safe_goal}-{stamp}"
+
+    import uuid
+    payload = {
+        "agentId": agent_id,
+        "sessionKey": session_key,
+        "idempotencyKey": str(uuid.uuid4()),
+        "message": prompt,
+    }
+
+    cmd = openclaw_cmd + [
+        "gateway",
+        "call",
+        "agent",
+        "--json",
+        "--expect-final",
+        "--timeout", str(timeout_sec * 1000),
+        "--params", json.dumps(payload),
+    ]
+
+    try:
+        proc = subprocess.run(
+            cmd,
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            timeout=timeout_sec + 30,
+        )
+        if proc.returncode == 0:
+            try:
+                parsed = json.loads(proc.stdout)
+                # The final response from agent call with --expect-final should have the assistant message
+                # or a 'result' field.
+                if isinstance(parsed, dict) and "message" in parsed:
+                    return subprocess.CompletedProcess(
+                        args=cmd,
+                        returncode=0,
+                        stdout=parsed["message"],
+                        stderr="",
+                    )
+                return subprocess.CompletedProcess(
+                    args=cmd,
+                    returncode=0,
+                    stdout=json.dumps(parsed, indent=2),
+                    stderr="",
+                )
+            except Exception as e:
+                return subprocess.CompletedProcess(
+                    args=cmd,
+                    returncode=0,
+                    stdout=proc.stdout,
+                    stderr=f"JSON parse error: {e}",
+                )
+        return proc
+    except subprocess.TimeoutExpired as exc:
+        return subprocess.CompletedProcess(
+            args=cmd,
+            returncode=124,
+            stdout=(exc.stdout or ""),
+            stderr=((exc.stderr or "") + f"\nOpenClaw agent timed out after {timeout_sec}s").strip(),
+        )
+
+
 def resolve_agent_command(agent: str) -> list[str]:
     if agent == "claude":
         binary = shutil.which("claude") or str(Path.home() / ".local" / "bin" / "claude")
@@ -155,6 +236,10 @@ def run_agent_task(task: dict, *, agent: str, dry_run: bool, timeout_sec: int) -
             stdout=prompt,
             stderr="",
         )
+
+    if agent == "openclaw":
+        return run_openclaw_agent_task(task, prompt, timeout_sec)
+
     cmd = resolve_agent_command(agent)
     try:
         return subprocess.run(
