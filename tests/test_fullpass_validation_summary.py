@@ -97,25 +97,31 @@ class FullPassValidationSummaryTests(unittest.TestCase):
                         "current": 0.61,
                         "baseline": 0.55,
                         "direction": "better",
+                        "sample_size": 42,
+                        "sample_remaining": 0,
                     },
                     "correction_burden_per_suggestion": {
                         "current": 0.19,
                         "baseline": 0.22,
                         "direction": "better",
+                        "sample_size": 42,
+                        "sample_remaining": 0,
                     },
                     "archive_to_promotion_conversion_quality": {
                         "current": 0.47,
                         "baseline": 0.4,
                         "direction": "better",
+                        "sample_size": 5,
+                        "sample_remaining": 5,
                     },
                 },
             }
         )
 
         self.assertIn("baseline=configured", text)
-        self.assertIn("suggestion_acceptance_rate=0.610 vs 0.550 (better)", text)
-        self.assertIn("correction_burden_per_suggestion=0.190 vs 0.220 (better)", text)
-        self.assertIn("archive_to_promotion_conversion_quality=0.470 vs 0.400 (better)", text)
+        self.assertIn("suggestion_acceptance_rate=0.610 vs 0.550 (better; n=42; remaining=0)", text)
+        self.assertIn("correction_burden_per_suggestion=0.190 vs 0.220 (better; n=42; remaining=0)", text)
+        self.assertIn("archive_to_promotion_conversion_quality=0.470 vs 0.400 (better; n=5; remaining=5)", text)
 
     def test_default_validation_command_uses_resolved_python(self):
         with patch("scripts.self_improve.resolve_validation_python", return_value="/tmp/python-real"):

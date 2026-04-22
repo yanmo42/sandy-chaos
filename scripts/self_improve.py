@@ -1185,7 +1185,11 @@ def format_lux_nyx_pilot_snapshot(report: dict | None) -> str:
         current = _format_metric_value(row.get("current"))
         baseline = _format_metric_value(row.get("baseline"))
         direction = str(row.get("direction", "unknown"))
-        parts.append(f"{key}={current} vs {baseline} ({direction})")
+        sample_size = int(row.get("sample_size", 0) or 0)
+        sample_remaining = int(row.get("sample_remaining", 0) or 0)
+        parts.append(
+            f"{key}={current} vs {baseline} ({direction}; n={sample_size}; remaining={sample_remaining})"
+        )
 
     return f"- baseline={baseline_status}; " + "; ".join(parts)
 
