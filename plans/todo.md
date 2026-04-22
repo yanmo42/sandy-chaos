@@ -320,7 +320,12 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Connect `route()` into the `shape_next_action` full pipeline (combined into the single `shape_and_route()` entry point used by the orchestrator)
 - [x] Wire governance outcomes into archive/promotion routing in existing workflows (e.g. orchestrator dispatch, doc promotion gates)
 - [ ] Pilot measurement: track suggestion acceptance rate, correction burden, and archive-to-promotion conversion quality against pre-Lux-Nyx baseline
+  - [x] Counter scaffolding + per-metric direction classifier + CLI entry points (`nfem_suite/intelligence/narrative_invariants/lux_nyx_metrics.py`, `scripts/lux_nyx_pilot_{baseline,event,report}.py`)
+  - [x] Honest-sampling guard: `sample_size` + `sample_sufficient` per baseline-comparison entry so small-n direction readings are flagged as provisional (`MIN_PILOT_SAMPLE_SIZE`)
+  - [ ] Freeze a concrete pre-Lux-Nyx baseline (still null in `state/lux_nyx/metrics.json`)
+  - [ ] Auto-wire correction burden + archive-to-promotion signals (both currently only advance via manual CLI events)
 - [ ] Evaluate against promotion condition: promote beyond bounded draft if pilot metrics show reduced mismatch or improved routing quality
+  - [x] Declarative `pilot_promotion_verdict` rule + `PROMOTION_VERDICTS` enum surfaced in `build_pilot_report` output; verdict is gated on baseline being frozen, every headline metric having sufficient samples, no metric being `worse`, and at least one being `better`
 
 ## Topological Memory Continuity Retrieval (2026-03)
 
