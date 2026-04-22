@@ -457,17 +457,44 @@ def append_promoted_tweak(target_path: Path, policy_tweak: str) -> bool:
     return True
 
 
+def _policy_tweak_gate_contract(raw: object) -> tuple[int, dict | None]:
+    if isinstance(raw, dict):
+        count = int(raw.get("count", 0) or 0)
+        contract = {
+            "disposition": raw.get("disposition", ""),
+            "promotion_target": raw.get("promotion_target", ""),
+            "promotion_review_requirement": raw.get("promotion_review_requirement", ""),
+            "promotion_review_status": raw.get("promotion_review_status", ""),
+            "lux_nyx_shaping": raw.get("lux_nyx_shaping", {}),
+        }
+        if any(contract.values()):
+            return count, contract
+        nested = raw.get("contract")
+        if isinstance(nested, dict):
+            return count, nested
+        return count, None
+    return int(raw or 0), None
+
+
+
 def promote_policy_tweaks(min_count: int = 3, dry_run: bool = False) -> dict:
     state = load_state()
     tweaks = state.get("policy_tweak_counts", {})
     promoted = state.setdefault("promoted_policy_tweaks", {})
     promoted_now: list[dict] = []
+    skipped_now: list[dict] = []
 
-    for tweak, count in tweaks.items():
-        if int(count) < min_count:
+    for tweak, raw in tweaks.items():
+        count, gate_contract = _policy_tweak_gate_contract(raw)
+        if count < min_count:
             continue
         if tweak in promoted:
             continue
+        if gate_contract:
+            gate_error = governance_dispatch_gate_error(gate_contract)
+            if gate_error:
+                skipped_now.append({"policy_tweak": tweak, "count": count, "reason": gate_error})
+                continue
 
         target_path = classify_policy_tweak_target(tweak)
         changed = True
@@ -477,16 +504,17 @@ def promote_policy_tweaks(min_count: int = 3, dry_run: bool = False) -> dict:
         promoted[tweak] = {
             "target": target_path.name,
             "promoted_at": now_dt().isoformat(timespec="seconds"),
-            "count": int(count),
+            "count": count,
             "applied": bool(changed),
         }
         promoted_now.append({"policy_tweak": tweak, "target": target_path.name, "applied": bool(changed)})
 
-    if promoted_now and not dry_run:
+    if (promoted_now or skipped_now) and not dry_run:
         save_state(state)
 
     return {
         "promoted": promoted_now,
+        "skipped": skipped_now,
         "min_count": min_count,
         "dry_run": dry_run,
     }

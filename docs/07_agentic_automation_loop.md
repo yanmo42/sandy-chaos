@@ -282,7 +282,7 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 - `memory/orchestrator_dispatch_log.jsonl` (includes `control_mode`, `governance_policy_ref`, `continuity_relevant`, `memory_consulted`, `memory_artifact_ids`, and when applicable `memory_policy_ref` plus `memory_request_provenance` per dispatch event; validator now requires inspectable repo-relative artifact refs, `<request-id>:<source>` provenance formatting, provenance ids that match the dispatch entry id, continuity-scoped provenance sources to set `continuity_relevant=true`, and artifact-bearing provenance sources only when inspectable artifact refs are actually present)
 - `python3 scripts/dispatch_log_validator.py memory/orchestrator_dispatch_log.jsonl` provides a lightweight JSONL pass that reports line-numbered membrane evidence violations before those artifacts are promoted into tests/config review flows
 - `memory/orchestrator_cycle_summary.md`
-- `memory/self_improve_state.json`
+- `memory/self_improve_state.json` (repeated policy tweaks may now carry optional governance-routing metadata; self-improve doc promotion respects the same Lux–Nyx archive/hold/promotion-queue gates before appending workflow or agent policy tweaks)
 - `memory/notification_outbox.md` (append-only markdown outbox grouped by `## YYYY-MM-DD` with timestamped `### [YYYY-MM-DD HH:MM]` entries)
 
 ### Why this matters for temporal forecasting advantage

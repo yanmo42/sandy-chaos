@@ -85,6 +85,129 @@ class SelfImprovePromotionTests(unittest.TestCase):
                 self_improve.AGENTS_PATH = original["AGENTS_PATH"]
                 self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
 
+    def test_promote_policy_tweaks_skips_archive_routed_tweak(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+
+            state_path = memory / "self_improve_state.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "policy_tweak_counts": {
+                            "Archive-only tweak": {
+                                "count": 3,
+                                "disposition": "LOG_ONLY",
+                                "promotion_target": "log-only",
+                                "promotion_review_requirement": "not-required",
+                                "promotion_review_status": "not-required",
+                                "lux_nyx_shaping": {"destination": "archive"},
+                            }
+                        },
+                        "promoted_policy_tweaks": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            agents = root / "AGENTS.md"
+            workflow = root / "WORKFLOW.md"
+            agents.write_text("# Agents\n", encoding="utf-8")
+            workflow.write_text("# Workflow\n", encoding="utf-8")
+
+            original = {
+                "ROOT": self_improve.ROOT,
+                "MEMORY_DIR": self_improve.MEMORY_DIR,
+                "STATE_PATH": self_improve.STATE_PATH,
+                "AGENTS_PATH": self_improve.AGENTS_PATH,
+                "WORKFLOW_PATH": self_improve.WORKFLOW_PATH,
+            }
+            try:
+                self_improve.ROOT = root
+                self_improve.MEMORY_DIR = memory
+                self_improve.STATE_PATH = state_path
+                self_improve.AGENTS_PATH = agents
+                self_improve.WORKFLOW_PATH = workflow
+
+                result = self_improve.promote_policy_tweaks(min_count=3, dry_run=False)
+
+                self.assertEqual(result["promoted"], [])
+                self.assertEqual(len(result["skipped"]), 1)
+                self.assertIn("routed this task to archive", result["skipped"][0]["reason"])
+                self.assertNotIn("Archive-only tweak", self_improve.load_state()["promoted_policy_tweaks"])
+                self.assertNotIn("Archive-only tweak", workflow.read_text(encoding="utf-8"))
+            finally:
+                self_improve.ROOT = original["ROOT"]
+                self_improve.MEMORY_DIR = original["MEMORY_DIR"]
+                self_improve.STATE_PATH = original["STATE_PATH"]
+                self_improve.AGENTS_PATH = original["AGENTS_PATH"]
+                self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
+
+    def test_promote_policy_tweaks_skips_pending_promotion_queue_tweak(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+
+            state_path = memory / "self_improve_state.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "policy_tweak_counts": {
+                            "Workflow tweak awaiting review": {
+                                "count": 3,
+                                "disposition": "POLICY_PROMOTE",
+                                "promotion_target": "workflow",
+                                "promotion_review_requirement": "human-review",
+                                "promotion_review_status": "pending",
+                                "lux_nyx_shaping": {
+                                    "destination": "promotion-queue",
+                                    "routing_disposition": "POLICY_PROMOTE",
+                                    "routing_promotion_target": "workflow",
+                                },
+                            }
+                        },
+                        "promoted_policy_tweaks": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            agents = root / "AGENTS.md"
+            workflow = root / "WORKFLOW.md"
+            agents.write_text("# Agents\n", encoding="utf-8")
+            workflow.write_text("# Workflow\n", encoding="utf-8")
+
+            original = {
+                "ROOT": self_improve.ROOT,
+                "MEMORY_DIR": self_improve.MEMORY_DIR,
+                "STATE_PATH": self_improve.STATE_PATH,
+                "AGENTS_PATH": self_improve.AGENTS_PATH,
+                "WORKFLOW_PATH": self_improve.WORKFLOW_PATH,
+            }
+            try:
+                self_improve.ROOT = root
+                self_improve.MEMORY_DIR = memory
+                self_improve.STATE_PATH = state_path
+                self_improve.AGENTS_PATH = agents
+                self_improve.WORKFLOW_PATH = workflow
+
+                result = self_improve.promote_policy_tweaks(min_count=3, dry_run=False)
+
+                self.assertEqual(result["promoted"], [])
+                self.assertEqual(len(result["skipped"]), 1)
+                self.assertIn("promotion-queue", result["skipped"][0]["reason"])
+                self.assertIn("requires approved human review", result["skipped"][0]["reason"])
+                self.assertNotIn("Workflow tweak awaiting review", self_improve.load_state()["promoted_policy_tweaks"])
+                self.assertNotIn("Workflow tweak awaiting review", workflow.read_text(encoding="utf-8"))
+            finally:
+                self_improve.ROOT = original["ROOT"]
+                self_improve.MEMORY_DIR = original["MEMORY_DIR"]
+                self_improve.STATE_PATH = original["STATE_PATH"]
+                self_improve.AGENTS_PATH = original["AGENTS_PATH"]
+                self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
+
     def test_queue_notification_creates_structured_outbox_entry(self):
         with tempfile.TemporaryDirectory() as td:
             outbox = Path(td) / "memory" / "notification_outbox.md"
