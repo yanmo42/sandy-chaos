@@ -101,6 +101,23 @@ class OrchestratorAutospawnPromptingTests(unittest.TestCase):
 
         self.assertIn("requires human review", error)
 
+    def test_promotion_review_gate_prefers_routed_target_for_message(self):
+        error = orchestrator_autospawn.promotion_review_gate_error(
+            {
+                "promotion_target": "log-only",
+                "promotion_review_requirement": "human-review",
+                "promotion_review_status": "pending",
+                "goal": "Need workflow review for this continuity contract",
+                "section": "Workflow",
+                "lux_nyx_shaping": {
+                    "routing_disposition": "POLICY_PROMOTE",
+                    "routing_promotion_target": "workflow",
+                },
+            }
+        )
+
+        self.assertIn("promotion_target 'workflow'", error)
+
     def test_extract_dispatch_membrane_evidence_detects_continuity(self):
         req = {
             "id": "spawn-01",

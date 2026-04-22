@@ -172,7 +172,7 @@ def validate_continuity_contract(contract: dict) -> list[str]:
 def promotion_review_gate_error(contract: dict) -> str | None:
     requirement = str(contract.get("promotion_review_requirement", "")).strip()
     status = str(contract.get("promotion_review_status", "")).strip()
-    target = str(contract.get("promotion_target", "")).strip() or "(missing target)"
+    target = _effective_routed_promotion_target(contract) or "(missing target)"
     if requirement == "human-review" and status != "approved":
         return f"promotion_target '{target}' requires human review before dispatch (status={status or 'missing'})"
     return None
