@@ -17,6 +17,7 @@ from .lux_nyx_pilot import (
 from .lux_nyx_metrics import (
     HEADLINE_METRIC_KEYS,
     MIN_PILOT_SAMPLE_SIZE,
+    MIN_RESOLUTION_COVERAGE,
     PROMOTION_VERDICTS,
     PilotMetrics,
     build_pilot_report,
@@ -50,6 +51,7 @@ __all__ = [
     "write_shadow_artifact",
     "HEADLINE_METRIC_KEYS",
     "MIN_PILOT_SAMPLE_SIZE",
+    "MIN_RESOLUTION_COVERAGE",
     "PROMOTION_VERDICTS",
     "PilotMetrics",
     "build_pilot_report",

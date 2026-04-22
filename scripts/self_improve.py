@@ -1183,6 +1183,18 @@ def format_lux_nyx_pilot_snapshot(report: dict | None) -> str:
     if isinstance(verdict, dict):
         verdict_name = str(verdict.get("verdict", "unknown"))
     parts.append(f"promotion_verdict={verdict_name}")
+
+    measurement_health = report.get("measurement_health", {})
+    if isinstance(measurement_health, dict):
+        coverage = measurement_health.get("suggestion_resolution_coverage")
+        if isinstance(coverage, (int, float)):
+            parts.append(f"resolution_coverage={float(coverage):.3f}")
+    counts = report.get("counts", {})
+    if isinstance(counts, dict):
+        unresolved = counts.get("unresolved_suggestions")
+        if isinstance(unresolved, int):
+            parts.append(f"unresolved_suggestions={unresolved}")
+
     for key in metric_keys:
         row = baseline_comparison.get(key, {}) if isinstance(baseline_comparison, dict) else {}
         if not isinstance(row, dict):

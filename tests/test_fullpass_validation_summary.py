@@ -85,6 +85,12 @@ class FullPassValidationSummaryTests(unittest.TestCase):
         text = self_improve.format_lux_nyx_pilot_snapshot(
             {
                 "baseline_configured": True,
+                "counts": {
+                    "unresolved_suggestions": 7,
+                },
+                "measurement_health": {
+                    "suggestion_resolution_coverage": 0.833,
+                },
                 "comparison_policy": {
                     "headline_metric_keys": [
                         "suggestion_acceptance_rate",
@@ -123,6 +129,8 @@ class FullPassValidationSummaryTests(unittest.TestCase):
 
         self.assertIn("baseline=configured", text)
         self.assertIn("promotion_verdict=insufficient-samples", text)
+        self.assertIn("resolution_coverage=0.833", text)
+        self.assertIn("unresolved_suggestions=7", text)
         self.assertIn("suggestion_acceptance_rate=0.610 vs 0.550 (better; n=42; remaining=0)", text)
         self.assertIn("correction_burden_per_suggestion=0.190 vs 0.220 (better; n=42; remaining=0)", text)
         self.assertIn("archive_to_promotion_conversion_quality=0.470 vs 0.400 (better; n=5; remaining=5)", text)
