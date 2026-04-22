@@ -92,6 +92,9 @@ class FullPassValidationSummaryTests(unittest.TestCase):
                         "archive_to_promotion_conversion_quality",
                     ]
                 },
+                "promotion_verdict": {
+                    "verdict": "insufficient-samples",
+                },
                 "baseline_comparison": {
                     "suggestion_acceptance_rate": {
                         "current": 0.61,
@@ -119,6 +122,7 @@ class FullPassValidationSummaryTests(unittest.TestCase):
         )
 
         self.assertIn("baseline=configured", text)
+        self.assertIn("promotion_verdict=insufficient-samples", text)
         self.assertIn("suggestion_acceptance_rate=0.610 vs 0.550 (better; n=42; remaining=0)", text)
         self.assertIn("correction_burden_per_suggestion=0.190 vs 0.220 (better; n=42; remaining=0)", text)
         self.assertIn("archive_to_promotion_conversion_quality=0.470 vs 0.400 (better; n=5; remaining=5)", text)

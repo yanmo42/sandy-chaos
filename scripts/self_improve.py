@@ -1178,6 +1178,11 @@ def format_lux_nyx_pilot_snapshot(report: dict | None) -> str:
         ]
 
     parts: list[str] = []
+    verdict = report.get("promotion_verdict", {})
+    verdict_name = "unknown"
+    if isinstance(verdict, dict):
+        verdict_name = str(verdict.get("verdict", "unknown"))
+    parts.append(f"promotion_verdict={verdict_name}")
     for key in metric_keys:
         row = baseline_comparison.get(key, {}) if isinstance(baseline_comparison, dict) else {}
         if not isinstance(row, dict):
