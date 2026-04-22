@@ -583,7 +583,15 @@ def write_jsonl(path: Path, tasks: list[dict]) -> None:
             f.write(json.dumps(t, ensure_ascii=False) + "\n")
 
 
-def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], plan_path: Path, cfg: dict) -> None:
+def write_summary(
+    path: Path,
+    selected: List[TodoItem],
+    git_lines: list[str],
+    plan_path: Path,
+    cfg: dict,
+    *,
+    task_contracts: List[dict] | None = None,
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     topological_signal = load_topological_memory_signal()
     lines = [
@@ -594,11 +602,31 @@ def write_summary(path: Path, selected: List[TodoItem], git_lines: list[str], pl
     if selected:
         for i, it in enumerate(selected, 1):
             cap = capability_lane_for_item(it)
-            disposition, promotion_target = infer_disposition_and_promotion_target(it)
-            lux_nyx = _lux_nyx_shape(it.text, it.section)
-            disposition, promotion_target = apply_lux_nyx_governance_routing(it, disposition, promotion_target, lux_nyx)
-            outcome_class = infer_branch_outcome_class(disposition)
-            promotion_review = resolve_promotion_review_policy(cfg, promotion_target, outcome_class)
+            contract = None
+            if task_contracts and i - 1 < len(task_contracts):
+                candidate = task_contracts[i - 1]
+                if isinstance(candidate, dict):
+                    contract = candidate
+
+            if contract:
+                disposition = str(contract.get("disposition", "")).strip()
+                promotion_target = str(contract.get("promotion_target", "")).strip()
+                outcome_class = str(contract.get("branch_outcome_class", "")).strip()
+                if not disposition or not promotion_target:
+                    disposition, promotion_target = infer_disposition_and_promotion_target(it)
+                if not outcome_class:
+                    outcome_class = infer_branch_outcome_class(disposition)
+                promotion_review = {
+                    "requirement": str(contract.get("promotion_review_requirement", "")).strip(),
+                    "status": str(contract.get("promotion_review_status", "")).strip(),
+                }
+                if not promotion_review["requirement"] or not promotion_review["status"]:
+                    promotion_review = resolve_promotion_review_policy(cfg, promotion_target, outcome_class)
+            else:
+                disposition, promotion_target = infer_disposition_and_promotion_target(it)
+                outcome_class = infer_branch_outcome_class(disposition)
+                promotion_review = resolve_promotion_review_policy(cfg, promotion_target, outcome_class)
+
             review_text = f"review={promotion_review['requirement']}/{promotion_review['status']}"
             continuity_text = ""
             if cap == "continuity" and topological_signal:
@@ -649,7 +677,14 @@ def main() -> int:
     out_summary = repo / cfg["output"]["cycleSummary"]
 
     write_jsonl(out_plan, tasks)
-    write_summary(out_summary, selected, git_status_short(repo), out_plan, cfg)
+    write_summary(
+        out_summary,
+        selected,
+        git_status_short(repo),
+        out_plan,
+        cfg,
+        task_contracts=tasks,
+    )
 
     print(f"Prepared {len(tasks)} task contracts -> {out_plan}")
     print(f"Summary -> {out_summary}")

@@ -444,22 +444,32 @@ class SessionResumeContextTests(unittest.TestCase):
         cfg = {
             "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
         }
-        mock_lux = {
-            "action": "archive",
-            "destination": "archive",
-            "rationale": "Preserve without promotion.",
-            "recommended_nyx_ops": ["compress", "trace"],
-            "shadow_artifact_type": "draft",
-            "trace_note": "Archived by governance.",
-            "shadow_artifact_path": "state/lux_nyx/shadow/sample.json",
-            "governance_artifact_path": "state/lux_nyx/governance/sample.json",
+        mock_task = {
+            "disposition": "LOG_ONLY",
+            "promotion_target": "log-only",
+            "branch_outcome_class": "local",
+            "promotion_review_requirement": "not-required",
+            "promotion_review_status": "not-required",
+            "lux_nyx_shaping": {
+                "destination": "archive",
+                "routing_disposition": "LOG_ONLY",
+                "routing_promotion_target": "log-only",
+            },
         }
 
         with tempfile.TemporaryDirectory() as td:
             summary_path = Path(td) / "cycle_summary.md"
-            with patch.object(automation_orchestrator, "_lux_nyx_shape", return_value=mock_lux), \
+            with patch.object(automation_orchestrator, "_lux_nyx_shape") as shape_mock, \
                  patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
-                automation_orchestrator.write_summary(summary_path, [item], [], Path("memory/orchestrator_task_plan.jsonl"), cfg)
+                automation_orchestrator.write_summary(
+                    summary_path,
+                    [item],
+                    [],
+                    Path("memory/orchestrator_task_plan.jsonl"),
+                    cfg,
+                    task_contracts=[mock_task],
+                )
+            shape_mock.assert_not_called()
 
             text = summary_path.read_text(encoding="utf-8")
 
