@@ -33,6 +33,7 @@ from nfem_suite.intelligence.narrative_invariants.lux_nyx_contract import (
 )
 from nfem_suite.intelligence.narrative_invariants.lux_nyx_metrics import (
     record_acceptance,
+    record_suggestion,
 )
 
 # ---------------------------------------------------------------------------
@@ -188,10 +189,18 @@ def route(
     # are unresolved at shaping time and neither accept nor reject the
     # suggestion here — promotion-queue in particular is a candidate status,
     # not a measured acceptance.
-    if destination == "surface":
-        record_acceptance(root, accepted=True)
-    elif destination == "refusal-log":
-        record_acceptance(root, accepted=False)
+    #
+    # route() is usually called after shaping, which already records the
+    # suggestion. For route-only callers, seed one suggestion so acceptance
+    # bookkeeping remains causal and does not fail with "before any suggestion".
+    if destination in {"surface", "refusal-log"}:
+        try:
+            record_acceptance(root, accepted=(destination == "surface"))
+        except ValueError as exc:
+            if "before any suggestion" not in str(exc):
+                raise
+            record_suggestion(root, action)
+            record_acceptance(root, accepted=(destination == "surface"))
 
     return GovernanceOutcome(
         destination=destination,

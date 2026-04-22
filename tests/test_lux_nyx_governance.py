@@ -320,6 +320,7 @@ def test_route_surface_records_accepted_suggestion():
         outcome = route(reco, rec, root=td)
         assert outcome.destination == "surface"
         metrics = PilotMetrics.load(td)
+        assert metrics.suggestion_total == 1
         assert metrics.suggestion_accepted == 1
 
 
@@ -332,6 +333,7 @@ def test_route_refusal_log_does_not_record_accepted_suggestion():
         outcome = route(reco, rec, root=td)
         assert outcome.destination == "refusal-log"
         metrics = PilotMetrics.load(td)
+        assert metrics.suggestion_total == 1
         assert metrics.suggestion_accepted == 0
 
 
