@@ -15,15 +15,18 @@ class AutomationOrchestratorValidationConfigTests(unittest.TestCase):
                 "byTarget": {
                     "todo": {"requirement": "not-required", "status": "not-required"},
                     "workflow": {"requirement": "human-review", "status": "pending"},
+                    "tests/config": {"requirement": "human-review", "status": "pending"},
                 },
             }
         }
 
         todo_policy = automation_orchestrator.resolve_promotion_review_policy(cfg, "todo", "promotable")
         workflow_policy = automation_orchestrator.resolve_promotion_review_policy(cfg, "workflow", "policy-relevant")
+        config_policy = automation_orchestrator.resolve_promotion_review_policy(cfg, "tests/config", "policy-relevant")
 
         self.assertEqual(todo_policy, {"requirement": "not-required", "status": "not-required"})
         self.assertEqual(workflow_policy, {"requirement": "human-review", "status": "pending"})
+        self.assertEqual(config_policy, {"requirement": "human-review", "status": "pending"})
 
     def test_resolve_validation_command_by_lane(self):
         cfg = {

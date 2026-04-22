@@ -35,6 +35,22 @@
       "todo": {
         "requirement": "not-required",
         "status": "not-required"
+      },
+      "docs": {
+        "requirement": "human-review",
+        "status": "pending"
+      },
+      "workflow": {
+        "requirement": "human-review",
+        "status": "pending"
+      },
+      "foundations": {
+        "requirement": "human-review",
+        "status": "pending"
+      },
+      "tests/config": {
+        "requirement": "human-review",
+        "status": "pending"
       }
     }
   },

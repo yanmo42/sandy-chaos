@@ -57,9 +57,9 @@ Use a multi-timescale framing, but keep the role of this document explicit.
 
 Relevant bands include:
 
-- fast loops (rapid selection and correction),
-- meso loops (routing and contextual alignment),
-- slow loops (goal continuity and identity-level constraints).
+- fast loops (edge cadence: rapid selection and correction),
+- meso loops (bridge cadence: routing and contextual alignment),
+- slow loops (spine cadence: goal continuity and identity-level constraints).
 
 A useful discipline rule is to treat these as **nested temporal domains** with neighbor-first coupling:
 

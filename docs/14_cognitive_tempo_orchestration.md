@@ -130,7 +130,7 @@ Primary failure mode:
 Role:
 - estimate actionable readiness from observable traces,
 - choose the next useful framing,
-- stage tasks so that the fast loop sees tractable action windows.
+- stage tasks so that the fast loop (edge cadence) sees tractable action windows.
 
 Typical inputs:
 - response latency,

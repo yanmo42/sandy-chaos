@@ -268,7 +268,7 @@ An observer extracts information from an observed domain and also perturbs futur
 
 ### 6.4 Neuro Roadmap (`04`)
 
-The fast / meso / slow loops already named there can be treated as temporal bands.
+The fast / meso / slow loops already named there can be treated as temporal bands, mapping explicitly onto the **edge / bridge / spine** cadences.
 
 Nested Temporal Domains sharpen that framing by making two rules explicit:
 
