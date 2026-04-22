@@ -249,6 +249,8 @@ As of April 2026, the pilot on **next-action suggestion shaping** includes a tra
 ### Baseline Comparison
 Metrics are tracked in `state/lux_nyx/metrics.json` and compared against pre-Lux-Nyx baseline estimates to prove operational value before further architectural promotion.
 
+The baseline is now an explicit frozen surface rather than an implicit all-zero default: use `python3 scripts/lux_nyx_pilot_baseline.py --suggestion-acceptance-rate <x> --correction-burden-per-suggestion <y> --archive-to-promotion-conversion-quality <z>` to write the pre-Lux-Nyx comparison reference without resetting live counters.
+
 ## Failure conditions
 
 This effort fails if:
