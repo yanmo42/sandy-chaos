@@ -14,6 +14,18 @@ from .lux_nyx_pilot import (
     shape_next_action,
     write_shadow_artifact,
 )
+from .lux_nyx_metrics import (
+    HEADLINE_METRIC_KEYS,
+    PilotMetrics,
+    build_pilot_report,
+    record_acceptance,
+    record_archive_to_promotion,
+    record_correction,
+    record_promotion,
+    record_suggestion,
+    set_baseline_metrics,
+    write_pilot_report,
+)
 from .benchmark import InvariantSketchRow, load_invariant_sketch, summarize_invariant_sketch
 from .symbolic_maps import SymbolicOperatorRecord, load_symbolic_records
 
@@ -33,4 +45,14 @@ __all__ = [
     "shape_and_route",
     "shape_next_action",
     "write_shadow_artifact",
+    "HEADLINE_METRIC_KEYS",
+    "PilotMetrics",
+    "build_pilot_report",
+    "record_acceptance",
+    "record_archive_to_promotion",
+    "record_correction",
+    "record_promotion",
+    "record_suggestion",
+    "set_baseline_metrics",
+    "write_pilot_report",
 ]
