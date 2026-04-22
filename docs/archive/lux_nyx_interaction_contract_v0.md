@@ -253,6 +253,8 @@ The baseline is now an explicit frozen surface rather than an implicit all-zero 
 
 Live pilot events can now be logged one causal step at a time with `python3 scripts/lux_nyx_pilot_event.py`: `--suggestion <action>` records a shaped suggestion, `--accept` / `--reject` records whether that surfaced suggestion was taken as-is, `--corrections <n>` records manual correction burden, and `--archive-to-promotion` records the later archive → promotion conversion when that cross-session transition actually happens.
 
+`--suggestion` now accepts only the canonical evaluator action names (`keep`, `compress`, `archive`, `route`, `hold`, `promote-candidate`, `refuse-with-reason`) so pilot counters cannot silently drift from the actual Lux–Nyx action grammar because of typos or ad-hoc labels.
+
 The event recorder now enforces that ordering explicitly: acceptance and correction events require at least one previously recorded suggestion, and archive → promotion events require a previously recorded archive suggestion. This keeps the pilot counters causally honest instead of allowing retroactive conversion or acceptance counts to outrun their antecedent suggestions.
 
 One narrow workflow auto-wire now exists for that last metric: when `scripts/self_improve.py promote-policy-tweaks` promotes a tweak carrying explicit archive-origin metadata (`pilot_archive_origin: true`, `lux_nyx_shaping.archive_origin: true`, or `lux_nyx_shaping.prior_destination: "archive"`), it records the archive → promotion conversion automatically instead of requiring a separate manual CLI step.
