@@ -359,7 +359,12 @@ def apply_lux_nyx_governance_routing(
         return disposition, promotion_target
 
     destination = str(lux_nyx.get("destination", "")).strip()
+    routed_disposition = str(lux_nyx.get("routing_disposition", "")).strip()
+    routed_target = str(lux_nyx.get("routing_promotion_target", "")).strip()
     text = f"{item.section} {item.text}".lower()
+
+    if routed_disposition and routed_target:
+        return routed_disposition, routed_target
 
     if destination in {"archive", "refusal-log"}:
         return "LOG_ONLY", "log-only"

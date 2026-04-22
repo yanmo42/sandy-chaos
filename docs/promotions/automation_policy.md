@@ -45,3 +45,5 @@ This policy is enforced via `config/orchestrator.json` under the `promotionRevie
 Lux–Nyx governance routing must remain attached through downstream workflow handoffs. In practice, generated spawn requests and self-improve dispatch validation must preserve `lux_nyx_shaping` plus the review metadata (`promotion_review_requirement`, `promotion_review_status`) so archive outcomes skip dispatch and promotion-queue outcomes stay gated on approved human review.
 
 When `lux_nyx_shaping` includes explicit routed fields such as `routing_disposition` and `routing_promotion_target`, downstream dispatch gates should treat those routed values as authoritative for archive/promotion handling rather than trusting stale pre-routing top-level targets.
+
+The same rule now applies earlier in the workflow: orchestrator task-contract generation should preserve and honor explicit Lux–Nyx routed disposition/target pairs before deriving review requirements, so policy-relevant promotion candidates do not silently fall back to their pre-routing heuristic targets.

@@ -337,6 +337,40 @@ class SessionResumeContextTests(unittest.TestCase):
         self.assertEqual(contract["lux_nyx_shaping"]["routing_disposition"], "DOC_PROMOTE")
         self.assertEqual(contract["lux_nyx_shaping"]["routing_promotion_target"], "docs")
 
+    def test_task_contract_prefers_explicit_lux_nyx_routed_targets(self):
+        item = automation_orchestrator.TodoItem(
+            state="open",
+            text="Minor local wording cleanup",
+            section="Notes",
+        )
+        cfg = {
+            "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
+        }
+        mock_lux = {
+            "action": "promote-candidate",
+            "destination": "promotion-queue",
+            "rationale": "Escalated by governance review.",
+            "recommended_nyx_ops": ["gate", "trace"],
+            "shadow_artifact_type": "audit-trace",
+            "trace_note": "Promotion-queue candidate.",
+            "routing_disposition": "POLICY_PROMOTE",
+            "routing_promotion_target": "workflow",
+            "shadow_artifact_path": "state/lux_nyx/shadow/sample.json",
+            "governance_artifact_path": "state/lux_nyx/governance/sample.json",
+        }
+        with patch.object(automation_orchestrator, "_lux_nyx_shape", return_value=mock_lux), \
+             patch.object(automation_orchestrator, "load_session_resume_context", return_value=None), \
+             patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
+            contract = automation_orchestrator.task_contract(item, cfg=cfg)
+
+        self.assertEqual(contract["disposition"], "POLICY_PROMOTE")
+        self.assertEqual(contract["promotion_target"], "workflow")
+        self.assertEqual(contract["branch_outcome_class"], "policy-relevant")
+        self.assertEqual(contract["promotion_review_requirement"], "human-review")
+        self.assertEqual(contract["promotion_review_status"], "pending")
+        self.assertEqual(contract["lux_nyx_shaping"]["routing_disposition"], "POLICY_PROMOTE")
+        self.assertEqual(contract["lux_nyx_shaping"]["routing_promotion_target"], "workflow")
+
     def test_write_summary_reflects_lux_nyx_governance_routing(self):
         item = automation_orchestrator.TodoItem(
             state="open",
