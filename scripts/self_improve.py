@@ -45,6 +45,7 @@ ORCH_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
 ORCH_REQ_PATH = ROOT / "memory" / "orchestrator_spawn_requests.json"
 ORCH_DISPATCH_LOG = ROOT / "memory" / "orchestrator_dispatch_log.jsonl"
 ORCH_CYCLE_LOG = ROOT / "memory" / "orchestrator_cycle_events.jsonl"
+LUX_NYX_PILOT_REPORT_PATH = ROOT / "state" / "lux_nyx" / "pilot_report.json"
 DAILY_DIGEST_TEMPLATE = TEMPLATES / "daily_digest_notification.md"
 WEEKLY_DIGEST_TEMPLATE = TEMPLATES / "weekly_digest_notification.md"
 RESEARCH_DIR = MEMORY_DIR / "research"
@@ -1142,6 +1143,53 @@ def _format_counter_map(counter: dict[str, int]) -> str:
     return ", ".join(f"{k}={v}" for k, v in sorted(counter.items()))
 
 
+def load_lux_nyx_pilot_snapshot() -> dict | None:
+    if not LUX_NYX_PILOT_REPORT_PATH.exists():
+        return None
+    try:
+        data = json.loads(LUX_NYX_PILOT_REPORT_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _format_metric_value(value: object) -> str:
+    if value is None:
+        return "n/a"
+    if isinstance(value, (int, float)):
+        return f"{float(value):.3f}"
+    return str(value)
+
+
+def format_lux_nyx_pilot_snapshot(report: dict | None) -> str:
+    if not isinstance(report, dict):
+        return "- unavailable"
+
+    configured = bool(report.get("baseline_configured", False))
+    baseline_status = "configured" if configured else "not-configured"
+    baseline_comparison = report.get("baseline_comparison", {})
+    policy = report.get("comparison_policy", {})
+    metric_keys = policy.get("headline_metric_keys", [])
+    if not isinstance(metric_keys, list) or not metric_keys:
+        metric_keys = [
+            "suggestion_acceptance_rate",
+            "correction_burden_per_suggestion",
+            "archive_to_promotion_conversion_quality",
+        ]
+
+    parts: list[str] = []
+    for key in metric_keys:
+        row = baseline_comparison.get(key, {}) if isinstance(baseline_comparison, dict) else {}
+        if not isinstance(row, dict):
+            row = {}
+        current = _format_metric_value(row.get("current"))
+        baseline = _format_metric_value(row.get("baseline"))
+        direction = str(row.get("direction", "unknown"))
+        parts.append(f"{key}={current} vs {baseline} ({direction})")
+
+    return f"- baseline={baseline_status}; " + "; ".join(parts)
+
+
 def validate_continuity_contract(contract: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(contract, dict):
@@ -1561,6 +1609,7 @@ def compose_fullpass_message(
             research_text = f"{state}: `{p}`"
         else:
             research_text = "active (no summary path)"
+    lux_nyx_pilot_text = format_lux_nyx_pilot_snapshot(load_lux_nyx_pilot_snapshot())
 
     return (
         f"{prefix} automation cycle complete.\n\n"
@@ -1580,6 +1629,8 @@ def compose_fullpass_message(
         f"Cadence artifacts prepared: {created_text}.\n"
         f"Missed intervals detected: daily={summary.get('daily_missed', 0)}, weekly={summary.get('weekly_missed', 0)}.\n"
         f"Research cycle summary: {research_text}.\n\n"
+        f"Lux–Nyx pilot baseline snapshot:\n"
+        f"{lux_nyx_pilot_text}\n\n"
         f"Project progress snapshot:\n"
         f"- done={todo['done']} (Δ {delta['done']:+d})\n"
         f"- partial={todo['partial']} (Δ {delta['partial']:+d})\n"
