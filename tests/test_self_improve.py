@@ -208,6 +208,137 @@ class SelfImprovePromotionTests(unittest.TestCase):
                 self_improve.AGENTS_PATH = original["AGENTS_PATH"]
                 self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
 
+    def test_promote_policy_tweaks_routes_workflow_target_from_governance_metadata(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+
+            state_path = memory / "self_improve_state.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "policy_tweak_counts": {
+                            "Use the stricter review path": {
+                                "count": 3,
+                                "disposition": "POLICY_PROMOTE",
+                                "promotion_target": "log-only",
+                                "promotion_review_requirement": "human-review",
+                                "promotion_review_status": "approved",
+                                "lux_nyx_shaping": {
+                                    "destination": "promotion-queue",
+                                    "routing_disposition": "POLICY_PROMOTE",
+                                    "routing_promotion_target": "workflow",
+                                },
+                            }
+                        },
+                        "promoted_policy_tweaks": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            agents = root / "AGENTS.md"
+            workflow = root / "WORKFLOW.md"
+            foundations = root / "FOUNDATIONS.md"
+            agents.write_text("# Agents\n", encoding="utf-8")
+            workflow.write_text("# Workflow\n", encoding="utf-8")
+            foundations.write_text("# Foundations\n", encoding="utf-8")
+
+            original = {
+                "ROOT": self_improve.ROOT,
+                "MEMORY_DIR": self_improve.MEMORY_DIR,
+                "STATE_PATH": self_improve.STATE_PATH,
+                "AGENTS_PATH": self_improve.AGENTS_PATH,
+                "WORKFLOW_PATH": self_improve.WORKFLOW_PATH,
+                "FOUNDATIONS_PATH": self_improve.FOUNDATIONS_PATH,
+            }
+            try:
+                self_improve.ROOT = root
+                self_improve.MEMORY_DIR = memory
+                self_improve.STATE_PATH = state_path
+                self_improve.AGENTS_PATH = agents
+                self_improve.WORKFLOW_PATH = workflow
+                self_improve.FOUNDATIONS_PATH = foundations
+
+                result = self_improve.promote_policy_tweaks(min_count=3, dry_run=False)
+
+                self.assertEqual(result["skipped"], [])
+                self.assertEqual(result["promoted"][0]["target"], "WORKFLOW.md")
+                self.assertIn("Use the stricter review path", workflow.read_text(encoding="utf-8"))
+                self.assertNotIn("Use the stricter review path", agents.read_text(encoding="utf-8"))
+                self.assertNotIn("Use the stricter review path", foundations.read_text(encoding="utf-8"))
+            finally:
+                self_improve.ROOT = original["ROOT"]
+                self_improve.MEMORY_DIR = original["MEMORY_DIR"]
+                self_improve.STATE_PATH = original["STATE_PATH"]
+                self_improve.AGENTS_PATH = original["AGENTS_PATH"]
+                self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
+                self_improve.FOUNDATIONS_PATH = original["FOUNDATIONS_PATH"]
+
+    def test_promote_policy_tweaks_routes_foundations_target_from_governance_metadata(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+
+            state_path = memory / "self_improve_state.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "policy_tweak_counts": {
+                            "Tighten the admissibility boundary": {
+                                "count": 3,
+                                "disposition": "POLICY_PROMOTE",
+                                "promotion_target": "foundations",
+                                "promotion_review_requirement": "human-review",
+                                "promotion_review_status": "approved",
+                            }
+                        },
+                        "promoted_policy_tweaks": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            agents = root / "AGENTS.md"
+            workflow = root / "WORKFLOW.md"
+            foundations = root / "FOUNDATIONS.md"
+            agents.write_text("# Agents\n", encoding="utf-8")
+            workflow.write_text("# Workflow\n", encoding="utf-8")
+            foundations.write_text("# Foundations\n", encoding="utf-8")
+
+            original = {
+                "ROOT": self_improve.ROOT,
+                "MEMORY_DIR": self_improve.MEMORY_DIR,
+                "STATE_PATH": self_improve.STATE_PATH,
+                "AGENTS_PATH": self_improve.AGENTS_PATH,
+                "WORKFLOW_PATH": self_improve.WORKFLOW_PATH,
+                "FOUNDATIONS_PATH": self_improve.FOUNDATIONS_PATH,
+            }
+            try:
+                self_improve.ROOT = root
+                self_improve.MEMORY_DIR = memory
+                self_improve.STATE_PATH = state_path
+                self_improve.AGENTS_PATH = agents
+                self_improve.WORKFLOW_PATH = workflow
+                self_improve.FOUNDATIONS_PATH = foundations
+
+                result = self_improve.promote_policy_tweaks(min_count=3, dry_run=False)
+
+                self.assertEqual(result["skipped"], [])
+                self.assertEqual(result["promoted"][0]["target"], "FOUNDATIONS.md")
+                self.assertIn("Tighten the admissibility boundary", foundations.read_text(encoding="utf-8"))
+                self.assertNotIn("Tighten the admissibility boundary", workflow.read_text(encoding="utf-8"))
+                self.assertNotIn("Tighten the admissibility boundary", agents.read_text(encoding="utf-8"))
+            finally:
+                self_improve.ROOT = original["ROOT"]
+                self_improve.MEMORY_DIR = original["MEMORY_DIR"]
+                self_improve.STATE_PATH = original["STATE_PATH"]
+                self_improve.AGENTS_PATH = original["AGENTS_PATH"]
+                self_improve.WORKFLOW_PATH = original["WORKFLOW_PATH"]
+                self_improve.FOUNDATIONS_PATH = original["FOUNDATIONS_PATH"]
+
     def test_queue_notification_creates_structured_outbox_entry(self):
         with tempfile.TemporaryDirectory() as td:
             outbox = Path(td) / "memory" / "notification_outbox.md"

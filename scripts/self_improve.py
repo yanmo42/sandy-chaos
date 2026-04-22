@@ -38,6 +38,7 @@ CONFIG_PATH = ROOT / "config" / "automation.json"
 ORCHESTRATOR_CONFIG_PATH = ROOT / "config" / "orchestrator.json"
 AGENTS_PATH = ROOT / "AGENTS.md"
 WORKFLOW_PATH = ROOT / "WORKFLOW.md"
+FOUNDATIONS_PATH = ROOT / "FOUNDATIONS.md"
 ORCH_PLAN_PATH = ROOT / "memory" / "orchestrator_task_plan.jsonl"
 ORCH_REQ_PATH = ROOT / "memory" / "orchestrator_spawn_requests.json"
 ORCH_DISPATCH_LOG = ROOT / "memory" / "orchestrator_dispatch_log.jsonl"
@@ -405,7 +406,13 @@ def post_task(context: str, decision: str, outcome: str, policy_tweak: str) -> N
         print(f"Appended post-task schema entry to {f}")
 
 
-def classify_policy_tweak_target(policy_tweak: str) -> Path:
+def classify_policy_tweak_target(policy_tweak: str, promotion_target: str = "") -> Path:
+    explicit_target = str(promotion_target).strip()
+    if explicit_target == "foundations":
+        return FOUNDATIONS_PATH
+    if explicit_target in {"workflow", "tests/config"}:
+        return WORKFLOW_PATH
+
     workflow_keywords = {
         "workflow",
         "process",
@@ -496,7 +503,8 @@ def promote_policy_tweaks(min_count: int = 3, dry_run: bool = False) -> dict:
                 skipped_now.append({"policy_tweak": tweak, "count": count, "reason": gate_error})
                 continue
 
-        target_path = classify_policy_tweak_target(tweak)
+        routed_target = _effective_routed_promotion_target(gate_contract) if gate_contract else ""
+        target_path = classify_policy_tweak_target(tweak, promotion_target=routed_target)
         changed = True
         if not dry_run:
             changed = append_promoted_tweak(target_path, tweak)
