@@ -251,6 +251,8 @@ Metrics are tracked in `state/lux_nyx/metrics.json` and compared against pre-Lux
 
 The baseline is now an explicit frozen surface rather than an implicit all-zero default: use `python3 scripts/lux_nyx_pilot_baseline.py --suggestion-acceptance-rate <x> --correction-burden-per-suggestion <y> --archive-to-promotion-conversion-quality <z>` to write the pre-Lux-Nyx comparison reference without resetting live counters.
 
+Until that freeze step happens, `state/lux_nyx/pilot_report.json` marks baseline comparison entries as `direction: "unconfigured"` with `baseline` / `delta` left null, so the pilot does not claim false lift against a synthetic zero baseline.
+
 ## Failure conditions
 
 This effort fails if:
