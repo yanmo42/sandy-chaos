@@ -371,24 +371,31 @@ def validate_task_contracts(tasks: list[dict]) -> list[str]:
 
 
 def _lux_nyx_shape(text: str, section: str, root: Path = ROOT) -> dict | None:
-    """Run the Lux–Nyx Phase 2 shaping pipeline on a next-action text.
+    """Run the Lux–Nyx Phase 3 combined shaping and routing pipeline.
 
     Lazy import so the orchestrator degrades gracefully if nfem_suite is absent.
-    Returns a serialisable dict of the EvaluatorRecommendation fields plus the
-    shadow artifact path, or None on any error.
+    Returns a serialisable dict of the combined shaping and routing fields,
+    or None on any error.
     """
     try:
         from nfem_suite.intelligence.narrative_invariants.lux_nyx_pilot import (
             shape_next_action,
         )
-        recommendation, artifact_path = shape_next_action(text, section, root)
+        from nfem_suite.intelligence.narrative_invariants.lux_nyx_governance import (
+            route,
+        )
+        recommendation, shadow_path, record = shape_next_action(text, section, root)
+        outcome = route(recommendation, record, root=root)
+
         return {
             "action": recommendation.action,
-            "rationale": recommendation.rationale,
+            "destination": outcome.destination,
+            "rationale": outcome.rationale,
             "recommended_nyx_ops": list(recommendation.recommended_nyx_ops),
             "shadow_artifact_type": recommendation.shadow_artifact_type,
-            "trace_note": recommendation.trace_note,
-            "shadow_artifact_path": str(artifact_path.relative_to(root)),
+            "trace_note": outcome.trace_note,
+            "shadow_artifact_path": str(shadow_path.relative_to(root)),
+            "governance_artifact_path": str(outcome.artifact_path.relative_to(root)),
         }
     except Exception:
         return None
@@ -470,11 +477,19 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
 
     lux_nyx = _lux_nyx_shape(item.text, item.section)
     if lux_nyx:
-        contract["lux_nyx_shaping"] = {k: v for k, v in lux_nyx.items() if k != "shadow_artifact_path"}
+        contract["lux_nyx_shaping"] = {
+            k: v for k, v in lux_nyx.items()
+            if k not in {"shadow_artifact_path", "governance_artifact_path"}
+        }
         shadow_path = lux_nyx.get("shadow_artifact_path")
         if shadow_path:
             existing = contract.get("memory_artifact_ids", [])
             contract["memory_artifact_ids"] = existing + [shadow_path]
+
+        gov_path = lux_nyx.get("governance_artifact_path")
+        if gov_path:
+            existing = contract.get("memory_artifact_ids", [])
+            contract["memory_artifact_ids"] = existing + [gov_path]
 
     topological_signal = load_topological_memory_signal()
     if topological_signal:

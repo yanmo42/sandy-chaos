@@ -11,8 +11,11 @@ This module provides:
   write_shadow_artifact(root, artifact) → Path
       Writes the shadow artifact to state/lux_nyx/shadow/.
 
-  shape_next_action(text, section, root) → (EvaluatorRecommendation, Path)
-      Full pipeline: classify → evaluate → emit shadow artifact → return both.
+  shape_next_action(text, section, root) → (EvaluatorRecommendation, Path, LuxNyxInteractionRecord)
+      Full pipeline: classify → evaluate → emit shadow artifact → return all three.
+
+  shape_and_route(text, section, root) → GovernanceOutcome
+      Combined pipeline: shape → emit shadow artifact → route → emit governance artifact.
 
 Pilot surface: next-action suggestion shaping.
 Contract doc reference: docs/archive/lux_nyx_interaction_contract_v0.md §Candidate pilot surfaces
@@ -30,6 +33,10 @@ from nfem_suite.intelligence.narrative_invariants.lux_nyx_contract import (
     EvaluatorRecommendation,
     LuxNyxInteractionRecord,
     evaluate,
+)
+from nfem_suite.intelligence.narrative_invariants.lux_nyx_governance import (
+    GovernanceOutcome,
+    route,
 )
 
 # ---------------------------------------------------------------------------
@@ -224,10 +231,10 @@ def shape_next_action(
     text: str,
     section: str = "",
     root: str | Path = Path(__file__).resolve().parents[4],
-) -> tuple[EvaluatorRecommendation, Path]:
+) -> tuple[EvaluatorRecommendation, Path, LuxNyxInteractionRecord]:
     """Classify, evaluate, and emit a shadow artifact for a next-action input.
 
-    Returns (EvaluatorRecommendation, path_to_shadow_artifact).
+    Returns (EvaluatorRecommendation, path_to_shadow_artifact, record).
     The shadow artifact is written to state/lux_nyx/shadow/.
     """
     record = classify_next_action(text, section)
@@ -244,4 +251,18 @@ def shape_next_action(
         trace_note=recommendation.trace_note,
     )
     path = write_shadow_artifact(root, artifact)
-    return recommendation, path
+    return recommendation, path, record
+
+
+def shape_and_route(
+    text: str,
+    section: str = "",
+    root: str | Path = Path(__file__).resolve().parents[4],
+) -> GovernanceOutcome:
+    """Classify, evaluate, emit shadow artifact, AND route to governance.
+
+    Returns the GovernanceOutcome, which includes the destination and the
+    path to the governance artifact.
+    """
+    recommendation, _, record = shape_next_action(text, section, root)
+    return route(recommendation, record, root=root)

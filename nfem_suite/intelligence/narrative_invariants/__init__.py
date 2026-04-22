@@ -9,6 +9,7 @@ from .lux_nyx_contract import (
 from .lux_nyx_pilot import (
     ShadowArtifact,
     classify_next_action,
+    shape_and_route,
     shape_next_action,
     write_shadow_artifact,
 )
@@ -27,6 +28,7 @@ __all__ = [
     "load_lux_nyx_records",
     "ShadowArtifact",
     "classify_next_action",
+    "shape_and_route",
     "shape_next_action",
     "write_shadow_artifact",
 ]

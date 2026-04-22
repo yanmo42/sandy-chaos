@@ -211,7 +211,7 @@ def test_write_shadow_artifact_filename_includes_type_slug():
 
 def test_shape_next_action_returns_recommendation_and_path():
     with tempfile.TemporaryDirectory() as td:
-        rec, path = shape_next_action(
+        rec, path, record = shape_next_action(
             "Review the continuity artifacts before the sprint ends",
             section="continuity",
             root=td,
@@ -219,11 +219,12 @@ def test_shape_next_action_returns_recommendation_and_path():
         assert isinstance(rec, EvaluatorRecommendation)
         assert rec.action in ALLOWED_EVALUATOR_ACTIONS
         assert path.exists()
+        assert isinstance(record, LuxNyxInteractionRecord)
 
 
 def test_shape_next_action_writes_valid_json():
     with tempfile.TemporaryDirectory() as td:
-        _, path = shape_next_action(
+        _, path, _ = shape_next_action(
             "Validate the test suite and confirm all tests pass",
             section="validation",
             root=td,
@@ -236,7 +237,7 @@ def test_shape_next_action_writes_valid_json():
 
 def test_shape_next_action_refuse_speculative_high_risk():
     with tempfile.TemporaryDirectory() as td:
-        rec, _ = shape_next_action(
+        rec, _, _ = shape_next_action(
             "Publish and release to production — this is a speculative hypothesis",
             root=td,
         )
@@ -245,7 +246,7 @@ def test_shape_next_action_refuse_speculative_high_risk():
 
 def test_shape_next_action_keep_for_clear_actionable_input():
     with tempfile.TemporaryDirectory() as td:
-        rec, _ = shape_next_action(
+        rec, _, _ = shape_next_action(
             "Run the full validation command and confirm the test suite passes for the sprint continuity blocker",
             section="continuity sprint",
             root=td,
@@ -257,6 +258,6 @@ def test_shape_next_action_keep_for_clear_actionable_input():
 def test_shape_next_action_ops_are_subset_of_allowed():
     from nfem_suite.intelligence.narrative_invariants.lux_nyx_contract import ALLOWED_NYX_OPS
     with tempfile.TemporaryDirectory() as td:
-        rec, _ = shape_next_action("Update the configuration for the provider", root=td)
+        rec, _, _ = shape_next_action("Update the configuration for the provider", root=td)
         for op in rec.recommended_nyx_ops:
             assert op in ALLOWED_NYX_OPS
