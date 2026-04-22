@@ -379,23 +379,19 @@ def _lux_nyx_shape(text: str, section: str, root: Path = ROOT) -> dict | None:
     """
     try:
         from nfem_suite.intelligence.narrative_invariants.lux_nyx_pilot import (
-            shape_next_action,
+            shape_and_route,
         )
-        from nfem_suite.intelligence.narrative_invariants.lux_nyx_governance import (
-            route,
-        )
-        recommendation, shadow_path, record = shape_next_action(text, section, root)
-        outcome = route(recommendation, record, root=root)
+        outcome = shape_and_route(text, section, root)
 
         return {
-            "action": recommendation.action,
-            "destination": outcome.destination,
-            "rationale": outcome.rationale,
-            "recommended_nyx_ops": list(recommendation.recommended_nyx_ops),
-            "shadow_artifact_type": recommendation.shadow_artifact_type,
-            "trace_note": outcome.trace_note,
-            "shadow_artifact_path": str(shadow_path.relative_to(root)),
-            "governance_artifact_path": str(outcome.artifact_path.relative_to(root)),
+            "action": outcome.recommendation.action,
+            "destination": outcome.governance.destination,
+            "rationale": outcome.governance.rationale,
+            "recommended_nyx_ops": list(outcome.recommendation.recommended_nyx_ops),
+            "shadow_artifact_type": outcome.recommendation.shadow_artifact_type,
+            "trace_note": outcome.governance.trace_note,
+            "shadow_artifact_path": str(outcome.shadow_path.relative_to(root)),
+            "governance_artifact_path": str(outcome.governance.artifact_path.relative_to(root)),
         }
     except Exception:
         return None

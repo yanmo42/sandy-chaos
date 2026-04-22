@@ -7,6 +7,7 @@ from .lux_nyx_contract import (
     load_lux_nyx_records,
 )
 from .lux_nyx_pilot import (
+    LuxNyxCombinedOutcome,
     ShadowArtifact,
     classify_next_action,
     shape_and_route,
@@ -27,6 +28,7 @@ __all__ = [
     "evaluate",
     "load_lux_nyx_records",
     "ShadowArtifact",
+    "LuxNyxCombinedOutcome",
     "classify_next_action",
     "shape_and_route",
     "shape_next_action",

@@ -223,6 +223,20 @@ def write_shadow_artifact(root: str | Path, artifact: ShadowArtifact) -> Path:
     return path
 
 
+@dataclass(frozen=True)
+class LuxNyxCombinedOutcome:
+    """Combined result from shape_and_route().
+
+    Includes the recommendation, the governance outcome, the shadow artifact
+    path, and the underlying interaction record.
+    """
+
+    recommendation: EvaluatorRecommendation
+    governance: GovernanceOutcome
+    shadow_path: Path
+    record: LuxNyxInteractionRecord
+
+
 # ---------------------------------------------------------------------------
 # Full pipeline
 # ---------------------------------------------------------------------------
@@ -258,11 +272,16 @@ def shape_and_route(
     text: str,
     section: str = "",
     root: str | Path = Path(__file__).resolve().parents[4],
-) -> GovernanceOutcome:
+) -> LuxNyxCombinedOutcome:
     """Classify, evaluate, emit shadow artifact, AND route to governance.
 
-    Returns the GovernanceOutcome, which includes the destination and the
-    path to the governance artifact.
+    Returns a LuxNyxCombinedOutcome containing all artifacts and decisions.
     """
-    recommendation, _, record = shape_next_action(text, section, root)
-    return route(recommendation, record, root=root)
+    recommendation, shadow_path, record = shape_next_action(text, section, root)
+    outcome = route(recommendation, record, root=root)
+    return LuxNyxCombinedOutcome(
+        recommendation=recommendation,
+        governance=outcome,
+        shadow_path=shadow_path,
+        record=record,
+    )
