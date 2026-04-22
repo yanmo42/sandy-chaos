@@ -720,6 +720,42 @@ class SelfImproveDispatchTests(unittest.TestCase):
             self.assertEqual(snapshot["membrane"]["memory_consulted"], 1)
             self.assertEqual(snapshot["membrane"]["memory_artifact_refs"], 1)
 
+    def test_load_orchestrator_snapshot_counts_routed_lux_nyx_targets(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            memory = root / "memory"
+            memory.mkdir(parents=True, exist_ok=True)
+            plan_path = memory / "orchestrator_task_plan.jsonl"
+            plan_path.write_text(
+                json.dumps(
+                    {
+                        "goal": "Workflow governance follow-up",
+                        "section": "Workflow",
+                        "disposition": "LOG_ONLY",
+                        "promotion_target": "log-only",
+                        "branch_outcome_class": "policy-relevant",
+                        "lux_nyx_shaping": {
+                            "destination": "promotion-queue",
+                            "routing_disposition": "POLICY_PROMOTE",
+                            "routing_promotion_target": "workflow",
+                        },
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            original = self_improve.ORCH_PLAN_PATH
+            try:
+                self_improve.ORCH_PLAN_PATH = plan_path
+                snapshot = self_improve.load_orchestrator_snapshot()
+            finally:
+                self_improve.ORCH_PLAN_PATH = original
+
+            self.assertEqual(snapshot["plan_count"], 1)
+            self.assertEqual(snapshot["dispositions"], {"POLICY_PROMOTE": 1})
+            self.assertEqual(snapshot["promotion_targets"], {"workflow": 1})
+
 
 class SelfImprovePromptingConfigTests(unittest.TestCase):
     def test_resolve_prompting_runtime_uses_orchestrator_config(self):

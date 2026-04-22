@@ -1015,9 +1015,9 @@ def load_orchestrator_snapshot() -> dict:
                     continue
                 cap = str(row.get("capability_lane", "unspecified")).strip() or "unspecified"
                 capability_lanes[cap] = int(capability_lanes.get(cap, 0)) + 1
-                disposition = str(row.get("disposition", "unspecified")).strip() or "unspecified"
+                disposition = _effective_routed_disposition(row) or "unspecified"
                 dispositions[disposition] = int(dispositions.get(disposition, 0)) + 1
-                promotion = str(row.get("promotion_target", "unspecified")).strip() or "unspecified"
+                promotion = _effective_routed_promotion_target(row) or "unspecified"
                 promotion_targets[promotion] = int(promotion_targets.get(promotion, 0)) + 1
                 outcome = str(row.get("branch_outcome_class", "unspecified")).strip() or "unspecified"
                 outcome_classes[outcome] = int(outcome_classes.get(outcome, 0)) + 1
@@ -1141,6 +1141,25 @@ def validate_continuity_contract(contract: dict) -> list[str]:
     return errors
 
 
+def _effective_routed_disposition(contract: dict) -> str:
+    if not isinstance(contract, dict):
+        return ""
+
+    lux_nyx = contract.get("lux_nyx_shaping", {})
+    if isinstance(lux_nyx, dict):
+        routed_disposition = str(lux_nyx.get("routing_disposition", "")).strip()
+        if routed_disposition:
+            return routed_disposition
+
+        destination = str(lux_nyx.get("destination", "")).strip()
+        if destination in {"archive", "refusal-log"}:
+            return "LOG_ONLY"
+        if destination == "hold-queue":
+            return "TODO_PROMOTE"
+
+    return str(contract.get("disposition", "")).strip()
+
+
 def _effective_routed_promotion_target(contract: dict) -> str:
     if not isinstance(contract, dict):
         return ""
@@ -1168,7 +1187,7 @@ def _effective_routed_promotion_target(contract: dict) -> str:
     if routed_target:
         return routed_target
 
-    routed_disposition = str(lux_nyx.get("routing_disposition", "")).strip()
+    routed_disposition = _effective_routed_disposition(contract)
     if routed_disposition == "LOG_ONLY":
         return "log-only"
     if routed_disposition == "TODO_PROMOTE":
