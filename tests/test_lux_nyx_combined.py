@@ -38,9 +38,38 @@ class LuxNyxCombinedTests(unittest.TestCase):
             )
             # speculative + canon/symbolic-input → risk=high → action=refuse-with-reason → refusal-log
             self.assertEqual(outcome.governance.destination, "refusal-log")
-            
+
             # Check shadow artifact (Phase 2)
             self.assertTrue(outcome.shadow_path.exists())
-            
+
             # Check governance artifact (Phase 3)
             self.assertTrue(outcome.governance.artifact_path.exists())
+
+    def test_shape_and_route_keeps_single_causal_chain(self):
+        with tempfile.TemporaryDirectory() as td:
+            outcome = shape_and_route(
+                "Route this continuity blocker to the right lane now",
+                section="continuity",
+                root=td,
+            )
+            self.assertEqual(outcome.recommendation.action, "route")
+            self.assertEqual(outcome.record.input_type, "route-request")
+            self.assertEqual(outcome.governance.destination, "route-queue")
+            self.assertEqual(
+                outcome.recommendation.shadow_artifact_type,
+                outcome.record.shadow_artifact_type,
+            )
+
+    def test_shape_and_route_governance_artifact_matches_shaping_output(self):
+        with tempfile.TemporaryDirectory() as td:
+            outcome = shape_and_route(
+                "Review the continuity artifacts for the active blocker",
+                section="continuity",
+                root=td,
+            )
+            artifact = outcome.governance.artifact_path.read_text()
+            self.assertIn(f'"evaluator_action": "{outcome.recommendation.action}"', artifact)
+            self.assertIn(
+                f'"shadow_artifact_type": "{outcome.recommendation.shadow_artifact_type}"',
+                artifact,
+            )

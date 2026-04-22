@@ -1,4 +1,4 @@
-"""Lux–Nyx Phase 2 pilot: next-action suggestion shaping.
+"""Lux–Nyx shaping + governance pipeline.
 
 This module provides:
   classify_next_action(text, section) → LuxNyxInteractionRecord
@@ -12,12 +12,12 @@ This module provides:
       Writes the shadow artifact to state/lux_nyx/shadow/.
 
   shape_next_action(text, section, root) → (EvaluatorRecommendation, Path, LuxNyxInteractionRecord)
-      Full pipeline: classify → evaluate → emit shadow artifact → return all three.
+      Shaping entry point: classify → evaluate → emit shadow artifact → return all three.
 
-  shape_and_route(text, section, root) → GovernanceOutcome
-      Combined pipeline: shape → emit shadow artifact → route → emit governance artifact.
+  shape_and_route(text, section, root) → LuxNyxCombinedOutcome
+      Full pipeline entry point: shape → emit shadow artifact → route → emit governance artifact.
 
-Pilot surface: next-action suggestion shaping.
+Pilot surface: next-action suggestion shaping with governance routing.
 Contract doc reference: docs/archive/lux_nyx_interaction_contract_v0.md §Candidate pilot surfaces
 """
 
@@ -241,15 +241,16 @@ class LuxNyxCombinedOutcome:
 # Full pipeline
 # ---------------------------------------------------------------------------
 
-def shape_next_action(
+def _shape_next_action_components(
     text: str,
     section: str = "",
     root: str | Path = Path(__file__).resolve().parents[4],
 ) -> tuple[EvaluatorRecommendation, Path, LuxNyxInteractionRecord]:
-    """Classify, evaluate, and emit a shadow artifact for a next-action input.
+    """Build the shaping artifacts once for both public entry points.
 
-    Returns (EvaluatorRecommendation, path_to_shadow_artifact, record).
-    The shadow artifact is written to state/lux_nyx/shadow/.
+    This keeps the shaping pass strictly causal: classify the current input,
+    evaluate that record, emit the shadow artifact, then hand the same
+    recommendation + record forward to any later governance routing step.
     """
     record = classify_next_action(text, section)
     recommendation = evaluate(record)
@@ -268,16 +269,30 @@ def shape_next_action(
     return recommendation, path, record
 
 
+def shape_next_action(
+    text: str,
+    section: str = "",
+    root: str | Path = Path(__file__).resolve().parents[4],
+) -> tuple[EvaluatorRecommendation, Path, LuxNyxInteractionRecord]:
+    """Classify, evaluate, and emit a shadow artifact for a next-action input.
+
+    Returns (EvaluatorRecommendation, path_to_shadow_artifact, record).
+    The shadow artifact is written to state/lux_nyx/shadow/.
+    """
+    return _shape_next_action_components(text, section, root)
+
+
 def shape_and_route(
     text: str,
     section: str = "",
     root: str | Path = Path(__file__).resolve().parents[4],
 ) -> LuxNyxCombinedOutcome:
-    """Classify, evaluate, emit shadow artifact, AND route to governance.
+    """Run the full shaping + governance pipeline from a single entry point.
 
-    Returns a LuxNyxCombinedOutcome containing all artifacts and decisions.
+    Returns a LuxNyxCombinedOutcome containing the shaping decision, the
+    governance outcome, and both emitted artifact paths.
     """
-    recommendation, shadow_path, record = shape_next_action(text, section, root)
+    recommendation, shadow_path, record = _shape_next_action_components(text, section, root)
     outcome = route(recommendation, record, root=root)
     return LuxNyxCombinedOutcome(
         recommendation=recommendation,
