@@ -76,11 +76,11 @@ class AutomationOrchestratorValidationConfigTests(unittest.TestCase):
         self.assertIn("validation_command", contract)
         self.assertIn("validation_policy_ref", contract)
         self.assertEqual(contract["validation_policy_ref"]["config"], "config/orchestrator.json")
-        self.assertEqual(contract["disposition"], "DOC_PROMOTE")
-        self.assertEqual(contract["promotion_target"], "docs")
+        self.assertEqual(contract["disposition"], "TODO_PROMOTE")
+        self.assertEqual(contract["promotion_target"], "todo")
         self.assertEqual(contract["branch_outcome_class"], "promotable")
-        self.assertEqual(contract["promotion_review_requirement"], "human-review")
-        self.assertEqual(contract["promotion_review_status"], "pending")
+        self.assertEqual(contract["promotion_review_requirement"], "not-required")
+        self.assertEqual(contract["promotion_review_status"], "not-required")
 
     def test_task_contract_attaches_continuity_artifact_ids(self):
         item = automation_orchestrator.TodoItem(
@@ -270,6 +270,72 @@ class SessionResumeContextTests(unittest.TestCase):
         checkpoint_refs = [r for r in refs if "checkpoints" in r]
         self.assertEqual(len(checkpoint_refs), 1)
         self.assertTrue(checkpoint_refs[0].startswith("state/ygg/checkpoints/"))
+
+    def test_task_contract_downgrades_archive_routing_to_log_only(self):
+        item = automation_orchestrator.TodoItem(
+            state="open",
+            text="Document claim tier constraints",
+            section="Docs",
+        )
+        cfg = {
+            "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
+        }
+        mock_lux = {
+            "action": "archive",
+            "destination": "archive",
+            "rationale": "Preserve without promotion.",
+            "recommended_nyx_ops": ["compress", "trace"],
+            "shadow_artifact_type": "draft",
+            "trace_note": "Archived by governance.",
+            "shadow_artifact_path": "state/lux_nyx/shadow/sample.json",
+            "governance_artifact_path": "state/lux_nyx/governance/sample.json",
+        }
+        with patch.object(automation_orchestrator, "_lux_nyx_shape", return_value=mock_lux), \
+             patch.object(automation_orchestrator, "load_session_resume_context", return_value=None), \
+             patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
+            contract = automation_orchestrator.task_contract(item, cfg=cfg)
+
+        self.assertEqual(contract["disposition"], "LOG_ONLY")
+        self.assertEqual(contract["promotion_target"], "log-only")
+        self.assertEqual(contract["branch_outcome_class"], "local")
+        self.assertEqual(contract["promotion_review_requirement"], "not-required")
+        self.assertEqual(contract["promotion_review_status"], "not-required")
+        self.assertEqual(contract["lux_nyx_shaping"]["destination"], "archive")
+        self.assertEqual(contract["lux_nyx_shaping"]["routing_disposition"], "LOG_ONLY")
+        self.assertEqual(contract["lux_nyx_shaping"]["routing_promotion_target"], "log-only")
+
+    def test_task_contract_promotes_lux_nyx_promotion_queue_into_docs_target(self):
+        item = automation_orchestrator.TodoItem(
+            state="open",
+            text="Validated canonical proposal",
+            section="Research",
+        )
+        cfg = {
+            "validation": {"commands": {"default": ["python -m unittest discover -s tests -q"]}}
+        }
+        mock_lux = {
+            "action": "promote-candidate",
+            "destination": "promotion-queue",
+            "rationale": "Defensible high-risk claim; promotion candidate.",
+            "recommended_nyx_ops": ["gate", "trace"],
+            "shadow_artifact_type": "audit-trace",
+            "trace_note": "Promotion-queue candidate.",
+            "shadow_artifact_path": "state/lux_nyx/shadow/sample.json",
+            "governance_artifact_path": "state/lux_nyx/governance/sample.json",
+        }
+        with patch.object(automation_orchestrator, "_lux_nyx_shape", return_value=mock_lux), \
+             patch.object(automation_orchestrator, "load_session_resume_context", return_value=None), \
+             patch.object(automation_orchestrator, "load_topological_memory_signal", return_value=None):
+            contract = automation_orchestrator.task_contract(item, cfg=cfg)
+
+        self.assertEqual(contract["disposition"], "DOC_PROMOTE")
+        self.assertEqual(contract["promotion_target"], "docs")
+        self.assertEqual(contract["branch_outcome_class"], "promotable")
+        self.assertEqual(contract["promotion_review_requirement"], "human-review")
+        self.assertEqual(contract["promotion_review_status"], "pending")
+        self.assertEqual(contract["lux_nyx_shaping"]["destination"], "promotion-queue")
+        self.assertEqual(contract["lux_nyx_shaping"]["routing_disposition"], "DOC_PROMOTE")
+        self.assertEqual(contract["lux_nyx_shaping"]["routing_promotion_target"], "docs")
 
 
 if __name__ == "__main__":

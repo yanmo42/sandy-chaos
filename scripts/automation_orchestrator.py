@@ -178,16 +178,21 @@ def resolve_promotion_review_policy(cfg: dict, promotion_target: str, outcome_cl
     by_outcome = review_cfg.get("byOutcomeClass", {}) if isinstance(review_cfg, dict) else {}
     by_target = review_cfg.get("byTarget", {}) if isinstance(review_cfg, dict) else {}
 
-    # Target-specific policy takes precedence for granular overrides (e.g., todo).
-    target_cfg = by_target.get(promotion_target)
-    if not target_cfg:
-        target_cfg = by_outcome.get(outcome_class, {}) if isinstance(by_outcome, dict) else {}
+    outcome_cfg = by_outcome.get(outcome_class, {}) if isinstance(by_outcome, dict) else {}
 
-    requirement = str(target_cfg.get("requirement", review_cfg.get("defaultRequirement", "human-review"))).strip()
+    # Target-specific policy takes precedence for granular overrides (e.g., todo).
+    target_cfg = by_target.get(promotion_target) or outcome_cfg
+
+    default_requirement = outcome_cfg.get(
+        "requirement",
+        "not-required" if outcome_class == "local" or promotion_target in {"todo", "log-only"} else "human-review",
+    )
+    requirement = str(target_cfg.get("requirement", review_cfg.get("defaultRequirement", default_requirement))).strip()
     if requirement not in ALLOWED_PROMOTION_REVIEW_REQUIREMENTS:
-        requirement = "human-review"
+        requirement = str(default_requirement).strip()
 
     default_status = "not-required" if requirement == "not-required" else "pending"
+    default_status = str(outcome_cfg.get("status", default_status)).strip() or default_status
     status = str(target_cfg.get("status", review_cfg.get("defaultStatus", default_status))).strip()
     if status not in ALLOWED_PROMOTION_REVIEW_STATUSES:
         status = default_status
@@ -344,6 +349,36 @@ def infer_branch_outcome_class(disposition: str) -> str:
     return "blocked"
 
 
+def apply_lux_nyx_governance_routing(
+    item: TodoItem,
+    disposition: str,
+    promotion_target: str,
+    lux_nyx: dict | None,
+) -> tuple[str, str]:
+    if not isinstance(lux_nyx, dict):
+        return disposition, promotion_target
+
+    destination = str(lux_nyx.get("destination", "")).strip()
+    text = f"{item.section} {item.text}".lower()
+
+    if destination in {"archive", "refusal-log"}:
+        return "LOG_ONLY", "log-only"
+
+    if destination == "hold-queue":
+        return "TODO_PROMOTE", "todo"
+
+    if destination == "promotion-queue" and promotion_target == "log-only":
+        if "workflow" in text:
+            return "POLICY_PROMOTE", "workflow"
+        if "foundations" in text:
+            return "POLICY_PROMOTE", "foundations"
+        if any(k in text for k in ["test", "config", "validation", "orchestrator", "artifact", "summary", "automation", "dispatch"]):
+            return "POLICY_PROMOTE", "tests/config"
+        return "DOC_PROMOTE", "docs"
+
+    return disposition, promotion_target
+
+
 def validate_task_contracts(tasks: list[dict]) -> list[str]:
     errors: list[str] = []
     for idx, task in enumerate(tasks, start=1):
@@ -406,6 +441,8 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
 
     capability_lane = capability_lane_for_item(item)
     disposition, promotion_target = infer_disposition_and_promotion_target(item)
+    lux_nyx = _lux_nyx_shape(item.text, item.section)
+    disposition, promotion_target = apply_lux_nyx_governance_routing(item, disposition, promotion_target, lux_nyx)
     outcome_class = infer_branch_outcome_class(disposition)
     promotion_review = resolve_promotion_review_policy(cfg, promotion_target, outcome_class)
 
@@ -471,11 +508,14 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
                 existing = contract.get("memory_artifact_ids", [])
                 contract["memory_artifact_ids"] = existing + [retrieval_trace.retrieval_trace_artifact]
 
-    lux_nyx = _lux_nyx_shape(item.text, item.section)
     if lux_nyx:
         contract["lux_nyx_shaping"] = {
-            k: v for k, v in lux_nyx.items()
-            if k not in {"shadow_artifact_path", "governance_artifact_path"}
+            **{
+                k: v for k, v in lux_nyx.items()
+                if k not in {"shadow_artifact_path", "governance_artifact_path"}
+            },
+            "routing_disposition": disposition,
+            "routing_promotion_target": promotion_target,
         }
         shadow_path = lux_nyx.get("shadow_artifact_path")
         if shadow_path:
