@@ -603,6 +603,93 @@ If this holds, the present state $s_t$ is not causally influenced by future boun
 
 ---
 
+## Part IV — Constructive Realisation in Code
+
+> The chain on paper is $\varnothing \to \mathbb{N} \to \mathbb{Z} \to \mathbb{Q} \to \mathbb{R} \to \mathbb{C} \to (M, g_{\mu\nu}) \to \text{Kerr}$.
+> The chain in code follows it exactly through $\mathbb{Q}$; $\mathbb{R}$ is then a *labelled approximation boundary*, not a primitive.
+
+Parts I–III derive Sandy Chaos structures from ZF on paper. This part documents how that derivation is realised in Python under `nfem_suite/formalization/set_theoretic/`. The point is to make the gap between paper-rigour and machine-execution legible: where the representation is exact, where it approximates, and what each approximation depends on.
+
+This is a *constructive realiser*, not a proof checker. CPython is the metatheory; we do not prove the axioms. We choose representations that make each axiom either structurally true (e.g. ZF1 extensionality via `frozenset.__eq__`) or operationally realisable (e.g. ZF6 infinity via a successor iterator). Machine-checked ZF proofs would require a proof assistant (Lean / Coq / Agda) and are out of scope for this layer.
+
+---
+
+### §15 — Section ↔ Code Mapping
+
+| Section | Construct | Code surface | Exactness |
+|---|---|---|---|
+| §0 | ZF1–ZF8, ZFC | `axioms.py` (machine-readable contract: `id`, `statement`, `formal`, `realisation` per axiom) | Documentation, not proof |
+| §0, ZF2 | $\varnothing$ | `empty.py` — `EmptySet`, `EMPTY` | Exact (subclass of `frozenset`) |
+| §1 | $\mathbb{N}$ via von Neumann ordinals | `ordinal.py` — `VNOrdinal` | Exact. Cardinality stored as `int` for arithmetic speed; literal frozenset structure recoverable via `materialise()` for inspection |
+| §2 | $\mathbb{Z}$ via group completion | `integer.py` — `ZInt` as canonical $(a,b)$ with one component zero | Exact |
+| §3 | $\mathbb{Q}$ via field of fractions | `rational.py` — `QRat` in lowest terms with positive denominator | Exact |
+| §4 | $\mathbb{R}$ via Dedekind / Cauchy completion | — | **Not in code.** Crossed via `bridge.py` (assumption B-001) |
+| §5 | $\mathbb{C}$ via algebraic closure | `bridge.complex_entropy_state` | Constructed *after* B-001 crossing; `complex` is two IEEE-754 doubles |
+| §6–§9 | Manifolds, Lorentzian metric, Kerr | Existing simulation modules under `cosmic_comm/`, `nfem_suite/simulation/` | Float-based; downstream of B-001 |
+| §10–§13 | Sandy Chaos constructs ($Z$, $\tau_\gamma$, $n$, $\Delta T$) | `nfem_suite/formalization/complex_euler.py` plus simulation code | Float-based; downstream of B-001 and (for integrals) B-002 |
+
+The implementation also exposes `axioms.ZF_AXIOMS`, a tuple of nine `ZFAxiom` records. Each record's `realisation` field states how (or why not) the axiom is realised: ZF1–ZF4 and ZF6–ZF8 carry constructive realisations; ZF5 (Power Set) is realised on demand for finite sets and skipped for infinite ones; ZFC (Choice) is unused in the $\mathbb{Q}$-chain and flagged for future layers that may need it.
+
+---
+
+### §15.1 — The Exactness Boundary
+
+Every operation through $\mathbb{Q}$ is exact. Set-theoretic equivalences are realised by canonical-form representatives, so Python `==` matches the underlying mathematical equivalence:
+
+- $(2, 4) \approx (1, 2)$ in $\mathbb{Q}$: both reduce to `Q(1/2)`.
+- $(3, 5)$ and $(0, 2)$ in $\mathbb{Z}$: both canonicalise to `Z(-2)`.
+- Two finite von Neumann ordinals are equal iff their cardinalities are equal (provable by induction); the implementation stores the cardinality as a Python `int` for arithmetic speed and exposes the literal frozenset construction via `materialise()` for inspection.
+
+$\mathbb{R}$ is **not** representable. Cantor's diagonal argument shows $\mathbb{R}$ is uncountable; Python objects are countable. Every $\mathbb{R}$-valued operation in the codebase is therefore an approximation, and `bridge.py` enumerates the named approximation assumptions:
+
+- **B-001** — IEEE-754 binary64 approximates $\mathbb{R}$. Used for `sqrt`, `exp`, `sin`, `cos`, integration kernels, and complex coordinates. *Failure mode:* non-associative addition; catastrophic cancellation near subtractive boundaries; fixed 53-bit mantissa.
+- **B-002** — Trapezoidal Riemann sum approximates the line integral $\int_\gamma Z(s)\,ds$. Used for `path_integral`, `temporal_displacement`, contour integrals. *Failure mode:* $O(N^{-2})$ error for smooth integrands; degrades for non-smooth $Z$; cannot detect singularities lying between sample points.
+- **B-003** — `atan2` branch cut at $\varphi = \pi$ is library-defined. Used for phase extraction and winding-number computation. *Failure mode:* boundary value at $\varphi = \pi$ may differ between `math.atan2` and `numpy.angle`; portability risk for tests pinning the branch-cut behaviour.
+
+Each crossing helper in `bridge.py` (`cross_to_float`, `magnitude_to_float`, `phase_to_float`, `complex_entropy_state`) cites which assumptions it relies on. Adding a new crossing — say a computable-real backend, interval arithmetic, or arbitrary-precision via `mpmath` — should add a matching `BridgeAssumption` row, and `tests/test_set_theoretic_chain.py::TestBridgeAssumptions` will fail until the registry is updated.
+
+---
+
+### §15.2 — Worked Example: The 3–4–5 Triple
+
+Setting $\alpha = 3/5$ and $\beta = 4/5$ in $\mathbb{Q}$:
+
+$$
+|Z|^2 = \alpha^2 + \beta^2 = \frac{9}{25} + \frac{16}{25} = 1
+$$
+
+The implementation `magnitude_squared_qrat(α, β)` returns `Q(1)` exactly; no floats are touched. Only `magnitude_to_float` (which calls `math.sqrt`) crosses B-001, and only `phase_to_float` (which calls `math.atan2`) crosses both B-001 and B-003.
+
+A telling artefact appears here: `phase_to_float(α, β)` differs from `math.atan2(4, 3)` by one ULP (unit in the last place), because the intermediate cast to `float` in the bridge happens *before* the `atan2` call. That gap is B-001 in action; making it inspectable was the entire point of the bridge layer. Previously the same imprecision was present but buried inside `numpy.arctan2` calls scattered through the simulation code.
+
+---
+
+### §15.3 — What is Deliberately Not in Code
+
+- **$\omega$ as a value.** ZF6 (Infinity) asserts the existence of an inductive set; we do not materialise it as a Python value. `VNOrdinal.naturals()` is an iterator that produces every finite ordinal in sequence, which is the only operational use we have for $\omega$.
+- **Power set for infinite sets.** ZF5 is realised on demand for finite sets (one could enumerate subsets); for infinite sets the power set is never constructed. Not load-bearing for the $\mathbb{Q}$ chain.
+- **Selection function for ZFC.** Choice is not used in any of the $\mathbb{Q}$-chain constructions. Future layers that need it (e.g. unbounded $\mathbb{R}$ constructions) must declare the selection explicitly.
+- **Exact $\mathbb{R}$.** As above: provably impossible on a finite machine. A computable-real backend (such as a lazy-bit-stream or interval-arithmetic library) could push the boundary further but does not eliminate it. Such a backend, if added, would be a new bridge assumption, not a replacement for B-001.
+- **Theorem-proving the axioms.** This layer does not check ZF; it implements representations under which the axioms either hold structurally or admit constructive realisation. A separate Lean / Coq / Agda development would be the place to machine-check the derivations themselves.
+
+---
+
+### §15.4 — Test Coverage
+
+`tests/test_set_theoretic_chain.py` contains 32 property tests grouped by layer:
+
+- **Axiom registry** — all nine entries present (ZF1–ZF8, ZFC) with non-empty `statement`, `formal`, and `realisation` text.
+- **`EmptySet` (ZF2)** — cardinality zero; equality with bare `frozenset()`; multiple instances are extensionally equal.
+- **`VNOrdinal` (ZF1, ZF6 op)** — successor; $1 + 1 = 2$ via successor; $2 = \{0, 1\}$ via `materialise()`; cardinality-equals-value for $n \in [0, 20)$; extensionality; membership orders ordinals; commutativity of addition; distributivity of multiplication over addition; `naturals()` produces consecutive ordinals.
+- **`ZInt`** — closure under subtraction; additive inverse for $k \in [-10, 10]$; sign rule for multiplication; canonical-form uniqueness.
+- **`QRat`** — canonicalisation to lowest terms; addition of thirds equals one; multiplicative inverse over a small grid; distributivity; division by zero raises; bounded search confirms no $q \in \mathbb{Q}$ with $q^2 = 2$ in $[0, 100) \times [1, 100)$.
+- **Bridge registry** — B-001/2/3 IDs pinned; lookup; each row carries a non-empty `failure_mode`.
+- **Bridge crossings** — `cross_to_float` on simple rationals; Pythagorean 3–4–5 magnitude exact in $\mathbb{Q}$; magnitude crossing returns `1.0`; phase crossing matches `math.atan2(4, 3)` to within one ULP; complex-state construction.
+
+Run: `python3 -m unittest tests.test_set_theoretic_chain -v`. Current status: 32/32 passing in ~70 ms.
+
+---
+
 ## Appendix: What This Document Does Not Derive
 
 The following elements remain as future work (corresponding to fix-list items not addressed here):
