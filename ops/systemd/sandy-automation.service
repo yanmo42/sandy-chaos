@@ -1,5 +1,5 @@
 [Unit]
-Description=Sandy Chaos automation full-pass runner (orchestrator + autospawn + dispatch)
+Description=Sandy Chaos automation runner with explicit activation gate
 After=network-online.target
 Wants=network-online.target
 
@@ -12,6 +12,6 @@ WorkingDirectory=%h/projects/sandy-chaos
 EnvironmentFile=-%h/projects/sandy-chaos/.secrets.local.env
 EnvironmentFile=-%h/.config/sandy-chaos/automation.env
 Environment=PATH=%h/.npm-global/bin:%h/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=/usr/bin/python3 %h/projects/sandy-chaos/scripts/hourly_openclaw_cycle.py --dispatch-limit 1 --agent claude
+ExecStart=/usr/bin/python3 %h/projects/sandy-chaos/scripts/automation_activation_gate.py
 StandardOutput=append:%h/.local/state/sandy-chaos/automation.log
 StandardError=append:%h/.local/state/sandy-chaos/automation.log

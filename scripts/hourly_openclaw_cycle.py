@@ -88,13 +88,13 @@ def changed_paths(lines: list[str]) -> list[str]:
     return paths
 
 
-def run_full_pass(limit: int, dry_run: bool) -> subprocess.CompletedProcess[str]:
+def run_full_pass(limit: int, dry_run: bool, send_telegram: bool) -> subprocess.CompletedProcess[str]:
     out = io.StringIO()
     err = io.StringIO()
     with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
         ok = self_improve.full_pass(
             scheduler="host-cron",
-            send_telegram=False,
+            send_telegram=send_telegram,
             dry_run=dry_run,
             max_open_items=5,
             with_orchestration=True,
@@ -343,11 +343,14 @@ def main() -> int:
     ap.add_argument("--agent", default=DEFAULT_AGENT)
     ap.add_argument("--agent-timeout-sec", type=int, default=DEFAULT_AGENT_TIMEOUT_SEC)
     ap.add_argument("--allow-untracked", action="store_true", help="Include untracked files in the commit set")
+    ap.add_argument("--allow-commit", action="store_true", help="Allow the wrapper to create a commit when validation passes")
+    ap.add_argument("--allow-push", action="store_true", help="Allow the wrapper to push after a successful commit")
+    ap.add_argument("--send-telegram", action="store_true", help="Forward full-pass digest delivery to Telegram")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
     start_head = git_head()
-    full_pass = run_full_pass(limit=args.dispatch_limit, dry_run=args.dry_run)
+    full_pass = run_full_pass(limit=args.dispatch_limit, dry_run=args.dry_run, send_telegram=args.send_telegram)
     if full_pass.returncode != 0:
         cycle_event = latest_cycle_event()
         print(json.dumps({
@@ -399,7 +402,8 @@ def main() -> int:
     commit_candidates = changed_paths(candidate_lines)
 
     validation = None
-    if commit_candidates and not args.dry_run:
+    validation_skipped_reason = None
+    if commit_candidates and not args.dry_run and args.allow_commit:
         validation = run_validation(selected_task)
         if validation.returncode != 0:
             print(json.dumps({
@@ -411,13 +415,22 @@ def main() -> int:
                 "stderr": validation.stderr[-4000:],
             }, indent=2))
             return 1
+    elif commit_candidates and not args.allow_commit:
+        validation_skipped_reason = "commit disabled"
+    elif args.dry_run:
+        validation_skipped_reason = "dry-run mode"
 
-    committed, commit_message = maybe_commit(commit_candidates, dry_run=args.dry_run)
+    committed, commit_message = (False, None)
+    if args.allow_commit or args.dry_run:
+        committed, commit_message = maybe_commit(commit_candidates, dry_run=args.dry_run)
 
     pushed = False
     push_error = None
-    if committed:
+    push_skipped_reason = None
+    if committed and args.allow_push:
         pushed, push_error = maybe_push(args.remote, args.branch, dry_run=args.dry_run)
+    elif committed and not args.allow_push:
+        push_skipped_reason = "push disabled"
 
     end_head = git_head()
     result = {
@@ -428,6 +441,9 @@ def main() -> int:
         "dispatch_limit": args.dispatch_limit,
         "dry_run": args.dry_run,
         "agent": args.agent,
+        "send_telegram": args.send_telegram,
+        "allow_commit": args.allow_commit,
+        "allow_push": args.allow_push,
         "selected_task_goal": selected_task.get("goal"),
         "selected_task_section": selected_task.get("section"),
         "full_pass_tail": full_pass.stdout.splitlines()[-20:],
@@ -436,11 +452,13 @@ def main() -> int:
         "commit_candidates": commit_candidates,
         "validation_ran": bool(validation is not None),
         "validation_ok": None if validation is None else validation.returncode == 0,
+        "validation_skipped_reason": validation_skipped_reason,
         "validation_tail": [] if validation is None else (validation.stdout + "\n" + validation.stderr).splitlines()[-20:],
         "committed": committed,
         "commit_message": commit_message,
         "pushed": pushed,
         "push_error": push_error,
+        "push_skipped_reason": push_skipped_reason,
         "cycle_summary": "memory/orchestrator_cycle_summary.md",
     }
     print(json.dumps(result, indent=2))

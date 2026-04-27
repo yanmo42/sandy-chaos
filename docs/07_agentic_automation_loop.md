@@ -194,24 +194,40 @@ This preserves the symbolic/operational target of 5 while introducing jitter to 
 
 ## 11) Full automation wiring (service-level)
 
-`ops/systemd/sandy-automation.service` now runs:
+`ops/systemd/sandy-automation.service` now runs the activation wrapper:
 
 ```bash
-python3 scripts/self_improve.py full-pass \
-  --scheduler host-cron \
-  --with-orchestration \
-  --with-dispatch \
-  --dispatch-limit 3 \
-  --send-telegram
+python3 scripts/automation_activation_gate.py
 ```
 
-This means each timer cycle executes:
+The activation wrapper reads `SANDY_AUTOMATION_STAGE` from `~/.config/sandy-chaos/automation.env`
+and then chooses one of five explicit behaviors:
 
-1. cadence checks,
-2. orchestrator task-plan generation,
-3. spawn-request generation,
-4. coordinator-side Gateway `agent` dispatch in the active OpenClaw runtime,
-5. lane-aware productivity digest generation (outbox-first, Telegram optional).
+- `off` — do nothing and exit cleanly
+- `preflight` — run lightweight readiness checks only
+- `dry-run` — run the hourly wrapper in no-write preview mode
+- `local` — allow real local agent execution, but do not commit or push
+- `live` — allow the hourly wrapper to commit/push after validation
+
+This keeps the installed service inert by default instead of treating "unit file exists"
+as equivalent to "agentic loop is live."
+
+When the stage is `dry-run`, `local`, or `live`, the wrapper invokes:
+
+```bash
+python3 scripts/hourly_openclaw_cycle.py \
+  --dispatch-limit 1 \
+  --agent claude
+```
+
+Additional write surfaces are stage-gated:
+
+- `--allow-commit` is added only in `live`
+- `--allow-push` is added only in `live`
+- `--send-telegram` is added only when `SANDY_AUTOMATION_SEND_TELEGRAM=1`
+
+This means the service-level path is now explicitly activation-aware rather than
+implicitly live.
 
 Operationally, the service-level cadence should preserve the same surface split:
 
@@ -263,14 +279,17 @@ This keeps the automation loop tied to real Sandy Chaos progress instead of gene
 - `systemd --user` timer: `sandy-automation.timer`
 - cadence: probabilistic 4-6 minute window around a 5-minute center
 - unit: `sandy-automation.service` (oneshot)
+- default activation stage: `off`
 
 ### What runs each cycle
 
-1. `self_improve.py full-pass`
-2. `automation_orchestrator.py` builds task contracts from TODO priorities
-3. `orchestrator_autospawn.py` emits spawn-request payloads
-4. coordinator dispatch executes Gateway `agent` calls directly from the active OpenClaw runtime (with session-id telemetry retained for debugging)
-5. digest and telemetry are written to memory artifacts
+1. `automation_activation_gate.py` checks stage + basic readiness
+2. if stage permits execution, `hourly_openclaw_cycle.py` runs one bounded cycle
+3. `self_improve.py full-pass` generates bounded orchestration artifacts without automatic dispatch
+4. the hourly wrapper selects one task contract and runs one bounded agent slice
+5. validation runs before any commit surface is allowed
+6. commit/push remain disabled unless stage is explicitly `live`
+7. digest/telemetry remain optional and separately gated
 
 ### Core artifacts
 
@@ -309,8 +328,25 @@ Use repo-local secrets for portable setups without committing PII:
 3. Keep `.secrets.local.env` out of git (already in `.gitignore`)
 
 The systemd service loads:
-- `%h/dev/sandy-chaos/.secrets.local.env` (preferred)
+- `%h/projects/sandy-chaos/.secrets.local.env` (preferred)
 - `%h/.config/sandy-chaos/automation.env` (legacy fallback)
+
+The fallback env now also carries the activation controls:
+
+- `SANDY_AUTOMATION_STAGE`
+- `SANDY_AUTOMATION_AGENT`
+- `SANDY_AUTOMATION_DISPATCH_LIMIT`
+- `SANDY_AUTOMATION_AGENT_TIMEOUT_SEC`
+- `SANDY_AUTOMATION_SEND_TELEGRAM`
+
+Recommended activation order:
+
+1. install units without enabling the timer
+2. keep `SANDY_AUTOMATION_STAGE=off`
+3. run one `preflight` pass manually
+4. run one `dry-run` pass manually
+5. optionally run `local` before any unattended remote mutation
+6. only then move to `live`
 
 
 ## 15) Git push automation guardrails (planned)
