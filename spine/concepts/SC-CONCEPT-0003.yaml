@@ -21,8 +21,8 @@ contradicts: []
 failure_conditions:
   - toy-model dynamics show no meaningful regime distinction beyond baseline controller behavior
   - narrative state contributes no measurable explanatory or predictive gain
-next_test: run a narrow robustness check around the current Arm A profile and report whether the bidirectional corridor boundaries remain qualitatively stable under small parameter perturbations
-next_action: keep the new Level-4 result packet fixed as the benchmark reference and only extend the lane with a small robustness pass, not a broader theory expansion
+next_test: compare Arm A and the open-loop temporal-driver comparator on corridor-boundary geometry and initial-condition sensitivity; if no clean separating criterion appears, rerank the frontier instead of defending this surface rhetorically
+next_action: hold broad promotion and revise the Level-4 benchmark criterion after the temporal-driver comparator reproduced bidirectional corridor coverage without narrative-conditioned action feedback
 promotion_target: code/experiment
 owner_surface: sandy-chaos
-notes: A compact Level-4 result packet now exists, backed by null and ablation comparisons; the key benchmark target is bidirectional corridor structure rather than raw paradox counts.
+notes: A compact Level-4 result packet exists, backed by null and ablation comparisons; the original key benchmark target was bidirectional corridor structure rather than raw paradox counts. A robustness pass in `plans/hyperstition_level4_robustness_pass_v0.md` showed that the Arm A corridor structure survives ±10% one-at-a-time parameter drift. The stronger temporal-driver comparator pass in `plans/hyperstition_level4_temporal_driver_comparison_v0.md` then reproduced bidirectional corridor coverage while removing current narrative state from the action channel, which weakens the uniqueness claim. The lane remains proof-bearing, but the active criterion must shift from simple corridor presence to a stricter separator such as corridor-boundary geometry or initial-condition sensitivity; otherwise the frontier should be reranked.
