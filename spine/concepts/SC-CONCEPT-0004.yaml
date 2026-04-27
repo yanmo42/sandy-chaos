@@ -7,11 +7,12 @@ tags:
   - topology
   - retrieval
 claim_tier: plausible
-status: draft
+status: pressure-testing
 depends_on:
   - SC-CONCEPT-0001
 documented_in:
   - docs/archive/topological_memory_continuity_retrieval_v0.md
+  - plans/today_frontier_2026-04-27.md
 implemented_in:
   - nfem_suite/intelligence/ygg/topological_memory.py
   - nfem_suite/intelligence/ygg/topological_memory_runtime.py
@@ -25,7 +26,7 @@ failure_conditions:
   - topology-aware retrieval fails to beat at least one flat baseline on a real continuity benchmark
   - path outputs are not interpretable enough to justify added complexity
 next_test: extend runtime-consumer evaluation beyond the current small workflow sample and check whether topology-aware retrieval beats at least one flat baseline while keeping path traces readable
-next_action: use the new runtime adoption comparison to decide whether this lane stays archive-bounded, needs retriever revision, or earns a tighter promotion candidate packet
+next_action: run the bounded active-frontier benchmark selected in `plans/today_frontier_2026-04-27.md`: topology-aware retrieval vs at least one flat baseline, with readable path traces as a hard requirement
 promotion_target: docs/archive
 owner_surface: sandy-chaos
 notes: Schema, baseline benchmark, and runtime-consumer wiring now exist, but the runtime adoption result still does not justify promotion beyond archive.

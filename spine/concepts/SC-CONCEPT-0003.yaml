@@ -7,11 +7,12 @@ tags:
   - cognition
   - control
 claim_tier: plausible
-status: pressure-testing
+status: validated-partial
 depends_on:
   - SC-CONCEPT-0001
 documented_in:
   - docs/05_hyperstition_temporal_bridge_analysis.md
+  - plans/hyperstition_level4_boundary_sensitivity_comparison_v0.md
 implemented_in:
   - nfem_suite/intelligence/cognition/hyperstition.py
   - scripts/hyperstition_phase_sweep.py
@@ -21,8 +22,9 @@ contradicts: []
 failure_conditions:
   - toy-model dynamics show no meaningful regime distinction beyond baseline controller behavior
   - narrative state contributes no measurable explanatory or predictive gain
-next_test: compare Arm A and the open-loop temporal-driver comparator on corridor-boundary geometry and initial-condition sensitivity; if no clean separating criterion appears, rerank the frontier instead of defending this surface rhetorically
-next_action: hold broad promotion and revise the Level-4 benchmark criterion after the temporal-driver comparator reproduced bidirectional corridor coverage without narrative-conditioned action feedback
+  - Arm A and the open-loop temporal-driver comparator cannot be separated by a clean, predeclared stricter criterion
+next_test: specify a motivated criterion such as time-to-lock-in, hysteresis, or perturbation path dependence before running any further Arm A vs Arm E comparator
+next_action: demote from active frontier after the boundary/sensitivity separator pass failed to find a clean Arm A vs Arm E separator; rerank the frontier instead of defending this surface rhetorically
 promotion_target: code/experiment
 owner_surface: sandy-chaos
-notes: A compact Level-4 result packet exists, backed by null and ablation comparisons; the original key benchmark target was bidirectional corridor structure rather than raw paradox counts. A robustness pass in `plans/hyperstition_level4_robustness_pass_v0.md` showed that the Arm A corridor structure survives ±10% one-at-a-time parameter drift. The stronger temporal-driver comparator pass in `plans/hyperstition_level4_temporal_driver_comparison_v0.md` then reproduced bidirectional corridor coverage while removing current narrative state from the action channel, which weakens the uniqueness claim. The lane remains proof-bearing, but the active criterion must shift from simple corridor presence to a stricter separator such as corridor-boundary geometry or initial-condition sensitivity; otherwise the frontier should be reranked.
+notes: A compact Level-4 result packet exists, backed by null and ablation comparisons; the original key benchmark target was bidirectional corridor structure rather than raw paradox counts. A robustness pass in `plans/hyperstition_level4_robustness_pass_v0.md` showed that the Arm A corridor structure survives ±10% one-at-a-time parameter drift. The stronger temporal-driver comparator pass in `plans/hyperstition_level4_temporal_driver_comparison_v0.md` then reproduced bidirectional corridor coverage while removing current narrative state from the action channel, which weakens the uniqueness claim. The stricter boundary/sensitivity pass in `plans/hyperstition_level4_boundary_sensitivity_comparison_v0.md` found no clean separator under the configured criteria, so this lane remains proof-bearing but should not hold the active frontier slot without a newly motivated benchmark.
