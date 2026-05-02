@@ -319,13 +319,15 @@ Would you like to dive deeper into any of these areas, or discuss how to priorit
 - [x] Phase 3 — governance coupling: `route(recommendation, record) → GovernanceOutcome`, evidence gate on promote-candidate, `GovernanceArtifact` writer to `state/lux_nyx/governance/` (`nfem_suite/intelligence/narrative_invariants/lux_nyx_governance.py`, `tests/test_lux_nyx_governance.py`)
 - [x] Connect `route()` into the `shape_next_action` full pipeline (combined into the single `shape_and_route()` entry point used by the orchestrator)
 - [x] Wire governance outcomes into archive/promotion routing in existing workflows (e.g. orchestrator dispatch, doc promotion gates)
-- [ ] Pilot measurement: track suggestion acceptance rate, correction burden, and archive-to-promotion conversion quality against pre-Lux-Nyx baseline
+- [x] Pilot measurement instrumentation: track suggestion acceptance rate, correction burden, and archive-to-promotion conversion quality with explicit baseline comparison gates
   - [x] Counter scaffolding + per-metric direction classifier + CLI entry points (`nfem_suite/intelligence/narrative_invariants/lux_nyx_metrics.py`, `scripts/lux_nyx_pilot_{baseline,event,report}.py`)
   - [x] Honest-sampling guard: `sample_size` + `sample_sufficient` per baseline-comparison entry so small-n direction readings are flagged as provisional (`MIN_PILOT_SAMPLE_SIZE`)
-  - [ ] Freeze a concrete pre-Lux-Nyx baseline (still null in `state/lux_nyx/metrics.json`)
+  - [x] Counter invariants: each acceptance/correction must consume an unresolved suggestion; inconsistent loaded counters produce an `invalid-counters` verdict instead of governance-facing rates >1.0
+  - [x] Baseline evidence decision: no trustworthy pre-Lux-Nyx historical baseline is materialized in the repo, so do **not** synthesize one from zero/current state just to clear the task (`docs/notes/lux_nyx_baseline_policy_v0.md`)
+  - [ ] Collect a prospective baseline window from explicitly recorded operator events before using Lux–Nyx metrics as promotion evidence
   - [~] Auto-wire correction burden + archive-to-promotion signals (correction burden still manual, but pilot bookkeeping now forces each accept/reject/correction event to consume one unresolved suggestion; self-improve promotion can auto-record archive→promotion when explicit archive-origin metadata is carried, and broader workflow wiring remains open)
-- [ ] Evaluate against promotion condition: promote beyond bounded draft if pilot metrics show reduced mismatch or improved routing quality
-  - [x] Declarative `pilot_promotion_verdict` rule + `PROMOTION_VERDICTS` enum surfaced in `build_pilot_report` output; verdict is gated on baseline being frozen, every headline metric having sufficient samples, no metric being `worse`, and at least one being `better`
+- [ ] Evaluate against promotion condition: promote beyond bounded draft only after baseline evidence plus sufficient samples show reduced mismatch or improved routing quality
+  - [x] Declarative `pilot_promotion_verdict` rule + `PROMOTION_VERDICTS` enum surfaced in `build_pilot_report` output; verdict is gated on valid counters, baseline being frozen, every headline metric having sufficient samples, no metric being `worse`, and at least one being `better`
 
 ## Topological Memory Continuity Retrieval (2026-03)
 
