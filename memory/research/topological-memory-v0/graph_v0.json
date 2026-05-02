@@ -1,0 +1,302 @@
+{
+  "schema_version": "topological-memory-v0",
+  "generated_at": "2026-03-29T00:00:00Z",
+  "nodes": [
+    {
+      "id": "N_CONCEPT_SC0004",
+      "kind": "concept",
+      "title": "SC-CONCEPT-0004",
+      "path": "spine/concepts/SC-CONCEPT-0004.yaml",
+      "summary": "frontier concept node for continuity retrieval governance",
+      "tags": [
+        "concept",
+        "frontier",
+        "continuity"
+      ],
+      "created_at": "2026-03-25T00:00:00Z",
+      "updated_at": "2026-03-27T00:00:00Z"
+    },
+    {
+      "id": "N_ARCHIVE_TOPMEM",
+      "kind": "archive",
+      "title": "Archive draft",
+      "path": "docs/archive/topological_memory_continuity_retrieval_v0.md",
+      "summary": "original archived draft for graph-shaped continuity memory",
+      "tags": [
+        "archive",
+        "topological-memory"
+      ],
+      "created_at": "2026-03-24T00:00:00Z",
+      "updated_at": "2026-03-24T00:00:00Z"
+    },
+    {
+      "id": "N_RUNTIME_ADOPTION",
+      "kind": "note",
+      "title": "Runtime adoption note",
+      "path": "docs/notes/topological_memory_runtime_adoption_v0.md",
+      "summary": "runtime adoption surface for retrieval traces and continuity context",
+      "tags": [
+        "runtime",
+        "adoption",
+        "trace"
+      ],
+      "created_at": "2026-03-27T00:00:00Z",
+      "updated_at": "2026-03-28T00:00:00Z"
+    },
+    {
+      "id": "N_PROVISIONAL_VALIDATION",
+      "kind": "note",
+      "title": "Provisional validation note",
+      "path": "docs/notes/topological_memory_v0_provisional_validation.md",
+      "summary": "bounded validation note for promotion gate and demotion conditions",
+      "tags": [
+        "validation",
+        "promotion",
+        "failure-conditions"
+      ],
+      "created_at": "2026-03-28T00:00:00Z",
+      "updated_at": "2026-03-29T00:00:00Z"
+    },
+    {
+      "id": "N_PROMPT_SC0001",
+      "kind": "prompt",
+      "title": "SC-PROMPT-0001",
+      "path": "plans/prompts/SC-PROMPT-0001-topological-memory-runtime-adoption-v0.md",
+      "summary": "implementation pressure packet for adopting continuity retrieval at runtime",
+      "tags": [
+        "prompt",
+        "implementation",
+        "adoption"
+      ],
+      "created_at": "2026-03-28T00:00:00Z",
+      "updated_at": "2026-03-28T12:00:00Z"
+    },
+    {
+      "id": "N_TODO_TOPMEM",
+      "kind": "todo",
+      "title": "Todo topological memory lane",
+      "path": "plans/todo.md#topological-memory-continuity-retrieval-v0",
+      "summary": "task checklist for graph bundle benchmark comparison and promotion gate",
+      "tags": [
+        "todo",
+        "benchmark",
+        "comparison"
+      ],
+      "created_at": "2026-03-25T00:00:00Z",
+      "updated_at": "2026-03-28T10:00:00Z"
+    },
+    {
+      "id": "N_FRONTIER_20260427",
+      "kind": "frontier",
+      "title": "Today frontier 2026-04-27",
+      "path": "plans/today_frontier_2026-04-27.md",
+      "summary": "frontier rerank showing the active continuity retrieval concept and failure condition",
+      "tags": [
+        "frontier",
+        "rerank",
+        "active"
+      ],
+      "created_at": "2026-04-27T00:00:00Z",
+      "updated_at": "2026-04-27T00:00:00Z"
+    },
+    {
+      "id": "N_YGG_ARCH",
+      "kind": "doc",
+      "title": "Yggdrasil Continuity Architecture",
+      "path": "docs/12_yggdrasil_continuity_architecture.md",
+      "summary": "branch disposition cadence routing and continuity contract architecture",
+      "tags": [
+        "ygg",
+        "continuity",
+        "cadence"
+      ],
+      "created_at": "2026-03-20T00:00:00Z",
+      "updated_at": "2026-03-26T00:00:00Z"
+    },
+    {
+      "id": "N_RUNTIME_MODULE",
+      "kind": "code",
+      "title": "topological_memory_runtime.py",
+      "path": "nfem_suite/intelligence/ygg/topological_memory_runtime.py",
+      "summary": "runtime retrieval trace writer and flat mode context helper",
+      "tags": [
+        "code",
+        "runtime",
+        "trace"
+      ],
+      "created_at": "2026-03-29T00:00:00Z",
+      "updated_at": "2026-03-29T00:00:00Z"
+    },
+    {
+      "id": "N_EVAL_MODULE",
+      "kind": "code",
+      "title": "topological_memory.py",
+      "path": "nfem_suite/intelligence/ygg/topological_memory.py",
+      "summary": "benchmark evaluator with keyword recency topology optional embedding baselines and inspectable path evidence",
+      "tags": [
+        "code",
+        "benchmark",
+        "baseline",
+        "path-evidence",
+        "inspectable"
+      ],
+      "created_at": "2026-03-28T00:00:00Z",
+      "updated_at": "2026-03-29T00:00:00Z"
+    },
+    {
+      "id": "N_ORCHESTRATOR_CONTRACT",
+      "kind": "code",
+      "title": "automation_orchestrator continuity contract",
+      "path": "scripts/automation_orchestrator.py",
+      "summary": "task contract surface attaching continuity artifact ids and unavailable topological signal context",
+      "tags": [
+        "orchestrator",
+        "contract",
+        "artifact-ids"
+      ],
+      "created_at": "2026-04-01T00:00:00Z",
+      "updated_at": "2026-05-02T00:00:00Z"
+    },
+    {
+      "id": "N_SESSION_CHECKPOINT",
+      "kind": "memory",
+      "title": "Session resume checkpoint",
+      "path": "memory/resume/latest.json",
+      "summary": "durable checkpoint used to resume Symbolic Maps and continuity tasks",
+      "tags": [
+        "session",
+        "resume",
+        "checkpoint"
+      ],
+      "created_at": "2026-03-26T00:00:00Z",
+      "updated_at": "2026-03-26T16:59:58Z"
+    }
+  ],
+  "edges": [
+    {
+      "id": "E_CONCEPT_ARCHIVE",
+      "source": "N_CONCEPT_SC0004",
+      "target": "N_ARCHIVE_TOPMEM",
+      "relation": "originates_from",
+      "weight": 0.95
+    },
+    {
+      "id": "E_ARCHIVE_ADOPTION",
+      "source": "N_ARCHIVE_TOPMEM",
+      "target": "N_RUNTIME_ADOPTION",
+      "relation": "pressures",
+      "weight": 0.9
+    },
+    {
+      "id": "E_ADOPTION_PROMPT",
+      "source": "N_RUNTIME_ADOPTION",
+      "target": "N_PROMPT_SC0001",
+      "relation": "implemented_by",
+      "weight": 0.9
+    },
+    {
+      "id": "E_PROMPT_RUNTIME",
+      "source": "N_PROMPT_SC0001",
+      "target": "N_RUNTIME_MODULE",
+      "relation": "targets",
+      "weight": 0.88
+    },
+    {
+      "id": "E_PROMPT_EVAL",
+      "source": "N_PROMPT_SC0001",
+      "target": "N_EVAL_MODULE",
+      "relation": "targets",
+      "weight": 0.86
+    },
+    {
+      "id": "E_TODO_BENCH",
+      "source": "N_TODO_TOPMEM",
+      "target": "N_EVAL_MODULE",
+      "relation": "validated_by",
+      "weight": 0.9
+    },
+    {
+      "id": "E_TODO_VALIDATION",
+      "source": "N_TODO_TOPMEM",
+      "target": "N_PROVISIONAL_VALIDATION",
+      "relation": "summarized_by",
+      "weight": 0.92
+    },
+    {
+      "id": "E_VALIDATION_CONCEPT",
+      "source": "N_PROVISIONAL_VALIDATION",
+      "target": "N_CONCEPT_SC0004",
+      "relation": "promotes",
+      "weight": 0.86
+    },
+    {
+      "id": "E_FRONTIER_CONCEPT",
+      "source": "N_FRONTIER_20260427",
+      "target": "N_CONCEPT_SC0004",
+      "relation": "activates",
+      "weight": 0.9
+    },
+    {
+      "id": "E_YGG_CONCEPT",
+      "source": "N_YGG_ARCH",
+      "target": "N_CONCEPT_SC0004",
+      "relation": "governs",
+      "weight": 0.8
+    },
+    {
+      "id": "E_RUNTIME_ORCH",
+      "source": "N_RUNTIME_MODULE",
+      "target": "N_ORCHESTRATOR_CONTRACT",
+      "relation": "feeds_contract",
+      "weight": 0.75
+    },
+    {
+      "id": "E_ORCH_CHECKPOINT",
+      "source": "N_ORCHESTRATOR_CONTRACT",
+      "target": "N_SESSION_CHECKPOINT",
+      "relation": "attaches_resume",
+      "weight": 0.75
+    },
+    {
+      "id": "E_CHECKPOINT_YGG",
+      "source": "N_SESSION_CHECKPOINT",
+      "target": "N_YGG_ARCH",
+      "relation": "resumes_under",
+      "weight": 0.7
+    }
+  ],
+  "traces": [
+    {
+      "id": "TR_FRONTIER",
+      "subject_type": "node",
+      "subject_id": "N_FRONTIER_20260427",
+      "event_type": "rerank",
+      "timestamp": "2026-04-27T00:00:00Z",
+      "weight": 0.7
+    },
+    {
+      "id": "TR_VALIDATION",
+      "subject_type": "node",
+      "subject_id": "N_PROVISIONAL_VALIDATION",
+      "event_type": "promotion_gate",
+      "timestamp": "2026-03-29T00:00:00Z",
+      "weight": 0.9
+    },
+    {
+      "id": "TR_PROMPT",
+      "subject_type": "edge",
+      "subject_id": "E_PROMPT_RUNTIME",
+      "event_type": "implementation",
+      "timestamp": "2026-03-29T00:00:00Z",
+      "weight": 0.8
+    },
+    {
+      "id": "TR_SESSION",
+      "subject_type": "node",
+      "subject_id": "N_SESSION_CHECKPOINT",
+      "event_type": "resume",
+      "timestamp": "2026-03-26T16:59:58Z",
+      "weight": 0.8
+    }
+  ]
+}

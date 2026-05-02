@@ -1,6 +1,22 @@
 from pathlib import Path
+from contextlib import contextmanager
 
-import pytest
+try:
+    import pytest
+except ModuleNotFoundError:  # pragma: no cover - unittest discovery fallback
+    class _PytestCompat:
+        @staticmethod
+        @contextmanager
+        def raises(exc_type, match=None):
+            try:
+                yield
+            except exc_type as exc:
+                if match is not None and match not in str(exc):
+                    raise AssertionError(f"exception did not match {match!r}: {exc}") from exc
+                return
+            raise AssertionError(f"expected {exc_type.__name__}")
+
+    pytest = _PytestCompat()
 
 from nfem_suite.intelligence.ygg.frontier import (
     FrontierCandidate,

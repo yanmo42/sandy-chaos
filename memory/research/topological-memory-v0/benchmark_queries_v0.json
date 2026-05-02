@@ -1,0 +1,246 @@
+{
+  "schema_version": "topological-memory-queries-v0",
+  "generated_at": "2026-03-29T00:00:00Z",
+  "queries": [
+    {
+      "id": "Q-001",
+      "question": "Where is the original archive draft for continuity retrieval?",
+      "category": "origin",
+      "expected_nodes": [
+        "N_ARCHIVE_TOPMEM"
+      ]
+    },
+    {
+      "id": "Q-002",
+      "question": "Which concept node owns the topological memory frontier?",
+      "category": "frontier",
+      "expected_nodes": [
+        "N_CONCEPT_SC0004"
+      ]
+    },
+    {
+      "id": "Q-003",
+      "question": "What note records runtime adoption for retrieval traces?",
+      "category": "runtime",
+      "expected_nodes": [
+        "N_RUNTIME_ADOPTION"
+      ]
+    },
+    {
+      "id": "Q-004",
+      "question": "Which prompt packet applies implementation pressure to this lane?",
+      "category": "implementation",
+      "expected_nodes": [
+        "N_PROMPT_SC0001"
+      ]
+    },
+    {
+      "id": "Q-005",
+      "question": "Where is the bounded promotion gate summarized?",
+      "category": "validation",
+      "expected_nodes": [
+        "N_PROVISIONAL_VALIDATION"
+      ]
+    },
+    {
+      "id": "Q-006",
+      "question": "Which todo checklist tracked the graph benchmark and comparison?",
+      "category": "planning",
+      "expected_nodes": [
+        "N_TODO_TOPMEM"
+      ]
+    },
+    {
+      "id": "Q-007",
+      "question": "What frontier file says SC-CONCEPT-0004 was active?",
+      "category": "frontier",
+      "expected_nodes": [
+        "N_FRONTIER_20260427"
+      ]
+    },
+    {
+      "id": "Q-008",
+      "question": "Which architecture doc governs branch dispositions and cadence?",
+      "category": "architecture",
+      "expected_nodes": [
+        "N_YGG_ARCH"
+      ]
+    },
+    {
+      "id": "Q-009",
+      "question": "What runtime code writes retrieval traces?",
+      "category": "code",
+      "expected_nodes": [
+        "N_RUNTIME_MODULE"
+      ]
+    },
+    {
+      "id": "Q-010",
+      "question": "What evaluator code compares keyword recency and topology?",
+      "category": "code",
+      "expected_nodes": [
+        "N_EVAL_MODULE"
+      ]
+    },
+    {
+      "id": "Q-011",
+      "question": "Which orchestrator surface should carry continuity artifact ids?",
+      "category": "automation",
+      "expected_nodes": [
+        "N_ORCHESTRATOR_CONTRACT"
+      ]
+    },
+    {
+      "id": "Q-012",
+      "question": "Where should a dispatched agent look for session resume context?",
+      "category": "memory",
+      "expected_nodes": [
+        "N_SESSION_CHECKPOINT"
+      ]
+    },
+    {
+      "id": "Q-013",
+      "question": "After reading the runtime adoption note, what prompt should implement it?",
+      "category": "implementation",
+      "expected_nodes": [
+        "N_PROMPT_SC0001"
+      ]
+    },
+    {
+      "id": "Q-014",
+      "question": "From the prompt packet, what code module handles runtime retrieval?",
+      "category": "code",
+      "expected_nodes": [
+        "N_RUNTIME_MODULE"
+      ]
+    },
+    {
+      "id": "Q-015",
+      "question": "From the prompt packet, what code module evaluates baselines?",
+      "category": "code",
+      "expected_nodes": [
+        "N_EVAL_MODULE"
+      ]
+    },
+    {
+      "id": "Q-016",
+      "question": "From the todo checklist, where is the provisional validation written?",
+      "category": "validation",
+      "expected_nodes": [
+        "N_PROVISIONAL_VALIDATION"
+      ]
+    },
+    {
+      "id": "Q-017",
+      "question": "From the validation note, which concept receives provisional promotion?",
+      "category": "concept",
+      "expected_nodes": [
+        "N_CONCEPT_SC0004"
+      ]
+    },
+    {
+      "id": "Q-018",
+      "question": "From the frontier note, which concept should be resumed?",
+      "category": "frontier",
+      "expected_nodes": [
+        "N_CONCEPT_SC0004"
+      ]
+    },
+    {
+      "id": "Q-019",
+      "question": "From runtime retrieval, where do contract artifact ids surface?",
+      "category": "automation",
+      "expected_nodes": [
+        "N_ORCHESTRATOR_CONTRACT"
+      ]
+    },
+    {
+      "id": "Q-020",
+      "question": "From the orchestrator contract, which checkpoint resumes the lane?",
+      "category": "memory",
+      "expected_nodes": [
+        "N_SESSION_CHECKPOINT"
+      ]
+    },
+    {
+      "id": "Q-021",
+      "question": "Which evidence artifact names demotion conditions for this benchmark?",
+      "category": "validation",
+      "expected_nodes": [
+        "N_PROVISIONAL_VALIDATION"
+      ]
+    },
+    {
+      "id": "Q-022",
+      "question": "Which file stores the frozen graph benchmark comparison checklist?",
+      "category": "planning",
+      "expected_nodes": [
+        "N_TODO_TOPMEM"
+      ]
+    },
+    {
+      "id": "Q-023",
+      "question": "Which doc provides continuity contract architecture for this retrieval lane?",
+      "category": "architecture",
+      "expected_nodes": [
+        "N_YGG_ARCH"
+      ]
+    },
+    {
+      "id": "Q-024",
+      "question": "Which node links the archive draft to runtime adoption?",
+      "category": "note",
+      "expected_nodes": [
+        "N_RUNTIME_ADOPTION"
+      ]
+    },
+    {
+      "id": "Q-025",
+      "question": "Which node bridges adoption docs into code work?",
+      "category": "prompt",
+      "expected_nodes": [
+        "N_PROMPT_SC0001"
+      ]
+    },
+    {
+      "id": "Q-026",
+      "question": "Which code path should produce inspectable path evidence?",
+      "category": "code",
+      "expected_nodes": [
+        "N_EVAL_MODULE"
+      ]
+    },
+    {
+      "id": "Q-027",
+      "question": "Which code path should preserve retrieval trace provenance?",
+      "category": "code",
+      "expected_nodes": [
+        "N_RUNTIME_MODULE"
+      ]
+    },
+    {
+      "id": "Q-028",
+      "question": "Which local automation file attaches unavailable topological signal context?",
+      "category": "automation",
+      "expected_nodes": [
+        "N_ORCHESTRATOR_CONTRACT"
+      ]
+    },
+    {
+      "id": "Q-029",
+      "question": "Which checkpoint says Symbolic Maps continuity work can resume?",
+      "category": "memory",
+      "expected_nodes": [
+        "N_SESSION_CHECKPOINT"
+      ]
+    },
+    {
+      "id": "Q-030",
+      "question": "Which active frontier document should be reconciled after promotion?",
+      "category": "frontier",
+      "expected_nodes": [
+        "N_FRONTIER_20260427"
+      ]
+    }
+  ]
+}

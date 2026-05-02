@@ -185,13 +185,32 @@ def render_markdown(summary: dict[str, Any]) -> str:
 
     lines.append("## Verdict for Task 5")
     lines.append("")
-    lines.append(
-        "Topology retrieval outperforms at least one flat baseline (recency) on both hit-rate and MRR, "
-        "and beats keyword on hit-rate while trailing slightly on MRR."
-    )
-    lines.append(
-        "That is enough to mark Task 5 complete and proceed to deeper evaluation/promotion gating."
-    )
+    metrics = summary.get("metrics", {}) if isinstance(summary, dict) else {}
+    topology = metrics.get("topology", {}) if isinstance(metrics, dict) else {}
+    keyword = metrics.get("keyword", {}) if isinstance(metrics, dict) else {}
+    recency = metrics.get("recency", {}) if isinstance(metrics, dict) else {}
+
+    def beats(base: dict[str, Any]) -> bool:
+        if not topology.get("available") or not base.get("available"):
+            return False
+        return (
+            float(topology.get("hit_rate", 0.0)) > float(base.get("hit_rate", 0.0))
+            and float(topology.get("mrr", 0.0)) > float(base.get("mrr", 0.0))
+        )
+
+    wins = [name for name, base in (("keyword", keyword), ("recency", recency)) if beats(base)]
+    if wins:
+        lines.append(
+            "Topology retrieval beats " + ", ".join(wins) + " on both hit-rate and MRR for this frozen fixture."
+        )
+        lines.append(
+            "That is enough to mark Task 5 complete and proceed to promotion gating, bounded to this benchmark."
+        )
+    else:
+        lines.append(
+            "Topology retrieval does not beat a flat baseline on both hit-rate and MRR for this frozen fixture."
+        )
+        lines.append("Task 5 should remain open until the benchmark or retriever is repaired.")
     lines.append("")
 
     return "\n".join(lines)

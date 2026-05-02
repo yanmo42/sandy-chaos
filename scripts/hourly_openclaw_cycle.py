@@ -309,7 +309,7 @@ def maybe_commit(changed: list[str], *, dry_run: bool) -> tuple[bool, str | None
     stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = f"chore: hourly automation cycle {stamp}"
     if dry_run:
-        return True, msg
+        return False, msg
     subprocess.run(["git", "add", "--", *changed], cwd=ROOT, check=True)
     commit = subprocess.run(
         ["git", "commit", "-m", msg], cwd=ROOT, text=True, capture_output=True
@@ -366,6 +366,14 @@ def main() -> int:
 
     selected_task = load_selected_task()
     if not selected_task:
+        if args.dry_run:
+            print(json.dumps({
+                "ok": True,
+                "stage": "dry-run-task-selection",
+                "stdout": full_pass.stdout[-4000:],
+                "task_selection_skipped_reason": "dry-run full-pass reports pipeline commands without materializing a task plan",
+            }, indent=2))
+            return 0
         print(json.dumps({
             "ok": False,
             "stage": "task-selection",
@@ -423,6 +431,8 @@ def main() -> int:
     committed, commit_message = (False, None)
     if args.allow_commit or args.dry_run:
         committed, commit_message = maybe_commit(commit_candidates, dry_run=args.dry_run)
+    would_commit = bool(args.dry_run and commit_candidates)
+    would_commit_message = commit_message if would_commit else None
 
     pushed = False
     push_error = None
@@ -454,8 +464,10 @@ def main() -> int:
         "validation_ok": None if validation is None else validation.returncode == 0,
         "validation_skipped_reason": validation_skipped_reason,
         "validation_tail": [] if validation is None else (validation.stdout + "\n" + validation.stderr).splitlines()[-20:],
+        "would_commit": would_commit,
+        "would_commit_message": would_commit_message,
         "committed": committed,
-        "commit_message": commit_message,
+        "commit_message": None if args.dry_run else commit_message,
         "pushed": pushed,
         "push_error": push_error,
         "push_skipped_reason": push_skipped_reason,

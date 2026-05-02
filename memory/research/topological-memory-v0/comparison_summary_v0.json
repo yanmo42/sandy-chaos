@@ -1,0 +1,129 @@
+{
+  "query_count": 30,
+  "top_k": 3,
+  "metrics": {
+    "embedding": {
+      "available": false,
+      "reason": "sentence-transformers unavailable: ModuleNotFoundError"
+    },
+    "keyword": {
+      "available": true,
+      "hit_rate": 0.9666666666666667,
+      "mrr": 0.788888888888889
+    },
+    "recency": {
+      "available": true,
+      "hit_rate": 0.6666666666666666,
+      "mrr": 0.3
+    },
+    "topology": {
+      "available": true,
+      "hit_rate": 1.0,
+      "mrr": 0.8666666666666667
+    }
+  },
+  "pairwise": {
+    "topology_vs_keyword": {
+      "query_count": 30,
+      "rr_win": 6,
+      "rr_loss": 3,
+      "rr_tie": 21,
+      "hit_win": 1,
+      "hit_loss": 0,
+      "hit_tie": 29,
+      "topology_hit_baseline_miss": [
+        {
+          "id": "Q-025",
+          "question": "Which node bridges adoption docs into code work?",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ]
+        }
+      ],
+      "baseline_hit_topology_miss": []
+    },
+    "topology_vs_recency": {
+      "query_count": 30,
+      "rr_win": 26,
+      "rr_loss": 0,
+      "rr_tie": 4,
+      "hit_win": 10,
+      "hit_loss": 0,
+      "hit_tie": 20,
+      "topology_hit_baseline_miss": [
+        {
+          "id": "Q-001",
+          "question": "Where is the original archive draft for continuity retrieval?",
+          "expected_nodes": [
+            "N_ARCHIVE_TOPMEM"
+          ]
+        },
+        {
+          "id": "Q-002",
+          "question": "Which concept node owns the topological memory frontier?",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ]
+        },
+        {
+          "id": "Q-012",
+          "question": "Where should a dispatched agent look for session resume context?",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ]
+        },
+        {
+          "id": "Q-014",
+          "question": "From the prompt packet, what code module handles runtime retrieval?",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ]
+        },
+        {
+          "id": "Q-017",
+          "question": "From the validation note, which concept receives provisional promotion?",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ]
+        },
+        {
+          "id": "Q-018",
+          "question": "From the frontier note, which concept should be resumed?",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ]
+        },
+        {
+          "id": "Q-020",
+          "question": "From the orchestrator contract, which checkpoint resumes the lane?",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ]
+        },
+        {
+          "id": "Q-023",
+          "question": "Which doc provides continuity contract architecture for this retrieval lane?",
+          "expected_nodes": [
+            "N_YGG_ARCH"
+          ]
+        },
+        {
+          "id": "Q-024",
+          "question": "Which node links the archive draft to runtime adoption?",
+          "expected_nodes": [
+            "N_RUNTIME_ADOPTION"
+          ]
+        },
+        {
+          "id": "Q-025",
+          "question": "Which node bridges adoption docs into code work?",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ]
+        }
+      ],
+      "baseline_hit_topology_miss": []
+    }
+  },
+  "notes": []
+}

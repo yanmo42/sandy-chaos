@@ -32,8 +32,16 @@ memory/orchestrator_*.md
 memory/self_improve_state.json
 memory/notification_outbox.md
 memory/research/
+!memory/research/
+memory/research/*
+!memory/research/topological-memory-v0/
+!memory/research/topological-memory-v0/*
+memory/research/topological-memory-v0/runtime_traces/
 
-# Generated Lux/Nyx pilot shadow artifacts
+# Generated Lux/Nyx pilot artifacts
 state/lux_nyx/shadow/
+state/lux_nyx/governance/
+state/lux_nyx/metrics.json
+state/lux_nyx/pilot_report.json
 DREAMS.md
 memory/.dreams/

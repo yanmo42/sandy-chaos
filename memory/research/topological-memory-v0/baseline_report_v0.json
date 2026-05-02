@@ -1,0 +1,3954 @@
+{
+  "query_count": 30,
+  "top_k": 3,
+  "baselines": {
+    "embedding": {
+      "available": false,
+      "reason": "sentence-transformers unavailable: ModuleNotFoundError",
+      "queries": [],
+      "ranked_results": {}
+    },
+    "keyword": {
+      "hit_rate": 0.9666666666666667,
+      "mrr": 0.788888888888889,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_ARCHIVE_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_ARCHIVE_TOPMEM",
+            "N_CONCEPT_SC0004",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_CONCEPT_SC0004",
+            "N_FRONTIER_20260427",
+            "N_TODO_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_RUNTIME_ADOPTION"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_ADOPTION",
+            "N_PROMPT_SC0001",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_SESSION_CHECKPOINT",
+            "N_TODO_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_TODO_TOPMEM",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_TODO_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_TODO_TOPMEM",
+            "N_FRONTIER_20260427",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_FRONTIER_20260427"
+          ],
+          "top_nodes": [
+            "N_CONCEPT_SC0004",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_YGG_ARCH",
+            "N_PROVISIONAL_VALIDATION",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_ADOPTION",
+            "N_RUNTIME_MODULE",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_EVAL_MODULE",
+            "N_RUNTIME_MODULE",
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_RUNTIME_ADOPTION",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_ADOPTION",
+            "N_SESSION_CHECKPOINT",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_ADOPTION",
+            "N_PROMPT_SC0001",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_MODULE",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_EVAL_MODULE",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_TODO_TOPMEM",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_FRONTIER_20260427",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_FRONTIER_20260427",
+            "N_CONCEPT_SC0004",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_RUNTIME_ADOPTION",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_YGG_ARCH",
+            "N_SESSION_CHECKPOINT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_TODO_TOPMEM",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_TODO_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_TODO_TOPMEM",
+            "N_FRONTIER_20260427",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_YGG_ARCH",
+            "N_CONCEPT_SC0004",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_RUNTIME_ADOPTION"
+          ],
+          "top_nodes": [
+            "N_ARCHIVE_TOPMEM",
+            "N_RUNTIME_ADOPTION",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_CONCEPT_SC0004",
+            "N_RUNTIME_ADOPTION",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_EVAL_MODULE",
+            "N_RUNTIME_MODULE",
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_MODULE",
+            "N_RUNTIME_ADOPTION",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_RUNTIME_ADOPTION",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_SESSION_CHECKPOINT",
+            "N_CONCEPT_SC0004",
+            "N_ARCHIVE_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_FRONTIER_20260427"
+          ],
+          "top_nodes": [
+            "N_FRONTIER_20260427",
+            "N_CONCEPT_SC0004",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [
+          {
+            "node_id": "N_ARCHIVE_TOPMEM",
+            "score": 0.5208333333333334,
+            "reason": "keyword overlap=['archive', 'continuity', 'draft', 'for', 'original']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.3181818181818182,
+            "reason": "keyword overlap=['continuity', 'for', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.30357142857142855,
+            "reason": "keyword overlap=['continuity', 'for', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-002": [
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.3494318181818182,
+            "reason": "keyword overlap=['concept', 'frontier', 'node']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.328125,
+            "reason": "keyword overlap=['concept', 'frontier', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.2152777777777778,
+            "reason": "keyword overlap=['memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.6696428571428571,
+            "reason": "keyword overlap=['adoption', 'for', 'note', 'retrieval', 'runtime', 'traces']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.44166666666666665,
+            "reason": "keyword overlap=['adoption', 'for', 'retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.23295454545454547,
+            "reason": "keyword overlap=['for', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.39999999999999997,
+            "reason": "keyword overlap=['implementation', 'packet', 'pressure', 'prompt']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.09999999999999999,
+            "reason": "keyword overlap=['to']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.09722222222222221,
+            "reason": "keyword overlap=['lane']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.37499999999999994,
+            "reason": "keyword overlap=['bounded', 'gate', 'promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.24206349206349204,
+            "reason": "keyword overlap=['gate', 'promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.12276785714285714,
+            "reason": "keyword overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.5833333333333334,
+            "reason": "keyword overlap=['and', 'benchmark', 'checklist', 'comparison', 'graph', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.19791666666666666,
+            "reason": "keyword overlap=['and', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.19166666666666665,
+            "reason": "keyword overlap=['and', 'benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.2597402597402597,
+            "reason": "keyword overlap=['frontier', 'sc-concept-0004']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.24553571428571427,
+            "reason": "keyword overlap=['active', 'frontier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_YGG_ARCH",
+            "score": 0.5580357142857143,
+            "reason": "keyword overlap=['and', 'architecture', 'branch', 'cadence', 'doc']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.11160714285714285,
+            "reason": "keyword overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.11160714285714285,
+            "reason": "keyword overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.42857142857142855,
+            "reason": "keyword overlap=['retrieval', 'runtime', 'traces']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.42857142857142855,
+            "reason": "keyword overlap=['code', 'retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.2833333333333333,
+            "reason": "keyword overlap=['retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.6375,
+            "reason": "keyword overlap=['and', 'code', 'evaluator', 'keyword', 'recency', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.2232142857142857,
+            "reason": "keyword overlap=['and', 'code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.2138157894736842,
+            "reason": "keyword overlap=['and', 'code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.5345394736842105,
+            "reason": "keyword overlap=['artifact', 'continuity', 'ids', 'orchestrator', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.2232142857142857,
+            "reason": "keyword overlap=['continuity', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.11647727272727273,
+            "reason": "keyword overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.18571428571428572,
+            "reason": "keyword overlap=['context', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.18333333333333335,
+            "reason": "keyword overlap=['resume', 'session']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.09772727272727275,
+            "reason": "keyword overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.2581168831168831,
+            "reason": "keyword overlap=['adoption', 'note', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.2545454545454545,
+            "reason": "keyword overlap=['adoption', 'prompt', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.08603896103896103,
+            "reason": "keyword overlap=['note']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.3666666666666667,
+            "reason": "keyword overlap=['packet', 'prompt', 'retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.2785714285714285,
+            "reason": "keyword overlap=['code', 'retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.18571428571428572,
+            "reason": "keyword overlap=['retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.19999999999999998,
+            "reason": "keyword overlap=['packet', 'prompt']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.19166666666666665,
+            "reason": "keyword overlap=['baselines', 'code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.10119047619047619,
+            "reason": "keyword overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.20238095238095238,
+            "reason": "keyword overlap=['provisional', 'validation']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.19444444444444442,
+            "reason": "keyword overlap=['checklist', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.09895833333333333,
+            "reason": "keyword overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.40476190476190477,
+            "reason": "keyword overlap=['note', 'promotion', 'provisional', 'validation']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.19791666666666666,
+            "reason": "keyword overlap=['concept', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['concept']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.296875,
+            "reason": "keyword overlap=['concept', 'frontier', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.2121212121212121,
+            "reason": "keyword overlap=['concept', 'frontier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.10119047619047619,
+            "reason": "keyword overlap=['note']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.38596491228070173,
+            "reason": "keyword overlap=['artifact', 'contract', 'ids', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.30357142857142855,
+            "reason": "keyword overlap=['retrieval', 'runtime', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.20238095238095238,
+            "reason": "keyword overlap=['retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.2138157894736842,
+            "reason": "keyword overlap=['contract', 'orchestrator']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_YGG_ARCH",
+            "score": 0.11160714285714285,
+            "reason": "keyword overlap=['contract']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.11041666666666666,
+            "reason": "keyword overlap=['checkpoint']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.30357142857142855,
+            "reason": "keyword overlap=['conditions', 'demotion', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.19444444444444442,
+            "reason": "keyword overlap=['benchmark', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.19166666666666665,
+            "reason": "keyword overlap=['benchmark', 'evidence']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.38888888888888884,
+            "reason": "keyword overlap=['benchmark', 'checklist', 'comparison', 'graph']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.09895833333333333,
+            "reason": "keyword overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.09583333333333333,
+            "reason": "keyword overlap=['benchmark']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_YGG_ARCH",
+            "score": 0.37142857142857144,
+            "reason": "keyword overlap=['architecture', 'continuity', 'contract', 'doc']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.29318181818181815,
+            "reason": "keyword overlap=['continuity', 'for', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.2785714285714285,
+            "reason": "keyword overlap=['continuity', 'for', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_ARCHIVE_TOPMEM",
+            "score": 0.20833333333333331,
+            "reason": "keyword overlap=['archive', 'draft']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.20238095238095238,
+            "reason": "keyword overlap=['adoption', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.19999999999999998,
+            "reason": "keyword overlap=['adoption', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.11647727272727273,
+            "reason": "keyword overlap=['node']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.11160714285714285,
+            "reason": "keyword overlap=['adoption']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.11160714285714285,
+            "reason": "keyword overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.47857142857142854,
+            "reason": "keyword overlap=['code', 'evidence', 'inspectable', 'path']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.125,
+            "reason": "keyword overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.12030075187969924,
+            "reason": "keyword overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.33482142857142855,
+            "reason": "keyword overlap=['code', 'retrieval', 'trace']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.2232142857142857,
+            "reason": "keyword overlap=['retrieval', 'trace']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.2125,
+            "reason": "keyword overlap=['code', 'path']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.38596491228070173,
+            "reason": "keyword overlap=['context', 'signal', 'topological', 'unavailable']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.10119047619047619,
+            "reason": "keyword overlap=['context']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.10119047619047619,
+            "reason": "keyword overlap=['context']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.5,
+            "reason": "keyword overlap=['checkpoint', 'continuity', 'maps', 'resume', 'symbolic']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_ARCHIVE_TOPMEM",
+            "score": 0.10416666666666666,
+            "reason": "keyword overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.19791666666666666,
+            "reason": "keyword overlap=['active', 'frontier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.10606060606060605,
+            "reason": "keyword overlap=['frontier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.10119047619047619,
+            "reason": "keyword overlap=['promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    },
+    "recency": {
+      "hit_rate": 0.6666666666666666,
+      "mrr": 0.3,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_ARCHIVE_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_TODO_TOPMEM"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_RUNTIME_ADOPTION"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_TODO_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_TODO_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_FRONTIER_20260427"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_YGG_ARCH"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_TODO_TOPMEM"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_TODO_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_TODO_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_RUNTIME_ADOPTION"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_EVAL_MODULE"
+          ],
+          "hit": false,
+          "reciprocal_rank": 0.0
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_SESSION_CHECKPOINT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_FRONTIER_20260427"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7641025641025642,
+            "reason": "recency=0.872, lexical_overlap=['continuity', 'retrieval', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.15897435897435896,
+            "reason": "recency=0.115, lexical_overlap=['continuity', 'for', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-002": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7724358974358976,
+            "reason": "recency=0.872, lexical_overlap=['concept', 'frontier', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.1405982905982906,
+            "reason": "recency=0.113, lexical_overlap=['memory', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7224358974358975,
+            "reason": "recency=0.872, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.23205128205128206,
+            "reason": "recency=0.103, lexical_overlap=['adoption', 'for', 'note', 'retrieval', 'runtime', 'traces']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.6974358974358975,
+            "reason": "recency=0.872",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.18119658119658122,
+            "reason": "recency=0.115, lexical_overlap=['implementation', 'packet', 'pressure', 'prompt']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7260073260073261,
+            "reason": "recency=0.872, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.18827838827838828,
+            "reason": "recency=0.128, lexical_overlap=['bounded', 'gate', 'promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7418803418803419,
+            "reason": "recency=0.872, lexical_overlap=['and', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.22393162393162394,
+            "reason": "recency=0.113, lexical_overlap=['and', 'benchmark', 'checklist', 'comparison', 'graph', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7545787545787547,
+            "reason": "recency=0.872, lexical_overlap=['active', 'frontier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.11868131868131868,
+            "reason": "recency=0.077, lexical_overlap=['frontier', 'sc-concept-0004']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7224358974358975,
+            "reason": "recency=0.872, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_YGG_ARCH",
+            "score": 0.16602564102564102,
+            "reason": "recency=0.051, lexical_overlap=['and', 'architecture', 'branch', 'cadence', 'doc']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8333333333333334,
+            "reason": "recency=1.000, lexical_overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7307692307692308,
+            "reason": "recency=0.872, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.20256410256410257,
+            "reason": "recency=0.128, lexical_overlap=['code', 'retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8500000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7224358974358975,
+            "reason": "recency=0.872, lexical_overlap=['and']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.25256410256410255,
+            "reason": "recency=0.128, lexical_overlap=['and', 'code', 'evaluator', 'keyword', 'recency', 'topology']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.925,
+            "reason": "recency=1.000, lexical_overlap=['artifact', 'continuity', 'ids', 'orchestrator', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7224358974358975,
+            "reason": "recency=0.872, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.13205128205128205,
+            "reason": "recency=0.103, lexical_overlap=['continuity', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['context']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.6974358974358975,
+            "reason": "recency=0.872",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.12256410256410256,
+            "reason": "recency=0.128, lexical_overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7156177156177157,
+            "reason": "recency=0.872, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.14685314685314685,
+            "reason": "recency=0.115, lexical_overlap=['adoption', 'prompt', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7374358974358975,
+            "reason": "recency=0.872, lexical_overlap=['retrieval', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.17230769230769233,
+            "reason": "recency=0.115, lexical_overlap=['packet', 'prompt', 'retrieval', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7196581196581198,
+            "reason": "recency=0.872, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.147008547008547,
+            "reason": "recency=0.128, lexical_overlap=['baselines', 'code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7196581196581198,
+            "reason": "recency=0.872, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.147008547008547,
+            "reason": "recency=0.128, lexical_overlap=['provisional', 'validation']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7418803418803419,
+            "reason": "recency=0.872, lexical_overlap=['concept', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.19145299145299144,
+            "reason": "recency=0.128, lexical_overlap=['note', 'promotion', 'provisional', 'validation']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7641025641025642,
+            "reason": "recency=0.872, lexical_overlap=['concept', 'frontier', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.12478632478632479,
+            "reason": "recency=0.128, lexical_overlap=['note']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.888888888888889,
+            "reason": "recency=1.000, lexical_overlap=['artifact', 'contract', 'ids', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7196581196581198,
+            "reason": "recency=0.872, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.14871794871794872,
+            "reason": "recency=0.103, lexical_overlap=['retrieval', 'runtime', 'surface']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8500000000000001,
+            "reason": "recency=1.000, lexical_overlap=['contract', 'orchestrator']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7224358974358975,
+            "reason": "recency=0.872, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.1155982905982906,
+            "reason": "recency=0.113, lexical_overlap=['lane']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['artifact']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.6974358974358975,
+            "reason": "recency=0.872",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.16923076923076924,
+            "reason": "recency=0.128, lexical_overlap=['conditions', 'demotion', 'for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7196581196581198,
+            "reason": "recency=0.872, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.17948717948717952,
+            "reason": "recency=0.113, lexical_overlap=['benchmark', 'checklist', 'comparison', 'graph']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['continuity', 'contract']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7374358974358975,
+            "reason": "recency=0.872, lexical_overlap=['continuity', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.1523076923076923,
+            "reason": "recency=0.115, lexical_overlap=['continuity', 'for', 'retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7196581196581198,
+            "reason": "recency=0.872, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.13675213675213677,
+            "reason": "recency=0.115, lexical_overlap=['adoption', 'runtime']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.6974358974358975,
+            "reason": "recency=0.872",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.12756410256410255,
+            "reason": "recency=0.128, lexical_overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.6974358974358975,
+            "reason": "recency=0.872",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.21684981684981686,
+            "reason": "recency=0.128, lexical_overlap=['code', 'evidence', 'inspectable', 'path']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7224358974358975,
+            "reason": "recency=0.872, lexical_overlap=['retrieval']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.17756410256410257,
+            "reason": "recency=0.128, lexical_overlap=['code', 'retrieval', 'trace']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.888888888888889,
+            "reason": "recency=1.000, lexical_overlap=['context', 'signal', 'topological', 'unavailable']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.6974358974358975,
+            "reason": "recency=0.872",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.12478632478632479,
+            "reason": "recency=0.128, lexical_overlap=['context']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7196581196581198,
+            "reason": "recency=0.872, lexical_overlap=['continuity']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.16666619183285852,
+            "reason": "recency=0.069, lexical_overlap=['checkpoint', 'continuity', 'maps', 'resume', 'symbolic']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.8,
+            "reason": "recency=1.000",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.7418803418803419,
+            "reason": "recency=0.872, lexical_overlap=['active', 'frontier']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.12478632478632479,
+            "reason": "recency=0.128, lexical_overlap=['promotion']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    },
+    "topology": {
+      "hit_rate": 1.0,
+      "mrr": 0.8666666666666667,
+      "queries": [
+        {
+          "query_id": "Q-001",
+          "expected_nodes": [
+            "N_ARCHIVE_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_ARCHIVE_TOPMEM",
+            "N_CONCEPT_SC0004",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-002",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_FRONTIER_20260427",
+            "N_CONCEPT_SC0004",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-003",
+          "expected_nodes": [
+            "N_RUNTIME_ADOPTION"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_ADOPTION",
+            "N_PROMPT_SC0001",
+            "N_ARCHIVE_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-004",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_SESSION_CHECKPOINT",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-005",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_TODO_TOPMEM",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-006",
+          "expected_nodes": [
+            "N_TODO_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_TODO_TOPMEM",
+            "N_PROVISIONAL_VALIDATION",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-007",
+          "expected_nodes": [
+            "N_FRONTIER_20260427"
+          ],
+          "top_nodes": [
+            "N_FRONTIER_20260427",
+            "N_CONCEPT_SC0004",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-008",
+          "expected_nodes": [
+            "N_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_YGG_ARCH",
+            "N_PROVISIONAL_VALIDATION",
+            "N_SESSION_CHECKPOINT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-009",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_MODULE",
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-010",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_EVAL_MODULE",
+            "N_RUNTIME_MODULE",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-011",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_SESSION_CHECKPOINT",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-012",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_SESSION_CHECKPOINT",
+            "N_PROVISIONAL_VALIDATION",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-013",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_ADOPTION",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-014",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_MODULE",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-015",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_MODULE",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-016",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_FRONTIER_20260427",
+            "N_TODO_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-017",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_FRONTIER_20260427",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-018",
+          "expected_nodes": [
+            "N_CONCEPT_SC0004"
+          ],
+          "top_nodes": [
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.3333333333333333
+        },
+        {
+          "query_id": "Q-019",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_RUNTIME_MODULE",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-020",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_SESSION_CHECKPOINT",
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-021",
+          "expected_nodes": [
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_TODO_TOPMEM",
+            "N_EVAL_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-022",
+          "expected_nodes": [
+            "N_TODO_TOPMEM"
+          ],
+          "top_nodes": [
+            "N_TODO_TOPMEM",
+            "N_PROVISIONAL_VALIDATION",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-023",
+          "expected_nodes": [
+            "N_YGG_ARCH"
+          ],
+          "top_nodes": [
+            "N_YGG_ARCH",
+            "N_CONCEPT_SC0004",
+            "N_FRONTIER_20260427"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-024",
+          "expected_nodes": [
+            "N_RUNTIME_ADOPTION"
+          ],
+          "top_nodes": [
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_ADOPTION",
+            "N_ARCHIVE_TOPMEM"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-025",
+          "expected_nodes": [
+            "N_PROMPT_SC0001"
+          ],
+          "top_nodes": [
+            "N_PROVISIONAL_VALIDATION",
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_MODULE"
+          ],
+          "hit": true,
+          "reciprocal_rank": 0.5
+        },
+        {
+          "query_id": "Q-026",
+          "expected_nodes": [
+            "N_EVAL_MODULE"
+          ],
+          "top_nodes": [
+            "N_EVAL_MODULE",
+            "N_RUNTIME_MODULE",
+            "N_PROMPT_SC0001"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-027",
+          "expected_nodes": [
+            "N_RUNTIME_MODULE"
+          ],
+          "top_nodes": [
+            "N_RUNTIME_MODULE",
+            "N_PROMPT_SC0001",
+            "N_RUNTIME_ADOPTION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-028",
+          "expected_nodes": [
+            "N_ORCHESTRATOR_CONTRACT"
+          ],
+          "top_nodes": [
+            "N_ORCHESTRATOR_CONTRACT",
+            "N_RUNTIME_MODULE",
+            "N_SESSION_CHECKPOINT"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-029",
+          "expected_nodes": [
+            "N_SESSION_CHECKPOINT"
+          ],
+          "top_nodes": [
+            "N_SESSION_CHECKPOINT",
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        },
+        {
+          "query_id": "Q-030",
+          "expected_nodes": [
+            "N_FRONTIER_20260427"
+          ],
+          "top_nodes": [
+            "N_FRONTIER_20260427",
+            "N_PROVISIONAL_VALIDATION",
+            "N_CONCEPT_SC0004"
+          ],
+          "hit": true,
+          "reciprocal_rank": 1.0
+        }
+      ],
+      "ranked_results": {
+        "Q-001": [
+          {
+            "node_id": "N_ARCHIVE_TOPMEM",
+            "score": 0.6706011904761905,
+            "reason": "topology=0.935, lexical=0.521, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
+            "path_nodes": [
+              "N_ARCHIVE_TOPMEM"
+            ],
+            "path_edges": [],
+            "path_summary": "N_ARCHIVE_TOPMEM"
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.5403959597402598,
+            "reason": "topology=0.809, lexical=0.318, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
+            "path_nodes": [
+              "N_ARCHIVE_TOPMEM",
+              "N_CONCEPT_SC0004"
+            ],
+            "path_edges": [
+              "E_CONCEPT_ARCHIVE"
+            ],
+            "path_summary": "N_ARCHIVE_TOPMEM --[originates_from:E_CONCEPT_ARCHIVE] <-- N_CONCEPT_SC0004"
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.5212263142857143,
+            "reason": "topology=0.782, lexical=0.304, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
+            "path_nodes": [
+              "N_ARCHIVE_TOPMEM",
+              "N_RUNTIME_ADOPTION"
+            ],
+            "path_edges": [
+              "E_ARCHIVE_ADOPTION"
+            ],
+            "path_summary": "N_ARCHIVE_TOPMEM --[pressures:E_ARCHIVE_ADOPTION] --> N_RUNTIME_ADOPTION"
+          }
+        ],
+        "Q-002": [
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.539913128688,
+            "reason": "topology=0.612, lexical=0.328, trace=0.700, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.46252465145454547,
+            "reason": "topology=0.650, lexical=0.349, trace=0.000, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004"
+            ],
+            "path_edges": [],
+            "path_summary": "N_CONCEPT_SC0004"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.40484407,
+            "reason": "topology=0.491, lexical=0.000, trace=0.900, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          }
+        ],
+        "Q-003": [
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.7833955285714285,
+            "reason": "topology=1.059, lexical=0.670, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION"
+            ],
+            "path_edges": [],
+            "path_summary": "N_RUNTIME_ADOPTION"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.7108767177523809,
+            "reason": "topology=0.943, lexical=0.442, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_ARCHIVE_TOPMEM",
+            "score": 0.46267489428571434,
+            "reason": "topology=0.779, lexical=0.115, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_ARCHIVE_TOPMEM"
+            ],
+            "path_edges": [
+              "E_ARCHIVE_ADOPTION"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[pressures:E_ARCHIVE_ADOPTION] <-- N_ARCHIVE_TOPMEM"
+          }
+        ],
+        "Q-004": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.4316169568,
+            "reason": "topology=0.457, lexical=0.400, trace=0.400, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.23968853623475633,
+            "reason": "topology=0.174, lexical=0.100, trace=0.760, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_MODULE",
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [
+              "E_PROMPT_RUNTIME",
+              "E_RUNTIME_ORCH",
+              "E_ORCH_CHECKPOINT"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE --[feeds_contract:E_RUNTIME_ORCH] --> N_ORCHESTRATOR_CONTRACT --[attaches_resume:E_ORCH_CHECKPOINT] --> N_SESSION_CHECKPOINT"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.23877872890880003,
+            "reason": "topology=0.189, lexical=0.000, trace=0.900, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_EVAL_MODULE",
+              "N_TODO_TOPMEM",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_PROMPT_EVAL",
+              "E_TODO_BENCH",
+              "E_TODO_VALIDATION"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_EVAL] --> N_EVAL_MODULE --[validated_by:E_TODO_BENCH] <-- N_TODO_TOPMEM --[summarized_by:E_TODO_VALIDATION] --> N_PROVISIONAL_VALIDATION"
+          }
+        ],
+        "Q-005": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.5690313357142858,
+            "reason": "topology=0.585, lexical=0.375, trace=0.900, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.36032021531682545,
+            "reason": "topology=0.523, lexical=0.242, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_TODO_TOPMEM"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.32749368207314283,
+            "reason": "topology=0.338, lexical=0.123, trace=0.700, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT",
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[promotes:E_VALIDATION_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          }
+        ],
+        "Q-006": [
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.5930748589013334,
+            "reason": "topology=0.760, lexical=0.583, trace=0.000, anchor=N_TODO_TOPMEM",
+            "path_nodes": [
+              "N_TODO_TOPMEM"
+            ],
+            "path_edges": [],
+            "path_summary": "N_TODO_TOPMEM"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.4668025068571429,
+            "reason": "topology=0.548, lexical=0.101, trace=0.900, anchor=N_TODO_TOPMEM",
+            "path_nodes": [
+              "N_TODO_TOPMEM",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION"
+            ],
+            "path_summary": "N_TODO_TOPMEM --[summarized_by:E_TODO_VALIDATION] --> N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.3708166666666667,
+            "reason": "topology=0.570, lexical=0.192, trace=0.000, anchor=N_TODO_TOPMEM",
+            "path_nodes": [
+              "N_TODO_TOPMEM",
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [
+              "E_TODO_BENCH"
+            ],
+            "path_summary": "N_TODO_TOPMEM --[validated_by:E_TODO_BENCH] --> N_EVAL_MODULE"
+          }
+        ],
+        "Q-007": [
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.4062767857142857,
+            "reason": "topology=0.414, lexical=0.246, trace=0.700, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.30828814935064935,
+            "reason": "topology=0.419, lexical=0.260, trace=0.000, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004"
+            ],
+            "path_edges": [],
+            "path_summary": "N_CONCEPT_SC0004"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.2776426714285714,
+            "reason": "topology=0.259, lexical=0.000, trace=0.900, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          }
+        ],
+        "Q-008": [
+          {
+            "node_id": "N_YGG_ARCH",
+            "score": 0.5118949171428572,
+            "reason": "topology=0.626, lexical=0.558, trace=0.000, anchor=N_YGG_ARCH",
+            "path_nodes": [
+              "N_YGG_ARCH"
+            ],
+            "path_edges": [],
+            "path_summary": "N_YGG_ARCH"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.3561785591428572,
+            "reason": "topology=0.341, lexical=0.112, trace=0.900, anchor=N_YGG_ARCH",
+            "path_nodes": [
+              "N_YGG_ARCH",
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_YGG_CONCEPT",
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_YGG_ARCH --[governs:E_YGG_CONCEPT] --> N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.31288847303475636,
+            "reason": "topology=0.301, lexical=0.110, trace=0.760, anchor=N_YGG_ARCH",
+            "path_nodes": [
+              "N_YGG_ARCH",
+              "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [
+              "E_CHECKPOINT_YGG"
+            ],
+            "path_summary": "N_YGG_ARCH --[resumes_under:E_CHECKPOINT_YGG] <-- N_SESSION_CHECKPOINT"
+          }
+        ],
+        "Q-009": [
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.6197995885714287,
+            "reason": "topology=0.784, lexical=0.429, trace=0.400, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.602924761904762,
+            "reason": "topology=0.833, lexical=0.283, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.5620435885714286,
+            "reason": "topology=0.788, lexical=0.429, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION"
+            ],
+            "path_edges": [],
+            "path_summary": "N_RUNTIME_ADOPTION"
+          }
+        ],
+        "Q-010": [
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.6149538499488723,
+            "reason": "topology=0.770, lexical=0.637, trace=0.000, anchor=N_EVAL_MODULE",
+            "path_nodes": [
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [],
+            "path_summary": "N_EVAL_MODULE"
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.45079442753082705,
+            "reason": "topology=0.589, lexical=0.223, trace=0.400, anchor=N_EVAL_MODULE",
+            "path_nodes": [
+              "N_EVAL_MODULE",
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_EVAL",
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_EVAL_MODULE --[targets:E_PROMPT_EVAL] <-- N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.39512839849624054,
+            "reason": "topology=0.609, lexical=0.000, trace=0.400, anchor=N_EVAL_MODULE",
+            "path_nodes": [
+              "N_EVAL_MODULE",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_PROMPT_EVAL"
+            ],
+            "path_summary": "N_EVAL_MODULE --[targets:E_PROMPT_EVAL] <-- N_PROMPT_SC0001"
+          }
+        ],
+        "Q-011": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.4916200337744361,
+            "reason": "topology=0.602, lexical=0.535, trace=0.000, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT"
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.32452265271896685,
+            "reason": "topology=0.322, lexical=0.110, trace=0.760, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [
+              "E_ORCH_CHECKPOINT"
+            ],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[attaches_resume:E_ORCH_CHECKPOINT] --> N_SESSION_CHECKPOINT"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.29166745035488717,
+            "reason": "topology=0.361, lexical=0.110, trace=0.400, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_RUNTIME_MODULE",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_RUNTIME_ORCH",
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[feeds_contract:E_RUNTIME_ORCH] <-- N_RUNTIME_MODULE --[targets:E_PROMPT_RUNTIME] <-- N_PROMPT_SC0001"
+          }
+        ],
+        "Q-012": [
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.2854790023680897,
+            "reason": "topology=0.212, lexical=0.183, trace=0.760, anchor=N_SESSION_CHECKPOINT",
+            "path_nodes": [
+              "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SESSION_CHECKPOINT"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.24229759438628573,
+            "reason": "topology=0.144, lexical=0.093, trace=0.900, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.18813535625142858,
+            "reason": "topology=0.151, lexical=0.000, trace=0.700, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          }
+        ],
+        "Q-013": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.38093369805963634,
+            "reason": "topology=0.445, lexical=0.255, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.32310668143792204,
+            "reason": "topology=0.447, lexical=0.258, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION"
+            ],
+            "path_edges": [],
+            "path_summary": "N_RUNTIME_ADOPTION"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.28430465026643115,
+            "reason": "topology=0.225, lexical=0.086, trace=0.900, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_ARCHIVE_TOPMEM",
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_ARCHIVE_ADOPTION",
+              "E_CONCEPT_ARCHIVE",
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[pressures:E_ARCHIVE_ADOPTION] <-- N_ARCHIVE_TOPMEM --[originates_from:E_CONCEPT_ARCHIVE] <-- N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          }
+        ],
+        "Q-014": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.5349318095238095,
+            "reason": "topology=0.664, lexical=0.367, trace=0.400, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.46649879314285714,
+            "reason": "topology=0.587, lexical=0.279, trace=0.400, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.35144276114285716,
+            "reason": "topology=0.538, lexical=0.186, trace=0.000, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_ADOPTION"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[implemented_by:E_ADOPTION_PROMPT] <-- N_RUNTIME_ADOPTION"
+          }
+        ],
+        "Q-015": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.33053685714285713,
+            "reason": "topology=0.383, lexical=0.200, trace=0.400, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.2570655111619048,
+            "reason": "topology=0.303, lexical=0.101, trace=0.400, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.25286342780952387,
+            "reason": "topology=0.355, lexical=0.192, trace=0.000, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_EVAL"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_EVAL] --> N_EVAL_MODULE"
+          }
+        ],
+        "Q-016": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.3997022195238095,
+            "reason": "topology=0.371, lexical=0.202, trace=0.900, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.2622005497059048,
+            "reason": "topology=0.232, lexical=0.099, trace=0.700, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT",
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[promotes:E_VALIDATION_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.25347496913320633,
+            "reason": "topology=0.355, lexical=0.194, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_TODO_TOPMEM"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM"
+          }
+        ],
+        "Q-017": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.558844439047619,
+            "reason": "topology=0.550, lexical=0.405, trace=0.900, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.40035318952380955,
+            "reason": "topology=0.429, lexical=0.198, trace=0.700, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT",
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[promotes:E_VALIDATION_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.2985347294372294,
+            "reason": "topology=0.485, lexical=0.106, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_CONCEPT_SC0004"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[promotes:E_VALIDATION_CONCEPT] --> N_CONCEPT_SC0004"
+          }
+        ],
+        "Q-018": [
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.4552747557142857,
+            "reason": "topology=0.475, lexical=0.297, trace=0.700, anchor=N_FRONTIER_20260427",
+            "path_nodes": [
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [],
+            "path_summary": "N_FRONTIER_20260427"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.35876713476190475,
+            "reason": "topology=0.352, lexical=0.101, trace=0.900, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.32057070887445893,
+            "reason": "topology=0.467, lexical=0.212, trace=0.000, anchor=N_FRONTIER_20260427",
+            "path_nodes": [
+              "N_FRONTIER_20260427",
+              "N_CONCEPT_SC0004"
+            ],
+            "path_edges": [
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_FRONTIER_20260427 --[activates:E_FRONTIER_CONCEPT] --> N_CONCEPT_SC0004"
+          }
+        ],
+        "Q-019": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.42519485521002504,
+            "reason": "topology=0.563, lexical=0.386, trace=0.000, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT"
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.41520638275689226,
+            "reason": "topology=0.535, lexical=0.202, trace=0.400, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_RUNTIME_ORCH"
+            ],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[feeds_contract:E_RUNTIME_ORCH] <-- N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.37134913984962403,
+            "reason": "topology=0.457, lexical=0.200, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001"
+          }
+        ],
+        "Q-020": [
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.30233678517510726,
+            "reason": "topology=0.282, lexical=0.110, trace=0.760, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [
+              "E_ORCH_CHECKPOINT"
+            ],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[attaches_resume:E_ORCH_CHECKPOINT] --> N_SESSION_CHECKPOINT"
+          },
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.23124342105263157,
+            "reason": "topology=0.304, lexical=0.214, trace=0.000, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.17214811673142855,
+            "reason": "topology=0.062, lexical=0.109, trace=0.700, anchor=N_YGG_ARCH",
+            "path_nodes": [
+              "N_YGG_ARCH",
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_YGG_CONCEPT",
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_YGG_ARCH --[governs:E_YGG_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          }
+        ],
+        "Q-021": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.5091242582857143,
+            "reason": "topology=0.515, lexical=0.304, trace=0.900, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.3441849206349207,
+            "reason": "topology=0.520, lexical=0.194, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_TODO_TOPMEM"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM"
+          },
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.30388361523809526,
+            "reason": "topology=0.448, lexical=0.192, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_TODO_TOPMEM",
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION",
+              "E_TODO_BENCH"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM --[validated_by:E_TODO_BENCH] --> N_EVAL_MODULE"
+          }
+        ],
+        "Q-022": [
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.3791763183395555,
+            "reason": "topology=0.477, lexical=0.389, trace=0.000, anchor=N_TODO_TOPMEM",
+            "path_nodes": [
+              "N_TODO_TOPMEM"
+            ],
+            "path_edges": [],
+            "path_summary": "N_TODO_TOPMEM"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.321142682,
+            "reason": "topology=0.338, lexical=0.000, trace=0.900, anchor=N_TODO_TOPMEM",
+            "path_nodes": [
+              "N_TODO_TOPMEM",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION"
+            ],
+            "path_summary": "N_TODO_TOPMEM --[summarized_by:E_TODO_VALIDATION] --> N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.24596249322133334,
+            "reason": "topology=0.202, lexical=0.099, trace=0.700, anchor=N_TODO_TOPMEM",
+            "path_nodes": [
+              "N_TODO_TOPMEM",
+              "N_PROVISIONAL_VALIDATION",
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION",
+              "E_VALIDATION_CONCEPT",
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_TODO_TOPMEM --[summarized_by:E_TODO_VALIDATION] --> N_PROVISIONAL_VALIDATION --[promotes:E_VALIDATION_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          }
+        ],
+        "Q-023": [
+          {
+            "node_id": "N_YGG_ARCH",
+            "score": 0.4477101429028572,
+            "reason": "topology=0.611, lexical=0.371, trace=0.000, anchor=N_YGG_ARCH",
+            "path_nodes": [
+              "N_YGG_ARCH"
+            ],
+            "path_edges": [],
+            "path_summary": "N_YGG_ARCH"
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.43478259116883117,
+            "reason": "topology=0.631, lexical=0.293, trace=0.000, anchor=N_YGG_ARCH",
+            "path_nodes": [
+              "N_YGG_ARCH",
+              "N_CONCEPT_SC0004"
+            ],
+            "path_edges": [
+              "E_YGG_CONCEPT"
+            ],
+            "path_summary": "N_YGG_ARCH --[governs:E_YGG_CONCEPT] --> N_CONCEPT_SC0004"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.3841195736228571,
+            "reason": "topology=0.409, lexical=0.181, trace=0.700, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          }
+        ],
+        "Q-024": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.3502425714285714,
+            "reason": "topology=0.419, lexical=0.200, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.31755380952380957,
+            "reason": "topology=0.467, lexical=0.202, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
+            "path_nodes": [
+              "N_ARCHIVE_TOPMEM",
+              "N_RUNTIME_ADOPTION"
+            ],
+            "path_edges": [
+              "E_ARCHIVE_ADOPTION"
+            ],
+            "path_summary": "N_ARCHIVE_TOPMEM --[pressures:E_ARCHIVE_ADOPTION] --> N_RUNTIME_ADOPTION"
+          },
+          {
+            "node_id": "N_ARCHIVE_TOPMEM",
+            "score": 0.29540134476190477,
+            "reason": "topology=0.423, lexical=0.208, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
+            "path_nodes": [
+              "N_ARCHIVE_TOPMEM"
+            ],
+            "path_edges": [],
+            "path_summary": "N_ARCHIVE_TOPMEM"
+          }
+        ],
+        "Q-025": [
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.19151427342857144,
+            "reason": "topology=0.103, lexical=0.000, trace=0.900, anchor=N_CONCEPT_SC0004",
+            "path_nodes": [
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.19019431125714287,
+            "reason": "topology=0.176, lexical=0.110, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.18006864285714286,
+            "reason": "topology=0.157, lexical=0.112, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "path_nodes": [
+              "N_RUNTIME_ADOPTION",
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_ADOPTION_PROMPT",
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
+          }
+        ],
+        "Q-026": [
+          {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.4477755773401503,
+            "reason": "topology=0.553, lexical=0.479, trace=0.000, anchor=N_EVAL_MODULE",
+            "path_nodes": [
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [],
+            "path_summary": "N_EVAL_MODULE"
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.3052448995368421,
+            "reason": "topology=0.378, lexical=0.125, trace=0.400, anchor=N_EVAL_MODULE",
+            "path_nodes": [
+              "N_EVAL_MODULE",
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_EVAL",
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_EVAL_MODULE --[targets:E_PROMPT_EVAL] <-- N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.28918038496240595,
+            "reason": "topology=0.417, lexical=0.000, trace=0.400, anchor=N_EVAL_MODULE",
+            "path_nodes": [
+              "N_EVAL_MODULE",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_PROMPT_EVAL"
+            ],
+            "path_summary": "N_EVAL_MODULE --[targets:E_PROMPT_EVAL] <-- N_PROMPT_SC0001"
+          }
+        ],
+        "Q-027": [
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.4408563555428571,
+            "reason": "topology=0.510, lexical=0.335, trace=0.400, anchor=N_RUNTIME_MODULE",
+            "path_nodes": [
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [],
+            "path_summary": "N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.3617261428571429,
+            "reason": "topology=0.488, lexical=0.110, trace=0.400, anchor=N_RUNTIME_MODULE",
+            "path_nodes": [
+              "N_RUNTIME_MODULE",
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [
+              "E_PROMPT_RUNTIME"
+            ],
+            "path_summary": "N_RUNTIME_MODULE --[targets:E_PROMPT_RUNTIME] <-- N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.31223496914285714,
+            "reason": "topology=0.446, lexical=0.223, trace=0.000, anchor=N_RUNTIME_MODULE",
+            "path_nodes": [
+              "N_RUNTIME_MODULE",
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_ADOPTION"
+            ],
+            "path_edges": [
+              "E_PROMPT_RUNTIME",
+              "E_ADOPTION_PROMPT"
+            ],
+            "path_summary": "N_RUNTIME_MODULE --[targets:E_PROMPT_RUNTIME] <-- N_PROMPT_SC0001 --[implemented_by:E_ADOPTION_PROMPT] <-- N_RUNTIME_ADOPTION"
+          }
+        ],
+        "Q-028": [
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.37046292583859647,
+            "reason": "topology=0.463, lexical=0.386, trace=0.000, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT"
+          },
+          {
+            "node_id": "N_RUNTIME_MODULE",
+            "score": 0.28349381513784466,
+            "reason": "topology=0.351, lexical=0.101, trace=0.400, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_RUNTIME_MODULE"
+            ],
+            "path_edges": [
+              "E_RUNTIME_ORCH"
+            ],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[feeds_contract:E_RUNTIME_ORCH] <-- N_RUNTIME_MODULE"
+          },
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.24490233655355337,
+            "reason": "topology=0.238, lexical=0.000, trace=0.760, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [
+              "E_ORCH_CHECKPOINT"
+            ],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[attaches_resume:E_ORCH_CHECKPOINT] --> N_SESSION_CHECKPOINT"
+          }
+        ],
+        "Q-029": [
+          {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.5673525170347563,
+            "reason": "topology=0.551, lexical=0.500, trace=0.760, anchor=N_SESSION_CHECKPOINT",
+            "path_nodes": [
+              "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SESSION_CHECKPOINT"
+          },
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.2496131728,
+            "reason": "topology=0.209, lexical=0.099, trace=0.700, anchor=N_SESSION_CHECKPOINT",
+            "path_nodes": [
+              "N_SESSION_CHECKPOINT",
+              "N_YGG_ARCH",
+              "N_CONCEPT_SC0004",
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [
+              "E_CHECKPOINT_YGG",
+              "E_YGG_CONCEPT",
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_SESSION_CHECKPOINT --[resumes_under:E_CHECKPOINT_YGG] --> N_YGG_ARCH --[governs:E_YGG_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.24481786512,
+            "reason": "topology=0.200, lexical=0.000, trace=0.900, anchor=N_SESSION_CHECKPOINT",
+            "path_nodes": [
+              "N_SESSION_CHECKPOINT",
+              "N_YGG_ARCH",
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_CHECKPOINT_YGG",
+              "E_YGG_CONCEPT",
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_SESSION_CHECKPOINT --[resumes_under:E_CHECKPOINT_YGG] --> N_YGG_ARCH --[governs:E_YGG_CONCEPT] --> N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          }
+        ],
+        "Q-030": [
+          {
+            "node_id": "N_FRONTIER_20260427",
+            "score": 0.3333601723809524,
+            "reason": "topology=0.307, lexical=0.198, trace=0.700, anchor=N_FRONTIER_20260427",
+            "path_nodes": [
+              "N_FRONTIER_20260427"
+            ],
+            "path_edges": [],
+            "path_summary": "N_FRONTIER_20260427"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.3008087247619048,
+            "reason": "topology=0.246, lexical=0.101, trace=0.900, anchor=N_FRONTIER_20260427",
+            "path_nodes": [
+              "N_FRONTIER_20260427",
+              "N_CONCEPT_SC0004",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_FRONTIER_CONCEPT",
+              "E_VALIDATION_CONCEPT"
+            ],
+            "path_summary": "N_FRONTIER_20260427 --[activates:E_FRONTIER_CONCEPT] --> N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+          },
+          {
+            "node_id": "N_CONCEPT_SC0004",
+            "score": 0.1951504437229437,
+            "reason": "topology=0.297, lexical=0.106, trace=0.000, anchor=N_FRONTIER_20260427",
+            "path_nodes": [
+              "N_FRONTIER_20260427",
+              "N_CONCEPT_SC0004"
+            ],
+            "path_edges": [
+              "E_FRONTIER_CONCEPT"
+            ],
+            "path_summary": "N_FRONTIER_20260427 --[activates:E_FRONTIER_CONCEPT] --> N_CONCEPT_SC0004"
+          }
+        ]
+      }
+    }
+  },
+  "embedding_backend": {
+    "available": false,
+    "backend": "sentence-transformers",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "reason": "sentence-transformers unavailable: ModuleNotFoundError"
+  }
+}

@@ -13,6 +13,9 @@ Using the frozen v0 graph + 30-query benchmark, topology-aware retrieval:
 - and emitted inspectable path evidence (`path_nodes`, `path_edges`, `path_summary`).
 
 Artifacts:
+- `memory/research/topological-memory-v0/graph_v0.json`
+- `memory/research/topological-memory-v0/benchmark_queries_v0.json`
+- `memory/research/topological-memory-v0/baseline_report_v0.json`
 - `memory/research/topological-memory-v0/comparison_report_v0.md`
 - `memory/research/topological-memory-v0/comparison_summary_v0.json`
 - `memory/research/topological-memory-v0/promotion_gate_v0.md`

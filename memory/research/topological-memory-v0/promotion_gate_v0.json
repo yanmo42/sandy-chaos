@@ -1,0 +1,13 @@
+{
+  "schema_version": "topological-memory-promotion-gate-v0",
+  "generated_at": "2026-03-29T00:00:00Z",
+  "status": "pass",
+  "conditions": {
+    "beats_at_least_one_flat_baseline": true,
+    "beats_keyword_hit_rate": true,
+    "beats_recency_hit_rate": true,
+    "path_evidence_present": true,
+    "embedding_baseline_available": false
+  },
+  "claim_tier": "defensible for bounded fixture only"
+}

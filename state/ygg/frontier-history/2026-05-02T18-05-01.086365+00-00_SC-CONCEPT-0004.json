@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-05-02T18:05:01.086365+00:00",
+  "active_frontier": "SC-CONCEPT-0004",
+  "selection_note": "Synced machine-readable frontier state with 2026-04-27 frontier note after restoring frozen topological-memory v0 artifacts.",
+  "source_artifacts": [
+    "plans/today_frontier_2026-04-27.md",
+    "memory/research/topological-memory-v0/comparison_summary_v0.json",
+    "memory/research/topological-memory-v0/promotion_gate_v0.md"
+  ],
+  "frontier_backlog": [
+    {
+      "concept_id": "SC-CONCEPT-0004",
+      "title": "topological-memory-continuity-retrieval",
+      "rank": 1,
+      "proof_path_level": 3,
+      "target_level": 4,
+      "status": "active",
+      "rationale": "Executable substrate, frozen 30-query benchmark, and explicit path-evidence failure gate now make this the cleanest active proof surface.",
+      "next_move": "Extend runtime-consumer evaluation and rerun with embedding baseline available.",
+      "failure_condition": "If topology-aware retrieval no longer beats a flat baseline or path evidence becomes unreadable, demote and rerank.",
+      "evidence": [
+        "memory/research/topological-memory-v0/baseline_report_v0.json",
+        "memory/research/topological-memory-v0/comparison_summary_v0.json"
+      ]
+    },
+    {
+      "concept_id": "SC-CONCEPT-0003",
+      "title": "hyperstition-policy-attractor-dynamics",
+      "rank": 2,
+      "proof_path_level": 4,
+      "target_level": 4,
+      "status": "parked",
+      "rationale": "Boundary-sensitivity comparator did not produce a clean separator, so the previous active surface should stay parked pending a sharper criterion.",
+      "next_move": "Only revisit with a named criterion such as hysteresis, time-to-lock-in, or perturbation path dependence.",
+      "failure_condition": "If no new separating criterion is named, do not run another rhetorical comparator.",
+      "evidence": [
+        "plans/hyperstition_level4_boundary_sensitivity_comparison_v0.md"
+      ]
+    },
+    {
+      "concept_id": "SC-CONCEPT-0006",
+      "title": "symbolic-maps-and-narrative-invariants",
+      "rank": 3,
+      "proof_path_level": 4,
+      "target_level": 4,
+      "status": "parked",
+      "rationale": "Proof-bearing but already received the owed hardening and canonicalization pressure package.",
+      "next_move": "Wait for a new artifact or naturally convergent operator-vocabulary signal.",
+      "failure_condition": "If work repeats the same packet without new evidence, keep parked.",
+      "evidence": [
+        "plans/symbolic_maps_level4_schema_hardening_gate_result_v0.md",
+        "plans/symbolic_maps_operator_canonicalization_probe_result_v0.md"
+      ]
+    },
+    {
+      "concept_id": "SC-CONCEPT-0008",
+      "title": "proof-path-frontier-governance",
+      "rank": 4,
+      "proof_path_level": 3,
+      "target_level": 4,
+      "status": "candidate",
+      "rationale": "The rerank itself shows the governance instrument is useful, but it is supporting infrastructure rather than the current proof surface.",
+      "next_move": "Keep state machine and frontier snapshots aligned with human-readable notes.",
+      "failure_condition": "If notes and machine state drift again, add validation that catches the drift.",
+      "evidence": [
+        "plans/today_frontier_2026-04-27.md",
+        "nfem_suite/intelligence/ygg/frontier.py"
+      ]
+    }
+  ]
+}

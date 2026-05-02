@@ -299,9 +299,12 @@ def continuity_artifact_ids_for_item(item: TodoItem, root: Path = ROOT) -> list[
             refs.append(rel)
 
     if any(k in text for k in ["topological", "retrieval", "recall", "memory"]):
-        for rel in TOPOLOGICAL_MEMORY_ARTIFACTS:
-            if (root / rel).exists():
-                refs.append(rel)
+        # These are contract artifact IDs, not proof that every artifact is
+        # currently materialized in the working tree. Keep the expected
+        # topological-memory bundle visible so dispatched continuity work can
+        # regenerate missing ignored research artifacts instead of silently
+        # losing the provenance target.
+        refs.extend(TOPOLOGICAL_MEMORY_ARTIFACTS)
 
     # Include the latest durable session artifact so the dispatched agent sees where we left off
     for subdir in ("resume", "checkpoints"):
@@ -558,6 +561,13 @@ def task_contract(item: TodoItem, cfg: dict) -> dict:
     topological_signal = load_topological_memory_signal()
     if topological_signal:
         continuity_ctx["topological_memory_signal"] = topological_signal
+    elif capability_lane == "continuity":
+        continuity_ctx["topological_memory_signal"] = {
+            "available": False,
+            "source": "memory/research/topological-memory-v0/comparison_summary_v0.json",
+            "missing_artifact": True,
+            "advisory": "Expected topological-memory comparison summary is not materialized; regenerate before using it as evidence.",
+        }
     session_resume = load_session_resume_context()
     if session_resume:
         continuity_ctx["session_resume"] = session_resume
