@@ -1,0 +1,37 @@
+id: SC-CONCEPT-0009
+name: phase-sift-hamiltonian-sieve
+summary: Phase sift frames intelligence and ability-like buffs as bounded selection over noisy local trajectory families rather than as literal future access or unsupported gravity engineering.
+lane: theory
+tags:
+  - phase-space
+  - tempo
+  - symbolic-maps
+  - cognitive-tempo-orchestration
+  - energistics
+claim_tier: speculative
+status: draft
+depends_on:
+  - SC-CONCEPT-0001
+  - SC-CONCEPT-0002
+  - SC-CONCEPT-0005
+documented_in:
+  - docs/20_phase_sift_hamiltonian_sieve.md
+  - docs/14_cognitive_tempo_orchestration.md
+  - docs/15_gravitational_centers_and_energistics.md
+implemented_in: []
+tested_by: []
+contradicts: []
+failure_conditions:
+  - phase-sift language cannot be separated from generic attention, focus, or trajectory ranking
+  - gravity or Hamiltonian language is promoted without declared state variables, budgets, and scale analysis
+  - toy trajectory-sieve demos do not improve clarity or performance over simpler baselines
+  - the operator over-filters and produces brittle behavior under environmental change
+missing_assumptions:
+  - candidate trajectories can be generated cheaply enough to make selection meaningful
+  - symbolic-map operators can be normalized well enough to distinguish phase-sift from generic control
+  - cognition-side use can remain transparent and non-coercive
+next_test: build a small trajectory-sieve visual demo that scores candidate paths by cost, curvature, obstacle contact, and goal progress, then compare against a naive baseline
+next_action: keep the concept as a speculative bridge until a toy demo or symbolic-map record proves it adds operational leverage
+promotion_target: docs/canonical
+owner_surface: sandy-chaos
+notes: Seeded from the 2026-06-03 Discord concept pass. The useful core is signal-to-noise control over local trajectory and prediction families. The Hamiltonian / gravity imagery is currently symbolic and must stay claim-tier bounded.

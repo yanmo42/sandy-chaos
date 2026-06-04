@@ -12,6 +12,7 @@
 > - `docs/07_agentic_automation_loop.md`
 > - `docs/12_yggdrasil_continuity_architecture.md`
 > - `docs/13_nested_temporal_domains.md`
+> - `docs/20_phase_sift_hamiltonian_sieve.md`
 >
 > Claim posture:
 >
@@ -274,6 +275,19 @@ What remains open:
 - overload / dependence metrics,
 - transfer objects for cross-band summaries,
 - operational UI/UX prototypes.
+
+### 9.1 Phase sift as an orchestration lens
+
+`docs/20_phase_sift_hamiltonian_sieve.md` adds a symbolic operator for the CTO act of pruning local possibility space.
+
+Within CTO, **phase sift** should mean:
+
+- reduce noisy or harmful action branches,
+- preserve a few coherent next actions,
+- keep pressure visible, bounded, and reversible,
+- and benchmark against simpler reminder / salience baselines.
+
+It should not mean the system chooses on the user's behalf. The user remains the final initiator.
 
 ---
 

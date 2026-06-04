@@ -13,6 +13,7 @@
 > - `docs/13_nested_temporal_domains.md`
 > - `docs/14_cognitive_tempo_orchestration.md`
 > - `docs/16_temporal_predictive_processing.md`
+> - `docs/20_phase_sift_hamiltonian_sieve.md`
 > - `docs/archive/frame_aware_control_corridors.md`
 > - `nfem_suite/intelligence/thermo/enthalpy_field.py`
 >
@@ -288,6 +289,20 @@ They use:
 - and admissible route families.
 
 This is weaker and more useful than saying "gravity channel." A corridor can be real and valuable without claiming practical gravity engineering.
+
+### 6.7 Phase Sift / Hamiltonian Sieve
+
+Phase sift is an energistics selection lens over candidate trajectories.
+
+It is admissible when it declares:
+
+- the state space,
+- the candidate trajectory family,
+- the filtering criteria,
+- the budget or cost terms,
+- and the failure conditions.
+
+It is not admissible when "Hamiltonian" or "gravity" is used as decoration without scale analysis or state-variable mapping.
 
 ---
 
