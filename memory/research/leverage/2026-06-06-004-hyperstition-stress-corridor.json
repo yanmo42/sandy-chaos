@@ -1,0 +1,92 @@
+{
+  "card_id": "LEV-2026-06-06-004-hyperstition-stress-corridor",
+  "schema_version": "leverage-card/v1",
+  "matrix_ref": "T-012",
+  "concept_refs": ["SC-CONCEPT-0003", "SC-CONCEPT-0010"],
+  "workflow": {
+    "name": "Stress-grid robustness pass on Arm A bidirectional corridor",
+    "surface": "scripts/hyperstition_robustness_pass.py, memory/research/hyperstition-v0/",
+    "domain": "sandy-chaos-research"
+  },
+  "claim_class": ["E"],
+  "claim_tier": "plausible",
+  "pre_registration": {
+    "status": "prospective",
+    "rationale": "The intervention (the --stress flag and the ±5/10/15/20% perturbation grid it activates) is committed at 3d4daf5 BEFORE any measurement at the stress grid is taken. This card is itself sealed in a follow-up draft commit and will be completed in a separate measurement commit. The card_seal_commit points to the procedure-locking commit because the procedure — not the prediction restatement — is what must be unforgeable.",
+    "card_seal_commit": "3d4daf5"
+  },
+  "objective": {
+    "statement": "Demonstrate that the Arm A bidirectional corridor structure for SC-CONCEPT-0003 holds under a doubled perturbation magnitude (40 perturbations at ±5/10/15/20% across 5 parameters), not only the original ±5/10% grid (20 perturbations) that scored STABLE 20/20 in robustness_pass_v0.",
+    "metric_name": "perturbations_preserving_bidirectional_coverage",
+    "metric_definition": "Count of perturbation conditions in the stress grid whose bidirectional_coverage field is true in the run's summary JSON. The grid is 5 parameters × 8 perturbation steps = 40 conditions.",
+    "threshold": 40,
+    "direction": "greater_is_better"
+  },
+  "baseline": {
+    "name": "robustness_pass_v0 STABLE 20/20 at ±5/10%",
+    "source": "memory/research/hyperstition-v0/robustness_pass_v0.json",
+    "values_per_condition": [
+      {"condition": "v0 grid (±5/10%, 20 perturbations)", "baseline_value": 20, "metric_value": null}
+    ]
+  },
+  "intervention": {
+    "description": "Run scripts/hyperstition_robustness_pass.py with --stress, which activates the 40-condition stress grid (±5/10/15/20% on each of the 5 perturbable Arm A parameters). All other knobs (grid=81, steps=80, initial-m=0.6, truth/delta range ±0.8, dominance_threshold=0.8) match v0.",
+    "files": [
+      "scripts/hyperstition_robustness_pass.py",
+      "memory/research/hyperstition-v0/robustness_pass_stress_v0.json"
+    ],
+    "knobs": {
+      "stress": true,
+      "perturbation_steps": [-0.20, -0.15, -0.10, -0.05, 0.05, 0.10, 0.15, 0.20],
+      "perturbable_params": ["observer_coupling", "temporal_bias_gain", "narrative_inertia", "action_gain", "observation_gain"]
+    }
+  },
+  "denominators": {
+    "compute": "single-process Python; ~30-60s per perturbation on this box, ~20-30 min total wall time for 40+1 runs",
+    "human_effort": "~30 min: seal commit, draft, run, complete, matrix/spine updates",
+    "evidence_cost": "low — deterministic numpy + json output, no external dependencies"
+  },
+  "risk_vector": {
+    "framework_gaming_risk": "low",
+    "baseline_cherry_picking_risk": "low",
+    "external_action_risk": "none",
+    "irreversibility_risk": "none"
+  },
+  "reversibility": {
+    "class": "full",
+    "rollback_method": "git revert of the --stress flag commit and this card",
+    "blast_radius": "sandy-chaos repo only; no external systems touched"
+  },
+  "verification": {
+    "method": "deterministic_recomputation",
+    "validation_commands": [
+      "./venv/bin/python scripts/hyperstition_robustness_pass.py --stress --out-dir memory/research/hyperstition-v0 --stem robustness_pass_stress_v0",
+      "python3 scripts/run_leverage_card.py memory/research/leverage/2026-06-06-004-hyperstition-stress-corridor.json --emit-evidence",
+      "python3 scripts/validate_foundations.py --payload-file memory/research/leverage/2026-06-06-004-hyperstition-stress-corridor.evidence.json"
+    ],
+    "evidence_artifacts": [
+      "memory/research/hyperstition-v0/robustness_pass_stress_v0.json",
+      "memory/research/leverage/2026-06-06-004-hyperstition-stress-corridor.evidence.json"
+    ]
+  },
+  "failure_conditions": [
+    "Any of the 40 stress perturbations collapses bidirectional coverage → claim falsified, decision NOT PASS",
+    "Collapse cluster (≥3 collapses) on any one parameter axis → reveals an undisclosed fragility direction, decision NOT PASS",
+    "Run output cannot be reproduced from the sealed script + flags → procedure was not actually pre-registered",
+    "Card edits after measurement_timestamp change denominators, thresholds, or claim → seal violated; reviewers must reject"
+  ],
+  "markers": ["E2", "E3", "A2"],
+  "measured_outcome": {
+    "summary": "PENDING — measurement to be taken with the --stress run after seal commit 3d4daf5; this draft is committed first so the prediction is unforgeable."
+  },
+  "decision": {
+    "status": "REVIEW",
+    "rationale": "Sealed draft; the card has not yet been measured. Final decision will be set in the completion commit alongside measurement_timestamp and the populated measured_outcome."
+  },
+  "provenance": {
+    "authored_date": "2026-06-06",
+    "authored_by": "claw-main",
+    "source_concept": "SC-CONCEPT-0003",
+    "source_pressure_event": "SC-PRESSURE-20260606-01"
+  }
+}
