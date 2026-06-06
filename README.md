@@ -20,12 +20,15 @@ Canonical set (compressed):
 - **[17 Endosymbiosis and Host Assimilation](docs/17_endosymbiosis_and_host_assimilation.md)**
 - **[18 Adaptive Substrate and Host Binding](docs/18_adaptive_substrate_and_host_binding.md)**
 - **[19 Surface Authority Architecture](docs/19_surface_authority_architecture.md)**
-- **20 How Time Learns Your Name** — planned / not yet materialized as a canonical doc
+- **[20 Phase Sift / Hamiltonian Sieve](docs/20_phase_sift_hamiltonian_sieve.md)**
+- **[21 Closed-Loop Causal Leverage](docs/21_closed_loop_causal_leverage.md)**
+- **22 How Time Learns Your Name** — planned / not yet materialized as a canonical doc
 
 Supporting:
 
 - **[Glossary](docs/glossary.md)**
 - **[Math Appendix](docs/math_appendix.md)**
+- **[Assumptions Register](docs/assumptions_register.md)**
 - **[Topological Memory Runtime Adoption v0](docs/notes/topological_memory_runtime_adoption_v0.md)**
 - **[Implementation Prompts](plans/prompts/README.md)**
 

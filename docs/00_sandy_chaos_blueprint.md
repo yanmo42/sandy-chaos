@@ -15,6 +15,7 @@
 > - `docs/16_temporal_predictive_processing.md`
 > - `docs/17_endosymbiosis_and_host_assimilation.md`
 > - `docs/18_adaptive_substrate_and_host_binding.md`
+> - `docs/21_closed_loop_causal_leverage.md`
 > - `docs/theory-implementation-matrix.md`
 > - `docs/prediction-protocol.md`
 > - `docs/paradox-registry.md`
@@ -265,6 +266,18 @@ This is where the project's language about agency becomes scientifically admissi
 
 A specific case of observer coupling is the tightly coupled human–machine predictive loop (`docs/06`). This is not a mystical closed circle but an operational model: human intent shapes machine suggestions, machine suggestions reshape human action, and all state change remains forward in interaction time. The measurable question is whether such loops produce reproducible reduction in intent–suggestion mismatch.
 
+### 7.2 Closed-loop causal leverage
+
+`docs/21_closed_loop_causal_leverage.md` adds a metrology bridge for **actualized intelligence**: intelligence only becomes applied intelligence or applied physics when it closes a measured loop from sensing to model to decision to action to measurement to update.
+
+The compact Sandy Chaos definition is:
+
+> actualized intelligence = verified causal leverage per constrained resource.
+
+This keeps the language out of pure word games by forcing denominators: joules, seconds, dollars, bits, verification cost, coordination cost, reversibility cost, and tail-risk exposure. It also separates raw cleverness from repeatable world-change.
+
+The same frame handles speculative planetary substrate scenarios: satellite networks, routers, photonics, quantum sensing, quantum computing, and AI orchestration are not magic. They become dangerous only insofar as they couple sensing, compute, and actuation across physical substrates faster than defenders can measure, verify, and decouple them. The disciplined countermeasure is therefore coupling control, not speculative high-energy escalation.
+
 ---
 
 ## 8) Potential-Flow Contracts: how trajectories are evaluated
@@ -391,7 +404,7 @@ The `theory-implementation-matrix.md` is a live bidirectional traceability ledge
 - validation commands and evidence artifacts,
 - and an explicit PASS/REVIEW/FAIL decision.
 
-Hard-gate violations (C1 forward-causal, I1 capacity, P1 relativistic, P2 quantum no-signaling) are immediate FAIL. The matrix currently has 15 rows; T-015 (Kerr asymmetry) is the first to reach PASS.
+Hard-gate violations (C1 forward-causal, I1 capacity, P1 relativistic, P2 quantum no-signaling) are immediate FAIL. The matrix currently has 18 rows; T-015 (Kerr asymmetry) is the first to reach PASS.
 
 ### 13.2 Prediction protocol
 
@@ -447,6 +460,7 @@ A healthy reading of Sandy Chaos must distinguish three levels.
 - sensory anchoring measurably improving calibration over purely internal baselines,
 - bounded retrodictive reconstruction succeeding in trace-rich domains,
 - contract-constrained cross-frame transfer improving coherence over unconstrained coupling (the temporal predictive processing bridge),
+- closed-loop causal leverage cards producing clearer action/outcome measurement than ordinary task summaries,
 - subsystem admission gates producing measurably cleaner architecture than informal co-location.
 
 ### Speculative frontier
@@ -567,6 +581,7 @@ The interesting possibility is that useful anticipatory performance may arise fr
 - geometry of admissible state motion,
 - rigorous path-dependent evaluation,
 - reality-anchored inference over present traces,
+- closed-loop causal leverage per declared resource and risk denominator,
 - and multiscale coupling with neighbor-first discipline.
 
 If that turns out to be true in even modest domains, the project would contribute something real:
@@ -600,7 +615,8 @@ That means:
 9. continue aligning code/tests with the strongest defensible layer,
 10. advance the temporal predictive processing bridge toward its first baseline comparison,
 11. close remaining membrane contracts between host layers (theory ↔ governance, memory ↔ dispatch, experiment ↔ governance, governance ↔ runtime),
-12. move additional theory-implementation matrix rows toward PASS through targeted simulation and benchmarking.
+12. define and run a causal leverage card for one mundane workflow before applying the frame to speculative substrate scenarios,
+13. move additional theory-implementation matrix rows toward PASS through targeted simulation and benchmarking.
 
 ### 18.1 Roadmap ownership map (lean control surface)
 
@@ -617,7 +633,8 @@ That means:
 | 9. Align code/tests to strongest defensible layer | `docs/theory-implementation-matrix.md`, `docs/07_agentic_automation_loop.md` | validator/test outputs + cycle summaries with explicit dispositions | partial |
 | 10. Temporal predictive processing → first benchmark | `docs/16_temporal_predictive_processing.md`, `docs/theory-implementation-matrix.md` (`T-014`) | baseline comparison report + ablation table | planned |
 | 11. Close membrane contracts | `docs/17_endosymbiosis_and_host_assimilation.md`, `spine/membranes/` | membrane artifact files + workflow integration evidence | partial |
-| 12. Advance matrix rows toward PASS | `docs/theory-implementation-matrix.md` | per-row evidence artifacts | ongoing |
+| 12. Causal leverage card | `docs/21_closed_loop_causal_leverage.md`, `docs/theory-implementation-matrix.md` (`T-018`) | one mundane workflow card with objective, baseline, resource vector, verification method, and post-run update | planned |
+| 13. Advance matrix rows toward PASS | `docs/theory-implementation-matrix.md` | per-row evidence artifacts | ongoing |
 
 In short:
 

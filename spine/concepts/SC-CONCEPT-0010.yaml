@@ -1,0 +1,47 @@
+id: SC-CONCEPT-0010
+name: closed-loop-causal-leverage
+summary: Actualized intelligence is framed as verified causal leverage per constrained resource, measured through a sense-model-act-measure-update loop rather than raw model capability.
+lane: theory
+tags:
+  - actualized-intelligence
+  - applied-physics
+  - control-loop
+  - metrology
+  - energistics
+claim_tier: plausible
+status: validated-partial
+depends_on:
+  - SC-CONCEPT-0001
+  - SC-CONCEPT-0002
+  - SC-CONCEPT-0005
+  - SC-CONCEPT-0009
+documented_in:
+  - docs/21_closed_loop_causal_leverage.md
+  - docs/22_causal_leverage_card_protocol.md
+  - docs/00_sandy_chaos_blueprint.md
+  - docs/glossary.md
+implemented_in:
+  - nfem_suite/intelligence/leverage/card.py
+  - nfem_suite/intelligence/leverage/scorer.py
+  - scripts/run_leverage_card.py
+  - memory/research/leverage/2026-06-06-001-kerr-asymmetry-attestation.json
+  - memory/research/leverage/2026-06-06-002-hyperstition-robustness-attestation.json
+  - memory/research/leverage/2026-06-06-003-leverage-harness-introduction.json
+  - memory/research/leverage/2026-06-06-004-hyperstition-stress-corridor.json
+tested_by:
+  - tests/test_leverage_card.py
+contradicts: []
+failure_conditions:
+  - actualized-intelligence language becomes a synonym for model impressiveness without measured action outcomes
+  - resource, risk, reversibility, or verification denominators are omitted or changed after seeing results
+  - speculative high-energy or universe-scale scenario language is promoted without mechanism, scale analysis, and failure conditions
+  - coupling-control claims cannot identify which membrane blocks or permits actuation
+missing_assumptions:
+  - causal leverage can be operationalized as a reusable card without hiding the dominant cost term
+  - closed-loop metrics can distinguish actual intervention gain from ordinary drift, luck, or unlogged human action
+  - speculative substrate-control scenarios can stay useful without becoming policy recommendations
+next_test: extend coverage to a non-research operational workflow (Ygg tempo-mesh receipt quality or memory promotion threshold tuning), so the harness has demonstrated leverage on both research and operational surfaces before any promotion past validated-partial
+next_action: keep the concept at validated-partial; promote toward docs/canonical only after a second independent prospective card scores PASS on an operational (non-research) workflow and the protocol has been used unmodified for at least one additional pressure-testing cycle
+promotion_target: docs/canonical
+owner_surface: sandy-chaos
+notes: Seeded from the 2026-06-04 Discord physics discussion about intelligence, applied physics, per-unit optimization, planetary compute/control stacks, and coupling-control countermeasures.

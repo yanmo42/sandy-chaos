@@ -98,6 +98,18 @@ A forward-causal reduction in mismatch between machine-suggested next actions an
 ### Predictive Projection
 A machine-generated ranking or presentation of candidate next actions based on present context, priors, and behavioral history. Evaluate it with calibration, top-k usefulness/acceptance, correction rate, and latency; it is not a claim of pre-input certainty.
 
+### Actualized Intelligence
+Intelligence that closes a measured loop into action: sense, model, decide, act, measure, and update. In this framework, actualized intelligence is not raw model impressiveness; it is verified causal leverage under declared resource, risk, and verification constraints.
+
+### Closed-loop Causal Leverage
+Measured improvement in a declared observable relative to a baseline intervention, divided by a resource/risk vector such as joules, seconds, dollars, bits, verification cost, coordination cost, reversibility cost, and tail-risk exposure.
+
+### Applied Intelligence / Applied Physics Bridge
+Framing in which intelligence and physics are evaluated by the same audit question: how much reliable state-change was produced, through which channel, at what cost, with what failure envelope?
+
+### Coupling Control
+Countermeasure posture that limits how sensing, compute, model outputs, and actuation authority can couple into physical state change. It favors membranes, verification, throttles, provenance, and abort paths over speculative high-energy escalation.
+
 ---
 
 ## Governance terms

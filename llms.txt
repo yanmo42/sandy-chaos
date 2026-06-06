@@ -13,7 +13,10 @@ Sandy Chaos is a research and implementation repo focused on Tempo Tracer, causa
 - Endosymbiosis and Host Assimilation: /docs/17_endosymbiosis_and_host_assimilation.md
 - Adaptive Substrate and Host Binding: /docs/18_adaptive_substrate_and_host_binding.md
 - Surface Authority Architecture: /docs/19_surface_authority_architecture.md
+- Phase Sift / Hamiltonian Sieve: /docs/20_phase_sift_hamiltonian_sieve.md
+- Closed-Loop Causal Leverage: /docs/21_closed_loop_causal_leverage.md
 - Glossary: /docs/glossary.md
+- Assumptions Register: /docs/assumptions_register.md
 
 ## Scope discipline
 Treat claims using the repo's own tiers:

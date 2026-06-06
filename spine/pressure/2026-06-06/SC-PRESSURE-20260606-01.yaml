@@ -1,0 +1,27 @@
+id: SC-PRESSURE-20260606-01
+date: 2026-06-06
+concepts:
+  - SC-CONCEPT-0010
+kind: workflow-review
+summary: The causal leverage card harness landed with a leverage-card/v1 schema, 17 unit tests, and three independently-authored cards that all score PASS through both the harness and validate_foundations.py.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - docs/22_causal_leverage_card_protocol.md
+  - nfem_suite/intelligence/leverage/card.py
+  - nfem_suite/intelligence/leverage/scorer.py
+  - scripts/run_leverage_card.py
+  - tests/test_leverage_card.py
+  - memory/research/leverage/2026-06-06-001-kerr-asymmetry-attestation.json
+  - memory/research/leverage/2026-06-06-001-kerr-asymmetry-attestation.evidence.json
+  - memory/research/leverage/2026-06-06-002-hyperstition-robustness-attestation.json
+  - memory/research/leverage/2026-06-06-002-hyperstition-robustness-attestation.evidence.json
+  - memory/research/leverage/2026-06-06-003-leverage-harness-introduction.json
+  - memory/research/leverage/2026-06-06-003-leverage-harness-introduction.evidence.json
+  - docs/theory-implementation-matrix.md
+findings:
+  - the harness enforces retrospective-attestation discipline and emits foundations-compatible evidence payloads
+  - two retrospective attestations under-write T-015 and T-012 with the new schema without claiming independent re-validation
+  - the prospective T-018 card is self-referential by construction; T-018 moves to PASS provisional rather than full PASS until an independent prospective card lands
+  - matrix backlog now lists an independent prospective leverage card as its next gating item
+next_action: author one independent prospective leverage card on a mundane Sandy Chaos or Ygg workflow whose intervention surface does not include the harness itself

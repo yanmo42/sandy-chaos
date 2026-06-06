@@ -1,0 +1,20 @@
+id: SC-PRESSURE-20260604-01
+date: 2026-06-04
+concepts:
+  - SC-CONCEPT-0010
+kind: architecture-review
+summary: Discord physics discussion was converted into a bounded Sandy Chaos doc surface around actualized intelligence as closed-loop causal leverage per constrained resource.
+result: partial-support
+disposition: KEEP_EXPLORING
+evidence:
+  - docs/21_closed_loop_causal_leverage.md
+  - docs/00_sandy_chaos_blueprint.md
+  - docs/glossary.md
+  - docs/assumptions_register.md
+  - docs/theory-implementation-matrix.md
+  - spine/concepts/SC-CONCEPT-0010.yaml
+findings:
+  - per-unit denominators keep applied-intelligence language measurable instead of purely rhetorical
+  - high-energy physics countermeasure language remains explicitly speculative and quarantined
+  - coupling-control maps the threat model back into Sandy Chaos membranes and actuation authority
+next_action: define one causal leverage card and test whether it distinguishes measured workflow improvement from nicer vocabulary

@@ -1,0 +1,28 @@
+{
+  "claim_class": "F,E",
+  "decision": "PASS",
+  "files_changed": [
+    "research/kerr_asymmetry_validation.py",
+    "research/test_kerr_geodesics.py",
+    "cosmic_comm/"
+  ],
+  "leverage_card_id": "LEV-2026-06-06-001-kerr-asymmetry-attestation",
+  "leverage_card_notes": [
+    "retrospective attestation, not independent re-validation"
+  ],
+  "leverage_card_pre_registration": "retrospective",
+  "leverage_card_seal_verification": "skipped",
+  "markers": [
+    "P1",
+    "P2",
+    "E3",
+    "E4"
+  ],
+  "matrix_id": "T-015",
+  "result_summary": "4/5 spin conditions clear the 5% residual threshold; residual is monotonic in spin and matches the GR prediction. a/M=0.1 falls below threshold but is consistent with the predicted near-flat limit.",
+  "rollback_status": "full: git revert; pure offline computation, no persistent state beyond the research artifact directory",
+  "validation_commands": [
+    "python scripts/kerr_asymmetry_validation.py",
+    "python3 scripts/run_leverage_card.py memory/research/leverage/2026-06-06-001-kerr-asymmetry-attestation.json --emit-evidence"
+  ]
+}
