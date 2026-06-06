@@ -24,10 +24,11 @@ This documentation set is intentionally compressed into a small canonical path:
 18. **[18 Adaptive Substrate and Host Binding](18_adaptive_substrate_and_host_binding.md)**
 19. **[19 Surface Authority Architecture](19_surface_authority_architecture.md)**
 20. **[20 Phase Sift / Hamiltonian Sieve](20_phase_sift_hamiltonian_sieve.md)**
-21. **How Time Learns Your Name** — planned / not yet materialized as a canonical doc
-22. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
-23. **[Prediction Protocol](prediction-protocol.md)**
-24. **[Paradox Registry](paradox-registry.md)**
+21. **[21 Closed-Loop Causal Leverage](21_closed_loop_causal_leverage.md)**
+22. **How Time Learns Your Name** — planned / not yet materialized as a canonical doc
+23. **[Research Ingestion Protocol](research_ingestion_protocol.md)**
+24. **[Prediction Protocol](prediction-protocol.md)**
+25. **[Paradox Registry](paradox-registry.md)**
 
 Supporting references:
 
@@ -77,6 +78,7 @@ The near-term roadmap emphasizes **agency as a computed physical observable**:
 - a bridge architecture for temporal predictive processing under potential-flow constraints,
 - a cross-cutting thesis surface around effective gravitational centers and energistics,
 - a symbolic-to-architecture bridge for phase-sift / Hamiltonian-sieve trajectory selection,
+- a closed-loop causal leverage frame for actualized intelligence and applied-physics claims,
 - a new substrate-to-assimilation bridge for host-binding and subsystem-governance questions,
 - strict claim-tier separation between defensible results and speculative interpretation.
 

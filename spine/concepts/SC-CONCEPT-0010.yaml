@@ -1,0 +1,38 @@
+id: SC-CONCEPT-0010
+name: closed-loop-causal-leverage
+summary: Actualized intelligence is framed as verified causal leverage per constrained resource, measured through a sense-model-act-measure-update loop rather than raw model capability.
+lane: theory
+tags:
+  - actualized-intelligence
+  - applied-physics
+  - control-loop
+  - metrology
+  - energistics
+claim_tier: plausible
+status: draft
+depends_on:
+  - SC-CONCEPT-0001
+  - SC-CONCEPT-0002
+  - SC-CONCEPT-0005
+  - SC-CONCEPT-0009
+documented_in:
+  - docs/21_closed_loop_causal_leverage.md
+  - docs/00_sandy_chaos_blueprint.md
+  - docs/glossary.md
+implemented_in: []
+tested_by: []
+contradicts: []
+failure_conditions:
+  - actualized-intelligence language becomes a synonym for model impressiveness without measured action outcomes
+  - resource, risk, reversibility, or verification denominators are omitted or changed after seeing results
+  - speculative high-energy or universe-scale scenario language is promoted without mechanism, scale analysis, and failure conditions
+  - coupling-control claims cannot identify which membrane blocks or permits actuation
+missing_assumptions:
+  - causal leverage can be operationalized as a reusable card without hiding the dominant cost term
+  - closed-loop metrics can distinguish actual intervention gain from ordinary drift, luck, or unlogged human action
+  - speculative substrate-control scenarios can stay useful without becoming policy recommendations
+next_test: define and run one causal leverage card on a mundane Sandy Chaos or Ygg workflow, then compare measured improvement against a baseline policy
+next_action: keep the concept as a plausible metrology bridge until a small causal leverage card produces discriminating evidence
+promotion_target: docs/canonical
+owner_surface: sandy-chaos
+notes: Seeded from the 2026-06-04 Discord physics discussion about intelligence, applied physics, per-unit optimization, planetary compute/control stacks, and coupling-control countermeasures.
