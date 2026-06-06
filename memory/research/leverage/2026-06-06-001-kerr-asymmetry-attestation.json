@@ -1,0 +1,105 @@
+{
+  "card_id": "LEV-2026-06-06-001-kerr-asymmetry-attestation",
+  "schema_version": "leverage-card/v1",
+  "matrix_ref": "T-015",
+  "concept_refs": ["SC-CONCEPT-0010"],
+  "workflow": {
+    "name": "Kerr proper-time asymmetry validation",
+    "surface": "research/kerr_asymmetry_validation.py",
+    "domain": "GR-simulation"
+  },
+  "claim_class": ["F", "E"],
+  "claim_tier": "defensible",
+  "pre_registration": {
+    "status": "retrospective",
+    "rationale": "Attesting existing PASS evidence (T-015, validated 2026-03) under the new leverage-card/v1 schema. Not an independent re-validation; the original script and artifacts are unchanged.",
+    "card_seal_commit": null
+  },
+  "objective": {
+    "statement": "Demonstrate intrinsic GR proper-time asymmetry over the best-fit flat-spacetime baseline across Kerr spin parameters a/M in {0.1, 0.3, 0.5, 0.7, 0.9}.",
+    "metric_name": "kerr_asymmetry_absolute_residual",
+    "metric_definition": "abs(asymmetry_kerr - asymmetry_flat_best_fit), where asymmetry = (tau_prograde - tau_retrograde) / mean(tau)",
+    "threshold": 0.05,
+    "direction": "greater_is_better"
+  },
+  "baseline": {
+    "name": "best-fit flat-spacetime model (boost-velocity scan)",
+    "source": "research/kerr_asymmetry_validation.py flat_space_models scan",
+    "values_per_condition": [
+      {"condition": "a/M=0.1", "baseline_value": -0.0101, "metric_value": 0.0328, "passed_threshold": false},
+      {"condition": "a/M=0.3", "baseline_value": -0.0101, "metric_value": 0.0782, "passed_threshold": true},
+      {"condition": "a/M=0.5", "baseline_value": -0.0101, "metric_value": 0.1245, "passed_threshold": true},
+      {"condition": "a/M=0.7", "baseline_value": -0.0101, "metric_value": 0.1753, "passed_threshold": true},
+      {"condition": "a/M=0.9", "baseline_value": -0.0101, "metric_value": 0.2320, "passed_threshold": true}
+    ]
+  },
+  "intervention": {
+    "description": "Integrate Kerr equatorial geodesics for prograde and retrograde test particles and compute the proper-time asymmetry. Compare against the best-fit flat-space boost-velocity model.",
+    "files": [
+      "research/kerr_asymmetry_validation.py",
+      "research/test_kerr_geodesics.py",
+      "cosmic_comm/"
+    ],
+    "knobs": {
+      "spin_grid": "0.1, 0.3, 0.5, 0.7, 0.9",
+      "flat_baseline": "boost-velocity scan, best fit selected per spin"
+    }
+  },
+  "denominators": {
+    "compute": "single-process Python; ~minutes wall time on the original validation machine",
+    "human_effort": "single validation pass authored 2026-03",
+    "evidence_cost": "low — deterministic offline script with committed result JSON"
+  },
+  "risk_vector": {
+    "framework_gaming_risk": "low",
+    "baseline_cherry_picking_risk": "low",
+    "external_action_risk": "none",
+    "irreversibility_risk": "none"
+  },
+  "reversibility": {
+    "class": "full",
+    "rollback_method": "git revert; pure offline computation, no persistent state beyond the research artifact directory",
+    "blast_radius": "research artifacts under memory/research/kerr_asymmetry_2026-03/"
+  },
+  "verification": {
+    "method": "deterministic_recomputation",
+    "validation_commands": [
+      "python scripts/kerr_asymmetry_validation.py",
+      "python3 scripts/run_leverage_card.py memory/research/leverage/2026-06-06-001-kerr-asymmetry-attestation.json --emit-evidence"
+    ],
+    "evidence_artifacts": [
+      "memory/research/kerr_asymmetry_2026-03/validation_results.json",
+      "memory/research/kerr_asymmetry_2026-03/kerr_asymmetry_validation.png",
+      "memory/research/leverage/2026-06-06-001-kerr-asymmetry-attestation.evidence.json"
+    ]
+  },
+  "failure_conditions": [
+    "Residual < 5% across all spin parameters → asymmetry indistinguishable from flat-space best fit",
+    "Residual scales linearly with numerical integrator tolerance → numerical artifact rather than physical effect",
+    "Swapping prograde/retrograde labels reverses the sign of the residual → bookkeeping bug",
+    "Best-fit boost velocity drifts off the flat-space scan grid → flat-space comparator is malformed"
+  ],
+  "markers": ["P1", "P2", "E3", "E4"],
+  "measured_outcome": {
+    "observations": [
+      {"condition": "a/M=0.1", "value": 0.0328, "passed_threshold": false, "note": "below 5% threshold; matches predicted near-flat limit"},
+      {"condition": "a/M=0.3", "value": 0.0782, "passed_threshold": true},
+      {"condition": "a/M=0.5", "value": 0.1245, "passed_threshold": true},
+      {"condition": "a/M=0.7", "value": 0.1753, "passed_threshold": true},
+      {"condition": "a/M=0.9", "value": 0.2320, "passed_threshold": true}
+    ],
+    "summary": "4/5 spin conditions clear the 5% residual threshold; residual is monotonic in spin and matches the GR prediction. a/M=0.1 falls below threshold but is consistent with the predicted near-flat limit.",
+    "fraction_satisfied": 0.8,
+    "delta_vs_baseline_mean": 0.1286
+  },
+  "decision": {
+    "status": "PASS",
+    "rationale": "Retrospective attestation of T-015 under leverage-card/v1. Effect size is large, monotonic in spin, and matches the GR prediction; near-flat exception at a/M=0.1 is consistent with the predicted small-spin limit rather than a failed claim. Not an independent re-validation."
+  },
+  "provenance": {
+    "authored_date": "2026-06-06",
+    "authored_by": "claw-main",
+    "source_concept": "SC-CONCEPT-0010",
+    "source_evidence": "memory/research/kerr_asymmetry_2026-03/validation_results.json"
+  }
+}

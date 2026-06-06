@@ -37,6 +37,9 @@ memory/research/*
 !memory/research/topological-memory-v0/
 !memory/research/topological-memory-v0/*
 memory/research/topological-memory-v0/runtime_traces/
+# Leverage cards are governance artifacts, not bulk research output (docs/22).
+!memory/research/leverage/
+!memory/research/leverage/*
 
 # Generated Lux/Nyx pilot artifacts
 state/lux_nyx/shadow/

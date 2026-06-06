@@ -1,0 +1,110 @@
+{
+  "card_id": "LEV-2026-06-06-002-hyperstition-robustness-attestation",
+  "schema_version": "leverage-card/v1",
+  "matrix_ref": "T-012",
+  "concept_refs": ["SC-CONCEPT-0010"],
+  "workflow": {
+    "name": "Hyperstition bidirectional-corridor robustness pass (SC-CONCEPT-0003)",
+    "surface": "scripts/hyperstition_robustness_pass.py",
+    "domain": "intelligence-toy-model"
+  },
+  "claim_class": ["C", "E"],
+  "claim_tier": "defensible",
+  "pre_registration": {
+    "status": "retrospective",
+    "rationale": "Attesting existing STABLE evidence from the 2026-04-21 robustness pass under the new leverage-card/v1 schema. Not an independent re-validation; the run artifacts and baseline parameters are unchanged.",
+    "card_seal_commit": null
+  },
+  "objective": {
+    "statement": "Demonstrate that the SC-CONCEPT-0003 bidirectional-corridor fixed-point structure survives bounded parameter perturbation, with at most a small fraction of perturbations collapsing the corridor.",
+    "metric_name": "collapsed_fraction",
+    "metric_definition": "collapsed_count / total_perturbations on a fixed 81-point parameter grid around the declared baseline",
+    "threshold": 0.1,
+    "direction": "lesser_is_better"
+  },
+  "baseline": {
+    "name": "SC-CONCEPT-0003 declared hyperstition baseline parameters",
+    "source": "memory/research/hyperstition-v0/robustness_pass_v0.json baseline.parameters",
+    "values_per_condition": [
+      {
+        "condition": "baseline",
+        "parameters": {
+          "narrative_inertia": 0.3,
+          "social_coupling": 0.0,
+          "observation_gain": 1.4,
+          "observer_coupling": 0.9,
+          "action_gain": 2.5,
+          "temporal_bias_gain": 3.0,
+          "noise_std": 0.0
+        }
+      }
+    ]
+  },
+  "intervention": {
+    "description": "Re-run the SC-CONCEPT-0003 toy model over 20 bounded perturbations of the baseline parameters and classify each run by whether the bidirectional corridor survives.",
+    "files": [
+      "nfem_suite/intelligence/cognition/hyperstition.py",
+      "scripts/hyperstition_robustness_pass.py",
+      "tests/test_hyperstition_dynamics.py"
+    ],
+    "knobs": {
+      "perturbation_count": 20,
+      "grid_resolution": 81,
+      "dominance_threshold": "as committed in run artifact"
+    }
+  },
+  "denominators": {
+    "compute": "single-process Python; minutes wall time on the original validation machine",
+    "human_effort": "single robustness pass authored 2026-04-21",
+    "evidence_cost": "low — deterministic CLI with committed result JSON"
+  },
+  "risk_vector": {
+    "framework_gaming_risk": "low",
+    "baseline_cherry_picking_risk": "low",
+    "external_action_risk": "none",
+    "irreversibility_risk": "none"
+  },
+  "reversibility": {
+    "class": "full",
+    "rollback_method": "git revert; pure offline computation, no persistent state beyond the research artifact directory",
+    "blast_radius": "research artifacts under memory/research/hyperstition-v0/"
+  },
+  "verification": {
+    "method": "deterministic_recomputation",
+    "validation_commands": [
+      "python -m unittest tests.test_hyperstition_dynamics -q",
+      "python scripts/hyperstition_robustness_pass.py --out-dir memory/research/hyperstition-v0 --stem robustness_pass_v0",
+      "python3 scripts/run_leverage_card.py memory/research/leverage/2026-06-06-002-hyperstition-robustness-attestation.json --emit-evidence"
+    ],
+    "evidence_artifacts": [
+      "memory/research/hyperstition-v0/robustness_pass_v0.json",
+      "memory/research/leverage/2026-06-06-002-hyperstition-robustness-attestation.evidence.json"
+    ]
+  },
+  "failure_conditions": [
+    "collapsed_count > 0.1 * total_perturbations → corridor is not robust to bounded perturbation",
+    "collapsed_count is non-zero only at one perturbation axis → corridor depends on a hidden knob",
+    "structural_verdict diverges from collapsed_count classification → run-summary bookkeeping bug",
+    "Baseline parameters are silently retuned between runs → not a robustness pass"
+  ],
+  "markers": ["C1", "I1", "E2", "A2"],
+  "measured_outcome": {
+    "observations": [
+      {"condition": "20-perturbation grid", "collapsed_count": 0, "total_perturbations": 20, "value": 0.0, "passed_threshold": true}
+    ],
+    "summary": "0/20 perturbations collapsed the bidirectional corridor; structural_verdict STABLE. Concept SC-CONCEPT-0003 corridor is robust to bounded perturbation on the declared parameter grid.",
+    "fraction_satisfied": 1.0,
+    "delta_vs_baseline_mean": 0.0,
+    "structural_verdict": "STABLE"
+  },
+  "decision": {
+    "status": "PASS",
+    "rationale": "Retrospective attestation of T-012 under leverage-card/v1. Zero perturbations collapsed the corridor; verdict STABLE; matches the original 2026-04 result. Not an independent re-validation."
+  },
+  "provenance": {
+    "authored_date": "2026-06-06",
+    "authored_by": "claw-main",
+    "source_concept": "SC-CONCEPT-0010",
+    "source_evidence": "memory/research/hyperstition-v0/robustness_pass_v0.json"
+  }
+}

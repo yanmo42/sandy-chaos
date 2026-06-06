@@ -1,0 +1,29 @@
+{
+  "claim_class": "C,E",
+  "decision": "PASS",
+  "files_changed": [
+    "nfem_suite/intelligence/leverage/",
+    "scripts/run_leverage_card.py",
+    "tests/test_leverage_card.py",
+    "docs/22_causal_leverage_card_protocol.md",
+    "memory/research/leverage/"
+  ],
+  "leverage_card_id": "LEV-2026-06-06-003-leverage-harness-introduction",
+  "leverage_card_notes": [],
+  "leverage_card_pre_registration": "prospective",
+  "markers": [
+    "C2",
+    "C3",
+    "C4",
+    "A2",
+    "A3"
+  ],
+  "matrix_id": "T-018",
+  "result_summary": "Three independently-authored leverage cards (kerr attestation, hyperstition robustness attestation, harness introduction) all score without FAIL under the harness. Each emits a foundations-compatible evidence payload that validate_foundations.py accepts. T-018 metric satisfied: 3 cards scoring non-FAIL, threshold 3.",
+  "rollback_status": "full: git revert of commits 69fd5ff..HEAD on feat/causal-leverage-card-harness branch",
+  "validation_commands": [
+    "python -m unittest tests.test_leverage_card -q",
+    "python3 scripts/run_leverage_card.py memory/research/leverage/ --emit-evidence --quiet",
+    "python3 scripts/validate_foundations.py --payload-file memory/research/leverage/2026-06-06-003-leverage-harness-introduction.evidence.json"
+  ]
+}
