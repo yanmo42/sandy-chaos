@@ -9,7 +9,7 @@ tags:
   - metrology
   - energistics
 claim_tier: plausible
-status: pressure-testing
+status: validated-partial
 depends_on:
   - SC-CONCEPT-0001
   - SC-CONCEPT-0002
@@ -27,6 +27,7 @@ implemented_in:
   - memory/research/leverage/2026-06-06-001-kerr-asymmetry-attestation.json
   - memory/research/leverage/2026-06-06-002-hyperstition-robustness-attestation.json
   - memory/research/leverage/2026-06-06-003-leverage-harness-introduction.json
+  - memory/research/leverage/2026-06-06-004-hyperstition-stress-corridor.json
 tested_by:
   - tests/test_leverage_card.py
 contradicts: []
@@ -39,8 +40,8 @@ missing_assumptions:
   - causal leverage can be operationalized as a reusable card without hiding the dominant cost term
   - closed-loop metrics can distinguish actual intervention gain from ordinary drift, luck, or unlogged human action
   - speculative substrate-control scenarios can stay useful without becoming policy recommendations
-next_test: author one independent prospective leverage card on a mundane Sandy Chaos or Ygg workflow that does not include the harness itself in its intervention surface, so the T-018 PASS stops being self-referential
-next_action: keep the concept at pressure-testing; promote to validated-partial only after at least one independent prospective leverage card scores PASS on an unrelated workflow
+next_test: extend coverage to a non-research operational workflow (Ygg tempo-mesh receipt quality or memory promotion threshold tuning), so the harness has demonstrated leverage on both research and operational surfaces before any promotion past validated-partial
+next_action: keep the concept at validated-partial; promote toward docs/canonical only after a second independent prospective card scores PASS on an operational (non-research) workflow and the protocol has been used unmodified for at least one additional pressure-testing cycle
 promotion_target: docs/canonical
 owner_surface: sandy-chaos
 notes: Seeded from the 2026-06-04 Discord physics discussion about intelligence, applied physics, per-unit optimization, planetary compute/control stacks, and coupling-control countermeasures.

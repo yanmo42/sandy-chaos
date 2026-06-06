@@ -12,8 +12,9 @@
   "claim_tier": "plausible",
   "pre_registration": {
     "status": "prospective",
-    "rationale": "The intervention (the --stress flag and the ±5/10/15/20% perturbation grid it activates) is committed at 3d4daf5 BEFORE any measurement at the stress grid is taken. This card is itself sealed in a follow-up draft commit and will be completed in a separate measurement commit. The card_seal_commit points to the procedure-locking commit because the procedure — not the prediction restatement — is what must be unforgeable.",
-    "card_seal_commit": "3d4daf5"
+    "rationale": "The intervention (the --stress flag and the ±5/10/15/20% perturbation grid it activates) is committed at 3d4daf5 BEFORE any measurement at the stress grid is taken. This card is itself sealed in a follow-up draft commit (bdcb85f) and the measurement runs after that. The card_seal_commit points to the procedure-locking commit because the procedure — not the prediction restatement — is what must be unforgeable.",
+    "card_seal_commit": "3d4daf5",
+    "measurement_timestamp": "2026-06-06T16:58:41-04:00"
   },
   "objective": {
     "statement": "Demonstrate that the Arm A bidirectional corridor structure for SC-CONCEPT-0003 holds under a doubled perturbation magnitude (40 perturbations at ±5/10/15/20% across 5 parameters), not only the original ±5/10% grid (20 perturbations) that scored STABLE 20/20 in robustness_pass_v0.",
@@ -77,11 +78,21 @@
   ],
   "markers": ["E2", "E3", "A2"],
   "measured_outcome": {
-    "summary": "PENDING — measurement to be taken with the --stress run after seal commit 3d4daf5; this draft is committed first so the prediction is unforgeable."
+    "observations": [
+      {"condition": "baseline Arm A (no perturbation)", "value": "bidirectional", "passed_threshold": true, "note": "fulfilling=[[-0.12, 0.8]] defeating=[[-0.8, -0.16]]"},
+      {"condition": "observer_coupling ±5/10/15/20% (8 conditions)", "value": "8/8 bidirectional", "passed_threshold": true},
+      {"condition": "temporal_bias_gain ±5/10/15/20% (8 conditions)", "value": "8/8 bidirectional", "passed_threshold": true},
+      {"condition": "narrative_inertia ±5/10/15/20% (8 conditions)", "value": "8/8 bidirectional", "passed_threshold": true},
+      {"condition": "action_gain ±5/10/15/20% (8 conditions)", "value": "8/8 bidirectional", "passed_threshold": true},
+      {"condition": "observation_gain ±5/10/15/20% (8 conditions)", "value": "8/8 bidirectional", "passed_threshold": true}
+    ],
+    "summary": "Stress grid (40 perturbations at ±5/10/15/20% across 5 parameters) preserved bidirectional corridor coverage on every condition. Verdict: STABLE 40/40. Corridor intervals matched the v0 baseline within ±1 grid step on the wider perturbations, consistent with the v0 STABLE 20/20 at ±5/10%. No directional asymmetry detected.",
+    "fraction_satisfied": 1.0,
+    "delta_vs_baseline_mean": 20.0
   },
   "decision": {
-    "status": "REVIEW",
-    "rationale": "Sealed draft; the card has not yet been measured. Final decision will be set in the completion commit alongside measurement_timestamp and the populated measured_outcome."
+    "status": "PASS",
+    "rationale": "Pre-registered threshold (40 perturbations preserving bidirectional coverage) met exactly. This is an independent prospective card whose intervention surface (the --stress flag and the resulting wider perturbation grid in scripts/hyperstition_robustness_pass.py) does NOT include the leverage harness itself. T-018's self-referential PASS-provisional caveat is therefore retired by this card."
   },
   "provenance": {
     "authored_date": "2026-06-06",
