@@ -62,7 +62,7 @@ A card is a JSON document with the following top-level keys (see `nfem_suite/int
 | `workflow` | `name`, `surface`, `domain`. |
 | `claim_class` | List of `F` / `C` / `E` / `S`. |
 | `claim_tier` | `defensible` / `plausible` / `speculative`. |
-| `pre_registration` | `status`, `rationale`, `card_seal_commit`. |
+| `pre_registration` | `status`, `rationale`, `card_seal_commit`, `measurement_timestamp` (ISO 8601, prospective only). |
 | `objective` | `statement`, `metric_name`, `metric_definition`, `threshold`, `direction`. |
 | `baseline` | `name`, `source` (+ optional per-condition table). |
 | `intervention` | `description`, `files` (+ optional `knobs`). |
@@ -81,10 +81,34 @@ A card is a JSON document with the following top-level keys (see `nfem_suite/int
 The scorer collapses the card to one decision:
 
 - `decision.violated_markers` ∩ `{C1, I1, P1, P2}` → **FAIL** (hard gate).
+- Seal verification fails (see below) → **FAIL**.
 - Missing required fields, unknown markers, or other schema errors → **REVIEW**.
 - Otherwise the declared `decision.status` stands.
 
 This is the same hard-gate set used by `scripts/validate_foundations.py`, so a passing leverage card cannot pass while quietly violating a foundational marker.
+
+### Seal-timestamp verification (prospective cards)
+
+The harness will not accept a prospective card whose pre-registration seal happened *after* the measurement was taken. The check uses two fields and one git lookup:
+
+- `pre_registration.card_seal_commit` — the commit hash that locks the card draft.
+- `pre_registration.measurement_timestamp` — ISO 8601 timestamp recording when the measurement was actually taken.
+- `git show -s --format=%cI <commit>` — the canonical committer timestamp of the seal commit.
+
+Resolution table (only applies to `status == "prospective"`):
+
+| Condition | `seal_verification` | Decision impact |
+|---|---|---|
+| seal commit timestamp ≤ measurement timestamp | `passed` | none (annotated in `notes`) |
+| seal commit timestamp > measurement timestamp | `failed` | **FAIL** with `seal_after_measurement` error |
+| `card_seal_commit` set, `measurement_timestamp` missing | `unverifiable` | warning only |
+| git cannot resolve the commit | `unverifiable` | warning only |
+| `git_lookup` not provided (e.g. in pure-schema unit tests) | `skipped` | none |
+| No `card_seal_commit` set | (warning, not seal status) | warning only |
+
+The CLI passes a real `git_show_committer_iso` lookup by default; unit tests inject a mock. The check is therefore enforced wherever the CLI runs (CI, local validation, matrix promotion) while remaining I/O-free in the pure scorer path.
+
+The retrospective branch is unaffected: retrospective cards cannot be "sealed before measurement" by definition, so the scorer skips this check and relies on the existing attestation-disclosure rule instead.
 
 ## 4) Storage and naming
 
@@ -109,6 +133,7 @@ memory/research/leverage/
 The known failure modes of this protocol mirror the failure conditions on SC-CONCEPT-0010:
 
 - *Denominator drift.* Once `pre_registration.card_seal_commit` is set, denominators and thresholds should not change. Edits after measurement are detectable in git history; reviewers should reject silent retunes.
+- *Backdated seal.* Setting `card_seal_commit` to a commit hash that exists but post-dates the measurement is now a hard-FAIL via the seal-timestamp check above. Reviewers should still spot-check that the *content* sealed at that commit is actually the card draft, not unrelated work — the harness verifies timing, not semantic intent.
 - *Self-referential closure.* The harness scores itself only via its first prospective card. That card explicitly notes its self-referential nature and the matrix row should remain `REVIEW` until at least one card scores PASS on an *independent* workflow.
 - *Marker padding.* Listing many markers does not strengthen a card. The scorer accepts any subset of the FOUNDATIONS marker set; reviewers should reject cards whose markers do not correspond to claims actually exercised by the verification method.
 - *Retrospective inflation.* Retrospective PASS cards are allowed but flagged; they do not on their own discharge a matrix row from `REVIEW`.

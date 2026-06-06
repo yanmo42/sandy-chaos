@@ -11,6 +11,7 @@
     "retrospective attestation, not independent re-validation"
   ],
   "leverage_card_pre_registration": "retrospective",
+  "leverage_card_seal_verification": "skipped",
   "markers": [
     "P1",
     "P2",

@@ -9,8 +9,11 @@
     "memory/research/leverage/"
   ],
   "leverage_card_id": "LEV-2026-06-06-003-leverage-harness-introduction",
-  "leverage_card_notes": [],
+  "leverage_card_notes": [
+    "seal_verified: commit 69fd5ff predates measurement_timestamp by 206s"
+  ],
   "leverage_card_pre_registration": "prospective",
+  "leverage_card_seal_verification": "passed",
   "markers": [
     "C2",
     "C3",

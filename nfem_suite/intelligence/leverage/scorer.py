@@ -6,13 +6,18 @@ a `ScoreReport`. `evidence_payload` converts a scored card into a payload that
 matrix-row-evidence increment.
 
 The scorer is pure: it does not execute the card's `validation_commands` or
-write files. Side-effecting work lives in `scripts/run_leverage_card.py`.
+write files. Seal-timestamp verification is dependency-injected via the
+`git_show_committer_iso` parameter so the schema check stays I/O-free and
+testable; side-effecting helpers live in `scripts/run_leverage_card.py`.
 """
 
 from __future__ import annotations
 
+import subprocess
 from dataclasses import dataclass, field
-from typing import Any
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Callable
 
 from .card import (
     ALLOWED_CLAIM_CLASSES,
@@ -52,6 +57,7 @@ class ScoreReport:
     unknown_markers: list[str] = field(default_factory=list)
     hard_gate_violations: list[str] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
+    seal_verification: str = "skipped"  # skipped | passed | failed | unverifiable
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -64,10 +70,39 @@ class ScoreReport:
             "unknown_markers": list(self.unknown_markers),
             "hard_gate_violations": list(self.hard_gate_violations),
             "notes": list(self.notes),
+            "seal_verification": self.seal_verification,
         }
 
 
-def score_card(card: LeverageCard) -> ScoreReport:
+def git_show_committer_iso(sha: str, cwd: str | Path | None = None) -> str | None:
+    """Return the committer ISO 8601 timestamp for `sha`, or None on any failure.
+
+    Pure helper that wraps `git show -s --format=%cI`. Used as the default
+    `git_show_committer_iso` argument to `score_card` from `run_leverage_card.py`.
+    Unit tests inject mocks instead of calling git directly.
+    """
+
+    try:
+        result = subprocess.run(
+            ["git", "show", "-s", "--format=%cI", sha],
+            cwd=str(cwd) if cwd is not None else None,
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return None
+    if result.returncode != 0:
+        return None
+    out = result.stdout.strip()
+    return out or None
+
+
+def score_card(
+    card: LeverageCard,
+    *,
+    git_lookup: Callable[[str], str | None] | None = None,
+) -> ScoreReport:
     """Validate the card schema and resolve a final decision."""
 
     payload = card.raw
@@ -169,17 +204,58 @@ def score_card(card: LeverageCard) -> ScoreReport:
                 "retrospective PASS card must declare attestation/non-independent status in decision.rationale"
             )
 
-    # 9. Prospective discipline: prospective cards should declare a card_seal_commit.
+    # 9. Prospective discipline: seal must exist and (when verifiable) predate measurement.
+    seal_verification = "skipped"
     if pre_reg == "prospective":
-        seal = (payload.get("pre_registration") or {}).get("card_seal_commit")
+        pre_reg_block = payload.get("pre_registration") or {}
+        seal = pre_reg_block.get("card_seal_commit")
+        measurement_ts = pre_reg_block.get("measurement_timestamp")
         if not seal:
             warnings.append(
                 "prospective card lacks pre_registration.card_seal_commit; "
                 "post-measurement edits will not be auditable"
             )
+        elif not measurement_ts:
+            warnings.append(
+                "prospective card has card_seal_commit but no pre_registration.measurement_timestamp; "
+                "seal cannot be verified against measurement time"
+            )
+            seal_verification = "unverifiable"
+        elif git_lookup is None:
+            # Caller did not provide a git lookup; pure schema mode.
+            seal_verification = "skipped"
+        else:
+            seal_iso = git_lookup(seal)
+            if seal_iso is None:
+                warnings.append(
+                    f"could not resolve card_seal_commit {seal!r} via git; "
+                    "seal-timestamp verification skipped"
+                )
+                seal_verification = "unverifiable"
+            else:
+                try:
+                    seal_dt = datetime.fromisoformat(seal_iso)
+                    measurement_dt = datetime.fromisoformat(measurement_ts)
+                except ValueError as exc:
+                    errors.append(f"invalid ISO 8601 timestamp during seal verification: {exc}")
+                    seal_verification = "failed"
+                else:
+                    if seal_dt > measurement_dt:
+                        errors.append(
+                            f"seal_after_measurement: card_seal_commit {seal} committed at "
+                            f"{seal_iso} is AFTER pre_registration.measurement_timestamp "
+                            f"{measurement_ts} — pre-registration is invalid"
+                        )
+                        seal_verification = "failed"
+                    else:
+                        delta = (measurement_dt - seal_dt).total_seconds()
+                        notes.append(
+                            f"seal_verified: commit {seal} predates measurement_timestamp by {delta:.0f}s"
+                        )
+                        seal_verification = "passed"
 
     # 10. Decision resolution.
-    if hard_gate_violations:
+    if hard_gate_violations or seal_verification == "failed":
         final_decision = "FAIL"
     elif missing_fields or unknown_markers or errors:
         final_decision = "REVIEW"
@@ -206,6 +282,7 @@ def score_card(card: LeverageCard) -> ScoreReport:
         unknown_markers=unknown_markers,
         hard_gate_violations=hard_gate_violations,
         notes=notes,
+        seal_verification=seal_verification,
     )
 
 
@@ -235,6 +312,7 @@ def evidence_payload(card: LeverageCard, report: ScoreReport) -> dict[str, Any]:
             (payload.get("pre_registration") or {}).get("status", "")
         ),
         "leverage_card_notes": list(report.notes),
+        "leverage_card_seal_verification": report.seal_verification,
     }
 
 

@@ -13,7 +13,8 @@
   "pre_registration": {
     "status": "prospective",
     "rationale": "Harness module is sealed at commit 69fd5ff before this card's measurement is taken. The card was authored in the same session as its measurement, so the seal is on the harness toolchain rather than on a separate draft of this card. Future prospective cards should seal the card draft itself.",
-    "card_seal_commit": "69fd5ff"
+    "card_seal_commit": "69fd5ff",
+    "measurement_timestamp": "2026-06-06T08:58:00-04:00"
   },
   "objective": {
     "statement": "Demonstrate that the leverage-card/v1 harness can score at least three independently-authored cards without FAIL, with at least one card scoring PASS, and that each card emits a foundations-compatible evidence payload.",

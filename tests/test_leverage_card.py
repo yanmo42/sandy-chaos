@@ -184,6 +184,78 @@ class TestLeverageCardSchema(unittest.TestCase):
         self.assertTrue(any("framework_gaming_risk" in e for e in report.errors))
 
 
+class TestSealVerification(unittest.TestCase):
+    """Cover prospective seal-timestamp verification (the only path that can FAIL on seal)."""
+
+    def _prospective(self, seal: str = "deadbeef", measurement_ts: str | None = "2026-06-06T09:00:00-04:00") -> dict:
+        payload = _minimal_payload()
+        payload["pre_registration"]["status"] = "prospective"
+        payload["pre_registration"]["card_seal_commit"] = seal
+        if measurement_ts is None:
+            payload["pre_registration"].pop("measurement_timestamp", None)
+        else:
+            payload["pre_registration"]["measurement_timestamp"] = measurement_ts
+        return payload
+
+    def test_seal_predates_measurement_passes(self):
+        payload = self._prospective()
+        report = score_card(
+            LeverageCard.from_dict(payload),
+            git_lookup=lambda _sha: "2026-06-06T08:54:34-04:00",
+        )
+        self.assertEqual(report.decision, "PASS", msg=f"errors={report.errors}")
+        self.assertEqual(report.seal_verification, "passed")
+        self.assertTrue(any("seal_verified" in n for n in report.notes))
+
+    def test_seal_after_measurement_fails(self):
+        payload = self._prospective(measurement_ts="2026-06-06T08:00:00-04:00")
+        report = score_card(
+            LeverageCard.from_dict(payload),
+            git_lookup=lambda _sha: "2026-06-06T09:00:00-04:00",  # seal AFTER measurement
+        )
+        self.assertEqual(report.decision, "FAIL")
+        self.assertFalse(report.ok)
+        self.assertEqual(report.seal_verification, "failed")
+        self.assertTrue(any("seal_after_measurement" in e for e in report.errors))
+
+    def test_missing_measurement_timestamp_is_unverifiable_not_fail(self):
+        payload = self._prospective(measurement_ts=None)
+        report = score_card(
+            LeverageCard.from_dict(payload),
+            git_lookup=lambda _sha: "2026-06-06T08:54:34-04:00",
+        )
+        self.assertEqual(report.decision, "PASS")
+        self.assertEqual(report.seal_verification, "unverifiable")
+        self.assertTrue(any("measurement_timestamp" in w for w in report.warnings))
+
+    def test_unresolvable_seal_is_unverifiable_not_fail(self):
+        payload = self._prospective()
+        report = score_card(
+            LeverageCard.from_dict(payload),
+            git_lookup=lambda _sha: None,  # git returns nothing
+        )
+        self.assertEqual(report.decision, "PASS")
+        self.assertEqual(report.seal_verification, "unverifiable")
+        self.assertTrue(any("could not resolve" in w for w in report.warnings))
+
+    def test_check_skipped_when_no_git_lookup_provided(self):
+        payload = self._prospective()
+        report = score_card(LeverageCard.from_dict(payload))  # no git_lookup
+        self.assertEqual(report.decision, "PASS")
+        self.assertEqual(report.seal_verification, "skipped")
+        self.assertFalse(any("measurement_timestamp" in w for w in report.warnings))
+
+    def test_malformed_timestamp_fails(self):
+        payload = self._prospective(measurement_ts="not-a-timestamp")
+        report = score_card(
+            LeverageCard.from_dict(payload),
+            git_lookup=lambda _sha: "2026-06-06T08:54:34-04:00",
+        )
+        self.assertEqual(report.decision, "FAIL")
+        self.assertEqual(report.seal_verification, "failed")
+        self.assertTrue(any("ISO 8601" in e for e in report.errors))
+
+
 class TestEvidencePayload(unittest.TestCase):
     def test_evidence_payload_matches_foundations_schema(self):
         from scripts.validate_foundations import REQUIRED_FIELDS, validate_evidence_payload
@@ -253,6 +325,42 @@ class TestRealCardsScoreClean(unittest.TestCase):
                     "FAIL",
                     msg=f"{card_path.name}: errors={report.errors}",
                 )
+
+    def test_committed_prospective_cards_verify_seal_under_real_git(self):
+        """End-to-end: real git_show_committer_iso must verify any prospective card's seal."""
+        from nfem_suite.intelligence.leverage.scorer import git_show_committer_iso
+
+        leverage_dir = Path(__file__).resolve().parents[1] / "memory" / "research" / "leverage"
+        if not leverage_dir.exists():
+            self.skipTest("no leverage cards committed yet")
+        cards = sorted(
+            p for p in leverage_dir.glob("*.json") if not p.name.endswith(".evidence.json")
+        )
+        repo_root = Path(__file__).resolve().parents[1]
+        verified_any = False
+        for card_path in cards:
+            card = load_card(card_path)
+            pre_reg = card.raw.get("pre_registration") or {}
+            if pre_reg.get("status") != "prospective":
+                continue
+            if not pre_reg.get("card_seal_commit") or not pre_reg.get("measurement_timestamp"):
+                continue
+            with self.subTest(card=card_path.name):
+                report = score_card(
+                    card,
+                    git_lookup=lambda sha, _cwd=repo_root: git_show_committer_iso(sha, cwd=_cwd),
+                )
+                if report.seal_verification == "unverifiable":
+                    self.skipTest(f"git could not resolve seal for {card_path.name}")
+                self.assertEqual(
+                    report.seal_verification,
+                    "passed",
+                    msg=f"{card_path.name}: errors={report.errors} warnings={report.warnings}",
+                )
+                self.assertNotEqual(report.decision, "FAIL")
+                verified_any = True
+        if not verified_any:
+            self.skipTest("no prospective cards with both seal and measurement_timestamp committed yet")
 
 
 if __name__ == "__main__":

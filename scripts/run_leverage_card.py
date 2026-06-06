@@ -27,11 +27,18 @@ from nfem_suite.intelligence.leverage import (  # noqa: E402
     load_card,
     score_card,
 )
+from nfem_suite.intelligence.leverage.scorer import (  # noqa: E402
+    git_show_committer_iso,
+)
 
 
 def _score_one(path: Path, emit_evidence: Path | None) -> tuple[str, dict]:
     card = load_card(path)
-    report = score_card(card)
+    repo_cwd = path.parent
+    report = score_card(
+        card,
+        git_lookup=lambda sha, _cwd=repo_cwd: git_show_committer_iso(sha, cwd=_cwd),
+    )
     result = {
         "card_path": str(path),
         "card_id": card.card_id,
@@ -85,6 +92,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     summary = {"PASS": 0, "REVIEW": 0, "FAIL": 0}
+    seal_summary = {"passed": 0, "failed": 0, "unverifiable": 0, "skipped": 0}
     exit_code = 0
 
     for card_path in cards:
@@ -108,6 +116,8 @@ def main(argv: list[str] | None = None) -> int:
             continue
 
         summary[decision] = summary.get(decision, 0) + 1
+        seal_status = result["report"].get("seal_verification", "skipped")
+        seal_summary[seal_status] = seal_summary.get(seal_status, 0) + 1
         if decision == "FAIL":
             exit_code = 1
 
@@ -116,7 +126,9 @@ def main(argv: list[str] | None = None) -> int:
 
     print(
         f"leverage-card summary: pass={summary['PASS']} "
-        f"review={summary['REVIEW']} fail={summary['FAIL']}"
+        f"review={summary['REVIEW']} fail={summary['FAIL']} "
+        f"| seal: passed={seal_summary['passed']} failed={seal_summary['failed']} "
+        f"unverifiable={seal_summary['unverifiable']} skipped={seal_summary['skipped']}"
     )
     return exit_code
 
