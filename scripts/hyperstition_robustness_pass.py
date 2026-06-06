@@ -57,6 +57,7 @@ PERTURBABLE_PARAMS = [
 ]
 
 PERTURBATION_STEPS = [-0.10, -0.05, 0.05, 0.10]
+PERTURBATION_STEPS_STRESS = [-0.20, -0.15, -0.10, -0.05, 0.05, 0.10, 0.15, 0.20]
 
 
 def build_perturbed(param: str, frac: float) -> HyperstitionParameters:
@@ -173,6 +174,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--delta-min", type=float, default=-0.8)
     p.add_argument("--delta-max", type=float, default=0.8)
     p.add_argument("--dominance-threshold", type=float, default=0.8)
+    p.add_argument(
+        "--stress",
+        action="store_true",
+        help="Use the extended perturbation grid (±5/10/15/20%%) — 40 perturbations instead of 20.",
+    )
     return p.parse_args()
 
 
@@ -188,8 +194,9 @@ def main() -> None:
     perturbation_results = []
     collapsed = []
 
+    perturbation_steps = PERTURBATION_STEPS_STRESS if args.stress else PERTURBATION_STEPS
     for param in PERTURBABLE_PARAMS:
-        for frac in PERTURBATION_STEPS:
+        for frac in perturbation_steps:
             params = build_perturbed(param, frac)
             label = f"{param} {'+' if frac > 0 else ''}{int(frac * 100)}%"
             print(f"[robustness pass] {label} ...")
@@ -221,6 +228,8 @@ def main() -> None:
         "steps": args.steps,
         "initial_m": args.initial_m,
         "dominance_threshold": args.dominance_threshold,
+        "stress": bool(args.stress),
+        "perturbation_steps": list(perturbation_steps),
         "baseline": {
             "parameters": asdict(BASELINE),
             **{k: baseline_result[k] for k in (
