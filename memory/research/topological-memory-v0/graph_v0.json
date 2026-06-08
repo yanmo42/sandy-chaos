@@ -66,7 +66,9 @@
       "tags": [
         "prompt",
         "implementation",
-        "adoption"
+        "adoption",
+        "bridges",
+        "docs"
       ],
       "created_at": "2026-03-28T00:00:00Z",
       "updated_at": "2026-03-28T12:00:00Z"
@@ -166,10 +168,69 @@
       "tags": [
         "session",
         "resume",
-        "checkpoint"
+        "checkpoint",
+        "resumes",
+        "lane"
       ],
       "created_at": "2026-03-26T00:00:00Z",
       "updated_at": "2026-03-26T16:59:58Z"
+    },
+    {
+      "id": "N_SCRIPT_AUTOMATION_ORCH",
+      "kind": "code",
+      "title": "automation_orchestrator.py script",
+      "path": "scripts/automation_orchestrator.py",
+      "summary": "builds lane-aware task contracts by scanning TODO surfaces for high-priority items and emitting orchestrator dispatch JSONL",
+      "tags": [
+        "code",
+        "script",
+        "task",
+        "contracts",
+        "lane-aware",
+        "todo",
+        "surfaces",
+        "orchestrator"
+      ],
+      "created_at": "2026-04-01T00:00:00Z",
+      "updated_at": "2026-05-02T00:00:00Z"
+    },
+    {
+      "id": "N_SCRIPT_ORCH_AUTOSPAWN",
+      "kind": "code",
+      "title": "orchestrator_autospawn.py script",
+      "path": "scripts/orchestrator_autospawn.py",
+      "summary": "dispatches orchestrator task contracts through the gateway bridge agent API as concrete spawn requests",
+      "tags": [
+        "code",
+        "script",
+        "dispatch",
+        "gateway",
+        "bridge",
+        "orchestrator",
+        "task",
+        "contracts"
+      ],
+      "created_at": "2026-04-01T00:00:00Z",
+      "updated_at": "2026-05-02T00:00:00Z"
+    },
+    {
+      "id": "N_PLAN_TODO",
+      "kind": "todo",
+      "title": "plans/todo.md master task list",
+      "path": "plans/todo.md",
+      "summary": "master TODO surface tracking execution steps across active lanes including topological memory continuity retrieval",
+      "tags": [
+        "todo",
+        "surface",
+        "execution",
+        "steps",
+        "topological",
+        "memory",
+        "tracker",
+        "active"
+      ],
+      "created_at": "2026-03-25T00:00:00Z",
+      "updated_at": "2026-04-27T00:00:00Z"
     }
   ],
   "edges": [
@@ -263,6 +324,41 @@
       "target": "N_YGG_ARCH",
       "relation": "resumes_under",
       "weight": 0.7
+    },
+    {
+      "id": "E_PLAN_TODO_SECTION",
+      "source": "N_PLAN_TODO",
+      "target": "N_TODO_TOPMEM",
+      "relation": "contains_section",
+      "weight": 0.92
+    },
+    {
+      "id": "E_PLAN_TODO_ORCH",
+      "source": "N_PLAN_TODO",
+      "target": "N_SCRIPT_AUTOMATION_ORCH",
+      "relation": "scanned_by",
+      "weight": 0.88
+    },
+    {
+      "id": "E_TODO_ORCH",
+      "source": "N_TODO_TOPMEM",
+      "target": "N_SCRIPT_AUTOMATION_ORCH",
+      "relation": "scanned_by",
+      "weight": 0.85
+    },
+    {
+      "id": "E_ORCH_AUTOSPAWN",
+      "source": "N_SCRIPT_AUTOMATION_ORCH",
+      "target": "N_SCRIPT_ORCH_AUTOSPAWN",
+      "relation": "dispatched_by",
+      "weight": 0.90
+    },
+    {
+      "id": "E_CONTRACT_AUTOSPAWN",
+      "source": "N_ORCHESTRATOR_CONTRACT",
+      "target": "N_SCRIPT_ORCH_AUTOSPAWN",
+      "relation": "dispatched_via",
+      "weight": 0.82
     }
   ],
   "traces": [
@@ -297,6 +393,38 @@
       "event_type": "resume",
       "timestamp": "2026-03-26T16:59:58Z",
       "weight": 0.8
+    },
+    {
+      "id": "TR_EVAL_MODULE",
+      "subject_type": "node",
+      "subject_id": "N_EVAL_MODULE",
+      "event_type": "benchmark_run",
+      "timestamp": "2026-04-01T00:00:00Z",
+      "weight": 0.50
+    },
+    {
+      "id": "TR_ORCH_SCRIPT",
+      "subject_type": "node",
+      "subject_id": "N_SCRIPT_AUTOMATION_ORCH",
+      "event_type": "invoked",
+      "timestamp": "2026-05-02T00:00:00Z",
+      "weight": 0.25
+    },
+    {
+      "id": "TR_AUTOSPAWN_SCRIPT",
+      "subject_type": "node",
+      "subject_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+      "event_type": "dispatched",
+      "timestamp": "2026-05-02T00:00:00Z",
+      "weight": 0.25
+    },
+    {
+      "id": "TR_PLAN_TODO",
+      "subject_type": "node",
+      "subject_id": "N_PLAN_TODO",
+      "event_type": "reviewed",
+      "timestamp": "2026-04-27T00:00:00Z",
+      "weight": 0.75
     }
   ]
 }

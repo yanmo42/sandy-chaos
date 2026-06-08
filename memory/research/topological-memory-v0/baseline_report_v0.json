@@ -9,8 +9,8 @@
       "ranked_results": {}
     },
     "keyword": {
-      "hit_rate": 0.9666666666666667,
-      "mrr": 0.788888888888889,
+      "hit_rate": 1.0,
+      "mrr": 0.8444444444444444,
       "queries": [
         {
           "query_id": "Q-001",
@@ -97,7 +97,8 @@
           ],
           "top_nodes": [
             "N_CONCEPT_SC0004",
-            "N_FRONTIER_20260427"
+            "N_FRONTIER_20260427",
+            "N_PLAN_TODO"
           ],
           "hit": true,
           "reciprocal_rank": 0.5
@@ -149,7 +150,7 @@
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
             "N_RUNTIME_ADOPTION",
-            "N_CONCEPT_SC0004"
+            "N_PLAN_TODO"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -201,7 +202,7 @@
           "top_nodes": [
             "N_PROMPT_SC0001",
             "N_EVAL_MODULE",
-            "N_RUNTIME_MODULE"
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": true,
           "reciprocal_rank": 0.5
@@ -264,12 +265,12 @@
             "N_SESSION_CHECKPOINT"
           ],
           "top_nodes": [
+            "N_SESSION_CHECKPOINT",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_YGG_ARCH",
-            "N_SESSION_CHECKPOINT"
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "reciprocal_rank": 1.0
         },
         {
           "query_id": "Q-021",
@@ -329,12 +330,12 @@
             "N_PROMPT_SC0001"
           ],
           "top_nodes": [
+            "N_PROMPT_SC0001",
             "N_CONCEPT_SC0004",
-            "N_RUNTIME_ADOPTION",
-            "N_RUNTIME_MODULE"
+            "N_RUNTIME_ADOPTION"
           ],
-          "hit": false,
-          "reciprocal_rank": 0.0
+          "hit": true,
+          "reciprocal_rank": 1.0
         },
         {
           "query_id": "Q-026",
@@ -466,7 +467,7 @@
           },
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.44166666666666665,
+            "score": 0.4338235294117647,
             "reason": "keyword overlap=['adoption', 'for', 'retrieval', 'runtime']",
             "path_nodes": [],
             "path_edges": [],
@@ -484,7 +485,7 @@
         "Q-004": [
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.39999999999999997,
+            "score": 0.39215686274509803,
             "reason": "keyword overlap=['implementation', 'packet', 'pressure', 'prompt']",
             "path_nodes": [],
             "path_edges": [],
@@ -492,8 +493,8 @@
           },
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.09999999999999999,
-            "reason": "keyword overlap=['to']",
+            "score": 0.19607843137254902,
+            "reason": "keyword overlap=['lane', 'to']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -575,6 +576,14 @@
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.11964285714285713,
+            "reason": "keyword overlap=['active']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
           }
         ],
         "Q-008": [
@@ -622,7 +631,7 @@
           },
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.2833333333333333,
+            "score": 0.27941176470588236,
             "reason": "keyword overlap=['retrieval', 'runtime']",
             "path_nodes": [],
             "path_edges": [],
@@ -673,9 +682,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_CONCEPT_SC0004",
-            "score": 0.11647727272727273,
-            "reason": "keyword overlap=['continuity']",
+            "node_id": "N_PLAN_TODO",
+            "score": 0.2125,
+            "reason": "keyword overlap=['continuity', 'surface']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -692,7 +701,7 @@
           },
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.18333333333333335,
+            "score": 0.17941176470588238,
             "reason": "keyword overlap=['resume', 'session']",
             "path_nodes": [],
             "path_edges": [],
@@ -718,7 +727,7 @@
           },
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.2545454545454545,
+            "score": 0.24866310160427807,
             "reason": "keyword overlap=['adoption', 'prompt', 'runtime']",
             "path_nodes": [],
             "path_edges": [],
@@ -736,7 +745,7 @@
         "Q-014": [
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.3666666666666667,
+            "score": 0.35882352941176476,
             "reason": "keyword overlap=['packet', 'prompt', 'retrieval', 'runtime']",
             "path_nodes": [],
             "path_edges": [],
@@ -762,7 +771,7 @@
         "Q-015": [
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.19999999999999998,
+            "score": 0.19607843137254902,
             "reason": "keyword overlap=['packet', 'prompt']",
             "path_nodes": [],
             "path_edges": [],
@@ -777,9 +786,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_RUNTIME_MODULE",
-            "score": 0.10119047619047619,
-            "reason": "keyword overlap=['code']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.19047619047619047,
+            "reason": "keyword overlap=['code', 'the']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -891,6 +900,14 @@
         ],
         "Q-020": [
           {
+            "node_id": "N_SESSION_CHECKPOINT",
+            "score": 0.32536764705882354,
+            "reason": "keyword overlap=['checkpoint', 'lane', 'resumes']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.2138157894736842,
             "reason": "keyword overlap=['contract', 'orchestrator']",
@@ -899,17 +916,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_YGG_ARCH",
-            "score": 0.11160714285714285,
-            "reason": "keyword overlap=['contract']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.11041666666666666,
-            "reason": "keyword overlap=['checkpoint']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.2113095238095238,
+            "reason": "keyword overlap=['orchestrator', 'the']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1012,7 +1021,7 @@
           },
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.19999999999999998,
+            "score": 0.19607843137254902,
             "reason": "keyword overlap=['adoption', 'runtime']",
             "path_nodes": [],
             "path_edges": [],
@@ -1020,6 +1029,14 @@
           }
         ],
         "Q-025": [
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.32536764705882354,
+            "reason": "keyword overlap=['adoption', 'bridges', 'docs']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_CONCEPT_SC0004",
             "score": 0.11647727272727273,
@@ -1032,14 +1049,6 @@
             "node_id": "N_RUNTIME_ADOPTION",
             "score": 0.11160714285714285,
             "reason": "keyword overlap=['adoption']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_RUNTIME_MODULE",
-            "score": 0.11160714285714285,
-            "reason": "keyword overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1126,7 +1135,7 @@
         "Q-029": [
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.5,
+            "score": 0.4901960784313726,
             "reason": "keyword overlap=['checkpoint', 'continuity', 'maps', 'resume', 'symbolic']",
             "path_nodes": [],
             "path_edges": [],
@@ -1178,8 +1187,8 @@
       }
     },
     "recency": {
-      "hit_rate": 0.6666666666666666,
-      "mrr": 0.3,
+      "hit_rate": 0.1,
+      "mrr": 0.1,
       "queries": [
         {
           "query_id": "Q-001",
@@ -1188,8 +1197,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROMPT_SC0001"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1201,8 +1210,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_TODO_TOPMEM"
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1213,12 +1222,12 @@
             "N_RUNTIME_ADOPTION"
           ],
           "top_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_RUNTIME_ADOPTION"
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-004",
@@ -1227,11 +1236,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROMPT_SC0001"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-005",
@@ -1239,12 +1248,12 @@
             "N_PROVISIONAL_VALIDATION"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROVISIONAL_VALIDATION"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-006",
@@ -1252,12 +1261,12 @@
             "N_TODO_TOPMEM"
           ],
           "top_nodes": [
+            "N_SCRIPT_AUTOMATION_ORCH",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_TODO_TOPMEM"
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-007",
@@ -1266,11 +1275,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_CONCEPT_SC0004"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.5
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-008",
@@ -1279,11 +1288,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_YGG_ARCH"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-009",
@@ -1292,11 +1301,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_RUNTIME_MODULE"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-010",
@@ -1305,11 +1314,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_EVAL_MODULE"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-011",
@@ -1318,8 +1327,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_RUNTIME_ADOPTION"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -1331,8 +1340,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROVISIONAL_VALIDATION"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1343,12 +1352,12 @@
             "N_PROMPT_SC0001"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROMPT_SC0001"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-014",
@@ -1356,9 +1365,9 @@
             "N_RUNTIME_MODULE"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROMPT_SC0001"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1369,12 +1378,12 @@
             "N_EVAL_MODULE"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_EVAL_MODULE"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-016",
@@ -1382,12 +1391,12 @@
             "N_PROVISIONAL_VALIDATION"
           ],
           "top_nodes": [
-            "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROVISIONAL_VALIDATION"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_ORCHESTRATOR_CONTRACT"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-017",
@@ -1395,9 +1404,9 @@
             "N_CONCEPT_SC0004"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROVISIONAL_VALIDATION"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1408,9 +1417,9 @@
             "N_CONCEPT_SC0004"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROVISIONAL_VALIDATION"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1422,8 +1431,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_RUNTIME_ADOPTION"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -1435,8 +1444,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_TODO_TOPMEM"
+            "N_SCRIPT_ORCH_AUTOSPAWN",
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1448,11 +1457,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROVISIONAL_VALIDATION"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-022",
@@ -1460,12 +1469,12 @@
             "N_TODO_TOPMEM"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_TODO_TOPMEM"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-023",
@@ -1474,8 +1483,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROMPT_SC0001"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1486,9 +1495,9 @@
             "N_RUNTIME_ADOPTION"
           ],
           "top_nodes": [
+            "N_SCRIPT_ORCH_AUTOSPAWN",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROMPT_SC0001"
+            "N_SCRIPT_AUTOMATION_ORCH"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1500,8 +1509,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_EVAL_MODULE"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": false,
           "reciprocal_rank": 0.0
@@ -1513,11 +1522,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_EVAL_MODULE"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-027",
@@ -1526,11 +1535,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_RUNTIME_MODULE"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-028",
@@ -1539,8 +1548,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_RUNTIME_MODULE"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -1552,11 +1561,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_SESSION_CHECKPOINT"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "hit": false,
+          "reciprocal_rank": 0.0
         },
         {
           "query_id": "Q-030",
@@ -1565,11 +1574,11 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427",
-            "N_PROVISIONAL_VALIDATION"
+            "N_SCRIPT_AUTOMATION_ORCH",
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
-          "hit": true,
-          "reciprocal_rank": 0.5
+          "hit": false,
+          "reciprocal_rank": 0.0
         }
       ],
       "ranked_results": {
@@ -1583,17 +1592,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7641025641025642,
-            "reason": "recency=0.872, lexical_overlap=['continuity', 'retrieval', 'the']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['for']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.15897435897435896,
-            "reason": "recency=0.115, lexical_overlap=['continuity', 'for', 'retrieval']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['the']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1609,23 +1618,31 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7724358974358976,
-            "reason": "recency=0.872, lexical_overlap=['concept', 'frontier', 'the']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['the']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_TODO_TOPMEM",
-            "score": 0.1405982905982906,
-            "reason": "recency=0.113, lexical_overlap=['memory', 'topological']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-003": [
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['for']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
@@ -1635,17 +1652,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7224358974358975,
-            "reason": "recency=0.872, lexical_overlap=['retrieval']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.23205128205128206,
-            "reason": "recency=0.103, lexical_overlap=['adoption', 'for', 'note', 'retrieval', 'runtime', 'traces']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1661,23 +1670,31 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.6974358974358975,
-            "reason": "recency=0.872",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.18119658119658122,
-            "reason": "recency=0.115, lexical_overlap=['implementation', 'packet', 'pressure', 'prompt']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-005": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
@@ -1687,23 +1704,23 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7260073260073261,
-            "reason": "recency=0.872, lexical_overlap=['the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.18827838827838828,
-            "reason": "recency=0.128, lexical_overlap=['bounded', 'gate', 'promotion']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-006": [
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8444444444444444,
+            "reason": "recency=1.000, lexical_overlap=['and', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8222222222222223,
@@ -1713,17 +1730,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7418803418803419,
-            "reason": "recency=0.872, lexical_overlap=['and', 'the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_TODO_TOPMEM",
-            "score": 0.22393162393162394,
-            "reason": "recency=0.113, lexical_overlap=['and', 'benchmark', 'checklist', 'comparison', 'graph', 'todo']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['the']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1739,17 +1748,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7545787545787547,
-            "reason": "recency=0.872, lexical_overlap=['active', 'frontier']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_CONCEPT_SC0004",
-            "score": 0.11868131868131868,
-            "reason": "recency=0.077, lexical_overlap=['frontier', 'sc-concept-0004']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1765,17 +1774,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7224358974358975,
-            "reason": "recency=0.872, lexical_overlap=['and']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_YGG_ARCH",
-            "score": 0.16602564102564102,
-            "reason": "recency=0.051, lexical_overlap=['and', 'architecture', 'branch', 'cadence', 'doc']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1791,17 +1800,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7307692307692308,
-            "reason": "recency=0.872, lexical_overlap=['retrieval']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8333333333333334,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_RUNTIME_MODULE",
-            "score": 0.20256410256410257,
-            "reason": "recency=0.128, lexical_overlap=['code', 'retrieval', 'runtime']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8333333333333334,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1817,17 +1826,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7224358974358975,
-            "reason": "recency=0.872, lexical_overlap=['and']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8500000000000001,
+            "reason": "recency=1.000, lexical_overlap=['and', 'code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_EVAL_MODULE",
-            "score": 0.25256410256410255,
-            "reason": "recency=0.128, lexical_overlap=['and', 'code', 'evaluator', 'keyword', 'recency', 'topology']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1843,17 +1852,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7224358974358975,
-            "reason": "recency=0.872, lexical_overlap=['continuity']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['orchestrator']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.13205128205128205,
-            "reason": "recency=0.103, lexical_overlap=['continuity', 'surface']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['orchestrator']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1869,23 +1878,31 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.6974358974358975,
-            "reason": "recency=0.872",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['for']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.12256410256410256,
-            "reason": "recency=0.128, lexical_overlap=['for']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['agent']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-013": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8181818181818182,
+            "reason": "recency=1.000, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
@@ -1895,23 +1912,23 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7156177156177157,
-            "reason": "recency=0.872, lexical_overlap=['the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.14685314685314685,
-            "reason": "recency=0.115, lexical_overlap=['adoption', 'prompt', 'runtime']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-014": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8400000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8200000000000001,
@@ -1921,23 +1938,23 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7374358974358975,
-            "reason": "recency=0.872, lexical_overlap=['retrieval', 'the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.17230769230769233,
-            "reason": "recency=0.115, lexical_overlap=['packet', 'prompt', 'retrieval', 'runtime']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-015": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8444444444444444,
+            "reason": "recency=1.000, lexical_overlap=['code', 'the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8222222222222223,
@@ -1947,17 +1964,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7196581196581198,
-            "reason": "recency=0.872, lexical_overlap=['the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_EVAL_MODULE",
-            "score": 0.147008547008547,
-            "reason": "recency=0.128, lexical_overlap=['baselines', 'code']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1965,25 +1974,25 @@
         ],
         "Q-016": [
           {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
             "reason": "recency=1.000",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7196581196581198,
-            "reason": "recency=0.872, lexical_overlap=['the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.147008547008547,
-            "reason": "recency=0.128, lexical_overlap=['provisional', 'validation']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -1991,6 +2000,14 @@
         ],
         "Q-017": [
           {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
             "reason": "recency=1.000",
@@ -1999,17 +2016,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7418803418803419,
-            "reason": "recency=0.872, lexical_overlap=['concept', 'the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.19145299145299144,
-            "reason": "recency=0.128, lexical_overlap=['note', 'promotion', 'provisional', 'validation']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2017,6 +2026,14 @@
         ],
         "Q-018": [
           {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
             "reason": "recency=1.000",
@@ -2025,17 +2042,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7641025641025642,
-            "reason": "recency=0.872, lexical_overlap=['concept', 'frontier', 'the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.12478632478632479,
-            "reason": "recency=0.128, lexical_overlap=['note']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2051,17 +2060,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7196581196581198,
-            "reason": "recency=0.872, lexical_overlap=['retrieval']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.14871794871794872,
-            "reason": "recency=0.103, lexical_overlap=['retrieval', 'runtime', 'surface']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2077,17 +2086,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7224358974358975,
-            "reason": "recency=0.872, lexical_overlap=['the']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8500000000000001,
+            "reason": "recency=1.000, lexical_overlap=['orchestrator', 'the']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_TODO_TOPMEM",
-            "score": 0.1155982905982906,
-            "reason": "recency=0.113, lexical_overlap=['lane']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['orchestrator']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2103,23 +2112,31 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.6974358974358975,
-            "reason": "recency=0.872",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['for']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.16923076923076924,
-            "reason": "recency=0.128, lexical_overlap=['conditions', 'demotion', 'for']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-022": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
@@ -2129,17 +2146,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7196581196581198,
-            "reason": "recency=0.872, lexical_overlap=['the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_TODO_TOPMEM",
-            "score": 0.17948717948717952,
-            "reason": "recency=0.113, lexical_overlap=['benchmark', 'checklist', 'comparison', 'graph']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2155,23 +2164,31 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7374358974358975,
-            "reason": "recency=0.872, lexical_overlap=['continuity', 'retrieval']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8200000000000001,
+            "reason": "recency=1.000, lexical_overlap=['for']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.1523076923076923,
-            "reason": "recency=0.115, lexical_overlap=['continuity', 'for', 'retrieval']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           }
         ],
         "Q-024": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8222222222222223,
+            "reason": "recency=1.000, lexical_overlap=['the']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
             "score": 0.8,
@@ -2181,17 +2198,9 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7196581196581198,
-            "reason": "recency=0.872, lexical_overlap=['the']",
-            "path_nodes": [],
-            "path_edges": [],
-            "path_summary": ""
-          },
-          {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.13675213675213677,
-            "reason": "recency=0.115, lexical_overlap=['adoption', 'runtime']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2207,17 +2216,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.6974358974358975,
-            "reason": "recency=0.872",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_EVAL_MODULE",
-            "score": 0.12756410256410255,
-            "reason": "recency=0.128, lexical_overlap=['code']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2233,17 +2242,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.6974358974358975,
-            "reason": "recency=0.872",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_EVAL_MODULE",
-            "score": 0.21684981684981686,
-            "reason": "recency=0.128, lexical_overlap=['code', 'evidence', 'inspectable', 'path']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8285714285714286,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2259,17 +2268,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7224358974358975,
-            "reason": "recency=0.872, lexical_overlap=['retrieval']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_RUNTIME_MODULE",
-            "score": 0.17756410256410257,
-            "reason": "recency=0.128, lexical_overlap=['code', 'retrieval', 'trace']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8250000000000001,
+            "reason": "recency=1.000, lexical_overlap=['code']",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2285,17 +2294,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.6974358974358975,
-            "reason": "recency=0.872",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_RUNTIME_MODULE",
-            "score": 0.12478632478632479,
-            "reason": "recency=0.128, lexical_overlap=['context']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2311,17 +2320,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7196581196581198,
-            "reason": "recency=0.872, lexical_overlap=['continuity']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.16666619183285852,
-            "reason": "recency=0.069, lexical_overlap=['checkpoint', 'continuity', 'maps', 'resume', 'symbolic']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2337,17 +2346,17 @@
             "path_summary": ""
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.7418803418803419,
-            "reason": "recency=0.872, lexical_overlap=['active', 'frontier']",
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
           },
           {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.12478632478632479,
-            "reason": "recency=0.128, lexical_overlap=['promotion']",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8,
+            "reason": "recency=1.000",
             "path_nodes": [],
             "path_edges": [],
             "path_summary": ""
@@ -2357,7 +2366,7 @@
     },
     "topology": {
       "hit_rate": 1.0,
-      "mrr": 0.8666666666666667,
+      "mrr": 0.9055555555555556,
       "queries": [
         {
           "query_id": "Q-001",
@@ -2496,8 +2505,8 @@
           ],
           "top_nodes": [
             "N_ORCHESTRATOR_CONTRACT",
-            "N_SESSION_CHECKPOINT",
-            "N_PROMPT_SC0001"
+            "N_PLAN_TODO",
+            "N_SESSION_CHECKPOINT"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -2547,12 +2556,12 @@
             "N_EVAL_MODULE"
           ],
           "top_nodes": [
+            "N_EVAL_MODULE",
             "N_PROMPT_SC0001",
-            "N_RUNTIME_MODULE",
-            "N_EVAL_MODULE"
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": true,
-          "reciprocal_rank": 0.3333333333333333
+          "reciprocal_rank": 1.0
         },
         {
           "query_id": "Q-016",
@@ -2562,7 +2571,7 @@
           "top_nodes": [
             "N_PROVISIONAL_VALIDATION",
             "N_FRONTIER_20260427",
-            "N_TODO_TOPMEM"
+            "N_PLAN_TODO"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -2614,7 +2623,7 @@
           "top_nodes": [
             "N_SESSION_CHECKPOINT",
             "N_ORCHESTRATOR_CONTRACT",
-            "N_FRONTIER_20260427"
+            "N_SCRIPT_ORCH_AUTOSPAWN"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -2626,8 +2635,8 @@
           ],
           "top_nodes": [
             "N_PROVISIONAL_VALIDATION",
-            "N_TODO_TOPMEM",
-            "N_EVAL_MODULE"
+            "N_EVAL_MODULE",
+            "N_TODO_TOPMEM"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -2640,7 +2649,7 @@
           "top_nodes": [
             "N_TODO_TOPMEM",
             "N_PROVISIONAL_VALIDATION",
-            "N_FRONTIER_20260427"
+            "N_EVAL_MODULE"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -2677,12 +2686,12 @@
             "N_PROMPT_SC0001"
           ],
           "top_nodes": [
-            "N_PROVISIONAL_VALIDATION",
             "N_PROMPT_SC0001",
-            "N_RUNTIME_MODULE"
+            "N_EVAL_MODULE",
+            "N_RUNTIME_ADOPTION"
           ],
           "hit": true,
-          "reciprocal_rank": 0.5
+          "reciprocal_rank": 1.0
         },
         {
           "query_id": "Q-026",
@@ -2704,8 +2713,8 @@
           ],
           "top_nodes": [
             "N_RUNTIME_MODULE",
-            "N_PROMPT_SC0001",
-            "N_RUNTIME_ADOPTION"
+            "N_EVAL_MODULE",
+            "N_PROMPT_SC0001"
           ],
           "hit": true,
           "reciprocal_rank": 1.0
@@ -2830,8 +2839,8 @@
         "Q-003": [
           {
             "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.7833955285714285,
-            "reason": "topology=1.059, lexical=0.670, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.7806002344537816,
+            "reason": "topology=1.054, lexical=0.670, trace=0.000, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION"
             ],
@@ -2840,8 +2849,8 @@
           },
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.7108767177523809,
-            "reason": "topology=0.943, lexical=0.442, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.7042100510857143,
+            "reason": "topology=0.935, lexical=0.434, trace=0.400, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION",
               "N_PROMPT_SC0001"
@@ -2853,8 +2862,8 @@
           },
           {
             "node_id": "N_ARCHIVE_TOPMEM",
-            "score": 0.46267489428571434,
-            "reason": "topology=0.779, lexical=0.115, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.46086354369747906,
+            "reason": "topology=0.775, lexical=0.115, trace=0.000, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION",
               "N_ARCHIVE_TOPMEM"
@@ -2868,8 +2877,8 @@
         "Q-004": [
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.4316169568,
-            "reason": "topology=0.457, lexical=0.400, trace=0.400, anchor=N_PROMPT_SC0001",
+            "score": 0.4347134698039216,
+            "reason": "topology=0.467, lexical=0.392, trace=0.400, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001"
             ],
@@ -2878,8 +2887,8 @@
           },
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.23968853623475633,
-            "reason": "topology=0.174, lexical=0.100, trace=0.760, anchor=N_PROMPT_SC0001",
+            "score": 0.3205582086425995,
+            "reason": "topology=0.269, lexical=0.196, trace=0.760, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001",
               "N_RUNTIME_MODULE",
@@ -2895,8 +2904,8 @@
           },
           {
             "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.23877872890880003,
-            "reason": "topology=0.189, lexical=0.000, trace=0.900, anchor=N_PROMPT_SC0001",
+            "score": 0.24713109993411764,
+            "reason": "topology=0.204, lexical=0.000, trace=0.900, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001",
               "N_EVAL_MODULE",
@@ -2977,8 +2986,8 @@
           },
           {
             "node_id": "N_EVAL_MODULE",
-            "score": 0.3708166666666667,
-            "reason": "topology=0.570, lexical=0.192, trace=0.000, anchor=N_TODO_TOPMEM",
+            "score": 0.4458166666666667,
+            "reason": "topology=0.570, lexical=0.192, trace=0.500, anchor=N_TODO_TOPMEM",
             "path_nodes": [
               "N_TODO_TOPMEM",
               "N_EVAL_MODULE"
@@ -3005,8 +3014,8 @@
           },
           {
             "node_id": "N_CONCEPT_SC0004",
-            "score": 0.30828814935064935,
-            "reason": "topology=0.419, lexical=0.260, trace=0.000, anchor=N_CONCEPT_SC0004",
+            "score": 0.3261662369297122,
+            "reason": "topology=0.451, lexical=0.260, trace=0.000, anchor=N_CONCEPT_SC0004",
             "path_nodes": [
               "N_CONCEPT_SC0004"
             ],
@@ -3015,8 +3024,8 @@
           },
           {
             "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.2776426714285714,
-            "reason": "topology=0.259, lexical=0.000, trace=0.900, anchor=N_CONCEPT_SC0004",
+            "score": 0.3065155518857143,
+            "reason": "topology=0.312, lexical=0.000, trace=0.900, anchor=N_CONCEPT_SC0004",
             "path_nodes": [
               "N_CONCEPT_SC0004",
               "N_PROVISIONAL_VALIDATION"
@@ -3055,8 +3064,8 @@
           },
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.31288847303475636,
-            "reason": "topology=0.301, lexical=0.110, trace=0.760, anchor=N_YGG_ARCH",
+            "score": 0.3123002377406387,
+            "reason": "topology=0.301, lexical=0.108, trace=0.760, anchor=N_YGG_ARCH",
             "path_nodes": [
               "N_YGG_ARCH",
               "N_SESSION_CHECKPOINT"
@@ -3070,8 +3079,8 @@
         "Q-009": [
           {
             "node_id": "N_RUNTIME_MODULE",
-            "score": 0.6197995885714287,
-            "reason": "topology=0.784, lexical=0.429, trace=0.400, anchor=N_PROMPT_SC0001",
+            "score": 0.6184330003361345,
+            "reason": "topology=0.782, lexical=0.429, trace=0.400, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001",
               "N_RUNTIME_MODULE"
@@ -3083,8 +3092,8 @@
           },
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.602924761904762,
-            "reason": "topology=0.833, lexical=0.283, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.5995914285714286,
+            "reason": "topology=0.829, lexical=0.279, trace=0.400, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION",
               "N_PROMPT_SC0001"
@@ -3096,8 +3105,8 @@
           },
           {
             "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.5620435885714286,
-            "reason": "topology=0.788, lexical=0.429, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.560645941512605,
+            "reason": "topology=0.786, lexical=0.429, trace=0.000, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION"
             ],
@@ -3108,8 +3117,8 @@
         "Q-010": [
           {
             "node_id": "N_EVAL_MODULE",
-            "score": 0.6149538499488723,
-            "reason": "topology=0.770, lexical=0.637, trace=0.000, anchor=N_EVAL_MODULE",
+            "score": 0.6899538499488722,
+            "reason": "topology=0.770, lexical=0.637, trace=0.500, anchor=N_EVAL_MODULE",
             "path_nodes": [
               "N_EVAL_MODULE"
             ],
@@ -3148,8 +3157,8 @@
         "Q-011": [
           {
             "node_id": "N_ORCHESTRATOR_CONTRACT",
-            "score": 0.4916200337744361,
-            "reason": "topology=0.602, lexical=0.535, trace=0.000, anchor=N_ORCHESTRATOR_CONTRACT",
+            "score": 0.5099080846928361,
+            "reason": "topology=0.636, lexical=0.535, trace=0.000, anchor=N_ORCHESTRATOR_CONTRACT",
             "path_nodes": [
               "N_ORCHESTRATOR_CONTRACT"
             ],
@@ -3157,9 +3166,26 @@
             "path_summary": "N_ORCHESTRATOR_CONTRACT"
           },
           {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.3643904438736842,
+            "reason": "topology=0.342, lexical=0.212, trace=0.750, anchor=N_ORCHESTRATOR_CONTRACT",
+            "path_nodes": [
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_SCRIPT_ORCH_AUTOSPAWN",
+              "N_SCRIPT_AUTOMATION_ORCH",
+              "N_PLAN_TODO"
+            ],
+            "path_edges": [
+              "E_CONTRACT_AUTOSPAWN",
+              "E_ORCH_AUTOSPAWN",
+              "E_PLAN_TODO_ORCH"
+            ],
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[dispatched_via:E_CONTRACT_AUTOSPAWN] --> N_SCRIPT_ORCH_AUTOSPAWN --[dispatched_by:E_ORCH_AUTOSPAWN] <-- N_SCRIPT_AUTOMATION_ORCH --[scanned_by:E_PLAN_TODO_ORCH] <-- N_PLAN_TODO"
+          },
+          {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.32452265271896685,
-            "reason": "topology=0.322, lexical=0.110, trace=0.760, anchor=N_ORCHESTRATOR_CONTRACT",
+            "score": 0.3053368174248492,
+            "reason": "topology=0.289, lexical=0.108, trace=0.760, anchor=N_ORCHESTRATOR_CONTRACT",
             "path_nodes": [
               "N_ORCHESTRATOR_CONTRACT",
               "N_SESSION_CHECKPOINT"
@@ -3168,28 +3194,13 @@
               "E_ORCH_CHECKPOINT"
             ],
             "path_summary": "N_ORCHESTRATOR_CONTRACT --[attaches_resume:E_ORCH_CHECKPOINT] --> N_SESSION_CHECKPOINT"
-          },
-          {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.29166745035488717,
-            "reason": "topology=0.361, lexical=0.110, trace=0.400, anchor=N_ORCHESTRATOR_CONTRACT",
-            "path_nodes": [
-              "N_ORCHESTRATOR_CONTRACT",
-              "N_RUNTIME_MODULE",
-              "N_PROMPT_SC0001"
-            ],
-            "path_edges": [
-              "E_RUNTIME_ORCH",
-              "E_PROMPT_RUNTIME"
-            ],
-            "path_summary": "N_ORCHESTRATOR_CONTRACT --[feeds_contract:E_RUNTIME_ORCH] <-- N_RUNTIME_MODULE --[targets:E_PROMPT_RUNTIME] <-- N_PROMPT_SC0001"
           }
         ],
         "Q-012": [
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.2854790023680897,
-            "reason": "topology=0.212, lexical=0.183, trace=0.760, anchor=N_SESSION_CHECKPOINT",
+            "score": 0.2821456690347564,
+            "reason": "topology=0.208, lexical=0.179, trace=0.760, anchor=N_SESSION_CHECKPOINT",
             "path_nodes": [
               "N_SESSION_CHECKPOINT"
             ],
@@ -3198,7 +3209,7 @@
           },
           {
             "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.24229759438628573,
+            "score": 0.2419098848559328,
             "reason": "topology=0.144, lexical=0.093, trace=0.900, anchor=N_CONCEPT_SC0004",
             "path_nodes": [
               "N_CONCEPT_SC0004",
@@ -3211,8 +3222,8 @@
           },
           {
             "node_id": "N_FRONTIER_20260427",
-            "score": 0.18813535625142858,
-            "reason": "topology=0.151, lexical=0.000, trace=0.700, anchor=N_CONCEPT_SC0004",
+            "score": 0.18772961371966385,
+            "reason": "topology=0.150, lexical=0.000, trace=0.700, anchor=N_CONCEPT_SC0004",
             "path_nodes": [
               "N_CONCEPT_SC0004",
               "N_FRONTIER_20260427"
@@ -3226,8 +3237,8 @@
         "Q-013": [
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.38093369805963634,
-            "reason": "topology=0.445, lexical=0.255, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.37593369805963633,
+            "reason": "topology=0.439, lexical=0.249, trace=0.400, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION",
               "N_PROMPT_SC0001"
@@ -3239,8 +3250,8 @@
           },
           {
             "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.32310668143792204,
-            "reason": "topology=0.447, lexical=0.258, trace=0.000, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.3210102108496868,
+            "reason": "topology=0.443, lexical=0.258, trace=0.000, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION"
             ],
@@ -3249,8 +3260,8 @@
           },
           {
             "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.28430465026643115,
-            "reason": "topology=0.225, lexical=0.086, trace=0.900, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.2834447659151841,
+            "reason": "topology=0.223, lexical=0.086, trace=0.900, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION",
               "N_ARCHIVE_TOPMEM",
@@ -3268,8 +3279,8 @@
         "Q-014": [
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.5349318095238095,
-            "reason": "topology=0.664, lexical=0.367, trace=0.400, anchor=N_PROMPT_SC0001",
+            "score": 0.5282651428571429,
+            "reason": "topology=0.656, lexical=0.359, trace=0.400, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001"
             ],
@@ -3278,8 +3289,8 @@
           },
           {
             "node_id": "N_RUNTIME_MODULE",
-            "score": 0.46649879314285714,
-            "reason": "topology=0.587, lexical=0.279, trace=0.400, anchor=N_PROMPT_SC0001",
+            "score": 0.4637656166722689,
+            "reason": "topology=0.582, lexical=0.279, trace=0.400, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001",
               "N_RUNTIME_MODULE"
@@ -3291,8 +3302,8 @@
           },
           {
             "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.35144276114285716,
-            "reason": "topology=0.538, lexical=0.186, trace=0.000, anchor=N_PROMPT_SC0001",
+            "score": 0.3486474670252101,
+            "reason": "topology=0.533, lexical=0.186, trace=0.000, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001",
               "N_RUNTIME_ADOPTION"
@@ -3305,32 +3316,9 @@
         ],
         "Q-015": [
           {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.33053685714285713,
-            "reason": "topology=0.383, lexical=0.200, trace=0.400, anchor=N_PROMPT_SC0001",
-            "path_nodes": [
-              "N_PROMPT_SC0001"
-            ],
-            "path_edges": [],
-            "path_summary": "N_PROMPT_SC0001"
-          },
-          {
-            "node_id": "N_RUNTIME_MODULE",
-            "score": 0.2570655111619048,
-            "reason": "topology=0.303, lexical=0.101, trace=0.400, anchor=N_PROMPT_SC0001",
-            "path_nodes": [
-              "N_PROMPT_SC0001",
-              "N_RUNTIME_MODULE"
-            ],
-            "path_edges": [
-              "E_PROMPT_RUNTIME"
-            ],
-            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
-          },
-          {
             "node_id": "N_EVAL_MODULE",
-            "score": 0.25286342780952387,
-            "reason": "topology=0.355, lexical=0.192, trace=0.000, anchor=N_PROMPT_SC0001",
+            "score": 0.33161498228347336,
+            "reason": "topology=0.362, lexical=0.192, trace=0.500, anchor=N_PROMPT_SC0001",
             "path_nodes": [
               "N_PROMPT_SC0001",
               "N_EVAL_MODULE"
@@ -3339,6 +3327,33 @@
               "E_PROMPT_EVAL"
             ],
             "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_EVAL] --> N_EVAL_MODULE"
+          },
+          {
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.31310276184380953,
+            "reason": "topology=0.353, lexical=0.196, trace=0.400, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PROMPT_SC0001"
+          },
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.24827937820593837,
+            "reason": "topology=0.279, lexical=0.190, trace=0.250, anchor=N_EVAL_MODULE",
+            "path_nodes": [
+              "N_EVAL_MODULE",
+              "N_TODO_TOPMEM",
+              "N_SCRIPT_AUTOMATION_ORCH",
+              "N_SCRIPT_ORCH_AUTOSPAWN"
+            ],
+            "path_edges": [
+              "E_TODO_BENCH",
+              "E_TODO_ORCH",
+              "E_ORCH_AUTOSPAWN"
+            ],
+            "path_summary": "N_EVAL_MODULE --[validated_by:E_TODO_BENCH] <-- N_TODO_TOPMEM --[scanned_by:E_TODO_ORCH] --> N_SCRIPT_AUTOMATION_ORCH --[dispatched_by:E_ORCH_AUTOSPAWN] --> N_SCRIPT_ORCH_AUTOSPAWN"
           }
         ],
         "Q-016": [
@@ -3368,17 +3383,17 @@
             "path_summary": "N_PROVISIONAL_VALIDATION --[promotes:E_VALIDATION_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
           },
           {
-            "node_id": "N_TODO_TOPMEM",
-            "score": 0.25347496913320633,
-            "reason": "topology=0.355, lexical=0.194, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
+            "node_id": "N_PLAN_TODO",
+            "score": 0.2609296982857143,
+            "reason": "topology=0.218, lexical=0.096, trace=0.750, anchor=N_TODO_TOPMEM",
             "path_nodes": [
-              "N_PROVISIONAL_VALIDATION",
-              "N_TODO_TOPMEM"
+              "N_TODO_TOPMEM",
+              "N_PLAN_TODO"
             ],
             "path_edges": [
-              "E_TODO_VALIDATION"
+              "E_PLAN_TODO_SECTION"
             ],
-            "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM"
+            "path_summary": "N_TODO_TOPMEM --[contains_section:E_PLAN_TODO_SECTION] <-- N_PLAN_TODO"
           }
         ],
         "Q-017": [
@@ -3485,8 +3500,8 @@
           },
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.37134913984962403,
-            "reason": "topology=0.457, lexical=0.200, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.37017266926138875,
+            "reason": "topology=0.457, lexical=0.196, trace=0.400, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION",
               "N_PROMPT_SC0001"
@@ -3500,41 +3515,39 @@
         "Q-020": [
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.30233678517510726,
-            "reason": "topology=0.282, lexical=0.110, trace=0.760, anchor=N_ORCHESTRATOR_CONTRACT",
+            "score": 0.491160489937012,
+            "reason": "topology=0.508, lexical=0.325, trace=0.760, anchor=N_SESSION_CHECKPOINT",
             "path_nodes": [
-              "N_ORCHESTRATOR_CONTRACT",
               "N_SESSION_CHECKPOINT"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SESSION_CHECKPOINT"
+          },
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.34699404080053076,
+            "reason": "topology=0.514, lexical=0.214, trace=0.000, anchor=N_SESSION_CHECKPOINT",
+            "path_nodes": [
+              "N_SESSION_CHECKPOINT",
+              "N_ORCHESTRATOR_CONTRACT"
             ],
             "path_edges": [
               "E_ORCH_CHECKPOINT"
             ],
-            "path_summary": "N_ORCHESTRATOR_CONTRACT --[attaches_resume:E_ORCH_CHECKPOINT] --> N_SESSION_CHECKPOINT"
+            "path_summary": "N_SESSION_CHECKPOINT --[attaches_resume:E_ORCH_CHECKPOINT] <-- N_ORCHESTRATOR_CONTRACT"
           },
           {
-            "node_id": "N_ORCHESTRATOR_CONTRACT",
-            "score": 0.23124342105263157,
-            "reason": "topology=0.304, lexical=0.214, trace=0.000, anchor=N_ORCHESTRATOR_CONTRACT",
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.3435961848665782,
+            "reason": "topology=0.441, lexical=0.211, trace=0.250, anchor=N_ORCHESTRATOR_CONTRACT",
             "path_nodes": [
-              "N_ORCHESTRATOR_CONTRACT"
-            ],
-            "path_edges": [],
-            "path_summary": "N_ORCHESTRATOR_CONTRACT"
-          },
-          {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.17214811673142855,
-            "reason": "topology=0.062, lexical=0.109, trace=0.700, anchor=N_YGG_ARCH",
-            "path_nodes": [
-              "N_YGG_ARCH",
-              "N_CONCEPT_SC0004",
-              "N_FRONTIER_20260427"
+              "N_ORCHESTRATOR_CONTRACT",
+              "N_SCRIPT_ORCH_AUTOSPAWN"
             ],
             "path_edges": [
-              "E_YGG_CONCEPT",
-              "E_FRONTIER_CONCEPT"
+              "E_CONTRACT_AUTOSPAWN"
             ],
-            "path_summary": "N_YGG_ARCH --[governs:E_YGG_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+            "path_summary": "N_ORCHESTRATOR_CONTRACT --[dispatched_via:E_CONTRACT_AUTOSPAWN] --> N_SCRIPT_ORCH_AUTOSPAWN"
           }
         ],
         "Q-021": [
@@ -3549,6 +3562,21 @@
             "path_summary": "N_PROVISIONAL_VALIDATION"
           },
           {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.3788836152380953,
+            "reason": "topology=0.448, lexical=0.192, trace=0.500, anchor=N_PROVISIONAL_VALIDATION",
+            "path_nodes": [
+              "N_PROVISIONAL_VALIDATION",
+              "N_TODO_TOPMEM",
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION",
+              "E_TODO_BENCH"
+            ],
+            "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM --[validated_by:E_TODO_BENCH] --> N_EVAL_MODULE"
+          },
+          {
             "node_id": "N_TODO_TOPMEM",
             "score": 0.3441849206349207,
             "reason": "topology=0.520, lexical=0.194, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
@@ -3560,21 +3588,6 @@
               "E_TODO_VALIDATION"
             ],
             "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM"
-          },
-          {
-            "node_id": "N_EVAL_MODULE",
-            "score": 0.30388361523809526,
-            "reason": "topology=0.448, lexical=0.192, trace=0.000, anchor=N_PROVISIONAL_VALIDATION",
-            "path_nodes": [
-              "N_PROVISIONAL_VALIDATION",
-              "N_TODO_TOPMEM",
-              "N_EVAL_MODULE"
-            ],
-            "path_edges": [
-              "E_TODO_VALIDATION",
-              "E_TODO_BENCH"
-            ],
-            "path_summary": "N_PROVISIONAL_VALIDATION --[summarized_by:E_TODO_VALIDATION] <-- N_TODO_TOPMEM --[validated_by:E_TODO_BENCH] --> N_EVAL_MODULE"
           }
         ],
         "Q-022": [
@@ -3602,21 +3615,17 @@
             "path_summary": "N_TODO_TOPMEM --[summarized_by:E_TODO_VALIDATION] --> N_PROVISIONAL_VALIDATION"
           },
           {
-            "node_id": "N_FRONTIER_20260427",
-            "score": 0.24596249322133334,
-            "reason": "topology=0.202, lexical=0.099, trace=0.700, anchor=N_TODO_TOPMEM",
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.29505833333333337,
+            "reason": "topology=0.348, lexical=0.096, trace=0.500, anchor=N_TODO_TOPMEM",
             "path_nodes": [
               "N_TODO_TOPMEM",
-              "N_PROVISIONAL_VALIDATION",
-              "N_CONCEPT_SC0004",
-              "N_FRONTIER_20260427"
+              "N_EVAL_MODULE"
             ],
             "path_edges": [
-              "E_TODO_VALIDATION",
-              "E_VALIDATION_CONCEPT",
-              "E_FRONTIER_CONCEPT"
+              "E_TODO_BENCH"
             ],
-            "path_summary": "N_TODO_TOPMEM --[summarized_by:E_TODO_VALIDATION] --> N_PROVISIONAL_VALIDATION --[promotes:E_VALIDATION_CONCEPT] --> N_CONCEPT_SC0004 --[activates:E_FRONTIER_CONCEPT] <-- N_FRONTIER_20260427"
+            "path_summary": "N_TODO_TOPMEM --[validated_by:E_TODO_BENCH] --> N_EVAL_MODULE"
           }
         ],
         "Q-023": [
@@ -3660,8 +3669,8 @@
         "Q-024": [
           {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.3502425714285714,
-            "reason": "topology=0.419, lexical=0.200, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "score": 0.3469092380952381,
+            "reason": "topology=0.415, lexical=0.196, trace=0.400, anchor=N_RUNTIME_ADOPTION",
             "path_nodes": [
               "N_RUNTIME_ADOPTION",
               "N_PROMPT_SC0001"
@@ -3673,8 +3682,8 @@
           },
           {
             "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.31755380952380957,
-            "reason": "topology=0.467, lexical=0.202, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
+            "score": 0.316156162464986,
+            "reason": "topology=0.464, lexical=0.202, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
             "path_nodes": [
               "N_ARCHIVE_TOPMEM",
               "N_RUNTIME_ADOPTION"
@@ -3686,8 +3695,8 @@
           },
           {
             "node_id": "N_ARCHIVE_TOPMEM",
-            "score": 0.29540134476190477,
-            "reason": "topology=0.423, lexical=0.208, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
+            "score": 0.29449566946778716,
+            "reason": "topology=0.422, lexical=0.208, trace=0.000, anchor=N_ARCHIVE_TOPMEM",
             "path_nodes": [
               "N_ARCHIVE_TOPMEM"
             ],
@@ -3697,52 +3706,47 @@
         ],
         "Q-025": [
           {
-            "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.19151427342857144,
-            "reason": "topology=0.103, lexical=0.000, trace=0.900, anchor=N_CONCEPT_SC0004",
+            "node_id": "N_PROMPT_SC0001",
+            "score": 0.3947389541142857,
+            "reason": "topology=0.431, lexical=0.325, trace=0.400, anchor=N_PROMPT_SC0001",
             "path_nodes": [
-              "N_CONCEPT_SC0004",
-              "N_PROVISIONAL_VALIDATION"
+              "N_PROMPT_SC0001"
             ],
-            "path_edges": [
-              "E_VALIDATION_CONCEPT"
-            ],
-            "path_summary": "N_CONCEPT_SC0004 --[promotes:E_VALIDATION_CONCEPT] <-- N_PROVISIONAL_VALIDATION"
+            "path_edges": [],
+            "path_summary": "N_PROMPT_SC0001"
           },
           {
-            "node_id": "N_PROMPT_SC0001",
-            "score": 0.19019431125714287,
-            "reason": "topology=0.176, lexical=0.110, trace=0.400, anchor=N_RUNTIME_ADOPTION",
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.2593386788926387,
+            "reason": "topology=0.277, lexical=0.106, trace=0.500, anchor=N_PROMPT_SC0001",
             "path_nodes": [
-              "N_RUNTIME_ADOPTION",
-              "N_PROMPT_SC0001"
+              "N_PROMPT_SC0001",
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_EVAL"
+            ],
+            "path_summary": "N_PROMPT_SC0001 --[targets:E_PROMPT_EVAL] --> N_EVAL_MODULE"
+          },
+          {
+            "node_id": "N_RUNTIME_ADOPTION",
+            "score": 0.23922165084033614,
+            "reason": "topology=0.374, lexical=0.112, trace=0.000, anchor=N_PROMPT_SC0001",
+            "path_nodes": [
+              "N_PROMPT_SC0001",
+              "N_RUNTIME_ADOPTION"
             ],
             "path_edges": [
               "E_ADOPTION_PROMPT"
             ],
-            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001"
-          },
-          {
-            "node_id": "N_RUNTIME_MODULE",
-            "score": 0.18006864285714286,
-            "reason": "topology=0.157, lexical=0.112, trace=0.400, anchor=N_RUNTIME_ADOPTION",
-            "path_nodes": [
-              "N_RUNTIME_ADOPTION",
-              "N_PROMPT_SC0001",
-              "N_RUNTIME_MODULE"
-            ],
-            "path_edges": [
-              "E_ADOPTION_PROMPT",
-              "E_PROMPT_RUNTIME"
-            ],
-            "path_summary": "N_RUNTIME_ADOPTION --[implemented_by:E_ADOPTION_PROMPT] --> N_PROMPT_SC0001 --[targets:E_PROMPT_RUNTIME] --> N_RUNTIME_MODULE"
+            "path_summary": "N_PROMPT_SC0001 --[implemented_by:E_ADOPTION_PROMPT] <-- N_RUNTIME_ADOPTION"
           }
         ],
         "Q-026": [
           {
             "node_id": "N_EVAL_MODULE",
-            "score": 0.4477755773401503,
-            "reason": "topology=0.553, lexical=0.479, trace=0.000, anchor=N_EVAL_MODULE",
+            "score": 0.5227755773401502,
+            "reason": "topology=0.553, lexical=0.479, trace=0.500, anchor=N_EVAL_MODULE",
             "path_nodes": [
               "N_EVAL_MODULE"
             ],
@@ -3790,9 +3794,24 @@
             "path_summary": "N_RUNTIME_MODULE"
           },
           {
+            "node_id": "N_EVAL_MODULE",
+            "score": 0.37713194285714285,
+            "reason": "topology=0.433, lexical=0.212, trace=0.500, anchor=N_RUNTIME_MODULE",
+            "path_nodes": [
+              "N_RUNTIME_MODULE",
+              "N_PROMPT_SC0001",
+              "N_EVAL_MODULE"
+            ],
+            "path_edges": [
+              "E_PROMPT_RUNTIME",
+              "E_PROMPT_EVAL"
+            ],
+            "path_summary": "N_RUNTIME_MODULE --[targets:E_PROMPT_RUNTIME] <-- N_PROMPT_SC0001 --[targets:E_PROMPT_EVAL] --> N_EVAL_MODULE"
+          },
+          {
             "node_id": "N_PROMPT_SC0001",
-            "score": 0.3617261428571429,
-            "reason": "topology=0.488, lexical=0.110, trace=0.400, anchor=N_RUNTIME_MODULE",
+            "score": 0.3611379075630252,
+            "reason": "topology=0.488, lexical=0.108, trace=0.400, anchor=N_RUNTIME_MODULE",
             "path_nodes": [
               "N_RUNTIME_MODULE",
               "N_PROMPT_SC0001"
@@ -3801,21 +3820,6 @@
               "E_PROMPT_RUNTIME"
             ],
             "path_summary": "N_RUNTIME_MODULE --[targets:E_PROMPT_RUNTIME] <-- N_PROMPT_SC0001"
-          },
-          {
-            "node_id": "N_RUNTIME_ADOPTION",
-            "score": 0.31223496914285714,
-            "reason": "topology=0.446, lexical=0.223, trace=0.000, anchor=N_RUNTIME_MODULE",
-            "path_nodes": [
-              "N_RUNTIME_MODULE",
-              "N_PROMPT_SC0001",
-              "N_RUNTIME_ADOPTION"
-            ],
-            "path_edges": [
-              "E_PROMPT_RUNTIME",
-              "E_ADOPTION_PROMPT"
-            ],
-            "path_summary": "N_RUNTIME_MODULE --[targets:E_PROMPT_RUNTIME] <-- N_PROMPT_SC0001 --[implemented_by:E_ADOPTION_PROMPT] <-- N_RUNTIME_ADOPTION"
           }
         ],
         "Q-028": [
@@ -3859,8 +3863,8 @@
         "Q-029": [
           {
             "node_id": "N_SESSION_CHECKPOINT",
-            "score": 0.5673525170347563,
-            "reason": "topology=0.551, lexical=0.500, trace=0.760, anchor=N_SESSION_CHECKPOINT",
+            "score": 0.559019183701423,
+            "reason": "topology=0.542, lexical=0.490, trace=0.760, anchor=N_SESSION_CHECKPOINT",
             "path_nodes": [
               "N_SESSION_CHECKPOINT"
             ],
@@ -3869,8 +3873,8 @@
           },
           {
             "node_id": "N_FRONTIER_20260427",
-            "score": 0.2496131728,
-            "reason": "topology=0.209, lexical=0.099, trace=0.700, anchor=N_SESSION_CHECKPOINT",
+            "score": 0.24859881647058824,
+            "reason": "topology=0.207, lexical=0.099, trace=0.700, anchor=N_SESSION_CHECKPOINT",
             "path_nodes": [
               "N_SESSION_CHECKPOINT",
               "N_YGG_ARCH",
@@ -3886,8 +3890,8 @@
           },
           {
             "node_id": "N_PROVISIONAL_VALIDATION",
-            "score": 0.24481786512,
-            "reason": "topology=0.200, lexical=0.000, trace=0.900, anchor=N_SESSION_CHECKPOINT",
+            "score": 0.24384859129411762,
+            "reason": "topology=0.198, lexical=0.000, trace=0.900, anchor=N_SESSION_CHECKPOINT",
             "path_nodes": [
               "N_SESSION_CHECKPOINT",
               "N_YGG_ARCH",
