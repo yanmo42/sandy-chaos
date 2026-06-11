@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yanmo42/sandy-chaos/schemas/tempo_point_v0.schema.json",
+  "title": "TempoPoint",
+  "description": "A windowed aggregate emitted by the Sandy Chaos telemetry edge. See docs/23_self_referential_tempo_edge.md and docs/24_tempo_edge_redaction_policy.md. Raw input events MUST NOT appear here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ts",
+    "session_id",
+    "source",
+    "window_ms",
+    "point_kind",
+    "aggregates",
+    "redaction_version"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "tempo_point/v0",
+      "description": "Frozen wire format tag. Bump to v1 if any field is added or semantics change."
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp marking the END of the aggregation window."
+    },
+    "session_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{8,64}$",
+      "description": "Opaque per-session token (e.g. UUIDv4). MUST NOT encode operator identity."
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "game:sc2",
+        "game:arc-raiders",
+        "game:fortnite",
+        "game:league",
+        "game:cyberpunk",
+        "game:other",
+        "input:keyboard",
+        "input:mouse",
+        "mixed"
+      ],
+      "description": "Taxonomy tag for the upstream surface. 'mixed' is only valid when aggregates combine input and game-state."
+    },
+    "window_ms": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 600000,
+      "description": "Length of the aggregation window in milliseconds. Cap is 10 minutes to prevent unbounded windows from being smuggled in."
+    },
+    "point_kind": {
+      "type": "string",
+      "enum": [
+        "apm_window",
+        "interval_cluster",
+        "decision_flag",
+        "game_state_delta"
+      ],
+      "description": "Discriminator for the aggregates payload."
+    },
+    "aggregates": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Numeric and categorical aggregates only. No verbatim input strings.",
+      "properties": {
+        "event_count": { "type": "integer", "minimum": 0 },
+        "key_count": { "type": "integer", "minimum": 0 },
+        "click_count": { "type": "integer", "minimum": 0 },
+        "decision_count": { "type": "integer", "minimum": 0 },
+        "apm": { "type": "number", "minimum": 0 },
+        "click_rate_hz": { "type": "number", "minimum": 0 },
+        "decision_rate_hz": { "type": "number", "minimum": 0 },
+        "inter_event_interval_ms_mean": { "type": "number", "minimum": 0 },
+        "inter_event_interval_ms_p50": { "type": "number", "minimum": 0 },
+        "inter_event_interval_ms_p95": { "type": "number", "minimum": 0 },
+        "inter_event_interval_ms_max": { "type": "number", "minimum": 0 },
+        "modal_key_class": {
+          "type": "string",
+          "enum": ["movement", "hotkey", "modifier", "mouse_primary", "mouse_secondary", "mixed", "none"],
+          "description": "Categorical class only. Never the literal key."
+        },
+        "modal_action_class": {
+          "type": "string",
+          "enum": ["macro", "micro", "control_group", "camera", "build_order", "engagement", "retreat", "idle", "mixed", "none"],
+          "description": "Categorical class only. Never a free-text label."
+        },
+        "game_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Numeric/categorical game-state structural facts. No chat, no opponent handles, no free text.",
+          "properties": {
+            "unit_count_delta": { "type": "integer" },
+            "supply_delta": { "type": "integer" },
+            "resource_delta_primary": { "type": "integer" },
+            "resource_delta_secondary": { "type": "integer" },
+            "score_delta": { "type": "integer" },
+            "phase": {
+              "type": "string",
+              "enum": ["opening", "early", "mid", "late", "endgame", "unknown"]
+            },
+            "engagement_flag": { "type": "boolean" }
+          }
+        },
+        "decision_flag_kind": {
+          "type": "string",
+          "enum": ["build_order_change", "engagement_initiated", "engagement_disengaged", "expansion", "tech_switch", "scout_dispatch", "other"],
+          "description": "Structural marker for what category of decision the window contained. Never describes the decision's content beyond category."
+        }
+      }
+    },
+    "redaction_version": {
+      "type": "string",
+      "const": "redaction-policy-v0",
+      "description": "Active redaction policy version at emit time. See docs/24."
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 240,
+      "description": "Optional short structural note. MUST NOT include operator-typed text, chat, key sequences, or identifiers. Reviewers should reject any note that contains verbatim user input."
+    }
+  },
+  "not": {
+    "anyOf": [
+      { "required": ["raw_keys"] },
+      { "required": ["raw_events"] },
+      { "required": ["raw_input"] },
+      { "required": ["key_sequence"] },
+      { "required": ["key_events"] },
+      { "required": ["keystroke_log"] },
+      { "required": ["text"] },
+      { "required": ["chat"] },
+      { "required": ["message_log"] },
+      { "required": ["transcript"] },
+      { "required": ["username"] },
+      { "required": ["operator_name"] },
+      { "required": ["account_id"] },
+      { "required": ["handle"] },
+      { "required": ["ip_address"] },
+      { "required": ["hostname"] }
+    ]
+  }
+}

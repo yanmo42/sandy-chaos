@@ -1,0 +1,19 @@
+{
+  "name": "@sandy-chaos/telemetry-edge",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Self-referential tempo edge for the Sandy Chaos research engine. Emits tempo_point_v0 records to the Python core. No raw input ever crosses the seam. See ../docs/23 and ../docs/24.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.ts",
+    "emit-sample": "node bin/emit-sample.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

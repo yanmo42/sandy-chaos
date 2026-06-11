@@ -1,0 +1,284 @@
+{
+  "workflow_consumer": "scripts/automation_orchestrator.py task preparation for continuity-lane tasks",
+  "query_count": 3,
+  "topology_hit_rate": 1.0,
+  "flat_hit_rate": 1.0,
+  "topology_only_hits": [],
+  "flat_only_hits": [],
+  "rows": [
+    {
+      "id": "WQ-001",
+      "question": "What script builds lane-aware task contracts from TODO surfaces?",
+      "expected_nodes": [
+        "N_SCRIPT_AUTOMATION_ORCH"
+      ],
+      "topology": {
+        "mode_used": "topology",
+        "hit": true,
+        "matched_nodes": [
+          "N_SCRIPT_AUTOMATION_ORCH"
+        ],
+        "first_match_rank": 1,
+        "top_node": "N_SCRIPT_AUTOMATION_ORCH",
+        "trace": [
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.7682255411255412,
+            "reason": "topology=0.967, lexical=0.663, trace=0.250, anchor=N_SCRIPT_AUTOMATION_ORCH",
+            "path_nodes": [
+              "N_SCRIPT_AUTOMATION_ORCH"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_AUTOMATION_ORCH"
+          },
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.5590187428571428,
+            "reason": "topology=0.792, lexical=0.286, trace=0.250, anchor=N_SCRIPT_AUTOMATION_ORCH",
+            "path_nodes": [
+              "N_SCRIPT_AUTOMATION_ORCH",
+              "N_SCRIPT_ORCH_AUTOSPAWN"
+            ],
+            "path_edges": [
+              "E_ORCH_AUTOSPAWN"
+            ],
+            "path_summary": "N_SCRIPT_AUTOMATION_ORCH --[dispatched_by:E_ORCH_AUTOSPAWN] --> N_SCRIPT_ORCH_AUTOSPAWN"
+          },
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.5363585828571429,
+            "reason": "topology=0.666, lexical=0.192, trace=0.750, anchor=N_SCRIPT_AUTOMATION_ORCH",
+            "path_nodes": [
+              "N_SCRIPT_AUTOMATION_ORCH",
+              "N_PLAN_TODO"
+            ],
+            "path_edges": [
+              "E_PLAN_TODO_ORCH"
+            ],
+            "path_summary": "N_SCRIPT_AUTOMATION_ORCH --[scanned_by:E_PLAN_TODO_ORCH] <-- N_PLAN_TODO"
+          }
+        ]
+      },
+      "flat": {
+        "mode_used": "flat",
+        "baseline_mode": "keyword",
+        "hit": true,
+        "matched_nodes": [
+          "N_SCRIPT_AUTOMATION_ORCH"
+        ],
+        "first_match_rank": 1,
+        "top_node": "N_SCRIPT_AUTOMATION_ORCH",
+        "trace": [
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.662878787878788,
+            "reason": "keyword overlap=['builds', 'contracts', 'lane-aware', 'script', 'surfaces', 'task', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.2857142857142857,
+            "reason": "keyword overlap=['contracts', 'script', 'task']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.19444444444444442,
+            "reason": "keyword overlap=['task', 'todo']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "WQ-002",
+      "question": "What script dispatches orchestrator task contracts through the gateway bridge?",
+      "expected_nodes": [
+        "N_SCRIPT_ORCH_AUTOSPAWN"
+      ],
+      "topology": {
+        "mode_used": "topology",
+        "hit": true,
+        "matched_nodes": [
+          "N_SCRIPT_ORCH_AUTOSPAWN"
+        ],
+        "first_match_rank": 1,
+        "top_node": "N_SCRIPT_ORCH_AUTOSPAWN",
+        "trace": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.8826946917293234,
+            "reason": "topology=1.110, lexical=0.782, trace=0.250, anchor=N_SCRIPT_ORCH_AUTOSPAWN",
+            "path_nodes": [
+              "N_SCRIPT_ORCH_AUTOSPAWN"
+            ],
+            "path_edges": [],
+            "path_summary": "N_SCRIPT_ORCH_AUTOSPAWN"
+          },
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.6469921924483937,
+            "reason": "topology=0.920, lexical=0.345, trace=0.250, anchor=N_SCRIPT_ORCH_AUTOSPAWN",
+            "path_nodes": [
+              "N_SCRIPT_ORCH_AUTOSPAWN",
+              "N_SCRIPT_AUTOMATION_ORCH"
+            ],
+            "path_edges": [
+              "E_ORCH_AUTOSPAWN"
+            ],
+            "path_summary": "N_SCRIPT_ORCH_AUTOSPAWN --[dispatched_by:E_ORCH_AUTOSPAWN] <-- N_SCRIPT_AUTOMATION_ORCH"
+          },
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.4765358976240601,
+            "reason": "topology=0.770, lexical=0.176, trace=0.000, anchor=N_SCRIPT_ORCH_AUTOSPAWN",
+            "path_nodes": [
+              "N_SCRIPT_ORCH_AUTOSPAWN",
+              "N_ORCHESTRATOR_CONTRACT"
+            ],
+            "path_edges": [
+              "E_CONTRACT_AUTOSPAWN"
+            ],
+            "path_summary": "N_SCRIPT_ORCH_AUTOSPAWN --[dispatched_via:E_CONTRACT_AUTOSPAWN] <-- N_ORCHESTRATOR_CONTRACT"
+          }
+        ]
+      },
+      "flat": {
+        "mode_used": "flat",
+        "baseline_mode": "keyword",
+        "hit": true,
+        "matched_nodes": [
+          "N_SCRIPT_ORCH_AUTOSPAWN"
+        ],
+        "first_match_rank": 1,
+        "top_node": "N_SCRIPT_ORCH_AUTOSPAWN",
+        "trace": [
+          {
+            "node_id": "N_SCRIPT_ORCH_AUTOSPAWN",
+            "score": 0.7821428571428571,
+            "reason": "keyword overlap=['bridge', 'contracts', 'dispatches', 'gateway', 'orchestrator', 'script', 'task', 'the', 'through']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_SCRIPT_AUTOMATION_ORCH",
+            "score": 0.3454545454545455,
+            "reason": "keyword overlap=['contracts', 'orchestrator', 'script', 'task']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_ORCHESTRATOR_CONTRACT",
+            "score": 0.17631578947368423,
+            "reason": "keyword overlap=['orchestrator', 'task']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "WQ-003",
+      "question": "Which TODO surface currently tracks the execution steps for topological memory?",
+      "expected_nodes": [
+        "N_PLAN_TODO"
+      ],
+      "topology": {
+        "mode_used": "topology",
+        "hit": true,
+        "matched_nodes": [
+          "N_PLAN_TODO"
+        ],
+        "first_match_rank": 1,
+        "top_node": "N_PLAN_TODO",
+        "trace": [
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.6435772727272726,
+            "reason": "topology=0.702, lexical=0.484, trace=0.750, anchor=N_PLAN_TODO",
+            "path_nodes": [
+              "N_PLAN_TODO"
+            ],
+            "path_edges": [],
+            "path_summary": "N_PLAN_TODO"
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.48287474144840403,
+            "reason": "topology=0.699, lexical=0.328, trace=0.000, anchor=N_PLAN_TODO",
+            "path_nodes": [
+              "N_PLAN_TODO",
+              "N_TODO_TOPMEM"
+            ],
+            "path_edges": [
+              "E_PLAN_TODO_SECTION"
+            ],
+            "path_summary": "N_PLAN_TODO --[contains_section:E_PLAN_TODO_SECTION] --> N_TODO_TOPMEM"
+          },
+          {
+            "node_id": "N_PROVISIONAL_VALIDATION",
+            "score": 0.4387061219116883,
+            "reason": "topology=0.505, lexical=0.086, trace=0.900, anchor=N_TODO_TOPMEM",
+            "path_nodes": [
+              "N_TODO_TOPMEM",
+              "N_PROVISIONAL_VALIDATION"
+            ],
+            "path_edges": [
+              "E_TODO_VALIDATION"
+            ],
+            "path_summary": "N_TODO_TOPMEM --[summarized_by:E_TODO_VALIDATION] --> N_PROVISIONAL_VALIDATION"
+          }
+        ]
+      },
+      "flat": {
+        "mode_used": "flat",
+        "baseline_mode": "keyword",
+        "hit": true,
+        "matched_nodes": [
+          "N_PLAN_TODO"
+        ],
+        "first_match_rank": 1,
+        "top_node": "N_PLAN_TODO",
+        "trace": [
+          {
+            "node_id": "N_PLAN_TODO",
+            "score": 0.48409090909090907,
+            "reason": "keyword overlap=['execution', 'memory', 'steps', 'surface', 'todo', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_TODO_TOPMEM",
+            "score": 0.3282828282828283,
+            "reason": "keyword overlap=['for', 'memory', 'todo', 'topological']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          },
+          {
+            "node_id": "N_ARCHIVE_TOPMEM",
+            "score": 0.178030303030303,
+            "reason": "keyword overlap=['for', 'memory']",
+            "path_nodes": [],
+            "path_edges": [],
+            "path_summary": ""
+          }
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "This is a bounded workflow-style comparison, not a promotion argument.",
+    "Flat mode remains a live fallback path."
+  ]
+}

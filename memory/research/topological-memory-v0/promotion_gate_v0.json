@@ -1,13 +1,23 @@
 {
   "schema_version": "topological-memory-promotion-gate-v0",
   "generated_at": "2026-03-29T00:00:00Z",
+  "updated_at": "2026-06-08T00:00:00Z",
   "status": "pass",
   "conditions": {
     "beats_at_least_one_flat_baseline": true,
     "beats_keyword_hit_rate": true,
     "beats_recency_hit_rate": true,
     "path_evidence_present": true,
-    "embedding_baseline_available": false
+    "embedding_baseline_available": false,
+    "workflow_adoption_queries_hit": true
   },
+  "benchmark_metrics": {
+    "frozen_30q_keyword_hit3": 1.0,
+    "frozen_30q_topology_hit3": 1.0,
+    "frozen_30q_topology_mrr": 0.906,
+    "workflow_3q_topology_hit3": 1.0,
+    "workflow_3q_flat_hit3": 1.0
+  },
+  "graph_version": "v0.1",
   "claim_tier": "defensible for bounded fixture only"
 }
