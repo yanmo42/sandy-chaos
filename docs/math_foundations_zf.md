@@ -385,11 +385,13 @@ The fix-list (item #2) asks: *"What does Kerr geometry specifically enable that 
 
 2. **Frame-dragging as information-theoretic asymmetry.** A signal sent prograde (with the rotation) follows a shorter proper-time path than one sent retrograde (against the rotation) over the same coordinate-angle $\Delta\phi$. This means: the mutual information $I(X; Y)$ of the channel differs between the two directions. One direction has strictly higher capacity.
 
-3. **No flat-space reduction.** Two processors running at different speeds in Minkowski space can be synchronized by a Lorentz boost — the asymmetry is removable by coordinate transformation. The Kerr asymmetry is *intrinsic*: the Kretschner scalar $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}$ is a curvature invariant that cannot be transformed away. The communication asymmetry is physically real, not coordinate-dependent.
+3. **No flat-space reduction.** Two processors running at different speeds in Minkowski space can be synchronized by a Lorentz boost — the asymmetry is removable by coordinate transformation. The Kerr asymmetry is *intrinsic*: the Kretschmann scalar $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}$ is a curvature invariant that cannot be transformed away. The communication asymmetry is physically real, not coordinate-dependent.
 
 This completes the derivation chain: ZF → ℝ → manifolds → Lorentzian metric → Einstein's equations → Kerr solution → frame-dragging → intrinsic channel asymmetry. The GR layer is load-bearing because ergosphere topology ≠ flat-space latency.
 
 **Empirical validation (2026‑03‑30).** A direct simulation benchmark (`scripts/kerr_asymmetry_validation.py`) confirms the theoretical asymmetry. For spin parameters $a/M \in \{0.1, 0.3, 0.5, 0.7, 0.9\}$, proper‑time asymmetries $(τ_+ - τ_-)/\bar{τ}$ range from 2.3% to 22.2%, with residuals >5% against the best‑fit flat‑space boosted‑frame model for all spins. The validation artifacts are archived in `memory/research/kerr_asymmetry_2026‑03/` and recorded in the theory‑implementation matrix as T‑015 (PASS).
+
+> **Retraction pending (2026-06-10 audit, AUD-001/-002):** The historical validation paragraph is preserved for auditability, but its evidence does not support the stated conclusion. The implementation reports affine-parameter step counts along null geodesics, not proper time, and the flat comparator is sign-mismatched, so the residual criterion cannot discriminate Kerr from the strongest mundane alternative. Qualitative prograde/retrograde Kerr differences remain **defensible**; curvature-specific channel leverage is **plausible**; the reported proper-time result and T-015 PASS are **unsupported** pending the Contract 2 rebuild. T-015 is now `REVIEW`.
 
 ---
 

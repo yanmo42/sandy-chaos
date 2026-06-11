@@ -123,7 +123,9 @@ The causal thesis predicts that curved spacetime geometry produces **intrinsic p
 
 This has now been computationally validated (T-015 in the theory-implementation matrix). Kerr geodesic simulations across spin parameters $a/M \in [0.1, 0.9]$ demonstrate that prograde/retrograde proper-time asymmetry is qualitatively distinct from anything achievable by flat-space Lorentz boosts. All tested spin values show >5% residual versus the best-fit flat-space model, with the residual growing monotonically with spin. The match quality between Kerr and flat-space asymmetry is uniformly poor, confirming that the geometry itself — not merely relative velocity — is the source of the asymmetry.
 
-This is the project's first matrix row at `PASS` status. It is a narrow result — it does not validate the full framework — but it establishes that one specific foundational claim survives computational testing.
+> **Retraction pending (2026-06-10 audit, AUD-001/-002):** This historical validation claim is retained for traceability but is not current evidence. The benchmark measures affine-parameter step counts on null geodesics rather than proper time, and its flat comparator cannot provide a discriminating baseline. T-015 is `REVIEW`; the qualitative Kerr effect is **defensible**, the load-bearing channel interpretation is **plausible**, and the benchmark's PASS conclusion is **unsupported** until Contract 2.
+
+This was the project's first matrix row at `PASS` status. That historical promotion was narrow and did not validate the full framework; AUD-001 subsequently found that its evidence did not establish the claimed result and demoted it to `REVIEW`.
 
 ---
 
@@ -404,7 +406,7 @@ The `theory-implementation-matrix.md` is a live bidirectional traceability ledge
 - validation commands and evidence artifacts,
 - and an explicit PASS/REVIEW/FAIL decision.
 
-Hard-gate violations (C1 forward-causal, I1 capacity, P1 relativistic, P2 quantum no-signaling) are immediate FAIL. The matrix currently has 18 rows; T-015 (Kerr asymmetry) is the first to reach PASS.
+Hard-gate violations (C1 forward-causal, I1 capacity, P1 relativistic, P2 quantum no-signaling) are immediate FAIL. The matrix currently has 18 rows; T-015 (Kerr asymmetry) was the first to reach PASS. **Ledger correction (2026-06-11):** AUD-001 demoted it to `REVIEW` pending a discriminating Kerr validation rebuild.
 
 ### 13.2 Prediction protocol
 
@@ -625,7 +627,7 @@ That means:
 | 1. Shared formal layer across `02/03/11` | `docs/02_tempo_tracer_protocol.md`, `docs/03_micro_observer_agency.md`, `docs/11_geodesic_hydrology_contracts.md` | cross-doc equation alignment notes + targeted simulation/test references | active |
 | 2. Fast/meso/slow layering + adjacency rules | `docs/13_nested_temporal_domains.md`, `docs/14_cognitive_tempo_orchestration.md`, `docs/12_yggdrasil_continuity_architecture.md` | neighbor-coupling benchmarks + lane mapping notes | partial |
 | 3. Null vs coupled transport benchmarks | `docs/02_tempo_tracer_protocol.md`, `docs/theory-implementation-matrix.md` (`T-002`, `T-013`) | asymmetry benchmark outputs + null/coupled comparison reports | partial |
-| 4. Flat vs geometry-weighted benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/16_temporal_predictive_processing.md`, `docs/math_foundations_zf.md` | comparative runs — Kerr validation complete (T-015 PASS); further geometry benchmarks planned | **partial → first PASS** |
+| 4. Flat vs geometry-weighted benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/16_temporal_predictive_processing.md`, `docs/math_foundations_zf.md` | historical Kerr benchmark retained; AUD-001 demoted T-015 to REVIEW pending Contract 2 | **partial; validation rebuild open** |
 | 5. Endpoint-only vs path-functional benchmarks | `docs/11_geodesic_hydrology_contracts.md`, `docs/prediction-protocol.md` | path vs endpoint scorecards + falsification notes | planned |
 | 6. Present-world sensory anchors + provenance/fidelity accounting | `docs/09_research_automation_protocol.md` (anchor+retrodiction section), `docs/02_tempo_tracer_protocol.md` | anchor ladder rows + channel provenance fields per cycle | planned |
 | 7. Bounded retrodictive benchmark tasks | `docs/09_research_automation_protocol.md`, `docs/theory-implementation-matrix.md` (`T-013`) | retrodictive task cards + reconstruction reports + abstention stats | planned |

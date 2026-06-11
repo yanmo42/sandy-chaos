@@ -163,12 +163,12 @@ The project gestures at this but doesn't engage with any of these works or expla
 
 | Priority | Issue | Effort | Impact | Status |
 |----------|-------|--------|--------|--------|
-| 1 | Complex entropy state needs physical derivation | High | Transforms the entire formal core | ✅ **Resolved** — `math_foundations_zf.md` §10 |
-| 2 | Show GR does actual theoretical work (not just aesthetics) | High | Justifies the project's distinctive premise | ✅ **Resolved** — `math_foundations_zf.md` §9 + empirical validation (`scripts/kerr_asymmetry_validation.py`) |
+| 1 | Complex entropy state needs physical derivation | High | Transforms the entire formal core | ⚠️ **Reopened by 2026-06-10 audit** (AUD-005: §11 conflates arc-length and contour integrals; Cauchy diagnostic invalid as defined) — was ✅ via `math_foundations_zf.md` §10 |
+| 2 | Show GR does actual theoretical work (not just aesthetics) | High | Justifies the project's distinctive premise | ⚠️ **Reopened by 2026-06-10 audit** (AUD-001/-006: T-015 measures affine parameter on null geodesics, not proper time; flat baseline is a sign-mismatched strawman; no downstream consumer) — was ✅ via `math_foundations_zf.md` §9 |
 | 3 | Specify $\mathcal{G}$ for hyperstition dynamics, analyze fixed points | Medium | First genuine novel theoretical result | 🟡 **Partial** — toy model + fixed-point classifier in `nfem_suite/intelligence/cognition/hyperstition.py`; broader literature integration still open |
 | 4 | Anchor epistemic retro-influence in existing game theory | Low | Instant credibility + clarity on what's new | 🟡 **Partial** — research cycle 2026-03-30 established parallels with signaling games, Bayesian persuasion, forward induction; formal mapping document pending |
 | 5 | Three-layer time composition law | Medium | Makes the most original idea rigorous | ✅ **Resolved** — `math_foundations_zf.md` §12 |
-| 6 | Rename/rethink "tachyonic loop" claims | Low | Removes internal contradiction | ✅ **Resolved** — `math_foundations_zf.md` §11; `tachyonic_loop.py` + `complex_euler.py` updated |
+| 6 | Rename/rethink "tachyonic loop" claims | Low | Removes internal contradiction | ⚠️ **Partially reopened by 2026-06-10 audit** (rename was correct; AUD-005 shows the replacement Cauchy/winding bridge is itself broken under the stated arc-length definition) — was ✅ via `math_foundations_zf.md` §11 |
 | 7 | Specify observer read-write $\Phi$ for at least one domain | Medium | Moves from placeholder to model | 🟡 **Partial** — §12 gives δ-function structural form; concrete fluid-domain spec remains |
 | 8 | Engage entropy-causality literature properly | Low-Medium | Avoids reinventing the wheel | ⬜ Open |
 
@@ -178,7 +178,8 @@ The project gestures at this but doesn't engage with any of these works or expla
 
 **Items resolved:**
 - **#1 (Complex entropy state):** Z = α + iβ derived as canonical embedding of ℝ² into the unique algebraic closure ℂ (§5, §10). Pythagorean norm and polar decomposition are forced, not chosen.
-- **#2 (GR does theoretical work):** §9 shows Kerr frame-dragging creates intrinsic (non-coordinate) channel asymmetry via g_{tφ} ≠ 0. Ergosphere topology ≠ flat-space latency; Kretschner scalar invariant proves it's not removable by boost. Empirical validation (2026‑03‑30) confirms proper‑time asymmetries 2.3‑22.2% across spins a/M ∈ [0.1,0.9], with >5% residuals vs best‑fit flat‑space models.
+- **#2 (GR does theoretical work):** §9 shows Kerr frame-dragging creates intrinsic (non-coordinate) channel asymmetry via g_{tφ} ≠ 0. Ergosphere topology ≠ flat-space latency; Kretschmann scalar invariant proves it's not removable by boost. Empirical validation (2026‑03‑30) confirms proper‑time asymmetries 2.3‑22.2% across spins a/M ∈ [0.1,0.9], with >5% residuals vs best‑fit flat‑space models.
+  > ⚠️ **Retraction pending (2026-06-10 audit, AUD-001/-002):** the "proper-time asymmetries" above are affine-parameter step counts along **null** geodesics (proper time ≡ 0 on null paths; `cosmic_comm/physics/geodesics.py:98`), the flat-space comparator produces only negative asymmetries so the residual test cannot fail, and at a/M=0.1 the absolute residual (3.3%) is below the stated 5% bar. Do not cite this paragraph as evidence until T-015 is rebuilt. See `plans/audit-2026-06-10-physical-theory-validity.md`.
 - **#5 (Three-layer time composition):** §12 defines explicit coupling: geometric → proper (geodesic integration), proper → informational (mutual-information modulation), informational → geometric (δ-function read-write feedback). Two-agent composition law given.
 - **#6 (Tachyonic loop renamed):** §11 gives correct interpretation as entropic vortex charge (topological defect detection via Cauchy theorem). Winding number ∈ ℤ. Code files `complex_euler.py` and `tachyonic_loop.py` updated with corrected docstrings; class name retained for backward compatibility.
 
@@ -204,6 +205,27 @@ The project gestures at this but doesn't engage with any of these works or expla
 The project has real conceptual ambition and unusual disciplinary breadth. The causal discipline and falsification-first stance are genuine strengths. The main pattern to fix: **many of the formal elements are labels for where math should be, rather than the math itself.** The next phase should be about turning the most promising placeholders into actual derivations with observable consequences.
 
 Would you like to dive deeper into any of these areas, or discuss how to prioritize which ones to tackle first?
+
+---
+
+## 10. Audit Findings (2026-06-10): Problems to Fix
+
+Full audit with line-level evidence, task contracts, and dispositions: **[`plans/audit-2026-06-10-physical-theory-validity.md`](audit-2026-06-10-physical-theory-validity.md)**. Condensed problem list (severity: S1 = contaminates ledger now, S2 = blocks central claim, S3 = hygiene):
+
+- [x] **AUD-001 ledger repair (S1):** T-015 demoted from PASS to REVIEW with a conforming evidence payload. **Contract 2 remains open:** rebuild with timelike ∫dτ or an invariant null observable, a Sagnac baseline, and a spin-curve criterion that can fail.
+- [x] **AUD-002 (S1):** T-015 contamination in canonical Kerr validation prose is annotated as retraction-pending; historical text is retained for traceability.
+- [ ] **AUD-003 (S2):** Mechanism mismatch — docs state hyperbolic Fr<1 wave mechanism with finite delay; the validated demo is parabolic Pe-controlled diffusion (infinite signal speed). Implement the shallow-water/hyperbolic version and verify τ_u = (L−x_u)/c_up.
+- [ ] **AUD-004 (S2):** No artifact tests a *temporally future* target. Build the moving-observer ΔI experiment (target = observer's own future input; baselines = channel-removed twin + history-only forecaster; pre-register externally to the run script).
+- [ ] **AUD-005 (S2):** `math_foundations_zf.md` §11 conflates ∫Z|dz| (arc-length, as defined) with ∮f(z)dz (contour, required by Cauchy) — the "ΔT≠0 ⟺ enclosed defect" diagnostic is false as stated. Fix the definition, then run the A-006 real-vector ablation.
+- [ ] **AUD-006 (S2):** Kerr layer has zero downstream consumers (`VortexChannel` uses hand-set `backward_attenuation=0.5`). Wire a Kerr-derived asymmetry profile in, or execute the A-005 downscope.
+- [ ] **AUD-007 (S2):** Narrative–boundary coupling `q(L,t)=B₀+λN_t` (docs/05 §3) is unimplemented; toy model's "temporal asymmetry" is a constant bias. Implement the coupling; test corridor-structure survival.
+- [ ] **AUD-008 (S1):** Hard-gate enforcement is honor-system (`validate_foundations.py` only catches self-declared violations; policy promotion is a frequency gate). Require adversarial re-derivation + comparator audit for any PASS transition.
+- [ ] **AUD-009 (S2):** Recurring strawman-baseline failure mode. Adopt the strongest-mundane-comparator rule; add `spine/concepts/SC-CONCEPT-0010-strongest-mundane-comparator.yaml`.
+- [ ] **AUD-010 (S3):** Add hidden assumptions H-1…H-6 to `docs/assumptions_register.md`; reconsider A-012 consequence class.
+- [ ] **AUD-011 (S3):** Correct proof-path placements (subcritical core L3 not L4; Kerr L3; "future-like" framing L2; hyperstition genuine L4-internal).
+- [x] **AUD-012 (S3):** Corrected "Kretschner" to Kretschmann; resolution-table rows #1/#2/#6 remain explicitly reopened above.
+
+**Recommended execution order:** AUD-001/-002 (ledger repair, hours) → AUD-004 (core-thesis test, the highest-leverage new science) → AUD-003 → AUD-005 → AUD-008/-009 → rest. Rationale in the audit doc §2: a false PASS in the traceability ledger corrupts every consumer of the ledger, including the automation loop — fix the ledger before generating new results through it.
 
 ---
 
@@ -386,7 +408,9 @@ Source: `research_backlog.md` Phase 3.1 entropy-causality item (still open).
 
 ### F. Second Kerr-specific observable (extending T-015)
 
-Source: matrix row T-015 (PASS), `docs/02_tempo_tracer_protocol.md` §2.2, `cosmic_comm/`.
+> ⚠️ **Blocked by 2026-06-10 audit (AUD-001):** do not extend T-015 until the base validation is rebuilt — the current PASS rests on a mislabeled observable and a baseline that cannot fail. Rebuild first (audit doc, Contract 2), then this section unblocks.
+
+Source: matrix row T-015 (`REVIEW` pending Contract 2), `docs/02_tempo_tracer_protocol.md` §2.2, `cosmic_comm/`.
 
 - [ ] Draft `docs/notes/kerr_second_observable_v0.md` proposing one additional geometry-specific prediction distinct from proper-time asymmetry. Candidates: ISCO-adjacent information attenuation ratio; ergosphere-edge frame-drag-induced channel anisotropy; prograde/retrograde photon-ring brightness asymmetry. State the failure mode that would separate it from a noisy flat-channel baseline.
 - [ ] Prepare a matrix T-016 candidate row draft in the same note (claim, class, markers, surface, validation command sketch) for human review before any edit to `docs/theory-implementation-matrix.md`.
