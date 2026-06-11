@@ -1,0 +1,19 @@
+id: SC-PRESSURE-20260611-01
+date: 2026-06-11
+concepts:
+  - SC-CONCEPT-0008
+kind: promotion-review
+summary: Adversarial review found that T-015 artifact existence had been treated as evidence adequacy even though the observable was mislabeled and the comparator could not discriminate the claim.
+result: contradiction
+disposition: REVISE
+evidence:
+  - plans/audit-2026-06-10-physical-theory-validity.md
+  - docs/theory-implementation-matrix.md
+  - memory/research/kerr_asymmetry_2026-03/t015_ledger_repair_evidence.json
+findings:
+  - artifact existence is not evidence adequacy
+  - qualitative prograde and retrograde Kerr differences remain defensible
+  - curvature-specific channel leverage remains plausible pending a discriminating test
+  - the current proper-time benchmark conclusion is unsupported
+  - proof-path governance must inspect observable validity and comparator strength before PASS
+next_action: execute Contract 2 with an invariant observable, Sagnac baseline, error bars, and a spin-curve criterion that can fail

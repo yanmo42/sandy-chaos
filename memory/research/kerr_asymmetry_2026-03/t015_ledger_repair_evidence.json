@@ -1,0 +1,34 @@
+{
+  "matrix_id": "T-015",
+  "claim_class": [
+    "F",
+    "E"
+  ],
+  "markers": [
+    "P1",
+    "E4",
+    "A2",
+    "A3"
+  ],
+  "files_changed": [
+    "docs/theory-implementation-matrix.md",
+    "docs/math_foundations_zf.md",
+    "docs/00_sandy_chaos_blueprint.md",
+    "plans/todo.md",
+    "memory/research/kerr_asymmetry_2026-03/t015_ledger_repair_evidence.json",
+    "spine/pressure/2026-06-11/SC-PRESSURE-20260611-01.yaml"
+  ],
+  "validation_commands": [
+    "python3 scripts/todo_scan.py plans/todo.md",
+    "python3 scripts/validate_foundations.py --payload-file memory/research/kerr_asymmetry_2026-03/t015_ledger_repair_evidence.json",
+    "python3 -m unittest tests.test_self_improve tests.test_fullpass_validation_summary tests.test_orchestrator_autospawn tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_resolve_validation_command_by_lane tests.test_automation_orchestrator_validation_config.AutomationOrchestratorValidationConfigTests.test_task_contract_includes_validation_policy_ref tests.test_automation_orchestrator_validation_config.SessionResumeContextTests -q",
+    "git diff --check"
+  ],
+  "result_summary": "AUD-001/-002 demote T-015 from PASS to REVIEW. The historical benchmark artifact exists, but it reports affine-parameter step counts for null geodesics rather than proper time and uses a sign-mismatched flat comparator, so it is inadequate evidence for the load-bearing Kerr claim. Qualitative Kerr asymmetry remains defensible; curvature-specific channel leverage remains plausible; the reported proper-time validation is unsupported pending Contract 2.",
+  "decision": "REVIEW",
+  "rollback_status": "Documentation-only ledger repair. Revert this commit if the audit disposition is overturned by stronger evidence; historical claims and artifact references remain preserved.",
+  "branch_lane": "automation/sandy-nightly",
+  "disposition": "DOC_PROMOTE",
+  "concept_id": "SC-CONCEPT-0008",
+  "pressure_event_id": "SC-PRESSURE-20260611-01"
+}
