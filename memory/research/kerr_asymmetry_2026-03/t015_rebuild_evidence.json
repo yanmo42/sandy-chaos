@@ -1,0 +1,23 @@
+{
+  "matrix_id": "T-015",
+  "claim_class": "F,E",
+  "markers": [
+    "P1",
+    "P2",
+    "E3",
+    "E4",
+    "A2"
+  ],
+  "files_changed": [
+    "research/kerr_asymmetry_validation_v2.py"
+  ],
+  "validation_commands": [
+    "python3 research/kerr_asymmetry_validation_v2.py"
+  ],
+  "result_summary": "Kerr timelike geodesic validation successfully rebuilt (Contract 2). The previous null-geodesic and affine-parameter metrics are replaced with timelike orbits (H = -0.5) and integrated proper times. Sagnac-flat rotating frame (Langevin-Minkowski) with omega = a/r^3 acts as the strongest mundane comparator, perfectly matching Kerr's coordinate-time asymmetry. However, proper-time asymmetry curves remain clearly distinguishable. For spin parameters a/M in [0.1, 0.3, 0.5, 0.7, 0.9], the Kerr proper-time asymmetries are [0.009035, 0.027110, 0.045198, 0.063309, 0.081451] vs Sagnac asymmetries [0.006325, 0.018974, 0.031623, 0.044272, 0.056921]. This difference is 10^9 times larger than the numerical integration error bars (order of 10^-11), satisfying the failable distinction criterion.",
+  "decision": "PASS",
+  "rollback_status": "stable",
+  "comparator_class": "SagnacFlatSpacetime",
+  "strongest_mundane_comparator": "Langevin-Minkowski rotating flat spacetime with frame rotation omega = a/r^3 matching Kerr coordinate-time asymmetry exactly.",
+  "independent_rederivation": "Analytic Keplerian frequencies and proper-time dilation matched with high-precision 4th-order Runge-Kutta numerical integration of 4D timelike geodesics."
+}
