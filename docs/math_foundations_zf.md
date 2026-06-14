@@ -355,6 +355,8 @@ where $\Gamma^\mu_{\alpha\beta}$ are the Christoffel symbols (functions of $g_{\
 
 ### §9 — The Kerr Metric: Where Geometry Does Theoretical Work
 
+> **[A-005 DOWNSCOPE 2026-06-14]** Kerr geometry is illustrative only pending Contract-2 rebuild. T-015 remains REVIEW; the load-bearing claim that curvature contributes channel asymmetry beyond flat-space timing is unsupported until T-015 reaches PASS.
+
 **The Kerr solution** describes the spacetime around a rotating mass with mass $M$ and angular momentum $J = Ma$ (where $a$ has dimensions of length). In Boyer-Lindquist coordinates $(t, r, \theta, \phi)$:
 
 ```math
