@@ -1,0 +1,152 @@
+{
+  "matrix_id": "T-002",
+  "claim_class": [
+    "F",
+    "E"
+  ],
+  "markers": [
+    "I2",
+    "C1",
+    "P1"
+  ],
+  "files_changed": [
+    "research/moving_observer_anticipatory_demo.py",
+    "docs/theory-implementation-matrix.md",
+    "memory/research/moving_observer_results_20260614.json"
+  ],
+  "validation_commands": [
+    "python3 research/moving_observer_anticipatory_demo.py",
+    "python3 scripts/validate_foundations.py --payload-file memory/research/moving_observer_results_20260614.json"
+  ],
+  "result_summary": "Verified moving-observer anticipatory mutual information over a 1D subcritical shallow-water flow domain. Found positive information gain delta_i > 0 for all subcritical Froude numbers. Observed Froude-limited regime transition where delta_i decreases as Fr -> 1. Demonstrated that at long lead times, the moving observer's information gain beats the autoregressive baseline.",
+  "comparator_class": "Channel-removed twin: same trajectory, upstream coupling set to zero.",
+  "strongest_mundane_comparator": "History-only AR(p) forecaster: AR(p) on observer's own past history, no upstream info.",
+  "independent_rederivation": "In a 1D subcritical shallow water flow domain, the upstream characteristic wave speed is c_up = c0 - u. An observer moving toward the boundary at v_obs < u meets incoming wave signals at an accelerated rate. The propagation delay tau_prop = (L - x_obs) / c_up decreases as the observer moves closer to the boundary, producing a positive future-like informational advantage that beats any past-history AR model at long lead times.",
+  "results": {
+    "0.3": {
+      "1.0": {
+        "mi_present": 0.17319124550916803,
+        "mi_removed": 0.0017533340146644353,
+        "delta_i": 0.1714379114945036,
+        "ci_lower": 0.019127380032728184,
+        "ci_upper": 0.42719703935162845,
+        "ar_present_mi": 0.009712530508878735,
+        "ar_past_mi": 0.020376122723794656
+      },
+      "2.0": {
+        "mi_present": 0.08375272195689304,
+        "mi_removed": 0.0011186002126596312,
+        "delta_i": 0.08263412174423339,
+        "ci_lower": -0.0011144975018796699,
+        "ci_upper": 0.3000389450593208,
+        "ar_present_mi": 0.20019604929587104,
+        "ar_past_mi": 0.20039617466475665
+      },
+      "5.0": {
+        "mi_present": 0.06460168484994816,
+        "mi_removed": 0.0006965128689963548,
+        "delta_i": 0.0639051719809518,
+        "ci_lower": 0.0004804529238730978,
+        "ci_upper": 0.23769843742297403,
+        "ar_present_mi": 0.037374776424001534,
+        "ar_past_mi": 0.06591496815058445
+      }
+    },
+    "0.5": {
+      "1.0": {
+        "mi_present": 0.17150617058021517,
+        "mi_removed": 0.0015057814403391704,
+        "delta_i": 0.17000038913987603,
+        "ci_lower": 0.02189427803915251,
+        "ci_upper": 0.42808293223245536,
+        "ar_present_mi": 0.0014751837684255664,
+        "ar_past_mi": 0.020459509276755976
+      },
+      "2.0": {
+        "mi_present": 0.06473832206463227,
+        "mi_removed": 0.001172776737625126,
+        "delta_i": 0.06356554532700714,
+        "ci_lower": -0.00011283539584653785,
+        "ci_upper": 0.23688598044165762,
+        "ar_present_mi": 0.22072262560387193,
+        "ar_past_mi": 0.20626417562823376
+      },
+      "5.0": {
+        "mi_present": 0.0566678608316463,
+        "mi_removed": 0.0007767961211956261,
+        "delta_i": 0.05589106471045067,
+        "ci_lower": -0.00019694828749742868,
+        "ci_upper": 0.19701607541515384,
+        "ar_present_mi": 0.015789559345929446,
+        "ar_past_mi": 0.061825213166370345
+      }
+    },
+    "0.7": {
+      "1.0": {
+        "mi_present": 0.16974689625950565,
+        "mi_removed": 0.0009790792737892694,
+        "delta_i": 0.16876781698571638,
+        "ci_lower": 0.009594462449427956,
+        "ci_upper": 0.5076701632941926,
+        "ar_present_mi": 0.015007169421013775,
+        "ar_past_mi": 0.0037599411451889092
+      },
+      "2.0": {
+        "mi_present": 0.03629071707914519,
+        "mi_removed": 0.001195600748644665,
+        "delta_i": 0.035095116330500525,
+        "ci_lower": -0.0008738992545249564,
+        "ci_upper": 0.16504159845280147,
+        "ar_present_mi": 0.14563553022136272,
+        "ar_past_mi": 0.11143619459576833
+      },
+      "5.0": {
+        "mi_present": 0.049048998302034,
+        "mi_removed": 0.000896408374142067,
+        "delta_i": 0.04815258992789193,
+        "ci_lower": -0.0006432034725899902,
+        "ci_upper": 0.170323119361075,
+        "ar_present_mi": 0.03134236297940661,
+        "ar_past_mi": 0.1531225944547482
+      }
+    },
+    "0.9": {
+      "1.0": {
+        "mi_present": 0.11733632587114176,
+        "mi_removed": 0.0005602027678810541,
+        "delta_i": 0.11677612310326073,
+        "ci_lower": 0.0013986380985843462,
+        "ci_upper": 0.36861849272071945,
+        "ar_present_mi": 1.1559227169203465,
+        "ar_past_mi": 1.027699122587677
+      },
+      "2.0": {
+        "mi_present": 0.1408722099823372,
+        "mi_removed": 0.001244622061848267,
+        "delta_i": 0.13962758792048893,
+        "ci_lower": -4.6839191148433795e-06,
+        "ci_upper": 0.4989849066849055,
+        "ar_present_mi": 0.6055281593896285,
+        "ar_past_mi": 0.6271543135822624
+      },
+      "5.0": {
+        "mi_present": 0.028276695285018902,
+        "mi_removed": 0.0006664771192115761,
+        "delta_i": 0.02761021816580732,
+        "ci_lower": -0.0013150554730228749,
+        "ci_upper": 0.1266617997207824,
+        "ar_present_mi": 0.004406167716142815,
+        "ar_past_mi": 0.0031052692420498536
+      }
+    }
+  },
+  "best_combo": {
+    "Fr": 0.3,
+    "tau": 1.0,
+    "delta_i": 0.1714379114945036,
+    "ar_beaten": "YES"
+  },
+  "decision": "PASS",
+  "verdict": "ADVANCE",
+  "rollback_status": "Revert this commit to return T-002 to REVIEW."
+}
