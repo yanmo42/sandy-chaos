@@ -8,11 +8,11 @@ Axiomatic grounding (see docs/math_foundations_zf.md):
 - Z ∈ ℂ, the unique algebraic closure of ℝ (§5)
 - |S| = √(α² + β²), the Pythagorean norm (§3)
 - φ = arctan2(β, α), the polar decomposition phase (§5)
-- The path integral τ = ∫ Z ds is a standard complex line integral (§11)
-- The contour integral ΔT = ∮ Z ds detects topological defects
-  (vortex sources/sinks) via the Cauchy integral theorem (§11).
-  A non-zero ΔT indicates an entropic vortex charge, NOT backward-time
-  signaling.
+- τ = ∫ Z(s) |ds| is an arc-length integral (§11); it accumulates complex
+  entropy weighted by path length. It is NOT a holomorphic contour integral.
+- ΔT = ∮ Z(s) |ds| measures net accumulated order/disorder around a closed
+  loop. Cauchy's theorem does not apply; ΔT ≠ 0 has no topological meaning.
+  (Prior claim of Cauchy/vortex-charge diagnostic was incorrect — §11 fix C5.)
 """
 
 import numpy as np
@@ -208,26 +208,26 @@ class EulerFormalization(Formalization):
         
         return tau
     
-    def temporal_displacement(self, loop_path: List[np.ndarray], 
+    def temporal_displacement(self, loop_path: List[np.ndarray],
                             loop_states: List[complex]) -> complex:
         """
-        Compute entropic circulation ΔT for a closed loop.
-        
-        ΔT = ∮ Z(s) ds  (contour integral around loop)
-        
-        By the Cauchy Integral Theorem (§11): ΔT = 0 if Z is holomorphic
-        (no singularity) inside the loop. ΔT ≠ 0 indicates a topological
-        defect — a vortex source or sink — enclosed by the loop.
-        
-        This is an *entropic vortex charge*, not tachyonic behavior.
-        The winding number n ∈ ℤ (§2) counts enclosed defects with sign.
-        
+        Compute closed-loop entropy integral ΔT.
+
+        ΔT = ∮ Z(s) |ds|  (arc-length integral around closed path)
+
+        This is an arc-length integral, not a holomorphic contour integral.
+        Cauchy's theorem does not apply — ΔT ≠ 0 is the generic case and
+        carries no topological meaning (see §11 fix C5).
+
+        Re(ΔT) = net accumulated order around loop.
+        Im(ΔT) = net accumulated disorder around loop.
+
         Args:
             loop_path: Closed loop of positions (first and last should be same/close)
             loop_states: Complex entropy states around loop
-        
+
         Returns:
-            Complex entropic circulation ΔT
+            Complex closed-loop entropy sum ΔT
         """
         # Ensure loop is closed
         if len(loop_path) < 3:
@@ -264,20 +264,21 @@ class EulerFormalization(Formalization):
     
     def compute_winding_number(self, loop_states: List[complex]) -> float:
         """
-        Compute the winding number of a closed loop in the complex plane.
-        
-        Winding number n = (1/2π) ∮ dφ  ∈ ℤ (§2, §11)
-        
-        The winding number is topologically quantized: it is always an integer
-        (element of ℤ, the first algebraic structure built from ZF, §2).
-        It counts the number of times the loop wraps around the origin,
-        which corresponds to the number of entropic vortex defects enclosed.
-        
+        Compute phase winding of the Z-state trajectory around the origin.
+
+        Measures (1/2π) ∮ dφ along the closed curve traced by Z(s) in ℂ.
+
+        Constraint: for valid states Z = α + iβ with (α,β) ∈ [0,1]², Z is
+        always in the first quadrant of ℂ (Re ≥ 0, Im ≥ 0). A curve confined
+        to the first quadrant cannot encircle the origin, so this returns 0
+        for all physically valid inputs. The function is retained as a phase-
+        variation diagnostic but produces no non-trivial topological integer.
+
         Args:
             loop_states: Complex entropy states around closed loop
-        
+
         Returns:
-            Winding number (integer for true closed loops, float for approximate)
+            Total phase winding (0 for all valid (α,β) ∈ [0,1]² inputs)
         """
         if len(loop_states) < 3:
             return 0.0
@@ -300,5 +301,40 @@ class EulerFormalization(Formalization):
         
         # Winding number
         winding = total_phase_change / (2 * np.pi)
-        
+
         return winding
+
+
+# ---------------------------------------------------------------------------
+# A-006 ABLATION: path_integral re-expressed in plain (α, β) ∈ ℝ² (no ℂ)
+# ---------------------------------------------------------------------------
+#
+# The complex path integral τ = ∫ Z(s)|ds| = ∫ (α+iβ)|ds| decomposes into
+# two independent real integrals:
+#
+#   τ_re = Σ_i ((α_i + α_{i+1})/2) · |Δp_i|   ← accumulated order
+#   τ_im = Σ_i ((β_i + β_{i+1})/2) · |Δp_i|   ← accumulated disorder
+#
+# ABLATION VERDICT: the complex embedding buys compact notation and Euler-form
+# magnitude/phase interpretation (|Z|, φ). It does NOT enable any complex-
+# analysis theorem (Cauchy, residues, winding). Computationally it is two
+# independent real weighted-path-length sums. The ℂ structure is decorative
+# here: any result expressible via τ is equally expressible via (τ_re, τ_im).
+# ---------------------------------------------------------------------------
+
+def path_integral_real(path: List[np.ndarray],
+                       alphas: List[float],
+                       betas: List[float]):
+    """
+    A-006: same computation as EulerFormalization.path_integral but in (α,β) ∈ ℝ².
+
+    Returns (tau_re, tau_im) without constructing any complex numbers.
+    Numerically identical to path_integral(path, [a+1j*b for a,b in zip(alphas,betas)]).
+    """
+    tau_re = 0.0
+    tau_im = 0.0
+    for i in range(len(path) - 1):
+        ds = float(np.linalg.norm(path[i + 1] - path[i]))
+        tau_re += 0.5 * (alphas[i] + alphas[i + 1]) * ds
+        tau_im += 0.5 * (betas[i] + betas[i + 1]) * ds
+    return tau_re, tau_im

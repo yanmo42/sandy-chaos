@@ -453,34 +453,20 @@ This is a standard complex line integral (Riemann integral in $\mathbb{C}$, whic
 - $\mathrm{Re}(\tau_\gamma) = \int_\gamma \alpha(s)\,ds$: the accumulated order along the path. This is the "structured time" — how much ordered evolution occurs.
 - $\mathrm{Im}(\tau_\gamma) = \int_\gamma \beta(s)\,ds$: the accumulated disorder along the path. This is the "entropic time" — how much disordering occurs.
 
-**Contour integral (closed loops).** For a closed loop $\gamma$ enclosing a region $\Omega\subset\mathbb{R}^2$:
+**Closed-loop integral.** For a closed path $\gamma$ in physical space:
 ```math
-\Delta T := \oint_\gamma Z(s)\,ds
+\Delta T := \oint_\gamma Z(s)\,ds = \int_0^L Z(s)\,\|d\gamma/ds\|\,ds
 ```
 
-**Cauchy's Integral Theorem** (§5, complex analysis): If $Z$ is holomorphic (complex-differentiable) everywhere inside $\Omega$, then $\Delta T = 0$. A non-zero $\Delta T$ means $Z$ has a **singularity** — a source, sink, or vortex — inside the loop.
+This is an **arc-length integral**: the differential $ds = \|d\gamma/ds\|\,ds$ is a non-negative scalar. The result is a complex number:
+- $\mathrm{Re}(\Delta T) = \oint \alpha(s)\,ds$: total accumulated order around the loop
+- $\mathrm{Im}(\Delta T) = \oint \beta(s)\,ds$: total accumulated disorder around the loop
 
-**The winding number.** For a closed curve $\gamma$ around a point $z_0\in\mathbb{C}$:
-```math
-n(\gamma, z_0) = \frac{1}{2\pi i}\oint_\gamma \frac{dz}{z - z_0} \;\in\;\mathbb{Z}
-```
+**Cauchy's theorem does not apply here.** Cauchy requires a holomorphic contour integral $\oint f(z)\,dz$ where $dz$ is the complex differential along a curve in $\mathbb{C}$. The arc-length integral $\oint Z(s)\,|ds|$ is a different object: it is always non-negative real-part-biased and generically non-zero even for smooth, non-singular $Z$. The condition $\Delta T = 0$ carries no topological information.
 
-The winding number is always an **integer** — an element of $\mathbb{Z}$ (§2). This is topologically quantized: it cannot change continuously. It counts the number of times $\gamma$ wraps around $z_0$.
+**Phase winding constraint.** For states $Z = \alpha + i\beta$ with $(\alpha, \beta) \in [0,1]^2$, field values are confined to the first quadrant of $\mathbb{C}$ ($\mathrm{Re}(Z) \geq 0$, $\mathrm{Im}(Z) \geq 0$). A closed trajectory in the first quadrant cannot encircle the origin, so the winding number $n(\gamma_Z, 0) = 0$ identically for all valid states. The winding number formula $n = \frac{1}{2\pi i}\oint \frac{dz}{z-z_0}$ requires a curve in $\mathbb{C}$ that can encircle $z_0$; that condition is never met here.
 
-**Correct interpretation (replacing "tachyonic loop").**
-
-The previous claim (in `tachyonic_loop.py` and related docs): *"If $\Delta T\neq 0$, this indicates a temporal asymmetry — the loop has a 'temporal charge' that could, in principle, enable information to arrive before it was sent."*
-
-This is incorrect. The correct statement:
-
-> $\Delta T\neq 0$ means the entropy field $Z$ has a **topological defect** (vortex, source, or sink) enclosed by the measurement loop. The winding number $n\in\mathbb{Z}$ counts these defects with sign. This is an **entropic vortex charge** — a quantized, measurable topological invariant of the field. It implies asymmetric entropy circulation, not backward-time signaling.
-
-The name "tachyonic loop" is replaced by **entropic circulation** or **vortex charge**. The mathematical content (contour integral, winding number) is preserved; only the overclaimed physical interpretation is corrected.
-
-**Resolution of fix-list items #3 and #4.** The winding number:
-- Lives in $\mathbb{Z}$ (integers, §2) — connecting the most basic algebraic structure to the topological invariant
-- Has physical semantics: winding number $n$ means $n$ vortex sources enclosed (with sign distinguishing sources from sinks)
-- Does not imply, require, or suggest backward-time information flow
+**Correct interpretation.** $\Delta T$ is a **path-integrated entropy summary**: $\mathrm{Re}(\Delta T)$ records total ordered evolution around the loop, $\mathrm{Im}(\Delta T)$ records total disordering. $\Delta T \neq 0$ is the generic case. No topological or singularity conclusion follows from it.
 
 ---
 
