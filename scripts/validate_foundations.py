@@ -53,6 +53,13 @@ ALLOWED_MARKERS = {
 HARD_GATE_MARKERS = {"C1", "I1", "P1", "P2"}
 ALLOWED_DECISIONS = {"PASS", "REVIEW", "FAIL"}
 
+# Fields required on any PASS-transition payload (AUD-008, AUD-009).
+PASS_REQUIRED_FIELDS = (
+    "comparator_class",
+    "strongest_mundane_comparator",
+    "independent_rederivation",
+)
+
 
 def _normalize_str_list(raw: object) -> list[str]:
     if isinstance(raw, str):
@@ -81,6 +88,18 @@ def _missing_required_fields(payload: dict) -> list[str]:
         if isinstance(value, list) and not value:
             missing.append(field)
     return missing
+
+
+def _check_pass_transition_fields(payload: dict) -> list[str]:
+    """Return error strings for any PASS-required field that is missing or empty."""
+    errors: list[str] = []
+    for field in PASS_REQUIRED_FIELDS:
+        value = payload.get(field)
+        if value is None or (isinstance(value, str) and not value.strip()):
+            errors.append(
+                f"PASS transition requires '{field}' (comparator-class hardening, AUD-008/AUD-009)"
+            )
+    return errors
 
 
 def _extract_explicit_violation_markers(payload: dict) -> set[str]:
@@ -128,6 +147,8 @@ def validate_evidence_payload(payload: dict) -> dict:
         errors.append(f"invalid decision '{payload.get('decision')}'")
     if explicit_violations:
         errors.append("hard-gate violations: " + ", ".join(explicit_violations))
+    if declared_decision == "PASS":
+        errors.extend(_check_pass_transition_fields(payload))
 
     if explicit_violations:
         final_decision = "FAIL"

@@ -55,6 +55,8 @@ def _minimal_payload() -> dict:
         "baseline": {
             "name": "zero passing tests",
             "source": "fixture",
+            "comparator_class": "no-op baseline (empty test suite)",
+            "strongest_mundane_comparator": "random pass from test runner with no assertions",
         },
         "intervention": {
             "description": "ship the harness",
@@ -80,6 +82,7 @@ def _minimal_payload() -> dict:
             "method": "test_suite",
             "validation_commands": ["python -m unittest tests.test_leverage_card -q"],
             "evidence_artifacts": ["tests/test_leverage_card.py"],
+            "independent_rederivation": "fixture re-derived from schema spec; scorer logic verified against card.py REQUIRED_* constants",
         },
         "failure_conditions": ["no tests pass"],
         "markers": ["C2", "A2"],

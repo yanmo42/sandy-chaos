@@ -17,6 +17,9 @@ def _valid_payload() -> dict:
         "result_summary": "Validator wiring is present and no hard-gate markers are violated.",
         "decision": "PASS",
         "rollback_status": "not needed",
+        "comparator_class": "previous validate_foundations.py without PASS-transition checks",
+        "strongest_mundane_comparator": "honor-system payload self-declaration without structural enforcement",
+        "independent_rederivation": "re-derived from FOUNDATIONS.md §7 marker semantics and AUD-008/AUD-009 audit findings",
     }
 
 

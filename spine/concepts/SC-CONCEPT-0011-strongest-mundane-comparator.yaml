@@ -1,0 +1,38 @@
+id: SC-CONCEPT-0011
+name: Strongest-Mundane-Comparator Requirement
+summary: >
+  No Level-4 status without naming and implementing the strongest known
+  causal-mundane mechanism that produces the same observable as the baseline.
+  A PASS transition is invalid if the strawman baseline can be reproduced by
+  a simpler mundane model not tested.
+lane: theory
+tags:
+  - comparator-class
+  - mundane-baseline
+  - verifier-hardening
+  - audit
+claim_tier: defensible
+status: draft
+depends_on:
+  - SC-CONCEPT-0010
+documented_in: []
+implemented_in:
+  - scripts/validate_foundations.py
+tested_by:
+  - tests/test_pass_transition_hardening.py
+contradicts: []
+failure_conditions:
+  - strawman baseline can be reproduced by a simpler mundane model that was not tested
+  - comparator_class field is absent or empty on a PASS-transition payload
+  - strongest_mundane_comparator field is absent or empty on a PASS-transition payload
+  - independent_rederivation field is absent or empty on a PASS-transition payload
+next_test: add a matrix row that cycles a PASS attempt with a weak comparator and confirm the validator rejects it
+next_action: enforce via validate_foundations.py PASS-transition check; cross-reference AUD-008, AUD-009
+promotion_target: docs/canonical
+owner_surface: sandy-chaos
+notes: >
+  Added under Contract 8 (C8) to harden the verifier lane against weak or
+  strawman comparator classes (e.g. sign-mismatched boost instead of Sagnac;
+  channel-off instead of history-forecaster). Enforced structurally by the
+  PASS-transition check in validate_foundations.py (AUD-008, AUD-009).
+  Cross-links: AUD-009, A-003, A-004.

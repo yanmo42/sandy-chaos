@@ -295,6 +295,7 @@ def evidence_payload(card: LeverageCard, report: ScoreReport) -> dict[str, Any]:
     measured = payload.get("measured_outcome") or {}
     reversibility = payload.get("reversibility") or {}
 
+    baseline = payload.get("baseline") or {}
     return {
         "matrix_id": card.matrix_ref or payload.get("matrix_ref", ""),
         "claim_class": ",".join(card.claim_class) if card.claim_class else "",
@@ -307,6 +308,9 @@ def evidence_payload(card: LeverageCard, report: ScoreReport) -> dict[str, Any]:
             f"{reversibility.get('class', 'unknown')}: "
             f"{reversibility.get('rollback_method', 'unspecified')}"
         ),
+        "comparator_class": baseline.get("comparator_class") or "",
+        "strongest_mundane_comparator": baseline.get("strongest_mundane_comparator") or "",
+        "independent_rederivation": verification.get("independent_rederivation") or "",
         "leverage_card_id": card.card_id,
         "leverage_card_pre_registration": (
             (payload.get("pre_registration") or {}).get("status", "")
