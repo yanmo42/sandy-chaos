@@ -141,6 +141,8 @@ Important current limits:
 - no robustness sweep around the current profile yet
 - still an internal result packet, not an external publication-grade benchmark
 
+Corridor survival under narrative boundary coupling: lambda={0.0, 0.1, 0.5, 1.0}, result=SURVIVES for all values. With sinusoidal N_t (period=20 steps), q(L,t)=B₀+λN_t shifts corridor boundaries with increasing lambda but bidirectional structure persists through λ=1.0. SF corridor contracts from Δ ∈ [-0.12, 0.80] at λ=0 to Δ ∈ [0.66, 0.80] at λ=1.0; SD corridor shifts from Δ ∈ [-0.80, -0.16] to Δ ∈ [-0.80, 0.62]. Two surfaces remain connected at all tested coupling strengths. See memory/research/narrative_coupling_results_20260614.json (AUD-007, C7).
+
 ---
 
 ## 8) Disposition

@@ -21,7 +21,7 @@ The code includes:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Callable, Dict, List, Optional
 import numpy as np
 
 
@@ -258,3 +258,82 @@ class HyperstitionToyModel:
             "self_fulfilling": bool(self_fulfilling),
             "self_defeating": bool(self_defeating),
         }
+
+
+class NarrativeBoundaryChannel:
+    """Implements q(L,t) = B₀(t) + λ·N_t — narrative-boundary coupling (AUD-007).
+
+    B₀ is the baseline boundary value (static Δ from the hyperstition grid).
+    N_t is a synthetic time-varying narrative signal (sinusoidal or step).
+    The channel produces a time-varying effective temporal-asymmetry signal
+    that is fed into the mean-field map at each rollout step.
+    """
+
+    def __init__(
+        self,
+        B0: float,
+        lam: float,
+        mode: str = "sinusoidal",
+        period: float = 20.0,
+        step_at: float = 10.0,
+    ) -> None:
+        """
+        Args:
+            B0: Baseline boundary value (static component, typically the Δ sweep value).
+            lam: Narrative coupling strength λ.
+            mode: 'sinusoidal' or 'step' for N_t generation.
+            period: Period of sinusoidal N_t (in simulation steps).
+            step_at: Step index at which the step-function N_t activates.
+        """
+        self.B0 = B0
+        self.lam = lam
+        self.mode = mode
+        self.period = float(period)
+        self.step_at = float(step_at)
+
+    def N_t(self, t: float) -> float:
+        """Synthetic narrative signal at time step t."""
+        if self.mode == "sinusoidal":
+            return float(np.sin(2.0 * np.pi * t / self.period))
+        elif self.mode == "step":
+            return 1.0 if t >= self.step_at else 0.0
+        else:
+            raise ValueError(f"Unknown NarrativeBoundaryChannel mode: {self.mode!r}")
+
+    def q_boundary(self, t: float) -> float:
+        """Effective boundary value at time t: B₀ + λ·N_t(t)."""
+        return self.B0 + self.lam * self.N_t(t)
+
+
+# Attach narrative-coupled rollout to HyperstitionToyModel as a method
+def _rollout_narrative_coupled(
+    self: "HyperstitionToyModel",
+    initial_m: float,
+    channel: NarrativeBoundaryChannel,
+    steps: int = 80,
+    exogenous_truth: float = 0.0,
+) -> np.ndarray:
+    """Roll out mean-field dynamics with narrative-boundary coupled temporal asymmetry.
+
+    At each step t, the effective temporal_asymmetry is q_boundary(t) = B₀ + λ·N_t(t)
+    instead of the static Δ used in the uncoupled model.
+    """
+    p = self.params
+    traj = np.zeros(steps + 1, dtype=float)
+    traj[0] = float(np.clip(initial_m, -1.0, 1.0))
+
+    for t in range(steps):
+        temporal_asymmetry_eff = channel.q_boundary(float(t))
+        nxt = self.mean_field_map(
+            traj[t],
+            exogenous_truth=exogenous_truth,
+            temporal_asymmetry=temporal_asymmetry_eff,
+        )
+        if p.noise_std > 0.0:
+            nxt += float(self._rng.normal(0.0, p.noise_std))
+        traj[t + 1] = float(np.clip(nxt, -1.0, 1.0))
+
+    return traj
+
+
+HyperstitionToyModel.rollout_narrative_coupled = _rollout_narrative_coupled  # type: ignore[attr-defined]
