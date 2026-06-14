@@ -77,6 +77,8 @@ When a symbol appears in more than one doc, default to the **shared-layer meanin
 
 ### 2.2 Kerr-specific channel realization
 
+> **[A-005 DOWNSCOPE 2026-06-14]** Kerr geometry is treated as illustrative only pending Contract-2 rebuild. T-015 remains REVIEW: proper-time asymmetry evidence is non-discriminating (affine-parameter proxy, sign-mismatched flat comparator). Do not present curved-spacetime structure as load-bearing until T-015 reaches PASS.
+
 A current channel-specific realization models propagation through a curved-spacetime medium as:
 
 $$

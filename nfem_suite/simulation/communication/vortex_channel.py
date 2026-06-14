@@ -13,6 +13,13 @@ perturbations, enabling information flow in both directions:
 The key insight: the vortex's rotational structure creates pathways for
 backward influence, similar to how a black hole's ergosphere allows
 retrograde orbits.
+
+NOTE [A-005 DOWNSCOPE 2026-06-14]: The `backward_attenuation` parameter
+(default 0.5) is a placeholder scalar. It is NOT derived from Kerr geometry
+or any validated proper-time asymmetry result. T-015 is REVIEW pending
+Contract-2 rebuild with an invariant observable and Sagnac baseline. Until
+T-015 reaches PASS, backward_attenuation must be treated as an empirically
+unconstrained tuning parameter, not a curvature-derived quantity.
 """
 
 import numpy as np
