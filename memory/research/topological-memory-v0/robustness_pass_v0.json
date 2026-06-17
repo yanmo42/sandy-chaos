@@ -1,0 +1,335 @@
+{
+  "pass": "robustness",
+  "concept": "SC-CONCEPT-0004",
+  "surface": "topological-memory-continuity-retrieval",
+  "date": "2026-06-17",
+  "top_k": 3,
+  "jitter_fraction": 0.1,
+  "collapse_definition": "topology hit@3 <= keyword hit@3 (loses/ties strongest flat baseline) OR topology path evidence absent",
+  "baseline": {
+    "topology": 1.0,
+    "keyword": 0.9666666666666667,
+    "recency": 0.6666666666666666,
+    "topology_mrr": 0.8666666666666667,
+    "path_evidence": true
+  },
+  "total_perturbations": 20,
+  "collapsed_count": 4,
+  "collapsed_labels": [
+    "drop_edge:E_ADOPTION_PROMPT",
+    "drop_edge:E_PROMPT_RUNTIME",
+    "drop_edge:E_PROMPT_EVAL",
+    "drop_edge:E_VALIDATION_CONCEPT"
+  ],
+  "strong_advantage_retained_count": 16,
+  "gate_advantage_retained_count": 20,
+  "structural_verdict": "WEAKENED",
+  "perturbations": [
+    {
+      "label": "drop_edge:E_CONCEPT_ARCHIVE",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_CONCEPT_ARCHIVE",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.861111111111111,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_ARCHIVE_ADOPTION",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_ARCHIVE_ADOPTION",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.861111111111111,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_ADOPTION_PROMPT",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_ADOPTION_PROMPT",
+      "metrics": {
+        "topology": 0.9666666666666667,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.85,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": false,
+      "gate_advantage_retained": true,
+      "collapsed": true
+    },
+    {
+      "label": "drop_edge:E_PROMPT_RUNTIME",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_PROMPT_RUNTIME",
+      "metrics": {
+        "topology": 0.9666666666666667,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8277777777777777,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": false,
+      "gate_advantage_retained": true,
+      "collapsed": true
+    },
+    {
+      "label": "drop_edge:E_PROMPT_EVAL",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_PROMPT_EVAL",
+      "metrics": {
+        "topology": 0.9666666666666667,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8555555555555556,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": false,
+      "gate_advantage_retained": true,
+      "collapsed": true
+    },
+    {
+      "label": "drop_edge:E_TODO_BENCH",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_TODO_BENCH",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_TODO_VALIDATION",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_TODO_VALIDATION",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_VALIDATION_CONCEPT",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_VALIDATION_CONCEPT",
+      "metrics": {
+        "topology": 0.9666666666666667,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8777777777777778,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": false,
+      "gate_advantage_retained": true,
+      "collapsed": true
+    },
+    {
+      "label": "drop_edge:E_FRONTIER_CONCEPT",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_FRONTIER_CONCEPT",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_YGG_CONCEPT",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_YGG_CONCEPT",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.85,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_RUNTIME_ORCH",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_RUNTIME_ORCH",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_ORCH_CHECKPOINT",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_ORCH_CHECKPOINT",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "drop_edge:E_CHECKPOINT_YGG",
+      "family": "single_edge_drop",
+      "dropped_edge": "E_CHECKPOINT_YGG",
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "weight_jitter_pm10_seed0",
+      "family": "weight_jitter",
+      "seed": 0,
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8722222222222222,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "weight_jitter_pm10_seed1",
+      "family": "weight_jitter",
+      "seed": 1,
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8722222222222222,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "weight_jitter_pm10_seed2",
+      "family": "weight_jitter",
+      "seed": 2,
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8722222222222222,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "weight_jitter_pm10_seed3",
+      "family": "weight_jitter",
+      "seed": 3,
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "weight_jitter_pm10_seed4",
+      "family": "weight_jitter",
+      "seed": 4,
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "weight_jitter_pm10_seed5",
+      "family": "weight_jitter",
+      "seed": 5,
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8833333333333333,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    },
+    {
+      "label": "weight_jitter_pm10_seed6",
+      "family": "weight_jitter",
+      "seed": 6,
+      "metrics": {
+        "topology": 1.0,
+        "keyword": 0.9666666666666667,
+        "recency": 0.6666666666666666,
+        "topology_mrr": 0.8666666666666667,
+        "path_evidence": true
+      },
+      "strong_advantage_retained": true,
+      "gate_advantage_retained": true,
+      "collapsed": false
+    }
+  ],
+  "notes": [
+    "Flat baselines (keyword, recency) do not read edges, so they are invariant to these perturbations; only the topology scorer is stressed.",
+    "STRONG = topology still beats keyword (the strongest flat baseline).",
+    "GATE = topology still beats recency (promotion-gate 'beats at least one').",
+    "This pass is owned by SC-CONCEPT-0004; it does not inherit the SC-CONCEPT-0003 corridor robustness verdicts (see sc-concept-0004-archival.md §4)."
+  ]
+}
