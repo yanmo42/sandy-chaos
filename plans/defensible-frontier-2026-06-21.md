@@ -3,6 +3,16 @@
 **Framing:** plain physics, claim-tiered, a falsifier on every experimental claim.
 No symbolic shorthand or contract numbers — this is meant to be read and executed directly.
 
+> **STATUS 2026-06-21 — ALL STEPS COMPLETE.** Step 1 (definition/pre-registration) ✓.
+> Step 2 retrodiction **PASS** (advantage gated by record production, vanishes at zero
+> dissipation). Step 3 moving-observer anticipation **PASS** (advantage collapses at flow
+> criticality — the discriminating fingerprint). Step 4 self-consistency **PASS** (future
+> constrains but cannot signal; 3 attempted bits → 0 transmitted). Step 5 cleanup done
+> (complex-entropy retired as load-bearing, verified ℝ²-equivalent; Kerr confirmed
+> illustrative-only). Each experiment pre-registered before code; two honest v1→v2
+> self-corrections on the record. Receipts in `plans/*-prereg-2026-06-21.md`,
+> `docs/notes/complex_entropy_kerr_cleanup_2026-06-21.md`, `memory/research/*_20260621.*`.
+
 ---
 
 ## 0) The whole program in one sentence
