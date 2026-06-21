@@ -1,0 +1,216 @@
+{
+  "experiment": "retrodiction_demo",
+  "date": "2026-06-21",
+  "prereg": "plans/retrodiction-prereg-2026-06-21.md",
+  "params": {
+    "S0_2": 1.0,
+    "SOBS_2": 1.0,
+    "EPS": 0.02,
+    "T": 1.0,
+    "gammas": [
+      0.0,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "n_trials": 20000,
+    "n_boot": 1000,
+    "seed": 20260621
+  },
+  "rows": [
+    {
+      "gamma": 0.0,
+      "mean_N_now": 0.0,
+      "mean_N_future": 0.0,
+      "error_forecaster": 0.9976360528570504,
+      "error_forecaster_ci": [
+        0.979037624302206,
+        1.0179600685310335
+      ],
+      "error_future": 0.9976360528570504,
+      "error_future_ci": [
+        0.979037624302206,
+        1.0179600685310335
+      ],
+      "advantage": 0.0,
+      "advantage_ci": [
+        0.0,
+        0.0
+      ],
+      "analytic_error_forecaster": 1.0,
+      "analytic_error_future": 1.0,
+      "mi_bits_future": 0.0
+    },
+    {
+      "gamma": 0.5,
+      "mean_N_now": 0.01085,
+      "mean_N_future": 0.49635,
+      "error_forecaster": 0.9962601324975523,
+      "error_forecaster_ci": [
+        0.9774591842655885,
+        1.0152949709840562
+      ],
+      "error_future": 0.7911725439260833,
+      "error_future_ci": [
+        0.7747411779397362,
+        0.8071750688783753
+      ],
+      "advantage": 0.20508758857146905,
+      "advantage_ci": [
+        0.19361417167821046,
+        0.2165193005067179
+      ],
+      "analytic_error_forecaster": 0.994575,
+      "analytic_error_future": 0.7892958333333332,
+      "mi_bits_future": 0.22423860804848927
+    },
+    {
+      "gamma": 1.0,
+      "mean_N_now": 0.02045,
+      "mean_N_future": 1.0103,
+      "error_forecaster": 0.9916506167171166,
+      "error_forecaster_ci": [
+        0.9718121895982311,
+        1.0105640322415492
+      ],
+      "error_future": 0.6277370965282792,
+      "error_future_ci": [
+        0.61368175354705,
+        0.6407743387953018
+      ],
+      "advantage": 0.3639135201888373,
+      "advantage_ci": [
+        0.34820965569879153,
+        0.3789331636881277
+      ],
+      "analytic_error_forecaster": 0.9899083333333332,
+      "analytic_error_future": 0.6298691666666666,
+      "mi_bits_future": 0.4167472748215384
+    },
+    {
+      "gamma": 2.0,
+      "mean_N_now": 0.04125,
+      "mean_N_future": 2.01765,
+      "error_forecaster": 0.9709797356627538,
+      "error_forecaster_ci": [
+        0.9512640991977153,
+        0.9908549668350338
+      ],
+      "error_future": 0.43783704287519615,
+      "error_future_ci": [
+        0.42731027349642725,
+        0.4485090859708106
+      ],
+      "advantage": 0.5331426927875577,
+      "advantage_ci": [
+        0.5162821780561505,
+        0.5501711553281167
+      ],
+      "analytic_error_forecaster": 0.9796791666666667,
+      "analytic_error_future": 0.43089353354978355,
+      "mi_bits_future": 0.7088771958575855
+    },
+    {
+      "gamma": 4.0,
+      "mean_N_now": 0.0803,
+      "mean_N_future": 4.0003,
+      "error_forecaster": 0.9564990753063587,
+      "error_forecaster_ci": [
+        0.9381138176313938,
+        0.975073088005335
+      ],
+      "error_future": 0.24644652954409857,
+      "error_future_ci": [
+        0.24043917897869047,
+        0.25263261752169147
+      ],
+      "advantage": 0.7100525457622602,
+      "advantage_ci": [
+        0.6930567289739376,
+        0.7277669840326231
+      ],
+      "analytic_error_forecaster": 0.9609083333333334,
+      "analytic_error_future": 0.24463858183483184,
+      "mi_bits_future": 1.0969433835556461
+    },
+    {
+      "gamma": 8.0,
+      "mean_N_now": 0.16115,
+      "mean_N_future": 8.0043,
+      "error_forecaster": 0.9397636058643307,
+      "error_forecaster_ci": [
+        0.9210925070655394,
+        0.957989488049289
+      ],
+      "error_future": 0.12775033876183867,
+      "error_future_ci": [
+        0.12483284758884061,
+        0.13040889320836044
+      ],
+      "advantage": 0.8120132671024921,
+      "advantage_ci": [
+        0.7932760580819674,
+        0.8302378175241723
+      ],
+      "analytic_error_forecaster": 0.9235933333333333,
+      "analytic_error_future": 0.1247170723311888,
+      "mi_bits_future": 1.5467859738992575
+    },
+    {
+      "gamma": 16.0,
+      "mean_N_now": 0.3166,
+      "mean_N_future": 15.9942,
+      "error_forecaster": 0.8435349278415728,
+      "error_forecaster_ci": [
+        0.8252787777395396,
+        0.86052397016173
+      ],
+      "error_future": 0.06277228118935686,
+      "error_future_ci": [
+        0.061557769875733734,
+        0.06411336573139319
+      ],
+      "advantage": 0.7807626466522158,
+      "advantage_ci": [
+        0.7629205942425542,
+        0.7970941398941606
+      ],
+      "analytic_error_forecaster": 0.8576258333333333,
+      "analytic_error_future": 0.06255348138469236,
+      "mi_bits_future": 2.0223568517465296
+    },
+    {
+      "gamma": 32.0,
+      "mean_N_now": 0.6378,
+      "mean_N_future": 32.02935,
+      "error_forecaster": 0.7355794961712976,
+      "error_forecaster_ci": [
+        0.7189763200012569,
+        0.7516593418484692
+      ],
+      "error_future": 0.031130146943282318,
+      "error_future_ci": [
+        0.030416306569726624,
+        0.031750955414287726
+      ],
+      "advantage": 0.7044493492280153,
+      "advantage_ci": [
+        0.6877658424793645,
+        0.720562667655396
+      ],
+      "analytic_error_forecaster": 0.7389725,
+      "analytic_error_future": 0.031224420071694726,
+      "mi_bits_future": 2.5119569202520227
+    }
+  ],
+  "checks": {
+    "P1_monotonic_gating": false,
+    "P2_falsifier_vanishes_at_zero": true,
+    "P4_estimator_validation": false
+  },
+  "verdict": "FAIL"
+}

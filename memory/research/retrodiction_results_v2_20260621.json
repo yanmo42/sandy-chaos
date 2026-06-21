@@ -1,0 +1,283 @@
+{
+  "experiment": "retrodiction_demo",
+  "model_version": "v2",
+  "date": "2026-06-21",
+  "prereg": "plans/retrodiction-prereg-2026-06-21.md",
+  "v1_preserved": "memory/research/retrodiction_results_20260621.json",
+  "params": {
+    "S0_2": 1.0,
+    "SOBS_2": 1.0,
+    "N0": 1,
+    "T": 1.0,
+    "gammas": [
+      0.0,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0,
+      32.0
+    ],
+    "n_trials": 50000,
+    "n_boot": 1000,
+    "seed": 20260621
+  },
+  "rows": [
+    {
+      "gamma": 0.0,
+      "mean_N_now": 1.0,
+      "mean_N_future": 1.0,
+      "error_forecaster": 0.49729469537333765,
+      "error_forecaster_ci": [
+        0.49123989560504533,
+        0.5035940907530756
+      ],
+      "error_future": 0.4978048486772945,
+      "error_future_ci": [
+        0.491200537090029,
+        0.5044007012322067
+      ],
+      "advantage": -0.0005101533039567974,
+      "advantage_ci": [
+        -0.008015772984033876,
+        0.006733595219385418
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.5,
+      "resid_forecaster_ci": [
+        -0.011938433961450945,
+        0.006558118099654161
+      ],
+      "resid_future_ci": [
+        -0.011971700238089687,
+        0.007296357231533426
+      ],
+      "mi_bits_future": 0.5
+    },
+    {
+      "gamma": 0.5,
+      "mean_N_now": 1.0,
+      "mean_N_future": 1.50422,
+      "error_forecaster": 0.5032845056901325,
+      "error_forecaster_ci": [
+        0.49793044252043117,
+        0.5094795014118852
+      ],
+      "error_future": 0.4281866450707631,
+      "error_future_ci": [
+        0.4226539709743756,
+        0.43352252815589826
+      ],
+      "advantage": 0.07509786061936935,
+      "advantage_ci": [
+        0.06788334604169673,
+        0.082446062600428
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.4255605238095238,
+      "resid_forecaster_ci": [
+        -0.004972425037668899,
+        0.011663625141310264
+      ],
+      "resid_future_ci": [
+        -0.0050872252510534375,
+        0.01094698747523136
+      ],
+      "mi_bits_future": 0.6374676057204237
+    },
+    {
+      "gamma": 1.0,
+      "mean_N_now": 1.0,
+      "mean_N_future": 2.00078,
+      "error_forecaster": 0.5049473038635651,
+      "error_forecaster_ci": [
+        0.49933620789732963,
+        0.5115723297231118
+      ],
+      "error_future": 0.3744326699492243,
+      "error_future_ci": [
+        0.36937816665662043,
+        0.3793545938217653
+      ],
+      "advantage": 0.13051463391434084,
+      "advantage_ci": [
+        0.12321306603164493,
+        0.1380069886563255
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.3677535317460318,
+      "resid_forecaster_ci": [
+        -0.0031482731390367336,
+        0.015413329537622747
+      ],
+      "resid_future_ci": [
+        -0.00026853860708036164,
+        0.013419970028193496
+      ],
+      "mi_bits_future": 0.7558326508638679
+    },
+    {
+      "gamma": 2.0,
+      "mean_N_now": 1.0,
+      "mean_N_future": 3.00146,
+      "error_forecaster": 0.500696563839954,
+      "error_forecaster_ci": [
+        0.4941354733428853,
+        0.5072148499851565
+      ],
+      "error_future": 0.28657667551660115,
+      "error_future_ci": [
+        0.28252349162094315,
+        0.2902925270413647
+      ],
+      "advantage": 0.21411988832335282,
+      "advantage_ci": [
+        0.20681397774912738,
+        0.22121557278376605
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.28369506010656015,
+      "resid_forecaster_ci": [
+        -0.009639188200914446,
+        0.009560412524961632
+      ],
+      "resid_future_ci": [
+        -0.0027972663021700746,
+        0.008122840967187768
+      ],
+      "mi_bits_future": 0.9552392542026756
+    },
+    {
+      "gamma": 4.0,
+      "mean_N_now": 1.0,
+      "mean_N_future": 4.996,
+      "error_forecaster": 0.500911004587657,
+      "error_forecaster_ci": [
+        0.49485342667264426,
+        0.5075440406870805
+      ],
+      "error_future": 0.18829295624375936,
+      "error_future_ci": [
+        0.1858074647446208,
+        0.19095182191757093
+      ],
+      "advantage": 0.3126180483438977,
+      "advantage_ci": [
+        0.3063451088568086,
+        0.318967552354269
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.18872017202242206,
+      "resid_forecaster_ci": [
+        -0.007714605490392812,
+        0.00970329601789793
+      ],
+      "resid_future_ci": [
+        -0.0038886432171760057,
+        0.0037180736814290444
+      ],
+      "mi_bits_future": 1.2498877270259037
+    },
+    {
+      "gamma": 8.0,
+      "mean_N_now": 1.0,
+      "mean_N_future": 8.99696,
+      "error_forecaster": 0.4990451943228844,
+      "error_forecaster_ci": [
+        0.49281409418344074,
+        0.5048458390555949
+      ],
+      "error_future": 0.10902248851944496,
+      "error_future_ci": [
+        0.10773082289555096,
+        0.11046827544270223
+      ],
+      "advantage": 0.39002270580343945,
+      "advantage_ci": [
+        0.383677271905422,
+        0.39581173482514587
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.1094325838727213,
+      "resid_forecaster_ci": [
+        -0.011389796845543415,
+        0.009984464194581785
+      ],
+      "resid_future_ci": [
+        -0.0022858735679760736,
+        0.0015672294970176897
+      ],
+      "mi_bits_future": 1.6301377295494237
+    },
+    {
+      "gamma": 16.0,
+      "mean_N_now": 1.0,
+      "mean_N_future": 16.99286,
+      "error_forecaster": 0.503480796184292,
+      "error_forecaster_ci": [
+        0.49712996228288864,
+        0.5097202570008098
+      ],
+      "error_future": 0.058080700233661006,
+      "error_future_ci": [
+        0.05728855173271945,
+        0.05881971050578525
+      ],
+      "advantage": 0.445400095950631,
+      "advantage_ci": [
+        0.4389258678906006,
+        0.45161247828943946
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.058626259778670746,
+      "resid_forecaster_ci": [
+        -0.005612244872630843,
+        0.013021763344225862
+      ],
+      "resid_future_ci": [
+        -0.0015609840892926202,
+        0.000495103304359914
+      ],
+      "mi_bits_future": 2.066149161580647
+    },
+    {
+      "gamma": 32.0,
+      "mean_N_now": 1.0,
+      "mean_N_future": 32.99562,
+      "error_forecaster": 0.5022839154226755,
+      "error_forecaster_ci": [
+        0.4964763708142333,
+        0.5087306866484701
+      ],
+      "error_future": 0.029723874969029312,
+      "error_future_ci": [
+        0.02934529751497277,
+        0.030123714801683594
+      ],
+      "advantage": 0.47256004045364614,
+      "advantage_ci": [
+        0.4667870088214487,
+        0.4789921354966427
+      ],
+      "analytic_error_forecaster": 0.5,
+      "analytic_error_future": 0.0302622505773431,
+      "resid_forecaster_ci": [
+        -0.005975730385546999,
+        0.011393529291466227
+      ],
+      "resid_future_ci": [
+        -0.001107649107207223,
+        8.224382451466019e-05
+      ],
+      "mi_bits_future": 2.5335992774105254
+    }
+  ],
+  "checks": {
+    "P1_monotonic_gating": true,
+    "P2_falsifier_vanishes_at_zero": true,
+    "P4_estimator_validation": true
+  },
+  "verdict": "PASS",
+  "plot": "memory/research/retrodiction_demo_v2_20260621.png"
+}
