@@ -48,3 +48,10 @@ state/lux_nyx/metrics.json
 state/lux_nyx/pilot_report.json
 DREAMS.md
 memory/.dreams/
+
+# Generated dreaming/sleep reflection artifacts (agent runtime exhaust, not project research)
+memory/dreaming/
+# Agent runtime state (frontier/governance machine state, duplicates human-readable plans/)
+state/
+# Agent long-term memory log (not project research; lives in assistant-home instead)
+/MEMORY.md
